@@ -18,10 +18,13 @@
 \newcommand{\pav}{Pálvölgyi}
 \setlength{\droptitle}{-6em}
 
-
+\title{Notes from Angus and Kousha meeting on 12/10}
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
 \begin{document}
+
+  \maketitle
+
     For $N, d \in \Z_{\geq 1}$ let  $L = [N]^d$ be the $d$-dimensional integer lattice with height $N$ under coordinatewise ordering $\leq$, and $f: L \to L$ be
    a monotone function on $L$. So if $l, l' \in L$ with $l \leq l'$ then $f(l) \leq f(l')$. 
    Our goal is to find a fixpoint of $f$. That is, an $l^* \in L$ such that $f(l^*) = l^*$.\\
@@ -52,7 +55,7 @@
   $f(l)_i \geq l_i$ for all $i \in \{1, ..., d\}$ is sufficient to restrict to a half-lattice. Further,
   they gave an algorithm - coined the 'inner-algorithm' - which can find
   such points in the 3 dimensional problem in $O(\log N)$ time. This leads to an algorithm which
-  can solve the $d=3$ case in $\log^2 N$. There are also decomposition theorems that show these faster
+  can solve the $d=3$ case in $O(\log^2 N)$ time. There are also decomposition theorems that show these faster
   low-dimensional algorithms can be used to solve the problem in higher dimensions faster than
   the Dan, Qi, and Ye algorithm. \\
 
@@ -61,7 +64,7 @@
   which can given a fixed value $\mi_4$ in the 4-th dimension find a montone point 
   $(l_1, l_2, l_3, \mi_4)$ in $O(\log N)$ time. \\
 
-  One iteration of the inner-algorithm looks roughly as follows. (The paper details an earlier preprocessing step,
+  One iteration of the $d=3$ inner-algorithm looks roughly as follows. (The paper details an earlier preprocessing step,
   but I neglect this for now.)
   \begin{itemize}
     \item there is an inductive invariant maintained throughout the runtime of the algorithm;
@@ -85,6 +88,8 @@
 
   I begin with a claim on the symmetry of the problem. \\
 
+  \newpage
+
   \textbf{Claim 1.} (Midpoint query symmetry) Suppose an iteration starts with a query to the centre of the
   cube slice, call it $\mi$. Then there are 4 different cases to consider up to symmetry.
   \begin{enumerate}
@@ -94,8 +99,6 @@
     \item $f(\mi) \in \{ uudd, udud, duud, dduu, dudu, uddu \}$
   \end{enumerate}
   I defer a proof of this to when a more concrete solution idea is found. \\
-
-  \newpage
 
   \textbf{Remark 1.} The symmetry is in counting the number of $u$s and $d$s in the first 3
   dimensions relative to the $u$ or $d$ in the last dimension. That is, $uudd$ is symmetrical to
@@ -119,7 +122,7 @@
 
   \begin{proof}
     $p \leq q$, $p_i = q_i$, $f(p)_j = u$, $f(q)_j = d$, $f(p)_k = u$, and $f(q)_j = d$ means that
-    within the 2 dimensional slice fixing dimension $i$ to $p_i$, the function $f$ restricts to
+    within the 2 dimensional slice fixing dimension $i$ to $p_i$, the monotone function $f$ restricts to
     the range $[p, q]$. The fixpoint theorems guarantee the existence of a fixpoint $r$ in this
     restricted slice; that is, an $r$ with $r_i = p_i$, $f(r)_j = r_j$, $f(r)_k = r_k$. Note
     $r \geq p$ and $f(p)_4 \geq p_4$ implies that $f(r)_4 \geq r_4$. So there are then two cases to consider
@@ -128,7 +131,7 @@
 
   It's reasonably apparent that there is a dual result; $f(q)_4 = d$, ..., $r \in \down(f)$
   or $r \in \up(f_s)$. This configuration is my first candidate for a proof that we can restrict to a smaller
-  sub-instance. It's a bit hard to tell what's going on from the above, so I include a sketch of the case below.
+  sub-instance. It's a bit hard to tell what's going on from the above, so I include a sketch of one possible case below.
   
   \begin{figure}[htbp]
     \centerline{\includegraphics[scale=.5]{notes-21.jpg}}
@@ -136,7 +139,7 @@
   \end{figure}
 
   In the 3 dimensional inner algorithm, there were 2 possibilities for a down-set witness; top
-  down-set witnesses and right down-set witnesses. With my pair there are 3 possible configurations,
+  down-set witnesses and right down-set witnesses. With the new pair there are 3 possible configurations,
   corresponding to the three faces of a cube adjacent to the top right corner. 
 
   \bibliographystyle{IEEEtran}
