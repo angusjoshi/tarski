@@ -87,9 +87,18 @@ public:
     return result;
   }
 
-  vector<int> findMonotonePoint(int sliceDimension, int sliceDimensionVal) {
+  vector<int> findMonotonePoint(
+    vector<int> bot,
+    vector<int> top,
+    int sliceDimension,
+    int sliceDimensionVal) {
     assert(sliceDimension <= 2 && sliceDimension >= 0);
     assert(sliceDimensionVal <= top[sliceDimension] && sliceDimension >= bot[sliceDimension]);
+
+    a = bot;
+    b = top;
+    u = a;
+    d = b;
 
     this->sliceDimension = sliceDimension;
     this->sliceDimensionVal = sliceDimensionVal;
@@ -98,6 +107,11 @@ public:
   }
 
   vector<int> helper() {
+    cout << "helper! a is: ";
+    printVec(a);
+    cout << "b is: ";
+    printVec(b);
+
     vector<int> mid = getMidInSlice(a, b);
     vector<int> fMid = f(mid);
 
@@ -124,39 +138,6 @@ public:
       return helper();
     }
 
-    if(mid[sliceDimension] <= fMid[sliceDimension]) {
-      auto freeDimensions = getFreeCoords();
-
-      int lteDimension;
-      int gteDimension;
-
-      for(const auto dimension : freeDimensions) {
-        if(mid[dimension] <= fMid[dimension]) {
-          lteDimension = dimension;
-        } else {
-          gteDimension = dimension;
-        }
-      }
-
-      auto candidateWitness = vector<int>(3, -1); 
-
-      candidateWitness[sliceDimension] = sliceDimensionVal;
-      candidateWitness[lteDimension] = mid[lteDimension];
-      candidateWitness[gteDimension] = b[gteDimension];
-
-      auto fCandidateWitness = f(candidateWitness);
-      assert(candidateWitness[sliceDimension] <= fCandidateWitness[sliceDimension]);
-
-      if(candidateWitness[gteDimension] <= fCandidateWitness[gteDimension]) {
-        b = candidateWitness;
-        d = mid;
-        return helper();
-      }
-
-      // this is the lemma 12 case.
-      return candidateWitness;
-    }
-
     auto freeDimensions = getFreeCoords();
 
     int lteDimension;
@@ -171,6 +152,26 @@ public:
     }
 
     auto candidateWitness = vector<int>(3, -1); 
+
+    if(mid[sliceDimension] <= fMid[sliceDimension]) {
+      candidateWitness[sliceDimension] = sliceDimensionVal;
+      candidateWitness[lteDimension] = mid[lteDimension];
+      candidateWitness[gteDimension] = b[gteDimension];
+
+      auto fCandidateWitness = f(candidateWitness);
+      assert(candidateWitness[sliceDimension] <= fCandidateWitness[sliceDimension]);
+
+      if(candidateWitness[gteDimension] <= fCandidateWitness[gteDimension]) {
+        b = candidateWitness;
+        d = mid;
+        return helper();
+      }
+
+      // this is the lemma 12 case.
+      
+      cout << "hereerehrehrehreh" << endl;
+      return candidateWitness;
+    }
 
     candidateWitness[sliceDimension] = sliceDimensionVal;
     candidateWitness[lteDimension] = a[lteDimension];
@@ -235,19 +236,94 @@ auto example1 = vector<vector<vector<vector<int>>>> {
   }
 };
 
+
+bool isFixpoint(vector<int> point, function<vector<int> (const vector<int>&)> f) {
+  auto fPoint = f(point);
+
+  assert(fPoint.size() == point.size());
+
+  for(int i = 0; i < point.size(); i++) {
+    if(point[i] != fPoint[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool isUp(vector<int> point, function<vector<int> (const vector<int>&)> f) {
+  auto fPoint = f(point);
+
+  assert(fPoint.size() == point.size());
+
+  for(int i = 0; i < point.size(); i++) {
+    if(point[i] > fPoint[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool isDown(vector<int> point, function<vector<int> (const vector<int>&)> f) {
+  auto fPoint = f(point);
+
+  assert(fPoint.size() == point.size());
+
+  for(int i = 0; i < point.size(); i++) {
+    if(point[i] < fPoint[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 int main() {
   int N = 3;
 
   int queryCounter = 0;
+  auto f = [&queryCounter](auto v) { 
+      queryCounter++;
+      cout << "query! count is: " << queryCounter << endl;
+      return example1[v[0]][v[1]][v[2]];
+    };
+
   InnerAlgorithm innerAlgorithm {
     vector<int> {0, 0, 0},
     vector<int> {N, N, N},
-    [&queryCounter](auto v) { queryCounter++; return example1[v[0]][v[1]][v[2]]; }};
+    f};
 
-  auto result = innerAlgorithm.findMonotonePoint(2, 1);
+
+  int sliceDimension = 2;
+  int sliceMiddle = N / 2;
+  vector<int> bot {0, 0, 0};
+  vector<int> top {N, N, N};
+
+  auto monotonePoint = innerAlgorithm.findMonotonePoint(
+    bot,
+    top,
+    sliceDimension,
+    sliceMiddle);
+
+  while(!isFixpoint(monotonePoint, f)) {
+    if(isUp(monotonePoint, f)) {
+      bot = monotonePoint;
+    } else {
+      // assert(isDown(monotonePoint, f));
+      top = monotonePoint;
+    }
+
+    sliceMiddle = (top[sliceDimension] - bot[sliceDimension]) / 2;
+    monotonePoint = innerAlgorithm.findMonotonePoint(
+      bot,
+      top,
+      sliceDimension,
+      sliceMiddle);
+  }
 
   cout << "result is: ";
-  printVec(result);
+  printVec(monotonePoint);
 
   cout << endl;
   cout << "query count is: ";
