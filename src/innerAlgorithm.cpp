@@ -56,13 +56,13 @@ public:
     return true;
   }
 
-  bool sliceLe(vector<int>& a, vector<int>& b) {
-    assert(a.size() == b.size());
+  bool sliceLe(vector<int>& x, vector<int>& y) const {
+    assert(x.size() == y.size());
 
-    for(int i = 0; i < a.size(); i++) {
+    for(int i = 0; i < x.size(); i++) {
       if(i == sliceDimension) continue;
 
-      if(a[i] > b[i]) {
+      if(x[i] > y[i]) {
         return false;
       }
     }
@@ -70,18 +70,18 @@ public:
     return true;
   }
 
-  vector<int> getMidInSlice(const vector<int>& bot, const vector<int>& top) {
-    assert(latticeLe(bot, top));
-    assert(bot.size() == top.size());
+  vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y) {
+    assert(x.size() == y.size());
+    assert(latticeLe(x, y));
 
     vector<int> result;
-    for(int i = 0; i < bot.size(); i++) {
+    for(int i = 0; i < x.size(); i++) {
       if(i == sliceDimension) {
         result.push_back(sliceDimensionVal);
         continue;
       }
 
-      result.push_back((top[i] - bot[i]) / 2);
+      result.push_back((y[i] - x[i]) / 2);
     }
 
     return result;
@@ -145,9 +145,9 @@ public:
 
     for(const auto dimension : freeDimensions) {
       if(mid[dimension] <= fMid[dimension]) {
-        lteDimension = dimension;
-      } else {
         gteDimension = dimension;
+      } else {
+        lteDimension = dimension;
       }
     }
 
@@ -161,7 +161,7 @@ public:
       auto fCandidateWitness = f(candidateWitness);
       assert(candidateWitness[sliceDimension] <= fCandidateWitness[sliceDimension]);
 
-      if(candidateWitness[gteDimension] <= fCandidateWitness[gteDimension]) {
+      if(candidateWitness[gteDimension] >= fCandidateWitness[gteDimension]) {
         b = candidateWitness;
         d = mid;
         return helper();
@@ -190,7 +190,7 @@ public:
     return candidateWitness;
   }
 
-  vector<int> getFreeCoords() {
+  vector<int> getFreeCoords() const {
     vector<int> result;
     for(int i = 0; i < 3; i++) {
       if(i != sliceDimension) {

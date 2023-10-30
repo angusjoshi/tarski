@@ -33,7 +33,7 @@ int main() {
         if(isUp(monotonePoint, f)) {
             bot = monotonePoint;
         } else {
-            // assert(isDown(monotonePoint, f));
+            assert(isDown(monotonePoint, f));
             top = monotonePoint;
         }
 
