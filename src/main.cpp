@@ -2,6 +2,36 @@
 #include "innerAlgorithm.cpp"
 #include "examples.h"
 
+int getNextNeIndex(int start, const vector<int>& a, const vector<int>& b) {
+    assert(a.size() == b.size());
+
+    for(int i = start; i < a.size(); i++) {
+        if(a[i] != b[i]) return i;
+    }
+
+    return -1;
+}
+
+vector<int> searchSmallInstance(const vector<int>& bot,
+                                const vector<int>& top,
+                                const function<vector<int> (const vector<int>&)>& f) {
+    assert(isUp(bot, f));
+    assert(isDown(top, f));
+
+    vector<int> current = bot;
+    vector<int> fCurrent = f(bot);
+    int currentDimension = getNextNeIndex(0, current, fCurrent);
+
+    while(currentDimension != -1) {
+        current[currentDimension]++;
+        fCurrent = f(current);
+
+        currentDimension = getNextNeIndex(currentDimension, current, fCurrent);
+    }
+
+    return current;
+}
+
 int main() {
     int N = 3;
 
@@ -18,38 +48,67 @@ int main() {
             f};
 
 
-    int sliceDimension = 2;
-    int sliceMiddle = N / 2;
     vector<int> bot {0, 0, 0};
     vector<int> top {N, N, N};
+
+    int sliceDimension = getLargeEnoughSliceIndex(bot, top);
+    int sliceMiddleValue = getSliceMiddle(bot, top, sliceDimension);
 
     auto monotonePoint = innerAlgorithm.findMonotonePoint(
             bot,
             top,
             sliceDimension,
-            sliceMiddle);
+            sliceMiddleValue);
+
+    assert(isUp(monotonePoint, f) || isDown(monotonePoint, f));
 
     while(!isFixpoint(monotonePoint, f)) {
         if(isUp(monotonePoint, f)) {
             bot = monotonePoint;
         } else {
-            assert(isDown(monotonePoint, f));
             top = monotonePoint;
         }
 
-        sliceMiddle = (top[sliceDimension] - bot[sliceDimension]) / 2;
+        cout << "top is: ";
+        printVec(top);
+        cout << "\n bot is: ";
+        printVec(bot);
+        cout << endl;
+
+        cout << "monotone is: ";
+
+        sliceDimension = getLargeEnoughSliceIndex(bot, top);
+
+        if(sliceDimension == -1) {
+            monotonePoint = searchSmallInstance(bot, top, f);
+            break;
+        }
+
+        sliceMiddleValue = getSliceMiddle(bot, top, sliceDimension);
+
         monotonePoint = innerAlgorithm.findMonotonePoint(
                 bot,
                 top,
                 sliceDimension,
-                sliceMiddle);
+                sliceMiddleValue);
     }
+
+    assert(isFixpoint(monotonePoint, f));
 
     cout << "result is: ";
     printVec(monotonePoint);
 
+    auto fMonotonePoint = f(monotonePoint);
+    cout << "f m is : ";
+    printVec(fMonotonePoint);
+    cout << endl;
+
+
     cout << endl;
     cout << "query count is: ";
     cout << queryCounter << endl;
+
+    return 0;
 }
+
 

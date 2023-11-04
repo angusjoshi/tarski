@@ -8,7 +8,7 @@ using namespace std;
 class InnerAlgorithm {
 private:
 
-  void printVec(const vector<int>& v) {
+  static void printVec(const vector<int>& v) {
     for(const auto i : v) {
       cout << i << '\t';
     }
@@ -41,10 +41,6 @@ public:
   }
 
   bool latticeLe(const vector<int>& x, const vector<int>& y) {
-    cout << "x is: ";
-    printVec(x);
-    cout << "y is: ";
-    printVec(y);
     assert(x.size() == y.size());
 
     for(int i = 0; i < x.size(); i++) {
@@ -81,42 +77,34 @@ public:
         continue;
       }
 
-      result.push_back((y[i] - x[i]) / 2);
+      result.push_back(x[i] + ((y[i] - x[i]) / 2));
     }
 
     return result;
   }
 
   vector<int> findMonotonePoint(
-    vector<int> bot,
-    vector<int> top,
-    int sliceDimension,
-    int sliceDimensionVal) {
-    assert(sliceDimension <= 2 && sliceDimension >= 0);
-    assert(sliceDimensionVal <= top[sliceDimension] && sliceDimension >= bot[sliceDimension]);
+    vector<int> _bot,
+    vector<int> _top,
+    int _sliceDimension,
+    int _sliceDimensionVal) {
+    assert(_sliceDimension <= 2 && _sliceDimension >= 0);
+    assert(_sliceDimensionVal <= _top[_sliceDimension] && _sliceDimension >= _bot[_sliceDimension]);
 
-    a = bot;
-    b = top;
+    a = _bot;
+    b = _top;
     u = a;
     d = b;
 
-    this->sliceDimension = sliceDimension;
-    this->sliceDimensionVal = sliceDimensionVal;
+    this->sliceDimension = _sliceDimension;
+    this->sliceDimensionVal = _sliceDimensionVal;
 
     return helper();
   }
 
   vector<int> helper() {
-    cout << "helper! a is: ";
-    printVec(a);
-    cout << "b is: ";
-    printVec(b);
-
     vector<int> mid = getMidInSlice(a, b);
     vector<int> fMid = f(mid);
-
-    cout << "fMid is: ";
-    printVec(fMid);
 
     if(latticeLe(mid, fMid)) {
       return mid;
@@ -168,7 +156,6 @@ public:
       }
 
       // this is the lemma 12 case.
-      
       cout << "hereerehrehrehreh" << endl;
       return candidateWitness;
     }
@@ -190,7 +177,7 @@ public:
     return candidateWitness;
   }
 
-  vector<int> getFreeCoords() const {
+  [[nodiscard]] vector<int> getFreeCoords() const {
     vector<int> result;
     for(int i = 0; i < 3; i++) {
       if(i != sliceDimension) {
@@ -202,6 +189,20 @@ public:
 
 };
 
+int getSliceMiddle(vector<int>& bot, vector<int>& top, int i) {
+    return bot[i] + ((top[i] - bot[i]) / 2);
+}
+int getLargeEnoughSliceIndex(vector<int>& bot, vector<int>& top) {
+    assert(bot.size() == 3);
+    assert(bot.size() == top.size());
+
+    for(int i = 2; i >= 0; i--) {
+        if(top[i] - bot[i] >= 2) {
+            return i;
+        }
+    }
+    return -1;
+}
 void printVec(vector<int>& v) {
   for(const auto i : v) {
     cout << i << '\t';
@@ -210,7 +211,7 @@ void printVec(vector<int>& v) {
 }
 
 
-bool isFixpoint(vector<int> point, function<vector<int> (const vector<int>&)> f) {
+bool isFixpoint(vector<int> point, const function<vector<int> (const vector<int>&)>& f) {
   auto fPoint = f(point);
 
   assert(fPoint.size() == point.size());
