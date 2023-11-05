@@ -3,6 +3,7 @@
 //
 
 #include "latticeUtil.h"
+#include "monotoneFunction.h"
 
 #include <iostream>
 
@@ -53,7 +54,6 @@ int getSliceMiddle(const vector<int>& bot, const vector<int>& top, int i) {
 }
 
 int getLargeEnoughSliceIndex(const vector<int>& bot, const vector<int>& top) {
-    assert(bot.size() == 3);
     assert(bot.size() == top.size());
 
     for(int i = 2; i >= 0; i--) {
@@ -105,6 +105,18 @@ bool latEq(const vector<int>& a, const vector<int>& b) {
 
     for(int i = 0; i < a.size(); i++) {
         if(a[i] != b[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool latticeLe(const vector<int>& x, const vector<int>& y) {
+    assert(x.size() == y.size());
+
+    for(int i = 0; i < x.size(); i++) {
+        if(x[i] > y[i]) {
             return false;
         }
     }

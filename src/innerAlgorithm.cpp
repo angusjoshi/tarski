@@ -1,23 +1,10 @@
 #include "innerAlgorithm.h"
-
-#include <iostream>
+#include "latticeUtil.h"
 
 using namespace std;
+namespace rng = std::ranges;
 
-bool latticeLe(const vector<int>& x, const vector<int>& y) {
-    assert(x.size() == y.size());
-
-    for(int i = 0; i < x.size(); i++) {
-        if(x[i] > y[i]) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-
-InnerAlgorithm::InnerAlgorithm(const vector<int>& bot, const vector<int>& top, const function<vector<int> (const vector<int>&)>& f) :
+InnerAlgorithm::InnerAlgorithm(const vector<int>& bot, const vector<int>& top, const function<vector<direction> (const vector<int>&)>& f) :
     bot(bot),
     top(top),
     a(bot),
@@ -25,109 +12,79 @@ InnerAlgorithm::InnerAlgorithm(const vector<int>& bot, const vector<int>& top, c
     d(top),
     b(top),
     f(f) {
-        assert(bot.size() == 3);
-        assert(top.size() == 3);
+        assert(bot.size() == 2);
+        assert(top.size() == 2);
     }
 
 
-  bool InnerAlgorithm::sliceLe(vector<int>& x, vector<int>& y) const {
-    assert(x.size() == y.size());
+bool InnerAlgorithm::sliceWeakUp(const vector<direction>& directions) {
+    assert(!directions.empty());
+    return rng::all_of(directions.begin(), directions.end() -1, [](auto direction) {return direction != down;});
+}
 
-    for(int i = 0; i < x.size(); i++) {
-      if(i == sliceDimension) continue;
+bool InnerAlgorithm::sliceWeakDown(const vector<direction> &directions) {
+    assert(!directions.empty());
+    return rng::all_of(directions.begin(), directions.end() -1, [](auto direction) {return direction != up;});
+}
 
-      if(x[i] > y[i]) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int>& y) const {
+vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int>& y) {
     assert(x.size() == y.size());
     assert(latticeLe(x, y));
 
     vector<int> result;
-    for(int i = 0; i < x.size(); i++) {
-      if(i == sliceDimension) {
-        result.push_back(sliceDimensionVal);
-        continue;
-      }
+    result.reserve(x.size());
 
+    for(int i = 0; i < x.size(); i++) {
       result.push_back(x[i] + ((y[i] - x[i]) / 2));
     }
 
     return result;
 }
 
-  vector<int> InnerAlgorithm::findMonotonePoint(
-    vector<int> _bot,
-    vector<int> _top,
-    int _sliceDimension,
-    int _sliceDimensionVal) {
-    assert(_sliceDimension <= 2 && _sliceDimension >= 0);
-    assert(_sliceDimensionVal <= _top[_sliceDimension] && _sliceDimension >= _bot[_sliceDimension]);
-
-    a = _bot;
-    b = _top;
-    u = a;
-    d = b;
-
-    this->sliceDimension = _sliceDimension;
-    this->sliceDimensionVal = _sliceDimensionVal;
-
+  vector<int> InnerAlgorithm::findMonotonePoint() {
     return helper();
   }
 
   vector<int> InnerAlgorithm::helper() {
     vector<int> mid = getMidInSlice(a, b);
-    vector<int> fMid = f(mid);
+    vector<direction> midDirections = f(mid);
 
-    if(latticeLe(mid, fMid)) {
+    if(isAllWeakUp(midDirections)) {
       return mid;
     }
 
-    if(latticeLe(fMid, mid)) {
+    if(isAllWeakDown(midDirections)) {
       return mid;
     }
 
-    if(sliceLe(mid, fMid)) {
+    if(sliceWeakUp(midDirections)) {
       a = mid;
       u = mid;
       return helper();
     }
 
-    if(sliceLe(fMid, mid)) {
+    if(sliceWeakDown(midDirections)) {
       d = mid;
       b = mid;
       return helper();
     }
 
-    auto freeDimensions = getFreeCoords();
+    int lteDimension = midDirections[0] == down ? 0 : 1;
+    int gteDimension = midDirections[0] == up ? 0 : 1;
 
-    int lteDimension;
-    int gteDimension;
+    assert(lteDimension != gteDimension);
 
-    for(const auto dimension : freeDimensions) {
-      if(mid[dimension] <= fMid[dimension]) {
-        gteDimension = dimension;
-      } else {
-        lteDimension = dimension;
-      }
-    }
+    auto candidateWitness = vector<int>(2, -1);
 
-    auto candidateWitness = vector<int>(3, -1); 
-
-    if(mid[sliceDimension] <= fMid[sliceDimension]) {
-      candidateWitness[sliceDimension] = sliceDimensionVal;
+    if(midDirections[2] != down) {
       candidateWitness[lteDimension] = mid[lteDimension];
       candidateWitness[gteDimension] = b[gteDimension];
 
-      auto fCandidateWitness = f(candidateWitness);
-      assert(candidateWitness[sliceDimension] <= fCandidateWitness[sliceDimension]);
+      auto candidateWitnessDirections = f(candidateWitness);
 
-      if(candidateWitness[gteDimension] >= fCandidateWitness[gteDimension]) {
+      assert(candidateWitnessDirections[2] != down);
+
+      if(candidateWitnessDirections[gteDimension] != up) {
         b = candidateWitness;
         d = mid;
         return helper();
@@ -136,14 +93,14 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
       return candidateWitness;
     }
 
-    candidateWitness[sliceDimension] = sliceDimensionVal;
     candidateWitness[lteDimension] = a[lteDimension];
     candidateWitness[gteDimension] = mid[gteDimension];
 
-    auto fCandidateWitness = f(candidateWitness);
-    assert(candidateWitness[sliceDimension] >= fCandidateWitness[sliceDimension]);
+    auto candidateWitnessDirections = f(candidateWitness);
 
-    if(candidateWitness[gteDimension] <= fCandidateWitness[gteDimension]) {
+    assert(candidateWitnessDirections[2] != up);
+
+    if(candidateWitnessDirections[gteDimension] != down) {
       a = candidateWitness;
       u = mid;
       return helper();
@@ -153,16 +110,25 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
     return candidateWitness;
   }
 
-  vector<int> InnerAlgorithm::getFreeCoords() const {
-    vector<int> result;
-    for(int i = 0; i < 3; i++) {
-      if(i != sliceDimension) {
-        result.push_back(i);
-      }
-    }
-    return result;
-  }
+vector<int> findMonotonePoint3(const vector<int>& bot,
+                              const vector<int>& top,
+                              const function<vector<int> (const vector<int>&)>& f,
+                              int sliceDimension,
+                              int sliceValue) {
+    auto directionFunction = getDirectionFunction(f);
+    auto slicedFunction = getSlicedFunction(directionFunction, sliceDimension, sliceValue);
 
+    auto slicedBot = vector<int>(bot.begin(), bot.end());
+    slicedBot.erase(slicedBot.begin() + sliceDimension);
 
+    auto slicedTop = vector<int>(top.begin(), top.end());
+    slicedTop.erase(slicedTop.begin() + sliceDimension);
+
+    InnerAlgorithm innerAlgorithm {slicedBot, slicedTop, slicedFunction};
+    auto monotonePoint = innerAlgorithm.findMonotonePoint();
+
+    monotonePoint.insert(monotonePoint.begin() + sliceDimension, sliceValue);
+    return monotonePoint;
+}
 
 

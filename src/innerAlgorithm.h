@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <functional>
+#include "monotoneFunction.h"
 
 using namespace std;
 
@@ -20,23 +21,21 @@ private:
     vector<int> d;
     vector<int> b;
 
-    int sliceDimension;
-    int sliceDimensionVal;
-    function<vector<int> (const vector<int>&)> f;
+    function<vector<direction> (const vector<int>&)> f;
 
-    vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y) const;
-    vector<int> helper();
-    vector<int> getFreeCoords() const;
-    bool sliceLe(vector<int>& x, vector<int>& y) const;
+    [[nodiscard]] static vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y);
+    [[nodiscard]] vector<int> helper();
+    static bool sliceWeakUp(const vector<direction>& directions);
+    static bool sliceWeakDown(const vector<direction>& directions);
 
 public:
-    InnerAlgorithm(const vector<int>& bot, const vector<int>& top, const function<vector<int> (const vector<int>&)>& f);
+    InnerAlgorithm(const vector<int>& bot, const vector<int>& top, const function<vector<direction> (const vector<int>&)>& f);
 
-    vector<int> findMonotonePoint(
-            vector<int> _bot,
-            vector<int> _top,
-            int _sliceDimension,
-            int _sliceDimensionVal);
+    vector<int> findMonotonePoint();
 };
 
+vector<int> findMonotonePoint3(const vector<int>& bot, const vector<int>& top,
+                              const function<vector<int> (const vector<int>&)>& directionFunction,
+                              int sliceDimension,
+                              int sliceValue);
 #endif //SRC_INNERALGORITHM_H

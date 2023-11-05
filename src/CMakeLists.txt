@@ -11,4 +11,6 @@ add_executable(src main.cpp
         kleeneTarski.cpp
         latticeUtil.cpp
         latticeUtil.h
+        monotoneFunction.cpp
+        monotoneFunction.h
 )

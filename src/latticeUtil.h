@@ -9,6 +9,7 @@
 
 using namespace std;
 
+bool latticeLe(const vector<int>& x, const vector<int>& y);
 bool latEq(const vector<int>& a, const vector<int>& b);
 bool isFixpoint(const vector<int>& point, const function<vector<int> (const vector<int>&)>& f);
 bool isUp(const vector<int>& point, const function<vector<int> (const vector<int>&)>& f);
