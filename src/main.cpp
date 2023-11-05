@@ -1,36 +1,8 @@
 #include <iostream>
-#include "innerAlgorithm.cpp"
+#include "innerAlgorithm.h"
 #include "examples.h"
+#include "latticeUtil.h"
 
-int getNextNeIndex(int start, const vector<int>& a, const vector<int>& b) {
-    assert(a.size() == b.size());
-
-    for(int i = start; i < a.size(); i++) {
-        if(a[i] != b[i]) return i;
-    }
-
-    return -1;
-}
-
-vector<int> searchSmallInstance(const vector<int>& bot,
-                                const vector<int>& top,
-                                const function<vector<int> (const vector<int>&)>& f) {
-    assert(isUp(bot, f));
-    assert(isDown(top, f));
-
-    vector<int> current = bot;
-    vector<int> fCurrent = f(bot);
-    int currentDimension = getNextNeIndex(0, current, fCurrent);
-
-    while(currentDimension != -1) {
-        current[currentDimension]++;
-        fCurrent = f(current);
-
-        currentDimension = getNextNeIndex(currentDimension, current, fCurrent);
-    }
-
-    return current;
-}
 
 int main() {
     int N = 3;

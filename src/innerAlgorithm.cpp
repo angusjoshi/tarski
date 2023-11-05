@@ -1,34 +1,23 @@
+#include "innerAlgorithm.h"
+
 #include <iostream>
-#include <functional>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
-class InnerAlgorithm {
-private:
+bool latticeLe(const vector<int>& x, const vector<int>& y) {
+    assert(x.size() == y.size());
 
-  static void printVec(const vector<int>& v) {
-    for(const auto i : v) {
-      cout << i << '\t';
+    for(int i = 0; i < x.size(); i++) {
+        if(x[i] > y[i]) {
+            return false;
+        }
     }
-    cout << endl;
-  }
 
-  vector<int> bot;
-  vector<int> top;
-  vector<int> a;
-  vector<int> u;
-  vector<int> d;
-  vector<int> b;
-
-  int sliceDimension;
-  int sliceDimensionVal;
-  function<vector<int> (const vector<int>&)> f;
+    return true;
+}
 
 
-public:
-  InnerAlgorithm(vector<int>&& bot, vector<int>&& top, function<vector<int> (const vector<int>&)>&& f) noexcept : 
+InnerAlgorithm::InnerAlgorithm(const vector<int>& bot, const vector<int>& top, const function<vector<int> (const vector<int>&)>& f) :
     bot(bot),
     top(top),
     a(bot),
@@ -36,23 +25,12 @@ public:
     d(top),
     b(top),
     f(f) {
-    assert(bot.size() == 3);
-    assert(top.size() == 3);
-  }
-
-  bool latticeLe(const vector<int>& x, const vector<int>& y) {
-    assert(x.size() == y.size());
-
-    for(int i = 0; i < x.size(); i++) {
-      if(x[i] > y[i]) {
-        return false;
-      }
+        assert(bot.size() == 3);
+        assert(top.size() == 3);
     }
 
-    return true;
-  }
 
-  bool sliceLe(vector<int>& x, vector<int>& y) const {
+  bool InnerAlgorithm::sliceLe(vector<int>& x, vector<int>& y) const {
     assert(x.size() == y.size());
 
     for(int i = 0; i < x.size(); i++) {
@@ -66,7 +44,7 @@ public:
     return true;
   }
 
-  vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y) {
+vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int>& y) const {
     assert(x.size() == y.size());
     assert(latticeLe(x, y));
 
@@ -81,9 +59,9 @@ public:
     }
 
     return result;
-  }
+}
 
-  vector<int> findMonotonePoint(
+  vector<int> InnerAlgorithm::findMonotonePoint(
     vector<int> _bot,
     vector<int> _top,
     int _sliceDimension,
@@ -102,7 +80,7 @@ public:
     return helper();
   }
 
-  vector<int> helper() {
+  vector<int> InnerAlgorithm::helper() {
     vector<int> mid = getMidInSlice(a, b);
     vector<int> fMid = f(mid);
 
@@ -155,8 +133,6 @@ public:
         return helper();
       }
 
-      // this is the lemma 12 case.
-      cout << "hereerehrehrehreh" << endl;
       return candidateWitness;
     }
 
@@ -177,7 +153,7 @@ public:
     return candidateWitness;
   }
 
-  [[nodiscard]] vector<int> getFreeCoords() const {
+  vector<int> InnerAlgorithm::getFreeCoords() const {
     vector<int> result;
     for(int i = 0; i < 3; i++) {
       if(i != sliceDimension) {
@@ -187,69 +163,6 @@ public:
     return result;
   }
 
-};
-
-int getSliceMiddle(vector<int>& bot, vector<int>& top, int i) {
-    return bot[i] + ((top[i] - bot[i]) / 2);
-}
-int getLargeEnoughSliceIndex(vector<int>& bot, vector<int>& top) {
-    assert(bot.size() == 3);
-    assert(bot.size() == top.size());
-
-    for(int i = 2; i >= 0; i--) {
-        if(top[i] - bot[i] >= 2) {
-            return i;
-        }
-    }
-    return -1;
-}
-void printVec(vector<int>& v) {
-  for(const auto i : v) {
-    cout << i << '\t';
-  }
-  cout << endl;
-}
 
 
-bool isFixpoint(vector<int> point, const function<vector<int> (const vector<int>&)>& f) {
-  auto fPoint = f(point);
-
-  assert(fPoint.size() == point.size());
-
-  for(int i = 0; i < point.size(); i++) {
-    if(point[i] != fPoint[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-bool isUp(vector<int> point, function<vector<int> (const vector<int>&)> f) {
-  auto fPoint = f(point);
-
-  assert(fPoint.size() == point.size());
-
-  for(int i = 0; i < point.size(); i++) {
-    if(point[i] > fPoint[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-bool isDown(vector<int> point, function<vector<int> (const vector<int>&)> f) {
-  auto fPoint = f(point);
-
-  assert(fPoint.size() == point.size());
-
-  for(int i = 0; i < point.size(); i++) {
-    if(point[i] < fPoint[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
 
