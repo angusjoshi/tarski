@@ -8,8 +8,7 @@ namespace vw = std::views;
 namespace rng = std::ranges;
 
 function<vector<direction> (const vector<int>&)> getDirectionFunction(
-        const function<vector<int> (const vector<int>&)>& f
-) {
+        const function<vector<int> (const vector<int>&)>& f) {
     return [&f](auto v) {
         auto result = f(v);
 
@@ -19,7 +18,7 @@ function<vector<direction> (const vector<int>&)> getDirectionFunction(
                     ? up
                     : x.first > x.second
                     ? down
-                    : fixed;
+                    : fix;
             });
 
         return vector<direction> (view.begin(), view.end());

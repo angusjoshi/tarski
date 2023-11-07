@@ -14,7 +14,7 @@ namespace rng = std::ranges;
 enum direction {
     up = 1,
     down = -1,
-    fixed = 0
+    fix = 0
 };
 
 // returns a function [n]^{d-1} to direction^d, where the last element

@@ -35,7 +35,7 @@ public:
 };
 
 vector<int> findMonotonePoint3(const vector<int>& bot, const vector<int>& top,
-                              const function<vector<int> (const vector<int>&)>& directionFunction,
+                              const function<vector<direction> (const vector<int>&)>& directionFunction,
                               int sliceDimension,
                               int sliceValue);
 #endif //SRC_INNERALGORITHM_H

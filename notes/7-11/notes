@@ -1,0 +1,39 @@
+idea: slice 3 dimensions off the front, then A is the first 3 dimensions, B is the last n - 3 dimensions.
+
+the n dimension algorithm will look like:
+  if <= 3: solve.
+  if > 3:
+    slice 3 dimensions off the front.
+    maintain this point l, u
+    build a function that captures l, u by ref.
+    i think i actually need to capture a set of points (x, y) and compute the glb and lub each time.
+
+      this function takes 3 dimensional vector,
+        answers the query by finding a fixpoint in B_l,u
+        update l and u
+
+
+  going to need a way of storing and retrieving points that are <= or >= x.
+
+
+  most obvious way is to just store a vector of previously queried points. check if <= for each point,
+  update bound if so. let's just do this for now for simplicity.
+
+steps:
+  refactor the 3d algorithm into it's own thing.
+
+  implement a general algorithm
+    checks if d == 3, calls 3d algorithm if so.
+    if d == 2, call dan qi ye?
+    if d == 1 just binary search.
+
+  if d > 3 split into a , b where a is size 3, b is size n - 3.
+
+  where do i store the logic for the split algorithm?
+
+
+
+
+
+
+  

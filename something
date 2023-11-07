@@ -1,0 +1,35 @@
+need to generalize the inner algorithm to higher dimensions.
+
+
+currently it on initialization asserts that top.size() and bot.size() == 3.
+
+the way in which this algorithm is going to be used is in a slice.
+
+
+the inner algorithm finds monotone points in the 3 dimensional slice. it will be used in context of holding all other coordinates fixed.
+
+an interesting solution:
+  define new functions every time we recurse that are based on the 
+
+  if i sl
+
+  [x, x, x]
+
+
+  i have sliced functions that map [n]^d-1 to {-1, 0, 1}^n
+
+  findMonotonePoint is currently returning a 2d vector.
+
+  i need the full 3d vector including the sliced dimension to be able to check if it's montone up or down
+    2d is not sufficient because both of the dimensions can be fixed, in which case the 3rd dimension is required.
+
+  there is also the isFixpoint check in the while loop condition that needs to be dealth with in a similar way.
+
+  tomorrow i need to read basic category theory, work through agda
+  stuff. maybe also look at call by need?
+
+  honours project.
+    really need to get implementation going.
+    i think i should try to shift as much of the
+    other work tomorrow - particularly randomized algorithms,
+    category theory, and tsfpl.

@@ -55,6 +55,48 @@ build CMakeFiles/src.dir/main.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/an
   OBJECT_DIR = CMakeFiles/src.dir
   OBJECT_FILE_DIR = CMakeFiles/src.dir
 
+build CMakeFiles/src.dir/innerAlgorithm.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/innerAlgorithm.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/innerAlgorithm.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
+build CMakeFiles/src.dir/kleeneTarski.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/kleeneTarski.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/kleeneTarski.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
+build CMakeFiles/src.dir/latticeUtil.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/latticeUtil.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/latticeUtil.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
+build CMakeFiles/src.dir/monotoneFunction.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/monotoneFunction.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/monotoneFunction.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
+build CMakeFiles/src.dir/threeDimensionAlgorithm.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/threeDimensionAlgorithm.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/threeDimensionAlgorithm.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
+build CMakeFiles/src.dir/fixDecompAlgorithm.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/fixDecompAlgorithm.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/fixDecompAlgorithm.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
+build CMakeFiles/src.dir/recursiveBinarySearch.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/angusjoshi/tarski/src/recursiveBinarySearch.cpp || cmake_object_order_depends_target_src
+  DEP_FILE = CMakeFiles/src.dir/recursiveBinarySearch.cpp.o.d
+  FLAGS = -g -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/src.dir
+  OBJECT_FILE_DIR = CMakeFiles/src.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target src
@@ -63,7 +105,7 @@ build CMakeFiles/src.dir/main.cpp.o: CXX_COMPILER__src_unscanned_Debug /Users/an
 #############################################
 # Link the executable src
 
-build src: CXX_EXECUTABLE_LINKER__src_Debug CMakeFiles/src.dir/main.cpp.o
+build src: CXX_EXECUTABLE_LINKER__src_Debug CMakeFiles/src.dir/main.cpp.o CMakeFiles/src.dir/innerAlgorithm.cpp.o CMakeFiles/src.dir/kleeneTarski.cpp.o CMakeFiles/src.dir/latticeUtil.cpp.o CMakeFiles/src.dir/monotoneFunction.cpp.o CMakeFiles/src.dir/threeDimensionAlgorithm.cpp.o CMakeFiles/src.dir/fixDecompAlgorithm.cpp.o CMakeFiles/src.dir/recursiveBinarySearch.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0
   OBJECT_DIR = CMakeFiles/src.dir
   POST_BUILD = :

@@ -13,4 +13,10 @@ add_executable(src main.cpp
         latticeUtil.h
         monotoneFunction.cpp
         monotoneFunction.h
+        threeDimensionAlgorithm.cpp
+        threeDimensionAlgorithm.h
+        fixDecompAlgorithm.cpp
+        fixDecompAlgorithm.h
+        recursiveBinarySearch.cpp
+        recursiveBinarySearch.h
 )

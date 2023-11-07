@@ -112,10 +112,9 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
 
 vector<int> findMonotonePoint3(const vector<int>& bot,
                               const vector<int>& top,
-                              const function<vector<int> (const vector<int>&)>& f,
+                              const function<vector<direction> (const vector<int>&)>& directionFunction,
                               int sliceDimension,
                               int sliceValue) {
-    auto directionFunction = getDirectionFunction(f);
     auto slicedFunction = getSlicedFunction(directionFunction, sliceDimension, sliceValue);
 
     auto slicedBot = vector<int>(bot.begin(), bot.end());
