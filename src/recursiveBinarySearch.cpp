@@ -15,7 +15,7 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
             bot = currentMid;
         }
 
-        currentMid = (top - bot) / 2;
+        currentMid = (top + bot) / 2;
         fCurrentMid = f(currentMid);
     }
 
@@ -44,9 +44,11 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
 
     assert(bot.size() > 1);
 
-    auto function = [&f, &bot, &top] (int x) {
-        auto sliceFunction  = [&f, x] (vector<int> v) {
-            v.push_back(x);
+    int currentMid = (top.back() + bot.back()) / 2;
+
+    while(true) {
+        auto sliceFunction  = [&f, currentMid] (vector<int> v) {
+            v.push_back(currentMid);
             auto result = f(v);
             result.pop_back();
             return result;
@@ -56,10 +58,11 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
         vector<int> sliceTop {top.begin(), top.end() - 1};
 
         vector<int> sliceFixpoint = findFixpointRecBin(sliceBot, sliceTop, sliceFunction);
-        sliceFixpoint.push_back(x);
+        sliceFixpoint.push_back(currentMid);
         vector<direction> result = f(sliceBot);
-        return result.back();
-    };
 
-    return vector<int> {};
+        if(all_of(result.begin(), result.end(), [](auto x) { return x == fix; })) {
+            return sliceFixpoint;
+        }
+    }
 }

@@ -4,6 +4,7 @@
 
 #include "fixDecompAlgorithm.h"
 #include "threeDimensionAlgorithm.h"
+#include "recursiveBinarySearch.h"
 
 vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
                                            const vector<int>& top,
@@ -11,19 +12,20 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
     assert(bot.size() == top.size());
     assert(!bot.empty());
 
-    if(bot.size() == 1) {
-        // binary search
-    }
-
-    if(bot.size() == 2) {
-        // dan qi ye
+    if(bot.size() <= 2) {
+        // dan qi ye, (recursive binary search)
+        return findFixpointRecBin(bot, top, f);
     }
 
     if(bot.size() == 3) {
+        // the inner algorithm
         return findFixpoint3(bot, top, f);
     }
 
+    // else decompose per savani, fearnley, pavlogyi paper.
+
     assert(bot.size() > 3);
+
     vector<pair<vector<int>, vector<int>>> previouslyQueriedPairs;
     auto leftBot = vector<int> {bot.begin(), bot.begin() + 3};
     auto leftTop = vector<int> {top.begin(), top.begin() + 3};

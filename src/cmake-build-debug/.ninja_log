@@ -1,9 +1,9 @@
 # ninja log v5
 411	443	1699368737546362038	src	f292b2313112cadc
-0	41	1699372968749983331	build.ninja	1ee1e2f6c08e43af
+0	41	1699463463862380096	build.ninja	1ee1e2f6c08e43af
 8	485	1699368522158454468	CMakeFiles/src.dir/innerAlgorithm.cpp.o	4b74a386d8969d1c
-9	648	1699368522321432747	CMakeFiles/src.dir/monotoneFunction.cpp.o	47cf874c7380faaa
 7	645	1699368522317918069	CMakeFiles/src.dir/main.cpp.o	4967857067dcf71e
+9	648	1699368522321432747	CMakeFiles/src.dir/monotoneFunction.cpp.o	47cf874c7380faaa
 4	337	1699368671913362440	CMakeFiles/src.dir/threeDimensionAlgorithm.cpp.o	e70b36eabf3e8bae
 8	446	1699368522119334466	CMakeFiles/src.dir/kleeneTarski.cpp.o	eac7235710a71307
 6	411	1699368737511100049	CMakeFiles/src.dir/latticeUtil.cpp.o	2333567d79749be3
