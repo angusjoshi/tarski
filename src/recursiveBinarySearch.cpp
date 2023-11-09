@@ -3,13 +3,28 @@
 //
 
 #include "recursiveBinarySearch.h"
-#include <iostream>
+
+int oneDimensionExhaustiveSearch(int bot, int top, const function<direction(int)>& f) {
+    assert(top - bot <= 1);
+
+    for(int i = bot; i <= top; i++) {
+        auto fPoint = f(i);
+        if(fPoint == fix) {
+            return i;
+        }
+    }
+
+    assert(false);
+}
 
 int binarySearch(int bot, int top, const function<direction(int)>& f) {
     int currentMid = (top - bot) / 2;
     int fCurrentMid = f(currentMid);
 
     while(fCurrentMid != fix) {
+        if(top - bot <= 1) {
+            return oneDimensionExhaustiveSearch(bot, top, f);
+        }
         if(fCurrentMid == down) {
             top = currentMid;
         } else {

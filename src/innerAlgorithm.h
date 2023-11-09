@@ -30,8 +30,10 @@ private:
     [[nodiscard]] pair<vector<int>, vector<direction>> helper();
     void fixWitnesses();
     bool isNarrowInstance();
+    bool isDoublyNarrowInstance();
     void fixNarrowInstance();
     pair<vector<int>, vector<direction>> solveZeroWidthInstance();
+    pair<vector<int>, vector<direction>> exhaustiveSearchInstance();
     int getNarrowDimension();
 
     static bool sliceWeakUp(const vector<direction>& directions);

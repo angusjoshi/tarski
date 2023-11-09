@@ -15,12 +15,11 @@ InnerAlgorithm::InnerAlgorithm(const vector<int>& bot, const vector<int>& top, c
     f(f) {
         assert(bot.size() == 2);
         assert(top.size() == 2);
+        useCeilDivision = false;
+        ceilDivisionDimension = -1;
     }
 
-    InnerAlgorithm::~InnerAlgorithm() {}
-
-
-
+    InnerAlgorithm::~InnerAlgorithm() = default;
 
 bool InnerAlgorithm::sliceWeakUp(const vector<direction>& directions) {
     assert(!directions.empty());
@@ -59,6 +58,10 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
 
 bool InnerAlgorithm::isNarrowInstance() {
     return abs(b[0] - a[0]) <= 1 || abs(b[1] - a[1]) <= 1;
+}
+
+bool InnerAlgorithm::isDoublyNarrowInstance() {
+    return abs(b[0] - a[0]) <= 1 && abs(b[1] - a[1]) <= 1;
 }
 
 int InnerAlgorithm::getNarrowDimension() {
@@ -131,6 +134,7 @@ void InnerAlgorithm::fixWitnesses() {
         int topRightBoundary = b[neDimension];
         int botLeftBoundary = a[neDimension];
 
+        // i think this is a bug - should check for ceil division.
         int neDimensionMiddle = botLeftBoundary + ((topRightBoundary  - botLeftBoundary) / 2);
 
         if(u[neDimension] > neDimensionMiddle) {
@@ -178,7 +182,28 @@ void InnerAlgorithm::fixWitnesses() {
     }
 }
 
+
+pair<vector<int>, vector<direction>> InnerAlgorithm::exhaustiveSearchInstance() {
+    assert(isDoublyNarrowInstance());
+
+    for(int i = bot[0]; i <= top[0]; i++) {
+        for(int j = bot[1]; j <= top[1]; j++) {
+            vector<int> point { i , j };
+            vector<direction> fPoint = f(point);
+            if(isAllWeakUp(fPoint) || isAllWeakDown(fPoint))  {
+                return { point, fPoint };
+            }
+        }
+    }
+
+    assert(false);
+}
+
   pair<vector<int>, vector<direction>> InnerAlgorithm::helper() {
+    if(isDoublyNarrowInstance()) {
+        return exhaustiveSearchInstance();
+    }
+
     if(isNarrowInstance()) {
         fixNarrowInstance();
     }

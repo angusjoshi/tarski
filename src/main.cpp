@@ -37,9 +37,9 @@ int main() {
 //        cout << "queried with vec: ";
 //        printVec(v);
 //        cout << endl;
-        assert(v.size() == 15);
+        assert(v.size() == 19);
 
-        return vector<int> {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6};
+        return vector<int> {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6, 4, 2, 7, 4};
     };
     auto example3 = [](const vector<int>& v) {
         assert(v.size() == 2);
@@ -54,8 +54,8 @@ int main() {
 
     auto g = getDirectionFunction(f);
 
-    vector<int> bot {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    vector<int> top {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
+    vector<int> bot {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    vector<int> top {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
 
 //    vector<int> bot {0, 0, 0, 0, 0, 0};
 //    vector<int> top {9, 9, 9, 9, 9, 9};

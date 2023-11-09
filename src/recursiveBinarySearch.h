@@ -9,7 +9,9 @@
 
 using namespace std;
 
+int oneDimensionExhaustiveSearch(int bot, int top, const function<direction(int)>& f);
 int binarySearch(int bot, int top, const function<direction(int)>& f);
+
 vector<int> findFixpointRecBin(const vector<int>& bot,
                                const vector<int>& top,
                                const function<vector<direction>(const vector<int>&)>& f);
