@@ -32,16 +32,27 @@ bool InnerAlgorithm::sliceWeakDown(const vector<direction> &directions) {
     return rng::all_of(directions.begin(), directions.end() -1, [](auto direction) {return direction != up;});
 }
 
-vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int>& y) {
+vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int>& y) const {
     assert(x.size() == y.size());
     assert(latticeLe(x, y));
 
     vector<int> result;
     result.reserve(x.size());
 
-    for(int i = 0; i < x.size(); i++) {
-      result.push_back(x[i] + ((y[i] - x[i]) / 2));
+    if(useCeilDivision) {
+        for(int i = 0; i < x.size(); i++) {
+            result.push_back(x[i] + ((y[i] - x[i]) / 2));
+
+            if(i == ceilDivisionDimension) {
+                result.back() += ((y[i] - x[i]) % 2 == 0) ? 0 : 1;
+            }
+        }
+    } else {
+        for(int i = 0; i < x.size(); i++) {
+            result.push_back(x[i] + ((y[i] - x[i]) / 2));
+        }
     }
+
 
     return result;
 }
@@ -59,12 +70,39 @@ int InnerAlgorithm::getNarrowDimension() {
     return -1;
 }
 
-pair<vector<int>, vector<direction>> InnerAlgorithm::solveNarrowInstance() {
+
+pair<vector<int>, vector<direction>> InnerAlgorithm::solveZeroWidthInstance() {
+    return { {}, {} };
+}
+
+void InnerAlgorithm::fixNarrowInstance() {
     int narrowDimension = getNarrowDimension();
     assert(narrowDimension != -1);
 
+    ceilDivisionDimension = narrowDimension;
+    useCeilDivision = !useCeilDivision;
 
-    return { {}, {} };
+    if(!sliceEq(a, u) && a[narrowDimension] != u[narrowDimension]) {
+        // witness on the narrow edge.
+        vector<direction> aDirections = f(a);
+        if(sliceWeakUp(aDirections)) {
+            u = a;
+        } else {
+            assert(d[narrowDimension] == u[narrowDimension]);
+            a = u;
+        }
+    }
+
+    if(!sliceEq(b, d) && b[narrowDimension] != d[narrowDimension]) {
+        // witness on the narrow edge.
+        vector<direction> bDirections = f(b);
+        if(sliceWeakUp(bDirections)) {
+            d = b;
+        } else {
+            assert(u[narrowDimension] == d[narrowDimension]);
+            b = d;
+        }
+    }
 }
 
   pair<vector<int>, vector<direction>> InnerAlgorithm::findMonotonePoint() {
@@ -141,8 +179,12 @@ void InnerAlgorithm::fixWitnesses() {
 }
 
   pair<vector<int>, vector<direction>> InnerAlgorithm::helper() {
-//    if(isNarrowInstance()) {
-//        return solveNarrowInstance();
+    if(isNarrowInstance()) {
+        fixNarrowInstance();
+    }
+
+//    if(b[narrowDimension] - a[narrowDimension] == 0) {
+//      return solveZeroWidthInstance();
 //    }
 
     fixWitnesses();

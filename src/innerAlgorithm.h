@@ -21,13 +21,17 @@ private:
     vector<int> d;
     vector<int> b;
 
+    bool useCeilDivision;
+    int ceilDivisionDimension;
+
     function<vector<direction> (const vector<int>&)> f;
 
-    [[nodiscard]] static vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y);
+    [[nodiscard]] vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y) const;
     [[nodiscard]] pair<vector<int>, vector<direction>> helper();
     void fixWitnesses();
     bool isNarrowInstance();
-    pair<vector<int>, vector<direction>> solveNarrowInstance();
+    void fixNarrowInstance();
+    pair<vector<int>, vector<direction>> solveZeroWidthInstance();
     int getNarrowDimension();
 
     static bool sliceWeakUp(const vector<direction>& directions);

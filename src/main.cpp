@@ -4,6 +4,7 @@
 #include "latticeUtil.h"
 #include "threeDimensionAlgorithm.h"
 #include "fixDecompAlgorithm.h"
+#include "recursiveBinarySearch.h"
 
 
 int main() {
@@ -33,12 +34,12 @@ int main() {
 
     auto example2 = [](const vector<int>& v) {
         // example 2 is a 6 dimensional problem on [9]^d.
-        cout << "queried with vec: ";
-        printVec(v);
-        cout << endl;
-        assert(v.size() == 6);
+//        cout << "queried with vec: ";
+//        printVec(v);
+//        cout << endl;
+        assert(v.size() == 15);
 
-        return vector<int> {2, 1, 4, 5, 2, 2};
+        return vector<int> {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6};
     };
     auto example3 = [](const vector<int>& v) {
         assert(v.size() == 2);
@@ -53,10 +54,14 @@ int main() {
 
     auto g = getDirectionFunction(f);
 
-    vector<int> bot {0, 0, 0, 0, 0, 0};
-    vector<int> top {9, 9, 9, 9, 9, 9};
+    vector<int> bot {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    vector<int> top {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
+
+//    vector<int> bot {0, 0, 0, 0, 0, 0};
+//    vector<int> top {9, 9, 9, 9, 9, 9};
 //    vector<int> bot {0, 0};
 //    vector<int> top {INT_MAX, INT_MAX};
+//    auto fixpoint = findFixpointRecBin(bot, top, g);
 
     auto fixpoint = findFixpointByFixDecomposition(bot, top, g);
 

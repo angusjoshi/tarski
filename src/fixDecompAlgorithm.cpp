@@ -32,7 +32,9 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
     auto leftTop = vector<int> {top.begin(), top.begin() + 3};
 
 
-    auto leftFunction = [&bot, &top, &f, &previouslyQueriedPairs](const auto& v) {
+    vector<int> rightFixpoint;
+
+    auto leftFunction = [&bot, &top, &f, &previouslyQueriedPairs, &rightFixpoint](const auto& v) {
         auto rightFunction = [&f, &v] (const auto& w) {
             vector<int> x;
             x.insert(x.end(), v.begin(), v.end());
@@ -55,7 +57,7 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
             }
         }
 
-        auto rightFixpoint = findFixpointByFixDecomposition(rightBot, rightTop, rightFunction);
+        rightFixpoint = findFixpointByFixDecomposition(rightBot, rightTop, rightFunction);
 
         vector<int> leftRight;
         leftRight.insert(leftRight.end(), v.begin(), v.end());
@@ -69,7 +71,12 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
         return vector<direction> {fxy.begin(), fxy.begin() + 3};
     };
 
-    return findFixpoint3(leftBot, leftTop, leftFunction);
+    auto leftFixpoint = findFixpoint3(leftBot, leftTop, leftFunction);
+    vector<int> resultFixpoint;
+    resultFixpoint.insert(resultFixpoint.end(), leftFixpoint.begin(), leftFixpoint.end());
+    resultFixpoint.insert(resultFixpoint.end(), rightFixpoint.begin(), rightFixpoint.end());
+
+    return resultFixpoint;
 }
 
 vector<int> join(vector<int>&& a, const vector<int>& b) {
