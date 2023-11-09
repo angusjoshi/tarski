@@ -30,5 +30,6 @@ function<vector<direction> (const vector<int>&)> getDirectionFunction(
 
 bool isAllWeakUp(const vector<direction>& directions);
 bool isAllWeakDown(const vector<direction>& directions);
+bool isAllFixed(const vector<direction>& directions);
 
 #endif //SRC_MONOTONEFUNCTION_H

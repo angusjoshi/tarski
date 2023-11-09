@@ -9,8 +9,10 @@ namespace rng = std::ranges;
 
 function<vector<direction> (const vector<int>&)> getDirectionFunction(
         const function<vector<int> (const vector<int>&)>& f) {
-    return [&f](auto v) {
+    return [&f](const auto& v) {
         auto result = f(v);
+
+        assert(v.size() == result.size());
 
         auto view = vw::zip(v, result)
             | vw::transform([](auto x) {
@@ -29,7 +31,7 @@ function<vector<direction> (const vector<int>&)> getSlicedFunction(
         const function<vector<direction> (const vector<int>&)>& f,
         int sliceDimension,
         int sliceVal) {
-    return [&f, sliceDimension, sliceVal](auto v) {
+    return [&f, sliceDimension, sliceVal](const auto& v) {
         auto input = vector<int> (v.begin(), v.end());
         input.insert(input.begin() + sliceDimension, sliceVal);
 
@@ -43,9 +45,13 @@ function<vector<direction> (const vector<int>&)> getSlicedFunction(
 }
 
 bool isAllWeakUp(const vector<direction>& directions) {
-    return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction != up;});
+    return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction != down;});
 }
 
 bool isAllWeakDown(const vector<direction>& directions) {
-    return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction != down;});
+    return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction != up;});
+}
+
+bool isAllFixed(const vector<direction>& directions) {
+    return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction == fix;});
 }

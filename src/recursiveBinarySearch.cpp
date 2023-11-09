@@ -3,13 +3,14 @@
 //
 
 #include "recursiveBinarySearch.h"
+#include <iostream>
 
 int binarySearch(int bot, int top, const function<direction(int)>& f) {
     int currentMid = (top - bot) / 2;
     int fCurrentMid = f(currentMid);
 
-    while(fCurrentMid != currentMid) {
-        if(fCurrentMid < currentMid) {
+    while(fCurrentMid != fix) {
+        if(fCurrentMid == down) {
             top = currentMid;
         } else {
             bot = currentMid;
@@ -18,7 +19,6 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
         currentMid = (top + bot) / 2;
         fCurrentMid = f(currentMid);
     }
-
     return currentMid;
 }
 
@@ -44,9 +44,13 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
 
     assert(bot.size() > 1);
 
-    int currentMid = (top.back() + bot.back()) / 2;
+
+    auto currentBot = bot;
+    auto currentTop = top;
 
     while(true) {
+        int currentMid = (currentTop.back() + currentBot.back()) / 2;
+
         auto sliceFunction  = [&f, currentMid] (vector<int> v) {
             v.push_back(currentMid);
             auto result = f(v);
@@ -59,10 +63,14 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
 
         vector<int> sliceFixpoint = findFixpointRecBin(sliceBot, sliceTop, sliceFunction);
         sliceFixpoint.push_back(currentMid);
-        vector<direction> result = f(sliceBot);
+        vector<direction> result = f(sliceFixpoint);
 
         if(all_of(result.begin(), result.end(), [](auto x) { return x == fix; })) {
             return sliceFixpoint;
         }
+
+        assert(result.back() != fix);
+        if(result.back() == down) currentTop = sliceFixpoint;
+        if(result.back() == up) currentBot = sliceFixpoint;
     }
 }

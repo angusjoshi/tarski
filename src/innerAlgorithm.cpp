@@ -1,5 +1,6 @@
 #include "innerAlgorithm.h"
 #include "latticeUtil.h"
+#include <iostream>
 
 using namespace std;
 namespace rng = std::ranges;
@@ -15,6 +16,10 @@ InnerAlgorithm::InnerAlgorithm(const vector<int>& bot, const vector<int>& top, c
         assert(bot.size() == 2);
         assert(top.size() == 2);
     }
+
+    InnerAlgorithm::~InnerAlgorithm() {}
+
+
 
 
 bool InnerAlgorithm::sliceWeakUp(const vector<direction>& directions) {
@@ -41,20 +46,72 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
     return result;
 }
 
-  vector<int> InnerAlgorithm::findMonotonePoint() {
+bool InnerAlgorithm::isNarrowInstance() {
+    return abs(b[0] - a[0]) <= 1 || abs(b[1] - a[1]) <= 1;
+}
+
+int InnerAlgorithm::getNarrowDimension() {
+    if(abs(b[0] - a[0]) <= 1) {
+        return 0;
+    } else if(abs(b[1] - a[1]) <= 1) {
+        return 1;
+    }
+    return -1;
+}
+
+pair<vector<int>, vector<direction>> InnerAlgorithm::solveNarrowInstance() {
+    int narrowDimension = getNarrowDimension();
+    assert(narrowDimension != -1);
+
+
+    return { {}, {} };
+}
+
+  pair<vector<int>, vector<direction>> InnerAlgorithm::findMonotonePoint() {
     return helper();
   }
 
-  vector<int> InnerAlgorithm::helper() {
+bool InnerAlgorithm::sliceEq(const vector<int>& x, const vector<int>& y) {
+    assert(x.size() == 2);
+    assert(x.size() == y.size());
+
+    return x[0] == y[0] && x[1] == y[1];
+}
+int InnerAlgorithm::getNeDimension(const vector<int> &x, const vector<int> &y) {
+    int neDimension = x[0] != y[0] ? 0 : 1;
+    int eqDimension = neDimension == 0 ? 1 : 0;
+
+    assert(x[eqDimension] == y[eqDimension]);
+    return neDimension;
+}
+
+void InnerAlgorithm::fixWitnesses() {
+    if(!sliceEq(a, u)) {
+        // down set witness
+        int neDimension = getNeDimension(a, u);
+    }
+
+    if(!sliceEq(b, d)) {
+        // up set witness
+        int neDimension = getNeDimension(b, d);
+    }
+}
+  pair<vector<int>, vector<direction>> InnerAlgorithm::helper() {
+    if(isNarrowInstance()) {
+        return solveNarrowInstance();
+    }
+
+    fixWitnesses();
+
     vector<int> mid = getMidInSlice(a, b);
     vector<direction> midDirections = f(mid);
 
     if(isAllWeakUp(midDirections)) {
-      return mid;
+      return { mid, midDirections };
     }
 
     if(isAllWeakDown(midDirections)) {
-      return mid;
+      return { mid, midDirections };
     }
 
     if(sliceWeakUp(midDirections)) {
@@ -90,7 +147,7 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
         return helper();
       }
 
-      return candidateWitness;
+      return { candidateWitness, candidateWitnessDirections };
     }
 
     candidateWitness[lteDimension] = a[lteDimension];
@@ -107,10 +164,10 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
     }
 
     // this is the lemma 12 case.
-    return candidateWitness;
+    return { candidateWitness, candidateWitnessDirections };
   }
 
-vector<int> findMonotonePoint3(const vector<int>& bot,
+pair<vector<int>, vector<direction>> findMonotonePoint3(const vector<int>& bot,
                               const vector<int>& top,
                               const function<vector<direction> (const vector<int>&)>& directionFunction,
                               int sliceDimension,
@@ -124,9 +181,10 @@ vector<int> findMonotonePoint3(const vector<int>& bot,
     slicedTop.erase(slicedTop.begin() + sliceDimension);
 
     InnerAlgorithm innerAlgorithm {slicedBot, slicedTop, slicedFunction};
-    auto monotonePoint = innerAlgorithm.findMonotonePoint();
+    pair<vector<int>, vector<direction>> monotonePoint = innerAlgorithm.findMonotonePoint();
 
-    monotonePoint.insert(monotonePoint.begin() + sliceDimension, sliceValue);
+    assert(isAllWeakUp(monotonePoint.second) || isAllWeakDown(monotonePoint.second));
+    monotonePoint.first.insert(monotonePoint.first.begin() + sliceDimension, sliceValue);
     return monotonePoint;
 }
 

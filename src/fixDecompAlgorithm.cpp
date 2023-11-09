@@ -5,6 +5,7 @@
 #include "fixDecompAlgorithm.h"
 #include "threeDimensionAlgorithm.h"
 #include "recursiveBinarySearch.h"
+#include <iostream>
 
 vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
                                            const vector<int>& top,
@@ -37,7 +38,8 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
             x.insert(x.end(), v.begin(), v.end());
             x.insert(x.end(), w.begin(), w.end());
 
-            return f(x);
+            vector<direction> result = f(x);
+            return std::move(vector<direction> {result.begin() + v.size(), result.end()});
         };
 
         auto rightBot = vector<int> {bot.begin() + 3, bot.end()};

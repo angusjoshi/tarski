@@ -1,0 +1,27 @@
+the problem is:
+  the directions returned by the slice function are not in the right order maybe?
+
+sketch of width zero:
+  witness on edge of the of the small side is bad. need to preprocess this.
+    if corner is monotone in the slice then we can delete witness.
+    if the second point is monotone in the slice then we can restrict to the width-zero instance
+    u <= d implies that if there is a witness on the other side, it is not on the opposite edge.
+
+    the core idea here is that when they point towards eachother, there is
+    guaranteed to be a fixpoint in the dimension in between them, and since there
+    are no points in between them one of them is that fixpoint.
+
+  after witnesses are fixed, we do two runs of the normal helper
+  EXCEPT use floor division by two in first, ceil in second. (for everything)
+  if the instance shrinks due to this, good. go next.
+  if not,
+    
+
+
+
+
+
+  note step 1 is the fixing the witnesses to be not beyond halfway,
+  step 2 is the query mid etc.
+
+

@@ -5,6 +5,9 @@
 #ifndef SRC_EXAMPLES_H
 #define SRC_EXAMPLES_H
 
+#include <algorithm>
+#include <numeric>
+
 auto example1 = vector<vector<vector<vector<int>>>> {
         vector<vector<vector<int>>> {
                 vector<vector<int>> { vector<int> {0, 1, 0}, vector<int> {0, 1, 0}, vector<int> {0, 1, 2}, vector<int> {0, 1, 2} },
@@ -32,4 +35,10 @@ auto example1 = vector<vector<vector<vector<int>>>> {
         }
 };
 
+//auto example2 = [](const vector<int>& v) {
+//    // example 2 is a 6 dimensional problem on [9]^d.
+//    assert(v.size() == 6);
+//
+//    return vector<int> {2, 1, 4, 5, 2, 2};
+//};
 #endif //SRC_EXAMPLES_H
