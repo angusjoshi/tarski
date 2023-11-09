@@ -79,9 +79,6 @@ bool InnerAlgorithm::sliceEq(const vector<int>& x, const vector<int>& y) {
 }
 int InnerAlgorithm::getNeDimension(const vector<int> &x, const vector<int> &y) {
     int neDimension = x[0] != y[0] ? 0 : 1;
-    int eqDimension = neDimension == 0 ? 1 : 0;
-
-    assert(x[eqDimension] == y[eqDimension]);
     return neDimension;
 }
 
@@ -89,17 +86,64 @@ void InnerAlgorithm::fixWitnesses() {
     if(!sliceEq(a, u)) {
         // down set witness
         int neDimension = getNeDimension(a, u);
+
+        int eqDimension = neDimension == 0 ? 1 : 0;
+        assert(a[eqDimension] == u[eqDimension]);
+
+        int topRightBoundary = b[neDimension];
+        int botLeftBoundary = a[neDimension];
+
+        int neDimensionMiddle = botLeftBoundary + ((topRightBoundary  - botLeftBoundary) / 2);
+
+        if(u[neDimension] > neDimensionMiddle) {
+            vector<int> edgeMid(2, -1);
+            edgeMid[eqDimension] = a[eqDimension];
+            edgeMid[neDimension] = neDimensionMiddle;
+            vector<direction> fEdgeMid = f(edgeMid);
+
+            if(fEdgeMid[neDimension] != down) {
+                // e.g. case 3.b.
+                a = edgeMid;
+            } else {
+                // e.g. case 3.c.
+                u = edgeMid;
+            }
+        }
     }
 
     if(!sliceEq(b, d)) {
         // up set witness
         int neDimension = getNeDimension(b, d);
+
+        int eqDimension = neDimension == 0 ? 1 : 0;
+        assert(b[eqDimension] == d[eqDimension]);
+
+        int topRightBoundary = b[neDimension];
+        int botLeftBoundary = a[neDimension];
+
+        int neDimensionMiddle = botLeftBoundary + ((topRightBoundary  - botLeftBoundary) / 2);
+
+        if(d[neDimension] < neDimensionMiddle) {
+            vector<int> edgeMid(2, -1);
+            edgeMid[eqDimension] = b[eqDimension];
+            edgeMid[neDimension] = neDimensionMiddle;
+            vector<direction> fEdgeMid = f(edgeMid);
+
+            if(fEdgeMid[neDimension] != up) {
+                // e.g. case 2.b.
+                b = edgeMid;
+            } else {
+                // e.g. case 2.c.
+                d = edgeMid;
+            }
+        }
     }
 }
+
   pair<vector<int>, vector<direction>> InnerAlgorithm::helper() {
-    if(isNarrowInstance()) {
-        return solveNarrowInstance();
-    }
+//    if(isNarrowInstance()) {
+//        return solveNarrowInstance();
+//    }
 
     fixWitnesses();
 

@@ -46,17 +46,17 @@ int main() {
     };
 
     int queryCount = 0;
-    auto f = [&example3, &queryCount] (const auto& v) {
+    auto f = [&example2, &queryCount] (const auto& v) {
         queryCount++;
-        return example3(v);
+        return example2(v);
     };
 
     auto g = getDirectionFunction(f);
 
-//    vector<int> bot {0, 0, 0, 0, 0, 0};
-//    vector<int> top {9, 9, 9, 9, 9, 9};
-    vector<int> bot {0, 0};
-    vector<int> top {INT_MAX, INT_MAX};
+    vector<int> bot {0, 0, 0, 0, 0, 0};
+    vector<int> top {9, 9, 9, 9, 9, 9};
+//    vector<int> bot {0, 0};
+//    vector<int> top {INT_MAX, INT_MAX};
 
     auto fixpoint = findFixpointByFixDecomposition(bot, top, g);
 
