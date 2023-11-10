@@ -1,0 +1,3 @@
+/Users/angusjoshi/tarski/src/cmake-build-release/CMakeFiles/src.dir
+/Users/angusjoshi/tarski/src/cmake-build-release/CMakeFiles/edit_cache.dir
+/Users/angusjoshi/tarski/src/cmake-build-release/CMakeFiles/rebuild_cache.dir

@@ -4,7 +4,6 @@
 
 #include "threeDimensionAlgorithm.h"
 #include "latticeUtil.h"
-#include <iostream>
 
 vector<int> findFixpoint3(const vector<int>& bot,
                          const vector<int>& top,

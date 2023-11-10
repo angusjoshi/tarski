@@ -35,7 +35,7 @@ vector<int> InnerAlgorithm::getMidInSlice(const vector<int>& x, const vector<int
     assert(x.size() == y.size());
     assert(latticeLe(x, y));
 
-    vector<int> result;
+    vector<int> result {};
     result.reserve(x.size());
 
     if(useCeilDivision) {
@@ -138,7 +138,7 @@ void InnerAlgorithm::fixWitnesses() {
         int neDimensionMiddle = botLeftBoundary + ((topRightBoundary  - botLeftBoundary) / 2);
 
         if(u[neDimension] > neDimensionMiddle) {
-            vector<int> edgeMid(2, -1);
+            vector<int> edgeMid { -1, -1 };
             edgeMid[eqDimension] = a[eqDimension];
             edgeMid[neDimension] = neDimensionMiddle;
             vector<direction> fEdgeMid = f(edgeMid);
@@ -285,10 +285,10 @@ pair<vector<int>, vector<direction>> findMonotonePoint3(const vector<int>& bot,
                               int sliceValue) {
     auto slicedFunction = getSlicedFunction(directionFunction, sliceDimension, sliceValue);
 
-    auto slicedBot = vector<int>(bot.begin(), bot.end());
+    auto slicedBot = vector<int> { bot.begin(), bot.end() };
     slicedBot.erase(slicedBot.begin() + sliceDimension);
 
-    auto slicedTop = vector<int>(top.begin(), top.end());
+    auto slicedTop = vector<int> { top.begin(), top.end() };
     slicedTop.erase(slicedTop.begin() + sliceDimension);
 
     InnerAlgorithm innerAlgorithm {slicedBot, slicedTop, slicedFunction};

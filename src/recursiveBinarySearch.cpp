@@ -36,7 +36,6 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
 
         auto oneDimensionF = [&f] (int x) {
             vector<int> v {x};
-
             return f(v)[0];
         };
 

@@ -62,11 +62,11 @@ int getNextUpIndex(int start, const vector<direction>& a) {
 vector<int> searchSmallInstance(const vector<int>& bot,
                                 const vector<int>& top,
                                 const function<vector<direction> (const vector<int>&)>& f) {
-    assert(isUp(bot, f));
-    assert(isDown(top, f));
-
     vector<int> current = bot;
     vector<direction> fCurrent = f(bot);
+
+    assert(isAllWeakUp(fCurrent));
+
     int currentDimension = getNextUpIndex(0, fCurrent);
 
     while(currentDimension != -1) {

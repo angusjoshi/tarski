@@ -1,0 +1,17 @@
+# ninja log v5
+587	622	1699637338744199261	src	d0a6bcf6d614a2bf
+4	394	1699637338513596326	CMakeFiles/src.dir/latticeUtil.cpp.o	c82f910458a38ae
+5	541	1699626835430202885	CMakeFiles/src.dir/recursiveBinarySearch.cpp.o	c4a2952fe2f52425
+0	459	1699624505493087137	CMakeFiles/src.dir/kleeneTarski.cpp.o	7a6bbf01c76c4efd
+4	573	1699637338692969354	CMakeFiles/src.dir/fixDecompAlgorithm.cpp.o	1362f8ec4b7eceaf
+3	729	1699625733063381326	CMakeFiles/src.dir/innerAlgorithm.cpp.o	f141f1a6fb912d00
+3	587	1699637338706700100	CMakeFiles/src.dir/main.cpp.o	72d0889ca226ac6f
+8	626	1699627108980878954	CMakeFiles/src.dir/monotoneFunction.cpp.o	17a70ff459edf86d
+1	463	1699624505493008553	CMakeFiles/src.dir/threeDimensionAlgorithm.cpp.o	f2530f58051eed18
+4	359	1699637532823716922	CMakeFiles/src.dir/latticeUtil.cpp.o	c82f910458a38ae
+359	394	1699637532861152583	src	d0a6bcf6d614a2bf
+4	592	1699637591919201935	CMakeFiles/src.dir/main.cpp.o	72d0889ca226ac6f
+592	627	1699637591955997090	src	d0a6bcf6d614a2bf
+5	510	1699643970281447221	CMakeFiles/src.dir/recursiveBinarySearch.cpp.o	c4a2952fe2f52425
+4	692	1699643970465624136	CMakeFiles/src.dir/main.cpp.o	72d0889ca226ac6f
+693	732	1699643970507655007	src	d0a6bcf6d614a2bf

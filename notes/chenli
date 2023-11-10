@@ -1,0 +1,16 @@
+remember the previous (q, p_l, p_r)_i-s. 
+
+current p(l) is the lub on the set of pl_k prev s.t. qk <= qi, symmetric for pr. this is similar to fps decomp.
+
+for each coordinate of the left side, define a function g_j(x) = (g(x, q_i)_1, ..., g(x, q_i)_a, g(x, q_i)_j)
+run this through refinedtarski*
+  which gives a pair pl, pr. s.t. some conditions hold.
+  update the pl_i and pr_i with these values.
+  point is pl_* is monotone up in left side and jth coordinate, down for pl_r*.
+  at least one of them is strict in jth dimension or fixed.
+
+  then after doing that construct 
+
+
+  the lemmas are:
+    at each round i, pl_i <= pr_i and both are monotone up/down resp. in the q_i slice.

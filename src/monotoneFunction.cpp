@@ -3,6 +3,7 @@
 //
 
 #include "monotoneFunction.h"
+#include <iostream>
 
 namespace vw = std::views;
 namespace rng = std::ranges;
@@ -23,7 +24,7 @@ function<vector<direction> (const vector<int>&)> getDirectionFunction(
                     : fix;
             });
 
-        return vector<direction> (view.begin(), view.end());
+        return vector<direction> {view.begin(), view.end()};
     };
 }
 
@@ -32,7 +33,7 @@ function<vector<direction> (const vector<int>&)> getSlicedFunction(
         int sliceDimension,
         int sliceVal) {
     return [&f, sliceDimension, sliceVal](const auto& v) {
-        auto input = vector<int> (v.begin(), v.end());
+        auto input = vector<int> { v.begin(), v.end() };
         input.insert(input.begin() + sliceDimension, sliceVal);
 
         auto result = f(input);

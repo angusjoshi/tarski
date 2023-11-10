@@ -15,11 +15,12 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
 
     if(bot.size() <= 2) {
         // dan qi ye, (recursive binary search)
+
         return findFixpointRecBin(bot, top, f);
     }
 
     if(bot.size() == 3) {
-        // the inner algorithm
+        // inner algorithm based 3 dimensions
         return findFixpoint3(bot, top, f);
     }
 
@@ -27,16 +28,16 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
 
     assert(bot.size() > 3);
 
-    vector<pair<vector<int>, vector<int>>> previouslyQueriedPairs;
+    vector<pair<vector<int>, vector<int>>> previouslyQueriedPairs {};
     auto leftBot = vector<int> {bot.begin(), bot.begin() + 3};
     auto leftTop = vector<int> {top.begin(), top.begin() + 3};
 
 
-    vector<int> rightFixpoint;
+    vector<int> rightFixpoint {};
 
     auto leftFunction = [&bot, &top, &f, &previouslyQueriedPairs, &rightFixpoint](const auto& v) {
         auto rightFunction = [&f, &v] (const auto& w) {
-            vector<int> x;
+            vector<int> x {};
             x.insert(x.end(), v.begin(), v.end());
             x.insert(x.end(), w.begin(), w.end());
 
@@ -59,7 +60,7 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
 
         rightFixpoint = findFixpointByFixDecomposition(rightBot, rightTop, rightFunction);
 
-        vector<int> leftRight;
+        vector<int> leftRight {};
         leftRight.insert(leftRight.end(), v.begin(), v.end());
         leftRight.insert(leftRight.end(), rightFixpoint.begin(), rightFixpoint.end());
 
@@ -72,7 +73,7 @@ vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
     };
 
     auto leftFixpoint = findFixpoint3(leftBot, leftTop, leftFunction);
-    vector<int> resultFixpoint;
+    vector<int> resultFixpoint {};
     resultFixpoint.insert(resultFixpoint.end(), leftFixpoint.begin(), leftFixpoint.end());
     resultFixpoint.insert(resultFixpoint.end(), rightFixpoint.begin(), rightFixpoint.end());
 
