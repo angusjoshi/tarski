@@ -9,22 +9,23 @@ namespace vw = std::views;
 namespace rng = std::ranges;
 
 function<vector<direction> (const vector<int>&)> getDirectionFunction(
-        const function<vector<int> (const vector<int>&)>& f) {
+        const function<vector<int>(const vector<int>&)>& f) {
     return [&f](const auto& v) {
-        auto result = f(v);
+        auto results = f(v);
 
-        assert(v.size() == result.size());
+        assert(v.size() == results.size());
 
-        auto view = vw::zip(v, result)
-            | vw::transform([](auto x) {
-                return x.first < x.second
-                    ? up
-                    : x.first > x.second
-                    ? down
-                    : fix;
-            });
+        vector<direction> directions {};
 
-        return vector<direction> {view.begin(), view.end()};
+        directions.reserve(v.size());
+        for(int i = 0; i < v.size(); i++) {
+            directions.push_back( v[i] < results[i]
+                   ? up
+                   : v[i] > results[i]
+                     ? down
+                     : fix);
+        }
+        return directions;
     };
 }
 
@@ -32,7 +33,7 @@ function<vector<direction> (const vector<int>&)> getSlicedFunction(
         const function<vector<direction> (const vector<int>&)>& f,
         int sliceDimension,
         int sliceVal) {
-    return [&f, sliceDimension, sliceVal](const auto& v) {
+    return [&f, sliceDimension, sliceVal] (const auto& v) {
         auto input = vector<int> { v.begin(), v.end() };
         input.insert(input.begin() + sliceDimension, sliceVal);
 

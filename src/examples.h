@@ -7,6 +7,9 @@
 
 #include <algorithm>
 #include <numeric>
+#include <vector>
+
+using namespace std;
 
 auto example1 = vector<vector<vector<vector<int>>>> {
         vector<vector<vector<int>>> {

@@ -1,14 +1,12 @@
 #include <iostream>
-#include "innerAlgorithm.h"
 #include "examples.h"
 #include "latticeUtil.h"
-#include "threeDimensionAlgorithm.h"
-#include "fixDecompAlgorithm.h"
 #include "recursiveBinarySearch.h"
+#include "fixDecompAlgorithm.h"
 
 
 int main() {
-    int N = 3;
+//    int N = 3;
 
 //    int queryCounter = 0;
 //    auto fg = [&queryCounter](auto v) {
@@ -32,22 +30,24 @@ int main() {
 //    printVec(fgFixpoint);
 //    cout << endl;
 
-    auto example2 = [](const vector<int>& v) {
+    vector<int> x {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6};
+    auto example2 = [&x](const vector<int>& v) -> const auto& {
         // example 2 is a 6 dimensional problem on [9]^d.
 //        cout << "queried with vec: ";
 //        printVec(v);
 //        cout << endl;
         assert(v.size() == 15);
 
-        return vector<int> {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6};
+        return x;
     };
+
     auto example3 = [](const vector<int>& v) {
         assert(v.size() == 2);
         return vector<int> {21312334, 71241243};
     };
 
     int queryCount = 0;
-    auto f = [&example2, &queryCount] (const auto& v) {
+    auto f = [&example2, &queryCount] (const auto& v) -> const auto& {
         queryCount++;
         return example2(v);
     };

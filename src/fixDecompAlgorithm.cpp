@@ -5,7 +5,6 @@
 #include "fixDecompAlgorithm.h"
 #include "threeDimensionAlgorithm.h"
 #include "recursiveBinarySearch.h"
-#include <iostream>
 
 vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
                                            const vector<int>& top,
