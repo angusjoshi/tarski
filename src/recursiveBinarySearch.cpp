@@ -10,6 +10,8 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
 
     while(fCurrentMid != fix) {
         if(top - bot <= 1) {
+            assert(bot == currentMid);
+
             return top;
         }
         if(fCurrentMid == down) {
@@ -44,7 +46,6 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
     }
 
     assert(bot.size() > 1);
-
 
     auto currentBot = bot;
     auto currentTop = top;

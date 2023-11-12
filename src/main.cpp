@@ -5,13 +5,10 @@
 #include "fixDecompAlgorithm.h"
 #include <chrono>
 
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 
 int main() {
-    using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
-    using std::chrono::duration;
-    using std::chrono::milliseconds;
-
     vector<int> x {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6};
     auto example2 = [&x](const vector<int>& v) -> const auto& {
         assert(v.size() == 15);
@@ -33,8 +30,8 @@ int main() {
 
     auto t1 = high_resolution_clock::now();
 
-//    auto fixpoint = findFixpointRecBin(bot, top, g);
-    auto fixpoint = findFixpointByFixDecomposition(bot, top, g);
+    auto fixpoint = findFixpointRecBin(bot, top, g);
+//    auto fixpoint = findFixpointByFixDecomposition(bot, top, g);
 
     auto t2 = high_resolution_clock::now();
 
