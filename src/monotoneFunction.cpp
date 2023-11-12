@@ -10,7 +10,7 @@ namespace rng = std::ranges;
 
 function<vector<direction> (const vector<int>&)> getDirectionFunction(
         const function<vector<int>(const vector<int>&)>& f) {
-    return [&f](const auto& v) {
+    return [f](const auto& v) {
         auto results = f(v);
 
         assert(v.size() == results.size());
