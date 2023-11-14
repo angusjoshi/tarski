@@ -75,6 +75,7 @@ int InnerAlgorithm::getNarrowDimension() {
 
 
 pair<vector<int>, vector<direction>> InnerAlgorithm::solveZeroWidthInstance() {
+    assert(false);
     return { {}, {} };
 }
 
@@ -118,6 +119,7 @@ bool InnerAlgorithm::sliceEq(const vector<int>& x, const vector<int>& y) {
 
     return x[0] == y[0] && x[1] == y[1];
 }
+
 int InnerAlgorithm::getNeDimension(const vector<int> &x, const vector<int> &y) {
     int neDimension = x[0] != y[0] ? 0 : 1;
     return neDimension;
