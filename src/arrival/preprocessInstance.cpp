@@ -4,6 +4,7 @@
 
 #include "preprocessInstance.h"
 #include <queue>
+#include "arrivalUtil.h"
 
 vector<vector<int>> getReverseAdjList(const vector<pair<int, int>>& instance) {
     vector<vector<int>> reverseAdjList (instance.size(), vector<int>{});
@@ -23,6 +24,9 @@ vector<vector<int>> getReverseAdjList(const vector<pair<int, int>>& instance) {
 vector<pair<int, int>> preprocessInstance(const vector<pair<int, int>>& instance) {
     assert(instance.size() >= 2);
     auto reverseAdjList = getReverseAdjList(instance);
+
+    cout << "\n\n\n ===============REVERSE=============\n";
+    printReverseInstance(reverseAdjList);
 
     queue<size_t> bfsStack {};
     bfsStack.push(instance.size() - 1);
@@ -45,9 +49,9 @@ vector<pair<int, int>> preprocessInstance(const vector<pair<int, int>>& instance
     for(int i = 0; i < seenBefore.size(); i++) {
         if(seenBefore[i]) continue;
 
-        for(auto& succs : newInstance) {
-            succs.first = succs.first != i ? succs.first : -1;
-            succs.second = succs.second != i ? succs.second : -1;
+        for(int j = 0; j < newInstance.size(); j++) {
+            newInstance[j].first = newInstance[j].first != i ? newInstance[j].first : -1;
+            newInstance[j].second = newInstance[j].second != i ? newInstance[j].second : -1;
         }
 
     }
