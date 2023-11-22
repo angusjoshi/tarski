@@ -1,8 +1,8 @@
 #include <iostream>
-#include "examples.h"
-#include "latticeUtil.h"
-#include "recursiveBinarySearch.h"
-#include "fixDecompAlgorithm.h"
+#include "fixpoint/examples.h"
+#include "fixpoint/latticeUtil.h"
+#include "fixpoint/recursiveBinarySearch.h"
+#include "fixpoint/fixDecompAlgorithm.h"
 #include <chrono>
 
 using std::chrono::high_resolution_clock;

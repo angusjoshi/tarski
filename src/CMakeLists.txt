@@ -6,20 +6,22 @@ SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
 
 add_executable(src main.cpp
-        examples.h
-        innerAlgorithm.h
-        innerAlgorithm.cpp
-        kleeneTarski.h
-        kleeneTarski.cpp
-        latticeUtil.cpp
-        latticeUtil.h
-        monotoneFunction.cpp
-        monotoneFunction.h
-        threeDimensionAlgorithm.cpp
-        threeDimensionAlgorithm.h
-        fixDecompAlgorithm.cpp
-        fixDecompAlgorithm.h
-        recursiveBinarySearch.cpp
-        recursiveBinarySearch.h
+        fixpoint/examples.h
+        fixpoint/innerAlgorithm.h
+        fixpoint/innerAlgorithm.cpp
+        fixpoint/kleeneTarski.h
+        fixpoint/kleeneTarski.cpp
+        fixpoint/latticeUtil.cpp
+        fixpoint/latticeUtil.h
+        fixpoint/monotoneFunction.cpp
+        fixpoint/monotoneFunction.h
+        fixpoint/threeDimensionAlgorithm.cpp
+        fixpoint/threeDimensionAlgorithm.h
+        fixpoint/fixDecompAlgorithm.cpp
+        fixpoint/fixDecompAlgorithm.h
+        fixpoint/recursiveBinarySearch.cpp
+        fixpoint/recursiveBinarySearch.h
+        arrival/preprocessInstance.cpp
+        arrival/preprocessInstance.h
 )
 
