@@ -48,7 +48,7 @@ void fixpointExample() {
     std::cout << "time was: " << ms.count() << "ms" << endl;
 }
 void randExample() {
-    vector<pair<int, int>> instance = generateRandomInstance(10);
+    vector<pair<int, int>> instance = generateRandomInstance(100000);
 
     cout << "\n\n\n ===============RAND=============\n";
     printInstance(instance);

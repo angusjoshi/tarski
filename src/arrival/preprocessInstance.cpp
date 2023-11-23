@@ -46,14 +46,9 @@ vector<pair<int, int>> preprocessInstance(const vector<pair<int, int>>& instance
     }
 
     vector<pair<int, int>> newInstance { instance.begin(), instance.end() };
-    for(int i = 0; i < seenBefore.size(); i++) {
-        if(seenBefore[i]) continue;
-
-        for(int j = 0; j < newInstance.size(); j++) {
-            newInstance[j].first = newInstance[j].first != i ? newInstance[j].first : -1;
-            newInstance[j].second = newInstance[j].second != i ? newInstance[j].second : -1;
-        }
-
+    for(auto& succs : newInstance) {
+        if(!seenBefore[succs.first]) succs.first = -1;
+        if(!seenBefore[succs.second]) succs.second = -1;
     }
 
     return std::move(newInstance);
