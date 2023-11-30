@@ -8,9 +8,12 @@
 #include "arrival/arrivalUtil.h"
 #include "arrival/preprocessInstance.h"
 #include "arrival/simpleWalk.h"
+#include "arrival/arrivalInstance.h"
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
+
+vector<pair<int, int>> longExample { {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7}, {0, 8}, {0, 9}, {0, 10}, {10, 10} };
 
 void fixpointExample() {
     vector<int> x {2, 1, 4, 5, 2, 2, 8, 3, 4, 2, 8, 5, 2, 8, 6};
@@ -34,8 +37,8 @@ void fixpointExample() {
 
     auto t1 = high_resolution_clock::now();
 
-    auto fixpoint = findFixpointRecBin(bot, top, g);
-//    auto fixpoint = findFixpointByFixDecomposition(bot, top, g);
+//    auto fixpoint = findFixpointRecBin(bot, top, g);
+    auto fixpoint = findFixpointByFixDecomposition(bot, top, g);
 
     auto t2 = high_resolution_clock::now();
 
@@ -49,12 +52,9 @@ void fixpointExample() {
 }
 void randExample() {
     vector<pair<int, int>> instance = generateRandomInstance(100000);
-
     cout << "\n\n\n ===============RAND=============\n";
     printInstance(instance);
 
-    instance[3].first = 3;
-    instance[3].second = 3;
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
 
     cout << "\n\n\n ===============PROCESSED=============\n";
@@ -67,10 +67,51 @@ void randExample() {
         cout << "didn't find the end" << endl;
     }
 }
+void arrivalFixpointExample() {
+    vector<pair<int, int>> instance = generateRandomInstance(10);
+//    vector<pair<int, int>> instance  {{2, 1}, {0, 1}, {4, 0}, {4, 1}, {4, 4} };
+//    vector<pair<int, int>> instance = {{0, 0}, {4, 0}, {4, 0}, {1, 4}, {4, 4}};
+//    vector<pair<int, int>> instance {{4, 3}, {0, 1}, {1, 3}, {0, 1}, {4, 4} };
+//    vector<pair<int, int>> instance {{8, 8}, {6, 8}, {0, 8}, {5, 3}, {7, 9}, {2, 4}, {0, 9}, {5, 8}, {1, 9}, {9, 9} }; // segfaults
+//    vector<pair<int, int>> instance { {3, 0}, {6, 0}, {7, 0}, {9, 6}, {7, 2}, {0, 8}, {2, 8}, {4, 3}, {4, 7}, {9, 9} }; // spins
+            cout << "\n\n\n ===============RAND=============\n";
+    printInstance(instance);
+
+    vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
+
+    cout << "\n\n\n ===============PROCESSED=============\n";
+    printInstance(preprocessedInstance);
+
+    ArrivalInstance arrivalInstance {std::move(preprocessedInstance)};
+    auto g = arrivalInstance.getDirectionFunction();
+    auto bot = arrivalInstance.getBot();
+    auto top = arrivalInstance.getTop();
+
+    int queryCounter = 0;
+    auto f =  [&g, &queryCounter] (const auto& v) {
+//        cout << queryCounter << endl;
+        queryCounter++;
+        return g(v);
+    };
+
+//    auto fixpoint = findFixpointRecBin(bot, top, f);
+    auto fixpoint = findFixpointByFixDecomposition(bot, top, f);
+
+    cout << "done!!!!!!! fixpoint is: ";
+    printVec(fixpoint);
+    vector<direction> dirs = f(fixpoint);
+    cout << "query count is: " << queryCounter << endl;
+
+    int sinkInflow = arrivalInstance.computeSinkInflow(fixpoint);
+    cout << "sinkInflow is: " << sinkInflow << endl;
+
+    assert(isAllFixed(dirs));
+}
 
 int main() {
 //    fixpointExample();
-    randExample();
+//    randExample();
+    arrivalFixpointExample();
 
     return 0;
 }

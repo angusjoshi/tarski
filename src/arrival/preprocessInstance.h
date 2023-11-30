@@ -9,6 +9,8 @@
 using namespace std;
 
 vector<vector<int>> getReverseAdjList(const vector<pair<int, int>>& instance);
+vector<pair<vector<int>, vector<int>>> getReverseEvenOddAdjList(const vector<pair<int, int>>& preprocessedInstance);
+pair<vector<int>, vector<int>> getDeadEndReverseAdj(const vector<pair<int, int>>& preprocessedInstance);
 vector<pair<int, int>> preprocessInstance(const vector<pair<int, int>>& instance);
 
 #endif //SRC_PREPROCESSINSTANCE_H

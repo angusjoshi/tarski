@@ -39,5 +39,7 @@ add_executable(src main.cpp
         arrival/arrivalUtil.h
         arrival/simpleWalk.cpp
         arrival/simpleWalk.h
+        arrival/arrivalInstance.cpp
+        arrival/arrivalInstance.h
 )
 

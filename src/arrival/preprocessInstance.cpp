@@ -6,6 +6,44 @@
 #include <queue>
 #include "arrivalUtil.h"
 
+pair<vector<int>, vector<int>> getDeadEndReverseAdj(const vector<pair<int, int>>& instance) {
+    pair<vector<int>, vector<int>> result {{}, {}};
+    for(int i = 0; i < instance.size() - 1; i++) {
+        // don't add the self loops at sink here.
+
+        auto succs = instance[i];
+        auto s0 = succs.first;
+        auto s1 = succs.second;
+
+        if(s0 == -1) {
+            result.first.push_back(i);
+        }
+        if(s1 == -1) {
+            result.second.push_back(i);
+        }
+    }
+
+    return std::move(result);
+}
+vector<pair<vector<int>, vector<int>>> getReverseEvenOddAdjList(const vector<pair<int, int>>& instance) {
+    vector<pair<vector<int>, vector<int>>> reverseAdjList (instance.size(), {{}, {}});
+
+    for(int i = 0; i < instance.size() - 1; i++) {
+        auto succs = instance[i];
+        auto s0 = succs.first;
+        auto s1 = succs.second;
+
+        if(s0 != -1) {
+            reverseAdjList[s0].first.push_back(i);
+        }
+        if(s1 != -1) {
+            reverseAdjList[s1].second.push_back(i);
+        }
+    }
+
+    return std::move(reverseAdjList);
+}
+
 vector<vector<int>> getReverseAdjList(const vector<pair<int, int>>& instance) {
     vector<vector<int>> reverseAdjList (instance.size(), vector<int>{});
 

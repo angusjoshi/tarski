@@ -5,9 +5,14 @@
 #include "arrivalUtil.h"
 
 void printInstance(const vector<pair<int, int>>& instance) {
-    for(auto succs : instance) {
-        cout << "{" << succs.first << ", " << succs.second << "} ";
+    cout << "{ ";
+    for(int i = 0; i < instance.size() - 1; i++) {
+        auto succs = instance[i];
+        cout << "{" << succs.first << ", " << succs.second << "}, ";
     }
+
+    cout << "{" << instance[instance.size() - 1].first << ", " << instance[instance.size() - 1].second << "} }";
+
 
     cout << endl;
 }

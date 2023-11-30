@@ -27,9 +27,8 @@ vector<int> findFixpointByFixDecomposition(const vector<int> &bot,
     assert(bot.size() > 3);
 
     vector<pair<vector<int>, vector<int>>> previouslyQueriedPairs{};
-    auto leftBot = vector<int>{bot.begin(), bot.begin() + 3};
-    auto leftTop = vector<int>{top.begin(), top.begin() + 3};
-
+    vector<int> leftBot {bot.begin(), bot.begin() + 3};
+    vector<int> leftTop {top.begin(), top.begin() + 3};
 
     vector<int> rightFixpoint{};
 

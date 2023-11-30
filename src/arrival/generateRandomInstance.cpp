@@ -6,12 +6,16 @@
 #include <random>
 
 vector<pair<int, int>> generateRandomInstance(int instanceSize) {
-    srand(time(NULL));
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    // note the distribution uses the closed range for some reason...
+    std::uniform_int_distribution<> nodeDistribution(0, instanceSize - 1);
+
     vector<pair<int, int>> randInstance (instanceSize, pair<int, int> {INT_MIN, INT_MIN});
 
     for(int i = 0; i < instanceSize - 1; i++) {
-        int s0 = rand() % instanceSize;
-        int s1 = rand() % instanceSize;
+        int s0 = nodeDistribution(gen);
+        int s1 = nodeDistribution(gen);
 
         randInstance[i].first = s0;
         randInstance[i].second = s1;

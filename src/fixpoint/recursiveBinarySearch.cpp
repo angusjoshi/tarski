@@ -3,7 +3,14 @@
 //
 
 #include "recursiveBinarySearch.h"
+#include <iostream>
 
+bool allButLastFixed(const vector<direction>& v) {
+    for(int i = 0; i < v.size() - 1; i++) {
+        if(v[i] != fix) return false;
+    }
+    return true;
+}
 int binarySearch(int bot, int top, const function<direction(int)>& f) {
     int currentMid = (top - bot) / 2;
     int fCurrentMid = f(currentMid);
@@ -11,7 +18,6 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
     while(fCurrentMid != fix) {
         if(top - bot <= 1) {
             assert(bot == currentMid);
-
             return top;
         }
         if(fCurrentMid == down) {
@@ -25,6 +31,7 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
     }
     return currentMid;
 }
+
 
 vector<int> findFixpointRecBin(const vector<int>& bot,
                                const vector<int>& top,
@@ -42,7 +49,8 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
         };
 
         int resultVal = binarySearch(botVal, topVal, oneDimensionF);
-        return vector<int> {resultVal};
+        vector<int> result {resultVal};
+        return std::move(result);
     }
 
     assert(bot.size() > 1);
@@ -50,8 +58,14 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
     auto currentBot = bot;
     auto currentTop = top;
 
+    bool useCeilDivision = false;
+
     while(true) {
-        int currentMid = (currentTop.back() + currentBot.back()) / 2;
+        int botPlusTop = currentTop.back() + currentBot.back();
+        int currentMid = botPlusTop / 2;
+        if(useCeilDivision) {
+            currentMid += botPlusTop % 2 == 1 ? 1 : 0;
+        }
 
         auto sliceFunction  = [&f, currentMid] (vector<int> v) {
             v.push_back(currentMid);
@@ -64,15 +78,23 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
         vector<int> sliceTop {top.begin(), top.end() - 1};
 
         vector<int> sliceFixpoint = findFixpointRecBin(sliceBot, sliceTop, sliceFunction);
-        sliceFixpoint.push_back(currentMid);
-        vector<direction> result = f(sliceFixpoint);
 
-        if(all_of(result.begin(), result.end(), [](auto x) { return x == fix; })) {
-            return sliceFixpoint;
+        vector<int> other {sliceFixpoint.begin(), sliceFixpoint.end()};
+        other.push_back(currentMid);
+        vector<direction> result = f(other);
+
+        assert(allButLastFixed(result));
+
+        if(result.back() == fix) {
+            return other;
+        }
+
+        if(currentTop.back() - currentBot.back() <= 1) {
+            useCeilDivision = !useCeilDivision;
         }
 
         assert(result.back() != fix);
-        if(result.back() == down) currentTop = sliceFixpoint;
-        if(result.back() == up) currentBot = sliceFixpoint;
+        if(result.back() == down) currentTop = other;
+        if(result.back() == up) currentBot = other;
     }
 }
