@@ -1,0 +1,29 @@
+todo:
+  implement the arrival solving using savani etc.
+    steps:
+      work out exactly how to compute the monotone function
+        idea: guess the outflows, compute the inflows as just taking one step,
+        if fixpoint then flow conservation is recovered :)
+      implement this
+      problem:
+        the values are not going to fit in 32/64 bit integers (need a bit per node)
+        for the moment i'll just keep the problems small, and use long longs or int, and use long longs or ints
+        hopefully the algorithm will be too slow to run on instances bigger than 64 lol.
+
+        if not will have to try to get a bigint to work.
+
+
+  i think the idea of the algorithm is going to be to guess outflows
+  for v \in V, (note V does not include o, d, \overline{d}), put the outflow at
+  for now i'll take as fact that the thing terminates iff there is a switching flow
+  to {d, \overline{d}}.
+  i think i'm going to have to store the reverse adjacency list.
+  this should also be split into the odd/even edges.
+
+  other notes
+    change the arrival instance representation
+    problem is:
+      i need to compute a fixpoint of the function NOT including the last node.
+
+      notes for tomorrow:
+        the breakpoints are set up in a way to make the debugging easy.

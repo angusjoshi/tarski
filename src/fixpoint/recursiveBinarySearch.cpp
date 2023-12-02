@@ -12,13 +12,17 @@ bool allButLastFixed(const vector<direction>& v) {
     return true;
 }
 int binarySearch(int bot, int top, const function<direction(int)>& f) {
-    int currentMid = (top - bot) / 2;
-    int fCurrentMid = f(currentMid);
+    int currentMid = bot + ((top - bot) / 2);
+    direction fCurrentMid = f(currentMid);
 
     while(fCurrentMid != fix) {
         if(top - bot <= 1) {
-            assert(bot == currentMid);
-            return top;
+            if(bot == currentMid) {
+//                assert(f(top) == fix);
+                return top;
+            }
+//            assert(f(bot) == fix);
+            return bot;
         }
         if(fCurrentMid == down) {
             top = currentMid;

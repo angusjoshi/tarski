@@ -129,6 +129,30 @@ src/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/build
 .PHONY : src/fast
 
+analysis/runAnalysis.o: analysis/runAnalysis.cpp.o
+.PHONY : analysis/runAnalysis.o
+
+# target to build an object file
+analysis/runAnalysis.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/analysis/runAnalysis.cpp.o
+.PHONY : analysis/runAnalysis.cpp.o
+
+analysis/runAnalysis.i: analysis/runAnalysis.cpp.i
+.PHONY : analysis/runAnalysis.i
+
+# target to preprocess a source file
+analysis/runAnalysis.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/analysis/runAnalysis.cpp.i
+.PHONY : analysis/runAnalysis.cpp.i
+
+analysis/runAnalysis.s: analysis/runAnalysis.cpp.s
+.PHONY : analysis/runAnalysis.s
+
+# target to generate assembly for a file
+analysis/runAnalysis.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/analysis/runAnalysis.cpp.s
+.PHONY : analysis/runAnalysis.cpp.s
+
 arrival/arrivalInstance.o: arrival/arrivalInstance.cpp.o
 .PHONY : arrival/arrivalInstance.o
 
@@ -450,6 +474,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... src"
+	@echo "... analysis/runAnalysis.o"
+	@echo "... analysis/runAnalysis.i"
+	@echo "... analysis/runAnalysis.s"
 	@echo "... arrival/arrivalInstance.o"
 	@echo "... arrival/arrivalInstance.i"
 	@echo "... arrival/arrivalInstance.s"

@@ -78,6 +78,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/angusjoshi/tarski/src/analysis/runAnalysis.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/Users/angusjoshi/tarski/src/analysis/runAnalysis.h">
+			<Option target="src"/>
+		</Unit>
 		<Unit filename="/Users/angusjoshi/tarski/src/arrival/arrivalInstance.cpp">
 			<Option target="src"/>
 		</Unit>

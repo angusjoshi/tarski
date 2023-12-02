@@ -26,13 +26,17 @@ private:
 
     function<vector<direction> (const vector<int>&)> f;
 
+    bool satisfiesInvariant();
+    bool instanceIsWellFormed();
     [[nodiscard]] vector<int> getMidInSlice(const vector<int>& x, const vector<int>& y) const;
     [[nodiscard]] pair<vector<int>, vector<direction>> helper();
-    void fixWitnesses();
+    bool fixWitnesses();
     bool isNarrowInstance();
     bool isDoublyNarrowInstance();
+    bool isWidthZeroInstance();
     void fixNarrowInstance();
-    pair<vector<int>, vector<direction>> solveZeroWidthInstance();
+    optional<pair<vector<int>, vector<direction>>> trySolveWidthZeroInstance();
+    pair<vector<int>, vector<direction>> solveZeroWidthInstance(int narrowDimension, const vector<int>& bot, const vector<int>& top);
     pair<vector<int>, vector<direction>> exhaustiveSearchInstance();
     int getNarrowDimension();
 
