@@ -37,7 +37,9 @@ vector<int> findFixpoint3(const vector<int>& bot,
         sliceDimension = getLargeEnoughSliceIndex(currentBot, currentTop);
 
         if(sliceDimension == -1) {
-            return searchSmallInstance(currentBot, currentTop, f);
+            auto fixpoint = searchSmallInstance(currentBot, currentTop, f);
+            assert(isAllFixed(f(fixpoint)));
+            return fixpoint;
         }
 
         sliceMiddleValue = getSliceMiddle(currentBot, currentTop, sliceDimension);

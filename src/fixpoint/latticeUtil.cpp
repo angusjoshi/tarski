@@ -50,9 +50,8 @@ void printVec(const vector<int>& v) {
     cout << endl;
 }
 
-int getNextUpIndex(int start, const vector<direction>& a) {
-
-    for(int i = start; i < a.size(); i++) {
+int getNextUpIndex(const vector<direction>& a) {
+    for(int i = 0; i < a.size(); i++) {
         if(a[i] == up) return i;
     }
 
@@ -67,13 +66,13 @@ vector<int> searchSmallInstance(const vector<int>& bot,
 
     assert(isAllWeakUp(fCurrent));
 
-    int currentDimension = getNextUpIndex(0, fCurrent);
+    int currentDimension = getNextUpIndex(fCurrent);
 
     while(currentDimension != -1) {
         current[currentDimension]++;
         fCurrent = f(current);
 
-        currentDimension = getNextUpIndex(currentDimension, fCurrent);
+        currentDimension = getNextUpIndex(fCurrent);
     }
 
     return current;

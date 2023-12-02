@@ -69,16 +69,9 @@ void randExample() {
 }
 void arrivalFixpointExample() {
 
-//    vector<pair<int, int>> instance = generateRandomInstance(10);
+    for(int i = 0; i < 100; i++) {
 
-//    vector<pair<int, int>> instance { {0, 5}, {4, 7}, {0, 5}, {9, 0}, {7, 9}, {7, 6}, {2, 3}, {2, 8}, {4, 9}, {9, 9} }; //lots of queries
-//    vector<pair<int, int>> instance { {7, 4}, {6, 9}, {6, 7}, {5, 3}, {0, 9}, {1, 8}, {6, 4}, {9, 6}, {5, 8}, {9, 9} }; //segfault
-//    vector<pair<int, int>> instance { {5, 4}, {3, 5}, {9, 1}, {2, 4}, {6, 8}, {4, 2}, {9, 2}, {7, 0}, {8, 4}, {9, 9} }; // returns not a fixpoint.
-    vector<pair<int, int>> instance { {5, 4}, {6, 9}, {5, 0}, {1, 3}, {3, 2}, {6, 5}, {7, 8}, {7, 0}, {9, 9}, {9, 9} }; // returns not a fixpoint.
-
-
-
-
+    vector<pair<int, int>> instance = generateRandomInstance(15);
 
             cout << "\n\n\n ===============RAND=============\n";
     printInstance(instance);
@@ -112,6 +105,7 @@ void arrivalFixpointExample() {
 
     assert(isAllFixed(dirs));
     if(!isAllFixed(dirs)) throw;
+    }
 }
 
 int main() {

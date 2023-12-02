@@ -5,6 +5,9 @@
 #include "fixDecompAlgorithm.h"
 #include "threeDimensionAlgorithm.h"
 #include "recursiveBinarySearch.h"
+#include <iostream>
+
+
 
 vector<int> findFixpointByFixDecomposition(const vector<int> &bot,
                                            const vector<int> &top,
@@ -55,7 +58,12 @@ vector<int> findFixpointByFixDecomposition(const vector<int> &bot,
             }
         }
 
+        assert(isAllWeakUp(rightFunction(rightBot)));
+        assert(isAllWeakDown(rightFunction(rightTop)));
+        assert(latticeLe(rightBot, rightTop));
+
         rightFixpoint = findFixpointByFixDecomposition(rightBot, rightTop, rightFunction);
+        assert(isAllFixed(rightFunction(rightFixpoint)));
 
         vector<int> leftRight{};
         leftRight.insert(leftRight.end(), v.begin(), v.end());
@@ -66,7 +74,7 @@ vector<int> findFixpointByFixDecomposition(const vector<int> &bot,
         auto queriedPair = pair<vector<int>, vector<int>>{v, rightFixpoint};
         previouslyQueriedPairs.push_back(queriedPair);
 
-        return vector<direction>{fxy.begin(), fxy.begin() + 3};
+        return vector<direction>{fxy.begin(), fxy.begin() + v.size()};
     };
 
     auto leftFixpoint = findFixpoint3(leftBot, leftTop, leftFunction);

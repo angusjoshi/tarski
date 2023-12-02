@@ -10,6 +10,7 @@
 #include "../arrival/arrivalInstance.h"
 #include "../arrival/preprocessInstance.h"
 #include "../fixpoint/fixDecompAlgorithm.h"
+#include <thread>
 
 using namespace std;
 
