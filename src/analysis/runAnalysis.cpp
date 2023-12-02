@@ -10,45 +10,55 @@
 #include "../arrival/arrivalInstance.h"
 #include "../arrival/preprocessInstance.h"
 #include "../fixpoint/fixDecompAlgorithm.h"
+#include "../fixpoint/recursiveBinarySearch.h"
 #include <thread>
+#include <chrono>
+#include <future>
 
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 using namespace std;
 
 vector<int> sizes {3, 5, 8, 12, 15, 20};
 vector<int> danqiyeSizes {3, 4, 5, 6, 7, 8};
 
-void runAndPrintAnalysis() {
-    vector<pair<int, int>> instance = generateRandomInstance(23);
+enum algorithm {
+    recbin,
+    decomp,
+};
 
-    cout << "\n\n\n ===============RAND=============\n";
-    printInstance(instance);
 
+pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun) {
+    vector<pair<int, int>> instance = generateRandomInstance(instanceSize);
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
-
-    cout << "\n\n\n ===============PROCESSED=============\n";
-    printInstance(preprocessedInstance);
-
     ArrivalInstance arrivalInstance {std::move(preprocessedInstance)};
     auto g = arrivalInstance.getDirectionFunction();
     auto bot = arrivalInstance.getBot();
     auto top = arrivalInstance.getTop();
 
-    int queryCounter = 0;
+    long long queryCounter = 0;
     auto f =  [&g, &queryCounter] (const auto& v) {
         queryCounter++;
         return g(v);
     };
 
+    auto t1 = high_resolution_clock::now();
+
+    auto fixpoint = algorithmToRun == decomp
+            ? findFixpointByFixDecomposition(bot, top, f)
+            : findFixpointRecBin(bot, top, f);
+
+    auto t2 = high_resolution_clock::now();
+
+    duration<double, std::milli> ms = t2 - t1;
+
+    return { queryCounter, ms.count() };
+}
+
+void runAndPrintAnalysis() {
 //    auto fixpoint = findFixpointRecBin(bot, top, f);
-    auto fixpoint = findFixpointByFixDecomposition(bot, top, f);
 
-    cout << "done!!!!!!! fixpoint is: ";
-    printVec(fixpoint);
-    vector<direction> dirs = f(fixpoint);
-    cout << "query count is: " << queryCounter << endl;
-
-    int sinkInflow = arrivalInstance.computeSinkInflow(fixpoint);
-    cout << "sinkInflow is: " << sinkInflow << endl;
-
-    assert(isAllFixed(dirs));
+    auto [queryCount, time] = solveRandomArrival(15, decomp);
+    cout << "query count was: " << queryCount << endl;
+    cout << "time was: " << time << "ms" << endl;
 }

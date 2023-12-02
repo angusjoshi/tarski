@@ -63,9 +63,6 @@ vector<pair<int, int>> preprocessInstance(const vector<pair<int, int>>& instance
     assert(instance.size() >= 2);
     auto reverseAdjList = getReverseAdjList(instance);
 
-    cout << "\n\n\n ===============REVERSE=============\n";
-    printReverseInstance(reverseAdjList);
-
     queue<size_t> bfsStack {};
     bfsStack.push(instance.size() - 1);
     vector<bool> seenBefore (instance.size(), false);

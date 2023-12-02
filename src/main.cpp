@@ -9,6 +9,7 @@
 #include "arrival/preprocessInstance.h"
 #include "arrival/simpleWalk.h"
 #include "arrival/arrivalInstance.h"
+#include "analysis/runAnalysis.h"
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
@@ -111,8 +112,9 @@ void arrivalFixpointExample() {
 int main() {
 //    fixpointExample();
 //    randExample();
-    arrivalFixpointExample();
+//    arrivalFixpointExample();
 
+    runAndPrintAnalysis();
     return 0;
 }
 
