@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  2 DEC 2023 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  2 DEC 2023 22:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1069,22 +1069,22 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.221 \end{frame}
+l.223 \end{frame}
                  
 ? 
 <avQueries.png, id=401, 462.528pt x 346.896pt>
 File: avQueries.png Graphic file (type png)
 <use avQueries.png>
-Package pdftex.def Info: avQueries.png  used on input line 221.
+Package pdftex.def Info: avQueries.png  used on input line 223.
 (pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
 
-! LaTeX Error: \begin{center} on input line 221 ended by \end{subfigure}.
+! LaTeX Error: \begin{center} on input line 223 ended by \end{subfigure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.221 \end{frame}
+l.223 \end{frame}
                  
 ? 
 
@@ -1094,28 +1094,24 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.221 \end{frame}
+l.223 \end{frame}
                  
 ? 
 <avTime.png, id=403, 462.528pt x 346.896pt>
 File: avTime.png Graphic file (type png)
 <use avTime.png>
-Package pdftex.def Info: avTime.png  used on input line 221.
+Package pdftex.def Info: avTime.png  used on input line 223.
 (pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
 
-! LaTeX Error: \begin{center} on input line 221 ended by \end{subfigure}.
+! LaTeX Error: \begin{center} on input line 223 ended by \end{subfigure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.221 \end{frame}
+l.223 \end{frame}
                  
 ? 
-
-Overfull \vbox (18.4198pt too high) detected at line 221
- []
-
 [9
 
  <./avQueries.png> <./avTime.png>]
@@ -1150,7 +1146,7 @@ sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
 /local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/
 local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on presentation.pdf (9 pages, 204025 bytes).
+Output written on presentation.pdf (9 pages, 204026 bytes).
 PDF statistics:
  487 PDF objects out of 1000 (max. 8388607)
  377 compressed objects within 4 object streams
