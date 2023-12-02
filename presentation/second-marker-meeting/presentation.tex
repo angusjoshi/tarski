@@ -1,0 +1,222 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{algorithmic}
+\usepackage{tikz}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Tarski]{Tarski Fixed Point Computation and the Arrival Problem} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Angus Joshi} % Your name
+\institute[UoE] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+University of Edinburgh \\ % Your institution for the title page
+\medskip
+\textit{s1712180@ed.ac.uk} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Basic Definitions and Algorithmic Results} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{The integer lattice, monotone functions, Tarski's theorem} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{The integer lattice, monotone functions, Tarski's theorem}
+    \begin{definition}[Bounded Integer Lattice]
+        The \emph{bounded d-dimensional integer lattice} $[N]^d = \{1, ..., N\}^d$ is equipped with a lattice ordering
+        where for $(x_1, ..., x_d), (x_1', ..., x'_d) \in [N]^d$, $(x_1, ..., x_d) \leq (x_1', ..., x'_d)$ if
+        $x_i \leq x'_i$ for each $i \in [d]$.
+    \end{definition}
+    \begin{definition}[Monotone function] 
+        A function $f : [N]^d \to [N]^d$ is monotone if whenever $x, x' \in [N]^d$ with $x \leq x'$, $f(x) \leq f(x')$.
+    \end{definition}
+    \begin{Theorem}[Tarski]
+        If $f : [N]^d \to [N]^d$ is monotone, then there is a point $x \in [N]^d$ with $f(x) = x$.
+    \end{Theorem}
+\end{frame}
+
+\subsection{The problem, Lower bounds}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{The problem, Lower Bounds}
+    \begin{Definition}[\textsc{Tarski}]
+        The problem $\textsc{Tarski}(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x \in [N]^d$ such that
+        $f(x) = x$.
+    \end{Definition}
+    \begin{Theorem}[Etessami, Papadimitriou, Rubinstein, Yannakis]
+        The query complexity of $\textsc{Tarski}(N, 2)$ is $\Theta(\log^2 N)$.
+    \end{Theorem}
+    \begin{Corollary}
+        The query complexity of $\textsc{Tarski}(N, d)$ is $\Omega(\log^2 N)$ for $d \geq 2$.
+    \end{Corollary}
+\end{frame}
+
+%------------------------------------------------
+
+\newcommand{\trsk}{\textsc{Tarski }}
+
+\subsection{Known Upper Bounds}
+\begin{frame}
+\frametitle{Known Upper Bounds}
+
+\begin{Theorem}[Fearnley, Pálvölgyi, Savani]
+    The query complexity of $\trsk(N, 3)$ is $\Theta(\log^2 N)$.
+\end{Theorem}
+\begin{Theorem}[Chen, Li]
+    The query complexity of $\trsk(N, d)$ is $O(\log^{\lceil (k+1) / 2 \rceil} N)$.
+\end{Theorem}
+
+\end{frame}
+
+%------------------------------------------------
+
+\section{The Arrival Problem}
+\subsection{Definitions}
+\begin{frame}
+\frametitle{The Arrival Problem}
+    \input{arrivalDiagram}
+    
+\end{frame}
+
+
+\subsection{Reduction to \textsc{Tarski}}
+\begin{frame}
+\frametitle{Reduction to \textsc{Tarski}}
+    \begin{Theorem}[Gärtner, Haslebacher, Hoang]
+        \textsc{Arrival} is polynomial-time reducible to \textsc{Tarski}.
+    \end{Theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\newcommand{\pav}{Pálvölgyi}
+\section{Progress and Next Steps}
+\begin{frame}
+\frametitle{Progress and Next Steps}
+    \begin{itemize}
+        \item Progress
+        \begin{itemize}
+            \item Explored solving the 4-dimensional \trsk problem,
+            \item Implemented Fearnley, \pav, Savani algorithm,
+            \item Applied the algorithm to randomly generated instances of \textsc{Arrival}.
+        \end{itemize}
+        \item Next Steps
+        \begin{itemize}
+            \item Explore solving the 4-dimensional \trsk problem in the special case of monotone functions
+            corresponding to arrival instances.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experimental Data}
+    \begin{figure}[t]
+        \begin{subfigure}
+            \includegraphics[width=2.2in]{avQueries.png}
+          \end{subfigure}
+
+          \begin{subfigure}
+            \includegraphics[width=2.2in]{avTime.png}
+        \end{subfigure}
+    \end{figure}
+\end{frame}
+\end{document}

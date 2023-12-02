@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Basic Definitions and Algorithmic Results}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{The integer lattice, monotone functions, Tarski's theorem}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{The problem, Lower bounds}{4}{0}{1}
+\beamer@subsectionintoc {1}{3}{Known Upper Bounds}{5}{0}{1}
+\beamer@sectionintoc {2}{The Arrival Problem}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Definitions}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{Reduction to \textsc {Tarski}}{7}{0}{2}
+\beamer@sectionintoc {3}{Progress and Next Steps}{8}{0}{3}
