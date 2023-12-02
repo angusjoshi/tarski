@@ -63,19 +63,19 @@ vector<pair<int, int>> preprocessInstance(const vector<pair<int, int>>& instance
     assert(instance.size() >= 2);
     auto reverseAdjList = getReverseAdjList(instance);
 
-    queue<size_t> bfsStack {};
-    bfsStack.push(instance.size() - 1);
+    queue<size_t> bfsQueue {};
+    bfsQueue.push(instance.size() - 1);
     vector<bool> seenBefore (instance.size(), false);
     seenBefore[instance.size() - 1] = true;
 
-    while(!bfsStack.empty()) {
-        auto i = bfsStack.front();
-        bfsStack.pop();
+    while(!bfsQueue.empty()) {
+        auto i = bfsQueue.front();
+        bfsQueue.pop();
 
         for(auto reverseAdj : reverseAdjList[i]) {
             if(seenBefore[reverseAdj]) continue;
 
-            bfsStack.push(reverseAdj);
+            bfsQueue.push(reverseAdj);
             seenBefore[reverseAdj] = true;
         }
     }

@@ -61,7 +61,7 @@ void randExample() {
     cout << "\n\n\n ===============PROCESSED=============\n";
     printInstance(preprocessedInstance);
 
-    bool result = simpleWalk(preprocessedInstance);
+    int result = simpleWalk(preprocessedInstance);
     if(result) {
         cout << "found the end" << endl;
     } else {

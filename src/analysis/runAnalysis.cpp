@@ -11,9 +11,11 @@
 #include "../arrival/preprocessInstance.h"
 #include "../fixpoint/fixDecompAlgorithm.h"
 #include "../fixpoint/recursiveBinarySearch.h"
+#include "../arrival/simpleWalk.h"
 #include <thread>
 #include <chrono>
 #include <future>
+#include <numeric>
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
@@ -55,10 +57,83 @@ pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun)
     return { queryCounter, ms.count() };
 }
 
+pair<int, double> solveRandomArrivalWithWalk(int instanceSize) {
+    auto instance = generateRandomInstance(instanceSize);
+    auto processedInstance = preprocessInstance(instance);
+
+    auto t1 = high_resolution_clock::now();
+    int walkLength = simpleWalk(processedInstance);
+    auto t2 = high_resolution_clock::now();
+    duration<double, std::milli> ms = t2 - t1;
+
+    return { walkLength, ms.count() };
+}
+
 void runAndPrintAnalysis() {
 //    auto fixpoint = findFixpointRecBin(bot, top, f);
 
-    auto [queryCount, time] = solveRandomArrival(15, decomp);
-    cout << "query count was: " << queryCount << endl;
-    cout << "time was: " << time << "ms" << endl;
+    vector<int> decompTestSizes {3, 6, 9, 12, 15, 18};
+    vector<int> recBinTestSizes {3, 5, 7, 9};
+    vector<int> walkTestSizes {10, 100, 1000, 10000, 100000};
+
+    string line = "==================================================\n";
+
+
+    cout << line;
+    cout << "STARTING DECOMP TEST" << endl;
+    for(auto testSize : decompTestSizes) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < 20; i++) {
+            auto [queryCount, time] = solveRandomArrival(testSize, decomp);
+            queryCounts.push_back(queryCount);
+            times.push_back(time);
+        }
+
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / 100;
+        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / 100;
+        cout << line;
+        cout << "test size: " << testSize << endl;
+        cout << "avg queries was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
+
+    cout << line;
+    cout << "STARTING RECBIN TEST" << endl;
+    for(auto testSize : recBinTestSizes) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < 20; i++) {
+            auto [queryCount, time] = solveRandomArrival(testSize, recbin);
+            queryCounts.push_back(queryCount);
+            times.push_back(time);
+        }
+
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / 100;
+        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / 100;
+        cout << "===========================================================" << endl;
+        cout << "test size: " << testSize << endl;
+        cout << "avg queries was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
+
+    cout << line;
+    cout << "STARTING WALK TEST" << endl;
+    for(auto testSize : walkTestSizes) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < 20; i++) {
+            auto [stepCount, time] = solveRandomArrivalWithWalk(testSize);
+            queryCounts.push_back(stepCount);
+            times.push_back(time);
+        }
+
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / 100;
+        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / 100;
+        cout << "===========================================================" << endl;
+        cout << "test size: " << testSize << endl;
+        cout << "avg steps was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
+
 }
