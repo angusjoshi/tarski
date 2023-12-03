@@ -19,6 +19,7 @@ private:
 public:
     ArrivalInstance(vector<pair<int, int>>&& adjList);
     function<vector<direction>(const vector<int> &)> getDirectionFunction();
+    function<vector<int>(const vector<int> &)> getIntFunction();
     vector<int> getBot();
     vector<int> getTop();
     int computeSinkInflow(const vector<int>& outflows);

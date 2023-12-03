@@ -20,27 +20,29 @@ ArrivalInstance::ArrivalInstance(vector<pair<int, int>>&& adjList) : adjList(adj
     flowUpperBound = 1 << adjList.size();
 }
 
-function<vector<direction>(const vector<int> &)> ArrivalInstance::getDirectionFunction() {
-    auto f = [this] (const auto& v) {
+function<vector<int>(const vector<int> &)> ArrivalInstance::getIntFunction() {
+    return [this] (const auto& v) {
         assert(v.size() == adjList.size() - 1);
-      vector<int> result (adjList.size() - 1, 0);
+        vector<int> result (adjList.size() - 1, 0);
 
-      // the inflow from source.
-      result[0] = 1;
+        // the inflow from source.
+        result[0] = 1;
 
-      for(int i = 0; i < reverseAdjList.size() - 1; i++) {
-          for(const auto j : reverseAdjList[i].first) {
-              result[i] = min(flowUpperBound, result[i] + ceilDivideByTwo(v[j]));
-          }
+        for(int i = 0; i < reverseAdjList.size() - 1; i++) {
+            for(const auto j : reverseAdjList[i].first) {
+                result[i] = min(flowUpperBound, result[i] + ceilDivideByTwo(v[j]));
+            }
 
-          for(const auto j : reverseAdjList[i].second) {
-              result[i] = min(flowUpperBound, result[i] + floorDivideByTwo(v[j]));
-          }
-      }
-      return result;
+            for(const auto j : reverseAdjList[i].second) {
+                result[i] = min(flowUpperBound, result[i] + floorDivideByTwo(v[j]));
+            }
+        }
+        return result;
     };
+}
 
-    return ::getDirectionFunction(f);
+function<vector<direction>(const vector<int> &)> ArrivalInstance::getDirectionFunction() {
+    return ::getDirectionFunction(getIntFunction());
 }
 
 vector<int> ArrivalInstance::getBot() {

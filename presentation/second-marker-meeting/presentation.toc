@@ -6,3 +6,5 @@
 \beamer@subsectionintoc {2}{1}{Definitions}{6}{0}{2}
 \beamer@subsectionintoc {2}{2}{Reduction to \textsc {Tarski}}{7}{0}{2}
 \beamer@sectionintoc {3}{Progress and Next Steps}{8}{0}{3}
+\beamer@subsectionintoc {3}{1}{Testing the Algorithms}{8}{0}{3}
+\beamer@subsectionintoc {3}{2}{Progress and next steps}{10}{0}{3}

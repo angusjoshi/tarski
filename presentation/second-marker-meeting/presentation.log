@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  2 DEC 2023 22:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  3 DEC 2023 12:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1055,66 +1055,39 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <14.4> not available
 [7
 
 ]
-
-LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <10> not available
-(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 208.
-
-[8
-
-]
-
-! LaTeX Error: Environment subfigure undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.223 \end{frame}
-                 
-? 
-<avQueries.png, id=401, 462.528pt x 346.896pt>
+<avQueries.png, id=384, 462.528pt x 346.896pt>
 File: avQueries.png Graphic file (type png)
 <use avQueries.png>
-Package pdftex.def Info: avQueries.png  used on input line 223.
+Package pdftex.def Info: avQueries.png  used on input line 201.
 (pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
-
-! LaTeX Error: \begin{center} on input line 223 ended by \end{subfigure}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.223 \end{frame}
-                 
-? 
-
-! LaTeX Error: Environment subfigure undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.223 \end{frame}
-                 
-? 
-<avTime.png, id=403, 462.528pt x 346.896pt>
+<avTime.png, id=386, 462.528pt x 346.896pt>
 File: avTime.png Graphic file (type png)
 <use avTime.png>
-Package pdftex.def Info: avTime.png  used on input line 223.
+Package pdftex.def Info: avTime.png  used on input line 201.
 (pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
-
-! LaTeX Error: \begin{center} on input line 223 ended by \end{subfigure}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.223 \end{frame}
-                 
-? 
-[9
+ [8
 
  <./avQueries.png> <./avTime.png>]
+<walkLength.png, id=416, 462.528pt x 346.896pt>
+File: walkLength.png Graphic file (type png)
+<use walkLength.png>
+Package pdftex.def Info: walkLength.png  used on input line 212.
+(pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
+<walkTime.png, id=417, 462.528pt x 346.896pt>
+File: walkTime.png Graphic file (type png)
+<use walkTime.png>
+Package pdftex.def Info: walkTime.png  used on input line 212.
+(pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
+ [9
+
+ <./walkLength.png> <./walkTime.png>]
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <10> not available
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 231.
+
+[10
+
+]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -1126,13 +1099,13 @@ l.223 \end{frame}
 
  (./presentation.aux)
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 1D07C9C9BDE28DD69DC7ED86F022E4E6;1545.
+(rerunfilecheck)             Checksum: 4B26B201F8AEC9502C628DBDB6E69075;1901.
  ) 
 Here is how much of TeX's memory you used:
- 25437 strings out of 476025
- 515054 string characters out of 5790017
- 1872388 words of memory out of 5000000
- 45346 multiletter control sequences out of 15000+600000
+ 25462 strings out of 476025
+ 515415 string characters out of 5790017
+ 1871388 words of memory out of 5000000
+ 45365 multiletter control sequences out of 15000+600000
  522513 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,408b,706s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1146,10 +1119,10 @@ sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
 /local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/
 local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on presentation.pdf (9 pages, 204031 bytes).
+Output written on presentation.pdf (10 pages, 249251 bytes).
 PDF statistics:
- 487 PDF objects out of 1000 (max. 8388607)
- 377 compressed objects within 4 object streams
- 27 named destinations out of 1000 (max. 500000)
- 489 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 529 PDF objects out of 1000 (max. 8388607)
+ 413 compressed objects within 5 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 515 words of extra memory for PDF output out of 10000 (max. 10000000)
 

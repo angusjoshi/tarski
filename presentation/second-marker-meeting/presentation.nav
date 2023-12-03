@@ -31,12 +31,18 @@
 \headcommand {\beamer@sectionpages {6}{7}}
 \headcommand {\beamer@subsectionpages {7}{7}}
 \headcommand {\sectionentry {3}{Progress and Next Steps}{8}{Progress and Next Steps}{0}}
-\headcommand {\slideentry {3}{0}{1}{8/8}{}{0}}
+\headcommand {\beamer@subsectionpages {8}{7}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{8}{Testing the Algorithms}}
+\headcommand {\slideentry {3}{1}{1}{8/8}{Testing the Algorithms}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\slideentry {3}{0}{2}{9/9}{}{0}}
+\headcommand {\slideentry {3}{1}{2}{9/9}{Testing the Algorithms}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\beamer@partpages {1}{9}}
 \headcommand {\beamer@subsectionpages {8}{9}}
-\headcommand {\beamer@sectionpages {8}{9}}
-\headcommand {\beamer@documentpages {9}}
-\headcommand {\gdef \inserttotalframenumber {9}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{10}{Progress and next steps}}
+\headcommand {\slideentry {3}{2}{1}{10/10}{Progress and next steps}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\beamer@partpages {1}{10}}
+\headcommand {\beamer@subsectionpages {10}{10}}
+\headcommand {\beamer@sectionpages {8}{10}}
+\headcommand {\beamer@documentpages {10}}
+\headcommand {\gdef \inserttotalframenumber {10}}
