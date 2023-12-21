@@ -405,6 +405,10 @@ pair<vector<int>, vector<direction>> findMonotonePoint3(const vector<int> &bot,
 
     assert(isAllWeakUp(monotonePoint.second) || isAllWeakDown(monotonePoint.second));
     monotonePoint.first.insert(monotonePoint.first.begin() + sliceDimension, sliceValue);
+//    if(isAllWeakUp(monotonePoint.second)) {
+//        printVec(monotonePoint.first);
+//        printDirections(monotonePoint.second);
+//    }
     return monotonePoint;
 }
 

@@ -43,6 +43,12 @@ int getLargeEnoughSliceIndex(const vector<int>& bot, const vector<int>& top) {
     return -1;
 }
 
+void printVec(const vector<long long>& v) {
+    for(const auto i : v) {
+        cout << i << '\t';
+    }
+    cout << endl;
+}
 void printVec(const vector<int>& v) {
     for(const auto i : v) {
         cout << i << '\t';

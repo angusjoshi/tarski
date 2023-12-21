@@ -29,6 +29,16 @@ function<vector<direction> (const vector<int>&)> getDirectionFunction(
     };
 }
 
+void printDirections(const vector<direction>& directions) {
+    for(const auto& direction : directions) {
+        cout << (direction == up
+                 ? "up"
+                 : direction == down
+                   ? "down"
+                   : "fix") << " ";
+    }
+    cout << endl;
+}
 function<vector<direction> (const vector<int>&)> getSlicedFunction(
         const function<vector<direction> (const vector<int>&)>& f,
         int sliceDimension,

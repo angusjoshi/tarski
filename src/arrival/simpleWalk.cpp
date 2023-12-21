@@ -5,12 +5,15 @@
 #include "simpleWalk.h"
 #include <iostream>
 
-long long simpleWalk(const vector<pair<int, int>>& instance) {
+pair<vector<long long>, long long> simpleWalk(const vector<pair<int, int>>& instance) {
     vector<bool> switches(instance.size(), false);
+    vector<long long> flows(instance.size(), 0);
     int current = 0;
     long long counter = 0;
     while(current != instance.size() - 1) {
-        if(current == -1) return counter;
+        if(current == -1) return { flows, counter };
+
+        flows[current]++;
 
         bool currentSwitch = switches[current];
         switches[current] = !switches[current];
@@ -25,5 +28,7 @@ long long simpleWalk(const vector<pair<int, int>>& instance) {
         counter++;
     }
 
-    return counter;
+    flows[current]++;
+
+    return {flows, counter};
 }

@@ -17,6 +17,7 @@ bool isUp(const vector<int>& point, const function<vector<direction> (const vect
 bool isDown(const vector<int>& point, const function<vector<direction> (const vector<int>&)>& f);
 int getSliceMiddle(const vector<int>& bot, const vector<int>& top, int i);
 int getLargeEnoughSliceIndex(const vector<int>& bot, const vector<int>& top);
+void printVec(const vector<long long>& v);
 void printVec(const vector<int>& v);
 int getNextUpIndex(const vector<direction>& a);
 vector<int> searchSmallInstance(const vector<int>& bot,

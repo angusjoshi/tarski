@@ -61,8 +61,8 @@ void randExample() {
     cout << "\n\n\n ===============PROCESSED=============\n";
     printInstance(preprocessedInstance);
 
-    int result = simpleWalk(preprocessedInstance);
-    if(result) {
+    auto [flows, counter] = simpleWalk(preprocessedInstance);
+    if(counter) {
         cout << "found the end" << endl;
     } else {
         cout << "didn't find the end" << endl;

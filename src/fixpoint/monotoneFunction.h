@@ -24,6 +24,7 @@ function<vector<direction> (const vector<int>&)> getSlicedFunction(
         int sliceDimension,
         int sliceVal);
 
+void printDirections(const vector<direction>& directions);
 function<vector<direction> (const vector<int>&)> getDirectionFunction(
         const function<vector<int> (const vector<int>&)>& f
         );

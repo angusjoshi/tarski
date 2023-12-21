@@ -17,6 +17,9 @@ private:
 
 
 public:
+    bool hasDiagonalEntries();
+    bool hasSelfLoops();
+    void print();
     ArrivalInstance(vector<pair<int, int>>&& adjList);
     function<vector<direction>(const vector<int> &)> getDirectionFunction();
     function<vector<int>(const vector<int> &)> getIntFunction();

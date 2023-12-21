@@ -1,0 +1,83 @@
+\chapter{Background}
+
+\section{Lattices and Monotone Functions}
+A definition seems like a good place to start.
+\begin{definition}[Lattice]\label{latedef}
+  A \emph{lattice} is a set $L$, and two binary operations $\wedge, \vee : L \times L \to L$ called \emph{join} and \emph{meet} respectively,
+  such that the following axioms hold. For all $a, b, c \in L$,
+  \begin{itemize}
+    \item $a \wedge (a \vee b) = a$ and $a \vee (a \wedge b) = b$ (absorption),
+    \item $a \wedge b = b \wedge a$ and $a \vee b = b \vee a$ (commutativity),
+    \item $a \wedge (b \wedge c) = (a \wedge b) \wedge c$ and $a \vee (b \vee c) = (a \vee b) \vee a$ (associativity).
+  \end{itemize}
+\end{definition}
+For the purposes of this project, I'm primarily concerned with an order-theoretic characterization of lattices. 
+\begin{definition}[Poset]\label{posetdef}
+  A \emph{partially ordered set}, or \emph{poset} is a set $S$ with a binary relation $\leq$ on $S$ such that the following axioms hold,
+  \begin{itemize}
+    \item For all $s \in S$, $s \leq s$ (reflexivity),
+    \item for all $s, t, u \in S$, if $s \leq t$ and $t \leq u$ then $s \leq u$ (transitivity),
+    \item for all $s, t \in S$, if $s \leq t$ and $t \leq s$ then $s = t$ (antisymmetry).
+  \end{itemize}
+\end{definition}
+As it turns out, any lattice structure induces a partial order
+\begin{lemma}\label{joinMeetIdempotent}
+  Let $(L, \wedge, \vee)$ be a lattice. Then for all $l \in L$, $l \wedge l = l$ and $l \vee l = l$.
+\end{lemma}
+\begin{proof}
+  Let $l \in L$. Then by two applications of the absorption laws, $l = l \vee (l \wedge (l \vee l)) = l \wedge l$. $l \vee l = l$ follows
+  by duality.
+\end{proof}
+\begin{prop}\label{latOrd}
+  Let $(L, \wedge, \vee)$ be a lattice. Then for all $l, l' \in L$, the binary relation defined by $l \leq l'$ if and only if $l \vee l' = l'$
+  is a partial order on $L$.
+\end{prop}
+\begin{proof}
+  Reflexivity follows immediately by \cref{joinMeetIdempotent}. For transitivity, let $l, m, n \in L$ and suppose
+  $l \vee m = m$ and $m \vee n = n$. Then using associativity of $\vee$,
+  \begin{align*}
+    l \vee n = l \vee (m \vee n) = (l \vee m) \vee n = m \vee n = n.
+  \end{align*}
+  For antisymmetry, suppose $l \vee m = m$ and $m \vee l = l$. By commutativity of $\vee$, 
+  \begin{align*}
+    l = m \vee l = l \vee m = m.
+  \end{align*}
+\end{proof}
+\begin{remark}
+  Although \cref{latOrd} only uses half of the structure of the lattice to define a partial order
+  that there is a dual definition where $l \leq l'$ if and only if $l \wedge l' = l$, and the two are equivalent by the absorption laws.
+\end{remark}
+The partial ordering induced by a lattice is in fact a very special case of a general partial order.
+\begin{definition}[Least/Greatest Lower Bounds]
+  Let $S$ be a set with partial ordering $\leq$. For $s, s' \in S$, $t$ is the \emph{greatest lower bound} of $s$ and $s'$
+  if $s \geq t$, $s' \geq t$ and whenever $t' \in S$ satisfies $s \geq t'$ and $s' \geq t'$ I have $t \geq t'$.
+  The \emph{least upper bound} is dual to the greatest lower bound.
+\end{definition}
+\begin{definition}[Lattice Ordering]
+  Let $L$ be a set. A \emph{lattice ordering} on $L$ is a partial ordering $\leq$ on $L$ such that for all $l, l' \in L$, $l$ and $l'$
+  have a unique greatest lower bound, and least upper bound.
+\end{definition}
+\begin{prop}
+  Let $(L, \wedge, \vee)$ be a lattice. Then the binary relation $\leq$ on $L$ defined by $l \leq l'$ if and only if
+  $l \vee l' = l'$ is a lattice ordering on $L$.
+\end{prop}
+\begin{proof}
+  By \cref{latOrd}, $\leq$ is a partial order on $L$. So let $l, l' \in L$. I will show that the least upper bound of
+  $l$ and $l'$ is precisely $l \vee l'$. Firstly, $l \vee (l \vee l') = (l \vee l) \vee l' = l \vee l'$, and $l \leq (l \vee l')$.
+  $l' \leq (l \vee l')$ follows similarly. Now suppose $m \in L$ satisfies $l \vee m = m$ and $l' \vee m = m$. Then,
+  \begin{align*}
+    (l \vee l') \vee m = l \vee (l' \vee m) = l \vee m = m,
+  \end{align*}
+  and $l \vee l' \leq m$. Finally for uniqueness, if $m, m'$ are least upper bounds of $l$ and $l'$, then $m \leq m'$ and $m' \leq m$,
+  so by antisymmetry, $m = m'$. That $l \wedge l'$ is the greatest lower bound of $l$ and $l'$ follows by duality.
+\end{proof}
+The purely algebraic definition of a lattice will prove not useful in the context of this project, so from here on I will use the abuse
+of notation that $(L, \leq)$ is a lattice if $\leq$ is a lattice ordering on $L$. Now on to monotone functions.
+\begin{definition}[Monotone Function]
+  Let $(L, \leq)$ be a lattice. Then a function of the underlying set $f : L \to L$ is \emph{monotone} if whenever $l, l' \in L$ with
+  $l \leq l'$ I have $f(l) \leq f(l')$.
+\end{definition}
+\section{Fixpoints}
+asdfsdf
+\section{The Arrival Problem}
+asdfsdaf

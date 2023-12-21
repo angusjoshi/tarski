@@ -7,5 +7,5 @@
 #include <vector>
 using namespace std;
 
-long long simpleWalk(const vector<pair<int, int>>& instance);
+pair<vector<long long>, long long> simpleWalk(const vector<pair<int, int>>& instance);
 #endif //SRC_SIMPLEWALK_H

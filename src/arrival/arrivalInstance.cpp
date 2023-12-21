@@ -5,6 +5,7 @@
 #include "arrivalInstance.h"
 #include "preprocessInstance.h"
 #include <iostream>
+#include "arrivalUtil.h"
 #include "../fixpoint/latticeUtil.h"
 
 inline int ceilDivideByTwo(int x) {
@@ -51,6 +52,26 @@ vector<int> ArrivalInstance::getBot() {
 vector<int> ArrivalInstance::getTop() {
     return vector<int> (adjList.size() - 1, flowUpperBound);
 }
+
+bool ArrivalInstance::hasDiagonalEntries() {
+    for(int i = 0; i < adjList.size() - 1; i++) {
+        if(adjList[i].first == adjList[i].second) return true;
+    }
+
+    return false;
+}
+bool ArrivalInstance::hasSelfLoops() {
+    for(int i = 0; i < adjList.size() - 1; i++) {
+        if(adjList[i].first == i || adjList[i].second == i) return true;
+    }
+
+    return false;
+}
+
+void ArrivalInstance::print() {
+    printInstance(adjList);
+}
+
 
 int ArrivalInstance::computeSinkInflow(const vector<int>& outflows) {
     assert(outflows.size() == adjList.size() - 1);

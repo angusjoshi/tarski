@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  3 DEC 2023 12:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  4 DEC 2023 14:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1083,7 +1083,7 @@ Package pdftex.def Info: walkTime.png  used on input line 212.
  <./walkLength.png> <./walkTime.png>]
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <10> not available
-(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 231.
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 236.
 
 [10
 
@@ -1099,14 +1099,14 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <10> not available
 
  (./presentation.aux)
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 4B26B201F8AEC9502C628DBDB6E69075;1901.
+(rerunfilecheck)             Checksum: 83E59C4348F250FABE89295654066828;2032.
  ) 
 Here is how much of TeX's memory you used:
- 25462 strings out of 476025
- 515415 string characters out of 5790017
- 1871388 words of memory out of 5000000
- 45365 multiletter control sequences out of 15000+600000
- 522513 words of font info for 67 fonts, out of 8000000 for 9000
+ 25481 strings out of 476025
+ 515677 string characters out of 5790017
+ 1872388 words of memory out of 5000000
+ 45382 multiletter control sequences out of 15000+600000
+ 526604 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,408b,706s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pf
@@ -1119,7 +1119,7 @@ sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
 /local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/
 local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on presentation.pdf (10 pages, 249251 bytes).
+Output written on presentation.pdf (10 pages, 249973 bytes).
 PDF statistics:
  529 PDF objects out of 1000 (max. 8388607)
  413 compressed objects within 5 object streams

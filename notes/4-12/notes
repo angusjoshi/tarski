@@ -1,0 +1,19 @@
+notes from meeting with kousha,
+  monotone up points with all dimensions fixed except one are not interesting because you can
+  define for a general monotone function a similar function with the same fixpoints etc. as before.
+
+  the iterative algorithm starting from the bottom is just the walk on the graph.
+  could be worth trying to work out what the iterative algorithm starting from the top is.
+
+  have a look at feedback vertex sets. in particular, with respect to monotone functions from the arrival instance
+  on the entire instance, what can be said about 'slicing' at things like a small feedback vertex set.
+  have a look at the section in the subexp paper about this as well.
+
+  see if there are any other interesting properties of dags that i can slice at etc.
+
+
+  this property that a function usually moves up one 'level set' is supposedly interesting
+  have a look at this? mainly the 'asymmetry' in how it moves up very little but can mvoe down a lot
+
+  a result which says that 
+
