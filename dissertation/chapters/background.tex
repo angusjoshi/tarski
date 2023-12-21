@@ -20,7 +20,7 @@ For the purposes of this project, I'm primarily concerned with an order-theoreti
     \item for all $s, t \in S$, if $s \leq t$ and $t \leq s$ then $s = t$ (antisymmetry).
   \end{itemize}
 \end{definition}
-As it turns out, any lattice structure induces a partial order
+As it turns out, any lattice structure induces a partial order on it's underlying set.
 \begin{lemma}\label{joinMeetIdempotent}
   Let $(L, \wedge, \vee)$ be a lattice. Then for all $l \in L$, $l \wedge l = l$ and $l \vee l = l$.
 \end{lemma}
@@ -44,8 +44,8 @@ As it turns out, any lattice structure induces a partial order
   \end{align*}
 \end{proof}
 \begin{remark}
-  Although \cref{latOrd} only uses half of the structure of the lattice to define a partial order
-  that there is a dual definition where $l \leq l'$ if and only if $l \wedge l' = l$, and the two are equivalent by the absorption laws.
+  Although \cref{latOrd} only uses half of the structure of the lattice to define a partial order,
+  there is a dual definition where $l \leq l'$ if and only if $l \wedge l' = l$, and the two are equivalent by the absorption laws.
 \end{remark}
 The partial ordering induced by a lattice is in fact a very special case of a general partial order.
 \begin{definition}[Least/Greatest Lower Bounds]
@@ -71,13 +71,57 @@ The partial ordering induced by a lattice is in fact a very special case of a ge
   and $l \vee l' \leq m$. Finally for uniqueness, if $m, m'$ are least upper bounds of $l$ and $l'$, then $m \leq m'$ and $m' \leq m$,
   so by antisymmetry, $m = m'$. That $l \wedge l'$ is the greatest lower bound of $l$ and $l'$ follows by duality.
 \end{proof}
-The purely algebraic definition of a lattice will prove not useful in the context of this project, so from here on I will use the abuse
-of notation that $(L, \leq)$ is a lattice if $\leq$ is a lattice ordering on $L$. Now on to monotone functions.
+\begin{definition}[Product Lattice]
+  Given two lattices $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$ the \emph{product lattice} 
+  is $\mathcal{L} \times \mathcal{L'} = (L \times L', \wedge \times \wedge', \vee \times \vee')$ where for $(l, l'), (m, m') \in \mathcal{L} \times \mathcal{L'}$
+  the product meet is defined $(l, l') (\wedge \times \wedge') (m, m') = ((l \wedge m), (l' \wedge' m'))$. Join is defined similarly.
+\end{definition}
+\begin{prop}
+  $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$, the product lattice $\mathcal{L} \times \mathcal{L'}$ is a lattice.
+\end{prop}
+\begin{proof}
+  Let $(l, l'), (m, m'), (n, n') \in L \times L'$. For absorption, 
+  \begin{align*}
+    (l, l') (\vee \times \vee') ((l, l') (\wedge \times \wedge') (m, m')) &= (l \vee (l \wedge m), l' \vee (l' \wedge m')) \\
+                                                                          &= (l, l').
+  \end{align*}
+  The other absorption law, commutativity, and associativity follow similarly.
+\end{proof}
+\begin{definition}[Total Order]
+  A partially ordered set $(S, \leq)$ is \emph{totally ordered} if whenever $a, b \in S$ at least one of $a \leq b$ or $b \leq a$ hold.
+  This gives binary operations $\max$ and $\min$ on $S$, where $\max (a, b) = \begin{cases} b, & a \leq b \\ a, & \text{otherwise,}  \end{cases}$
+    $\min (a, b) = \begin{cases} a, & a \leq b \\ b, & \text{otherwise.}  \end{cases}$
+\end{definition}
+\begin{prop}
+  Let $(S, \leq)$ be a total order. Then $(S, \min, \max)$ is a lattice.
+\end{prop}
+\begin{proof}
+  For absorption, let $a, b, c \in S$. Then 
+  \begin{align*}
+    \min(a, \max(a, b)) = \begin{cases} \min(a, b), & a \leq b \\ \min(a, a), & \text{otherwise}\end{cases} = a.
+  \end{align*}
+  The other absorption law follows similarly. Commutativity is clear, and for associativity of $\min$,
+  \begin{align*}
+    \min(a, \min(b, c)) = \begin{cases} \min(a, b), &  b \leq c \\ \min(a, c), & \text{otherwise}\end{cases} = \min(\min(a, b), c).
+  \end{align*}
+  Associativity of $\max$ follows similarly.
+\end{proof}
+For the rest of the dissertation where join, meet, and $\leq$ are clear from context, I will denote a lattice purely by it's underlying set.
+\begin{notation}
+  For $N \in \mathbb{Z}_{\geq 1}$ I use the notation $[N] = \{1, ..., N\}$.
+\end{notation}
+It's clear that $[N]$ is totally orderd with the standard ordering on $\mathbb{Z}$.
+\begin{cor}
+  For $d \in \mathbb{Z}_{\geq 1}$ let $[N]^d = \prod_{i=1}^d [N]$. Then $[N]^d$ is a lattice.
+\end{cor}
+The last thing to define here is a monotone function.
 \begin{definition}[Monotone Function]
-  Let $(L, \leq)$ be a lattice. Then a function of the underlying set $f : L \to L$ is \emph{monotone} if whenever $l, l' \in L$ with
+  Let $L$ be a lattice. Then a function $f : L \to L$ is \emph{monotone} if whenever $l, l' \in L$ with
   $l \leq l'$ I have $f(l) \leq f(l')$.
 \end{definition}
+\newpage
 \section{Fixpoints}
-asdfsdf
+asdf
+\newpage
 \section{The Arrival Problem}
 asdfsdaf
