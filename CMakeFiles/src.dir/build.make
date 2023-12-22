@@ -83,17 +83,225 @@ CMakeFiles/src.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/main.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/main.cpp -o CMakeFiles/src.dir/main.cpp.s
 
+CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/innerAlgorithm.cpp
+CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o -MF CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o.d -o CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/innerAlgorithm.cpp
+
+CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/innerAlgorithm.cpp > CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.i
+
+CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/innerAlgorithm.cpp -o CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.s
+
+CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/kleeneTarski.cpp
+CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o -MF CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o.d -o CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/kleeneTarski.cpp
+
+CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/kleeneTarski.cpp > CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.i
+
+CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/kleeneTarski.cpp -o CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.s
+
+CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/latticeUtil.cpp
+CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o -MF CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o.d -o CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/latticeUtil.cpp
+
+CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/latticeUtil.cpp > CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.i
+
+CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/latticeUtil.cpp -o CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.s
+
+CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/monotoneFunction.cpp
+CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o -MF CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o.d -o CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/monotoneFunction.cpp
+
+CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/monotoneFunction.cpp > CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.i
+
+CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/monotoneFunction.cpp -o CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.s
+
+CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/threeDimensionAlgorithm.cpp
+CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o -MF CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o.d -o CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/threeDimensionAlgorithm.cpp
+
+CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/threeDimensionAlgorithm.cpp > CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.i
+
+CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/threeDimensionAlgorithm.cpp -o CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.s
+
+CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/fixDecompAlgorithm.cpp
+CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o -MF CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o.d -o CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/fixDecompAlgorithm.cpp
+
+CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/fixDecompAlgorithm.cpp > CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.i
+
+CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/fixDecompAlgorithm.cpp -o CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.s
+
+CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o: /Users/angusjoshi/tarski/src/fixpoint/recursiveBinarySearch.cpp
+CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o -MF CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o.d -o CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o -c /Users/angusjoshi/tarski/src/fixpoint/recursiveBinarySearch.cpp
+
+CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/fixpoint/recursiveBinarySearch.cpp > CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.i
+
+CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/fixpoint/recursiveBinarySearch.cpp -o CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.s
+
+CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o: /Users/angusjoshi/tarski/src/arrival/preprocessInstance.cpp
+CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o -MF CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o.d -o CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o -c /Users/angusjoshi/tarski/src/arrival/preprocessInstance.cpp
+
+CMakeFiles/src.dir/arrival/preprocessInstance.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/arrival/preprocessInstance.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/arrival/preprocessInstance.cpp > CMakeFiles/src.dir/arrival/preprocessInstance.cpp.i
+
+CMakeFiles/src.dir/arrival/preprocessInstance.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/arrival/preprocessInstance.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/arrival/preprocessInstance.cpp -o CMakeFiles/src.dir/arrival/preprocessInstance.cpp.s
+
+CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o: /Users/angusjoshi/tarski/src/arrival/generateRandomInstance.cpp
+CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o -MF CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o.d -o CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o -c /Users/angusjoshi/tarski/src/arrival/generateRandomInstance.cpp
+
+CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/arrival/generateRandomInstance.cpp > CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.i
+
+CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/arrival/generateRandomInstance.cpp -o CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.s
+
+CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o: /Users/angusjoshi/tarski/src/arrival/arrivalUtil.cpp
+CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o -MF CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o.d -o CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o -c /Users/angusjoshi/tarski/src/arrival/arrivalUtil.cpp
+
+CMakeFiles/src.dir/arrival/arrivalUtil.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/arrival/arrivalUtil.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/arrival/arrivalUtil.cpp > CMakeFiles/src.dir/arrival/arrivalUtil.cpp.i
+
+CMakeFiles/src.dir/arrival/arrivalUtil.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/arrival/arrivalUtil.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/arrival/arrivalUtil.cpp -o CMakeFiles/src.dir/arrival/arrivalUtil.cpp.s
+
+CMakeFiles/src.dir/arrival/simpleWalk.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/arrival/simpleWalk.cpp.o: /Users/angusjoshi/tarski/src/arrival/simpleWalk.cpp
+CMakeFiles/src.dir/arrival/simpleWalk.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/src.dir/arrival/simpleWalk.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/arrival/simpleWalk.cpp.o -MF CMakeFiles/src.dir/arrival/simpleWalk.cpp.o.d -o CMakeFiles/src.dir/arrival/simpleWalk.cpp.o -c /Users/angusjoshi/tarski/src/arrival/simpleWalk.cpp
+
+CMakeFiles/src.dir/arrival/simpleWalk.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/arrival/simpleWalk.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/arrival/simpleWalk.cpp > CMakeFiles/src.dir/arrival/simpleWalk.cpp.i
+
+CMakeFiles/src.dir/arrival/simpleWalk.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/arrival/simpleWalk.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/arrival/simpleWalk.cpp -o CMakeFiles/src.dir/arrival/simpleWalk.cpp.s
+
+CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o: /Users/angusjoshi/tarski/src/arrival/arrivalInstance.cpp
+CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o -MF CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o.d -o CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o -c /Users/angusjoshi/tarski/src/arrival/arrivalInstance.cpp
+
+CMakeFiles/src.dir/arrival/arrivalInstance.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/arrival/arrivalInstance.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/arrival/arrivalInstance.cpp > CMakeFiles/src.dir/arrival/arrivalInstance.cpp.i
+
+CMakeFiles/src.dir/arrival/arrivalInstance.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/arrival/arrivalInstance.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/arrival/arrivalInstance.cpp -o CMakeFiles/src.dir/arrival/arrivalInstance.cpp.s
+
+CMakeFiles/src.dir/analysis/runAnalysis.cpp.o: CMakeFiles/src.dir/flags.make
+CMakeFiles/src.dir/analysis/runAnalysis.cpp.o: /Users/angusjoshi/tarski/src/analysis/runAnalysis.cpp
+CMakeFiles/src.dir/analysis/runAnalysis.cpp.o: CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/src.dir/analysis/runAnalysis.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/src.dir/analysis/runAnalysis.cpp.o -MF CMakeFiles/src.dir/analysis/runAnalysis.cpp.o.d -o CMakeFiles/src.dir/analysis/runAnalysis.cpp.o -c /Users/angusjoshi/tarski/src/analysis/runAnalysis.cpp
+
+CMakeFiles/src.dir/analysis/runAnalysis.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/src.dir/analysis/runAnalysis.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/angusjoshi/tarski/src/analysis/runAnalysis.cpp > CMakeFiles/src.dir/analysis/runAnalysis.cpp.i
+
+CMakeFiles/src.dir/analysis/runAnalysis.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/src.dir/analysis/runAnalysis.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/angusjoshi/tarski/src/analysis/runAnalysis.cpp -o CMakeFiles/src.dir/analysis/runAnalysis.cpp.s
+
 # Object files for target src
 src_OBJECTS = \
-"CMakeFiles/src.dir/main.cpp.o"
+"CMakeFiles/src.dir/main.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o" \
+"CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o" \
+"CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o" \
+"CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o" \
+"CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o" \
+"CMakeFiles/src.dir/arrival/simpleWalk.cpp.o" \
+"CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o" \
+"CMakeFiles/src.dir/analysis/runAnalysis.cpp.o"
 
 # External object files for target src
 src_EXTERNAL_OBJECTS =
 
 /Users/angusjoshi/tarski/src: CMakeFiles/src.dir/main.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/innerAlgorithm.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/kleeneTarski.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/monotoneFunction.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/fixDecompAlgorithm.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/fixpoint/recursiveBinarySearch.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/arrival/preprocessInstance.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/arrival/arrivalUtil.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/arrival/simpleWalk.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/arrival/arrivalInstance.cpp.o
+/Users/angusjoshi/tarski/src: CMakeFiles/src.dir/analysis/runAnalysis.cpp.o
 /Users/angusjoshi/tarski/src: CMakeFiles/src.dir/build.make
 /Users/angusjoshi/tarski/src: CMakeFiles/src.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /Users/angusjoshi/tarski/src"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/angusjoshi/tarski/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable /Users/angusjoshi/tarski/src"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/src.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

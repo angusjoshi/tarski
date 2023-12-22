@@ -10,7 +10,8 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{cleveref}
-%\usepackage{kpfonts}
+\usepackage{algorithm}
+\usepackage{algpseudocodex}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -25,7 +26,10 @@
 \newtheorem{lemma}[definition]{Lemma}
 
 \theoremstyle{theorem}
-\newtheorem{cor}[definition]{Corollarly}
+\newtheorem{cor}[definition]{Corollary}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}[definition]{Theorem}
 
 \theoremstyle{definition}
 \newtheorem{remark}[definition]{Remark}
@@ -37,6 +41,18 @@
 \newtheorem{ex}[definition]{Example}
 
 \renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand{\znn}{\mathbb{Z}_{\geq 0}}
+\newcommand{\trsk}{\textsc{Tarski}}
+\newcommand{\nd}{[N]^d}
+
+\newcommand\restr[2]{{
+  \left.\kern-\nulldelimiterspace 
+  #1 
+  \littletaller
+  \right|_{#2} 
+  }}
+  \newcommand{\littletaller}{\mathchoice{\vphantom{\big|}}{}{}{}}
+
 
 % Include any packages you need below, but don't include any that change the page
 % layout or style of the dissertation. By including the ugcheck package above,

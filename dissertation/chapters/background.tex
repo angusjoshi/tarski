@@ -1,9 +1,9 @@
 \chapter{Background}
 
-\section{Lattices and Monotone Functions}
+\section{Lattices, Monotone Functions, and Fixpoints}
 A definition seems like a good place to start.
 \begin{definition}[Lattice]\label{latedef}
-  A \emph{lattice} is a set $L$, and two binary operations $\wedge, \vee : L \times L \to L$ called \emph{join} and \emph{meet} respectively,
+  A \emph{lattice} is a set $L$, and two binary operators $\wedge, \vee : L \times L \to L$ called \emph{join} and \emph{meet} respectively,
   such that the following axioms hold. For all $a, b, c \in L$,
   \begin{itemize}
     \item $a \wedge (a \vee b) = a$ and $a \vee (a \wedge b) = b$ (absorption),
@@ -77,7 +77,7 @@ The partial ordering induced by a lattice is in fact a very special case of a ge
   the product meet is defined $(l, l') (\wedge \times \wedge') (m, m') = ((l \wedge m), (l' \wedge' m'))$. Join is defined similarly.
 \end{definition}
 \begin{prop}
-  $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$, the product lattice $\mathcal{L} \times \mathcal{L'}$ is a lattice.
+  Let $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$. The product lattice $\mathcal{L} \times \mathcal{L'}$ is a lattice.
 \end{prop}
 \begin{proof}
   Let $(l, l'), (m, m'), (n, n') \in L \times L'$. For absorption, 
@@ -89,7 +89,7 @@ The partial ordering induced by a lattice is in fact a very special case of a ge
 \end{proof}
 \begin{definition}[Total Order]
   A partially ordered set $(S, \leq)$ is \emph{totally ordered} if whenever $a, b \in S$ at least one of $a \leq b$ or $b \leq a$ hold.
-  This gives binary operations $\max$ and $\min$ on $S$, where $\max (a, b) = \begin{cases} b, & a \leq b \\ a, & \text{otherwise,}  \end{cases}$
+  This gives binary operators $\max$ and $\min$ on $S$, where $\max (a, b) = \begin{cases} b, & a \leq b \\ a, & \text{otherwise,}  \end{cases}$
     $\min (a, b) = \begin{cases} a, & a \leq b \\ b, & \text{otherwise.}  \end{cases}$
 \end{definition}
 \begin{prop}
@@ -110,18 +110,137 @@ For the rest of the dissertation where join, meet, and $\leq$ are clear from con
 \begin{notation}
   For $N \in \mathbb{Z}_{\geq 1}$ I use the notation $[N] = \{1, ..., N\}$.
 \end{notation}
-It's clear that $[N]$ is totally orderd with the standard ordering on $\mathbb{Z}$.
+It's clear that $[N]$ is totally ordered with the standard ordering on $\mathbb{Z}$.
 \begin{cor}
-  For $d \in \mathbb{Z}_{\geq 1}$ let $[N]^d = \prod_{i=1}^d [N]$. Then $[N]^d$ is a lattice.
+  For $d \in \mathbb{Z}_{\geq 1}$ let $[N]^d = \prod_{i=1}^d [N]$. Then $[N]^d$ is a lattice. Join and meet
+  are given by coordinate-wise $\max$ and $\min$ respectively, and the lattice ordering is defined as $(l_1, ..., l_d) \leq (l'_1, ..., l'_d)$
+  if and only if $l_i \leq l'_i$ for each $i \in \{1, ..., d\}$.
 \end{cor}
-The last thing to define here is a monotone function.
+The focus will be on finding so-called fixopints of monotone functions on a lattice.
 \begin{definition}[Monotone Function]
   Let $L$ be a lattice. Then a function $f : L \to L$ is \emph{monotone} if whenever $l, l' \in L$ with
   $l \leq l'$ I have $f(l) \leq f(l')$.
 \end{definition}
+\begin{definition}[Fixpoint]
+  Let $S$ be a set and $f : S \to S$. Then $s \in S$ is a \emph{fixpoint} of $f$ if $f(s) = s$.
+\end{definition}
 \newpage
-\section{Fixpoints}
-asdf
+
+\section{Fixpoint Existence and Computation}
+Tarski gave a theorem on the existence of fixpoints of monotone functions on complete lattices\citep{tarski} (which I have not defined). This theorem
+is in reality stronger than is needed for the finite case. I present a proof of the existence of fixpoints in a finite lattice.
+\begin{theorem}[\citep{tarski}]\label{fixExist}
+  Let $f : [N]^d \to [N]^d$ be monotone. Then there is a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
+\end{theorem}
+\begin{proof}
+  Firstly, note that for all $x \in [N]^d$ the point $\vec{1} = (1, ..., 1) \leq x$, and in particular $\vec{1} \leq f(\vec{1})$.
+  By an induction combined with monotonicity I find for all $i \in \znn$, $f^i (\vec{1}) \leq f^{i+1} (\vec{1})$. Suppose for a contradiction that there
+  is no point $x^* \in [N]^d$ such that $f(x^*) = x^*$. Then for all $i \in \znn$, $f^i (\vec{1}) \neq f^{i+1}(\vec{1})$ which implies
+  that $f^i (\vec{1}) < f^{i+1}(\vec{1})$. This gives infinitely many distinct points in $[N]^d$. But $[N]^d$ is finite, which is a contradiction.
+  It follows that
+  there is a fixpoint of $f$ in $[N]^d$.
+\end{proof}
+This gives rise to a natural problem; how can such a fixpoint be found?
+\begin{definition}[$\trsk$]
+  The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
+\end{definition}
+The proof of \cref{fixExist} implicitly contains our first algorithm for fixpoint computation.
+\begin{algorithm}
+  \caption{Kleene Tarski Iteration}
+  \begin{algorithmic}
+  \Procedure{KleeneTarski}{monotone $f : [N]^d \to [N]^d$}
+  \State $x \gets \vec{1}$
+  \While{$x \neq f(x)$} 
+    \State $x \gets f(x)$
+  \EndWhile
+  \Return $x$
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+Correctness of the algorithm if it terminates is clear, so all that is needed it a bound on it's runtime.
+\begin{lemma}
+  \textsc{KleeneTarski} always terminates in time $O(Nd)$.
+\end{lemma}
+\begin{proof}
+  As in the proof of \cref{fixExist}, for all $i \in \znn$, $f^i(\vec{1}) \leq f^{i+1}(\vec{1})$. If $f^i(\vec{1}) = f^{i+1}(\vec{1})$
+  then $f^i(\vec{1})$ is a fixpoint. So suppose for a contradiction for some $j > Nd$ that for all $i \leq j$, $f^i(\vec{1}) < f^{i+1}(\vec{1})$. 
+  By integrality, $\|f^{i+1}(x)\|_1 \geq \|f^i(x)\|_1 + 1$. It follows that $\|f_j(x)\|_1 > Nd$. But this implies that
+  $\|f_j(x)\|_1 > \|\vec{N}\|_1$, which is a contradiction of the definition of $f$. So for some $j \leq Nd$, $f^j(\vec{1}) = f^{j+1}(\vec{1})$.
+\end{proof}
+\begin{theorem}
+  The query complexity of $\trsk(N,d)$ is $O(Nd)$.
+\end{theorem}
+It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
+$N$ can be represented with $\log n$ bits of information. 
+Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
+on the problem.
+\begin{theorem}[\citep{lowerBound}]
+  The query complexity of $\trsk(N, d)$ is $\Omega(\log^2N)$.
+\end{theorem}
+Dang, Qi, and Ye gave an algorithm for solving the $\trsk$ problem\citep{dangQiYe} using a variant of the well
+known binary search algorithm. The details of their algorithm are instructive
+to the workings on the improved algorithms detailed  later, so they are given below.
+\begin{notation}
+  Given a tuple $x = (x_1, ..., x_n)$ for $i \in [n]$ the notation $x_{-i} = (x_1, ..., x_{i-1}, x_{i+1}, ..., x_n)$. That is, it drops
+  the $i$-th coordinate of the tuple.
+\end{notation}
+\begin{definition}[Slice]
+  Let $f : \nd \to \nd$ be monotone. Then a \emph{slice} of $f$ is a choice of coordinate $i \in [d]$,
+  and a choice of value $x_i \in [N]$, defining a new function $f_s : [N]^{d-1} \to [N]^{d-1}$ with
+  $f_s((l_1, ..., l_{d-1})) = f((l_1, ..., l_{i-1},  x_i, l_i, ..., l_{d-1}))_{-i}$.
+\end{definition}
+\begin{lemma}
+  Let $f : \nd \to \nd$ be monotone. Then for any $i \in [d]$, $x_i \in [N]$ the slice $f_s : [N]^{d-1} \to [N]^{d-1}$ at $i$ with value $x_i$  
+  is monotone. 
+\end{lemma}
+\begin{proof}
+  Suppose $l, l' \in [N]^{d-1}$ with $l = (l_1, ..., l_{d-1})$, $l' = (l'_1, ..., l'_{d-1})$, and $l \leq l'$.
+  By reflexivity, $x_i \leq x_i$, so $(l_1, ... , x_i, l_i, ..., l_{d-1}) \leq (l'_1, ... , x_i, l'_i, ..., l_{d-1})$,
+  and $f_s(l) \leq f_s(l')$ follows by monotonicity of $f$.
+\end{proof}
+\begin{notation}
+  Let $L$ be a lattice. Then for $x \in L$ the notation $L_{\geq x}$ is a sub-lattice of $L$ with underlying set
+  $\{l \in L | l \geq x\}$. It is clear that $L_{\geq x}$ is also a lattice, with the same joins, meets, and ordering as $L$.
+\end{notation}
+\begin{lemma}\label{restricts}
+  Let $f : [N]^d \to [N]^d$ is monotone, and $x \in [N]^d$ be such that $x \leq f(x)$. Then
+  $f$ restricts to a monotone function $\restr{f}{[N]^d_{\geq x}} : [N]^d_{\geq x} \to [N]^d_{\geq x}$. Similarly,
+  if $x \geq f(x)$ then $f$ restricts to a monotone function $\restr{f}{[N]^d_{\leq x}} : [N]^d_{\leq x} \to [N]^d_{\leq x}$.
+\end{lemma}
+\begin{proof}
+  I need to show that if $x \leq f(x)$ then for all $y \in [N]^d_{\geq x}$, $f(y) \in [N]^d_{\geq x}$. By construction,
+  $y \geq x$, and by monotonicity $f(y) \geq f(x)$. But $f(x) \geq x$, so $f(y) \geq x$, and $f(y) \in [N]^d_{\geq x}$. The second part
+  follows by duality.
+\end{proof}
+\begin{lemma}
+  Let $f : [N] \to [N]$ be monotone. Then a fixpoint of $f$ can be found in $O(\log N)$ queries of $f$.
+\end{lemma}
+\begin{proof}
+  Choose $x = \lfloor \frac{N}{2} \rfloor$. $[N]$ is totally ordered, so exactly one of the following hold; $x < f(x)$, $x = f(x)$, $x > f(x)$.
+  If $x = f(x)$ then I'm done. If $x < f(x)$ then by \cref{restricts} $f$ restricts to a monotone function $\restr{f}{[N]^d_{\geq x}}$, 
+  and a fixpoint of $\restr{f}{[N]^d_{\geq x}}$ is clearly also a fixpoint of $f$. Similarly, if $x > f(x)$ then $f$ restricts to
+  $\restr{f}{[N]^d_{\leq x}}$. This enables a recursion on the smaller sublattice. Finally,
+  noting that a fixpoint can be found trivially in the one-point set in a constant number of queries,
+  since the search space is halved every recursive call
+  the algorithm terminates in $O(\log N)$ queries.
+\end{proof}
+The algorithm of Dang, Qi, and Ye using these facts is given below.
+
+\begin{algorithm}
+  \caption{Dang, Qi, Ye}
+  \begin{algorithmic}
+  \Procedure{DangQiYe}{monotone $f : [N]^d \to [N]^d$}
+  \State $x \gets \lfloor \frac{N}{2} \rfloor$
+  \State $f_s \gets$ the slice of $f$ at $d$ with value $x$
+  \While{$x != f(x)$}
+    \State $\overline{x} \gets$ \Call{DangQiYe}{$f_s$}
+
+  \EndWhile
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
 \newpage
 \section{The Arrival Problem}
 asdfsdaf
