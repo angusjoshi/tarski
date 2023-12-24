@@ -147,7 +147,7 @@ This gives rise to a natural problem; how can such a fixpoint be found?
 The proof of \cref{fixExist} implicitly contains our first algorithm for fixpoint computation.
 \begin{algorithm}
   \caption{Kleene Tarski Iteration}
-  \begin{algorithmic}
+  \begin{algorithmic}[1]
   \Procedure{KleeneTarski}{monotone $f : [N]^d \to [N]^d$}
   \State $x \gets \vec{1}$
   \While{$x \neq f(x)$} 
@@ -227,20 +227,44 @@ to the workings on the improved algorithms detailed  later, so they are given be
 \end{proof}
 The algorithm of Dang, Qi, and Ye using these facts is given below.
 
-\begin{algorithm}
+\begin{algorithm}[t]
   \caption{Dang, Qi, Ye}
-  \begin{algorithmic}
+  \begin{algorithmic}[1]
   \Procedure{DangQiYe}{monotone $f : [N]^d \to [N]^d$}
-  \State $x \gets \lfloor \frac{N}{2} \rfloor$
-  \State $f_s \gets$ the slice of $f$ at $d$ with value $x$
-  \While{$x != f(x)$}
-    \State $\overline{x} \gets$ \Call{DangQiYe}{$f_s$}
-
+  \State $l \gets 1$
+  \State $h \gets N$
+  \While{true}
+    \State $x \gets \lfloor \frac{l + h}{2} \rfloor$
+    \State $f_s \gets$ the slice of $f$ at $d$ with value $x$
+    \State $\vec{x_s} \gets$ \Call{DangQiYe}{$f_s$}
+    \State $\vec{x} \gets ((\vec{x_s})_1, ..., (\vec{x_s})_{d-1}, x)$
+    \If{$\vec{x}_d = f(\vec{x})_d$}
+      \State \Return{$\vec{x}$}
+    \EndIf
+    \If{$\vec{x}_d < f(\vec{x})_d$}
+      \State $l \gets x$
+    \EndIf
+    \If{$\vec{x}_d > f(\vec{x})_d$}
+      \State $h \gets x$
+    \EndIf
   \EndWhile
   \EndProcedure
   \end{algorithmic}
 \end{algorithm}
 
+\begin{lemma}
+  \textsc{DangQiYe} returns a fixpoint of $f$ if it terminates.
+\end{lemma}
+\begin{proof}
+  The algorithm only returns if it satisfies the condition on line 9. At this point, $\vec{x_s}$ is a fixpoint
+  of $f_s$, so it follows that $f(\vec{x})_i = \vec{x}_i$ for $i \in [d-1]$. The condition ensures
+  that also $\vec{x}_d = f(\vec{x})_d$, and $\vec{x}$ is a fixpoint of $f$.
+\end{proof}
+\begin{lemma}
+  \textsc{DangQiYe} termintes in at most $O(\log^d N)$ queries to $f$.
+\end{lemma}
+\begin{proof}
+\end{proof}
 \newpage
 \section{The Arrival Problem}
 asdfsdaf
