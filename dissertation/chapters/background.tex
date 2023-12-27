@@ -1,7 +1,6 @@
 \chapter{Background}
 
 \section{Lattices, Monotone Functions, and Fixpoints}
-A definition seems like a good place to start.
 \begin{definition}[Lattice]\label{latedef}
   A \emph{lattice} is a set $L$, and two binary operators $\wedge, \vee : L \times L \to L$ called \emph{join} and \emph{meet} respectively,
   such that the following axioms hold. For all $a, b, c \in L$,
@@ -106,6 +105,12 @@ The partial ordering induced by a lattice is in fact a very special case of a ge
   \end{align*}
   Associativity of $\max$ follows similarly.
 \end{proof}
+The notion of a sublattice will be useful in turn.
+\begin{definition}[Sublattice]
+  Let $(L, \wedge, \vee)$ be a lattice. A sublattice $(M, \wedge, \vee)$ is a
+  subset $M \subseteq L$ such that whenever $m, n \in M$ I have $m \wedge n \in M$ and
+  $m \vee n \in M$.
+\end{definition}
 For the rest of the dissertation where join, meet, and $\leq$ are clear from context, I will denote a lattice purely by it's underlying set.
 \begin{notation}
   For $N \in \mathbb{Z}_{\geq 1}$ I use the notation $[N] = \{1, ..., N\}$.
@@ -124,6 +129,7 @@ The focus will be on finding so-called fixopints of monotone functions on a latt
 \begin{definition}[Fixpoint]
   Let $S$ be a set and $f : S \to S$. Then $s \in S$ is a \emph{fixpoint} of $f$ if $f(s) = s$.
 \end{definition}
+
 \newpage
 
 \section{Fixpoint Existence and Computation}
@@ -145,6 +151,10 @@ This gives rise to a natural problem; how can such a fixpoint be found?
   The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
 \end{definition}
 The proof of \cref{fixExist} implicitly contains our first algorithm for fixpoint computation.
+\begin{notation}
+  For $k \in \znn$ the notation $\vec{k} = (k, ..., k)$. It is assumed that
+  the dimensionality of this 'vector' is clear from context.
+\end{notation}
 \begin{algorithm}
   \caption{Kleene Tarski Iteration}
   \begin{algorithmic}[1]
@@ -172,7 +182,7 @@ Correctness of the algorithm if it terminates is clear, so all that is needed it
   The query complexity of $\trsk(N,d)$ is $O(Nd)$.
 \end{theorem}
 It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
-$N$ can be represented with $\log n$ bits of information. 
+$N$ can be represented with $\log N$ bits of information. 
 Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
 on the problem.
 \begin{theorem}[\citep{lowerBound}]
@@ -186,8 +196,11 @@ to the workings on the improved algorithms detailed  later, so they are given be
   the $i$-th coordinate of the tuple.
 \end{notation}
 \begin{definition}[Slice]
-  Let $f : \nd \to \nd$ be monotone. Then a \emph{slice} of $f$ is a choice of coordinate $i \in [d]$,
-  and a choice of value $x_i \in [N]$, defining a new function $f_s : [N]^{d-1} \to [N]^{d-1}$ with
+  Let $(S_i)_{i \in [d]}$ be totally ordered sets, $L = \prod_{i \in [d]} S_i$
+  be their product lattice, and $f : L \to L$ be monotone. 
+  Then a \emph{slice} of $f$ is a choice of coordinate $i \in [d]$,
+  and a choice of value $x_i \in S_i$, defining a new function 
+  $f_s : L_{-i} \to L_{-i}$ with
   $f_s((l_1, ..., l_{d-1})) = f((l_1, ..., l_{i-1},  x_i, l_i, ..., l_{d-1}))_{-i}$.
 \end{definition}
 \begin{lemma}
@@ -213,7 +226,7 @@ to the workings on the improved algorithms detailed  later, so they are given be
   $y \geq x$, and by monotonicity $f(y) \geq f(x)$. But $f(x) \geq x$, so $f(y) \geq x$, and $f(y) \in [N]^d_{\geq x}$. The second part
   follows by duality.
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{d1Case}
   Let $f : [N] \to [N]$ be monotone. Then a fixpoint of $f$ can be found in $O(\log N)$ queries of $f$.
 \end{lemma}
 \begin{proof}
@@ -228,7 +241,7 @@ to the workings on the improved algorithms detailed  later, so they are given be
 The algorithm of Dang, Qi, and Ye using these facts is given below.
 
 \begin{algorithm}[t]
-  \caption{Dang, Qi, Ye}
+  \caption{\citep{dangQiYe}}
   \begin{algorithmic}[1]
   \Procedure{DangQiYe}{monotone $f : [N]^d \to [N]^d$}
   \State $l \gets 1$
@@ -264,7 +277,72 @@ The algorithm of Dang, Qi, and Ye using these facts is given below.
   \textsc{DangQiYe} termintes in at most $O(\log^d N)$ queries to $f$.
 \end{lemma}
 \begin{proof}
+  By induction. The base case follows from \cref{d1Case}. Suppose \textsc{DangQiYe} uses at most
+  $O(\log^{d-1}N)$ queries to solve the $d-1$ dimensional case. The $d$ dimensional algorithm
+  will require at most $\log N$ recursive calls to the $d-1$ dimensional algorithm, so the algorithm
+  terminates using at most $O(\log N) \cdot O(\log^{d-1} N) = O(\log^d N)$ queries to $f$.
 \end{proof}
+\begin{theorem}
+  The query complexity of $\trsk(N, d)$ is $O(\log^d N)$.
+\end{theorem}
+\begin{cor}[\citep{lowerBound}]
+  The query complexity of $\trsk(N, 2)$ is $\Theta(\log^2 N)$.
+\end{cor}
+There have recently been improvements on this upper bound.
+\begin{theorem}[\citep{fasterTarski}]
+  The query complexity of $\trsk(N, 3)$ is $\Theta(\log^2 N)$.
+\end{theorem}
+\begin{theorem}[\citep{chenLi}]
+  The query complexity of $\trsk(N, d)$ is $O(\log^{\lceil (d+1)/2 \rceil} N)$.
+\end{theorem}
+The details of these algorithms will be shared in a later section.
 \newpage
 \section{The Arrival Problem}
-asdfsdaf
+The arrival problem, first described in \citep{arrivalBasic} is fundamentally
+a reachability problem. The idea is, given a directed graph with
+a particular structure and designated source and target vertex,
+decide whether or not a particular walk starting at the source
+ever reaches the target. A diagram of an example arrival graph is shown
+in $\cref{arrivalDiagram}$.
+\begin{definition}[Arrival Graph]
+  An \emph{arrival graph} is a set of vertices $V$, a pair of
+  vertices $s, t$, and a pair of maps 
+  $s_0, s_1 : V \cup \{s\} \to V \cup \{s, t\}$. 
+\end{definition}
+\begin{definition}[Arrival Walk]
+  Let $(V, s, t, s_0, s_1)$ be an arrival graph. The \emph{arrival walk}
+  on this graph is a sequence of vertices $(v_i)_{i \in \znn} \in V \cup \{s, t\}$
+  such that $v_0 = s$, and $v_{i+1} = 
+  \begin{cases} 
+    s_0(v_i), & \text{$n_i$ even}\\  
+    s_1(v_i), & \text{$n_i$ odd},
+  \end{cases}$
+  where $n_i$ is the number of times $v_i$ has appeared previously in
+  the sequence.
+\end{definition}
+It is clear that the arrival walk for a particular arrival graph
+is entirely defined by the structure of the graph, which is what
+lead it to be called a zero player graph game in \citep{arrivalBasic}.
+\begin{definition}[$\textsc{Arrival}$]
+  The $\textsc{Arrival}$ problem is, given an arrival graph $(V, s, t, s_0, s_1)$,
+  decide whether or not the arrival graph ever reaches $t$.
+\end{definition}
+\begin{figure}[h]
+  \input{diagrams/arrivalDiagram.tex}
+  \caption{An example instance of the arrival problem.}\label{arrivalDiagram}
+\end{figure}
+There is an obvious algorithm to solve the $\textsc{Arrival}$ problem;
+just simulate the walk, the efficiency of which depends only on the length of
+the walk. As it turns out, there are instances of the arrival
+problem where the length of the walk grows like $\Theta(2^{|V|})$ as shown
+in \cref{expLongArrival}.
+\begin{figure}
+  \caption{An arrival instance with an exponentially long walk.}\label{expLongArrival}
+\end{figure}
+Interestingly, the $\textsc{Arrival}$ problem is polynomial-time reducible to $\trsk$. 
+This idea was used in \citep{gärtner2021subexponential} in a slightly different form
+to give a sub-exponential time algorithm for solving the $\textsc{Arrival}$ problem. To
+show this reduction I'll need some more definitions.
+\begin{definition}[Switching Flow]
+  Let $(V, s, t, s_0, s_1)$ be an arrival graph. A \emph{switching flow} is a pair of maps $s$.
+\end{definition}
