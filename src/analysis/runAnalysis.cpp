@@ -34,6 +34,8 @@ enum algorithm {
 pair<int, double> solveRandomArrivalWithIterate(int instanceSize) {
     vector<pair<int, int>> instance = generateRandomInstance(instanceSize);
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
+    cout << "instance is: ";
+    printInstance(preprocessedInstance);
     ArrivalInstance arrivalInstance {std::move(preprocessedInstance)};
     auto g = arrivalInstance.getIntFunction();
     auto bot = arrivalInstance.getBot();
@@ -46,7 +48,7 @@ pair<int, double> solveRandomArrivalWithIterate(int instanceSize) {
     };
 
     auto t1 = high_resolution_clock::now();
-    auto fixpoint = kleeneTarski(bot, f);
+    auto fixpoint = kleeneTarski(top, f);
     auto t2 = high_resolution_clock::now();
 
     duration<double, std::milli> ms = t2 - t1;
@@ -120,6 +122,7 @@ pair<int, double> solveRandomArrivalWithWalk(int instanceSize) {
 }
 
 void runAndPrintAnalysis() {
+    auto [queryCount, time] = solveRandomArrivalWithIterate(5);
 //    auto fixpoint = findFixpointRecBin(bot, top, f);
 
     vector<int> decompTestSizes {3, 6, 9, 12, 15, 18};
@@ -131,26 +134,26 @@ void runAndPrintAnalysis() {
 
 
 //    cout << line;
-    cout << "STARTING DECOMP TEST" << endl;
-    for(auto testSize : decompTestSizes) {
-        vector<int> queryCounts {};
-        vector<double> times {};
-
-        for(int j = 0; j < n; j++) {
-//            for(int i = 4; i <= 100; i++) {
-                auto [queryCount, time] = solveRandomArrival(testSize, decomp);
-                queryCounts.push_back(queryCount);
-                times.push_back(time);
-//            }
-        }
-
-        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-        cout << line;
-        cout << "test size: " << testSize << endl;
-        cout << "avg queries was: " << avgQueries << endl;
-        cout << "avg time was: " << avgTime << "ms" << endl;
-    }
+//    cout << "STARTING DECOMP TEST" << endl;
+//    for(auto testSize : decompTestSizes) {
+//        vector<int> queryCounts {};
+//        vector<double> times {};
+//
+//        for(int j = 0; j < n; j++) {
+////            for(int i = 4; i <= 100; i++) {
+//                auto [queryCount, time] = solveRandomArrival(testSize, decomp);
+//                queryCounts.push_back(queryCount);
+//                times.push_back(time);
+////            }
+//        }
+//
+//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//        cout << line;
+//        cout << "test size: " << testSize << endl;
+//        cout << "avg queries was: " << avgQueries << endl;
+//        cout << "avg time was: " << avgTime << "ms" << endl;
+//    }
 
 //    cout << line;
 //    cout << "STARTING RECBIN TEST" << endl;
