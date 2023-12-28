@@ -238,27 +238,30 @@ to the workings on the improved algorithms detailed  later, so they are given be
   since the search space is halved every recursive call
   the algorithm terminates in $O(\log N)$ queries.
 \end{proof}
-The algorithm of Dang, Qi, and Ye using these facts is given below.
+The algorithm of Dang, Qi, and Ye can be seen in \cref{dQiYiAlg}.
 
-\begin{algorithm}[t]
-  \caption{\citep{dangQiYe}}
+\begin{algorithm}[h]
+  \caption{\citep{dangQiYe}}\label{dQiYiAlg}
   \begin{algorithmic}[1]
   \Procedure{DangQiYe}{monotone $f : [N]^d \to [N]^d$}
-  \State $l \gets 1$
-  \State $h \gets N$
+    \State $\bot \gets \vec{1}$
+    \State $\top \gets \vec{N}$
+    \State \Return \Call{DangQiYeRec}{$f$, $\bot$, $\top$}
+  \EndProcedure
+  \Procedure{DangQiYeRec}{monotone $f : [N]^d \to [N]^d$, $\bot$, $\top$}
   \While{true}
-    \State $x \gets \lfloor \frac{l + h}{2} \rfloor$
-    \State $f_s \gets$ the slice of $f$ at $d$ with value $x$
-    \State $\vec{x_s} \gets$ \Call{DangQiYe}{$f_s$}
-    \State $\vec{x} \gets ((\vec{x_s})_1, ..., (\vec{x_s})_{d-1}, x)$
+    \State $\mi_d \gets \lfloor \frac{\bot_d + \top_d}{2} \rfloor$
+    \State $f_s \gets$ the slice of $f$ at $d$ with value $\mi_d$
+    \State $\vec{x_s} \gets$ \Call{DangQiYe}{$f_s$, $\bot_{-d}$, $\top_{-d}$}
+    \State $\vec{x} \gets ((\vec{x_s})_1, ..., (\vec{x_s})_{d-1}, \mi_d)$
     \If{$\vec{x}_d = f(\vec{x})_d$}
       \State \Return{$\vec{x}$}
     \EndIf
-    \If{$\vec{x}_d < f(\vec{x})_d$}
-      \State $l \gets x$
+    \If{$\mi_d < f(\vec{x})_d$}
+      \State $\bot \gets \vec{x}$
     \EndIf
-    \If{$\vec{x}_d > f(\vec{x})_d$}
-      \State $h \gets x$
+    \If{$\mi_d > f(\vec{x})_d$}
+      \State $\top \gets \vec{x}$
     \EndIf
   \EndWhile
   \EndProcedure
@@ -269,20 +272,23 @@ The algorithm of Dang, Qi, and Ye using these facts is given below.
   \textsc{DangQiYe} returns a fixpoint of $f$ if it terminates.
 \end{lemma}
 \begin{proof}
-  The algorithm only returns if it satisfies the condition on line 9. At this point, $\vec{x_s}$ is a fixpoint
+  The algorithm only returns if it satisfies the condition on line 11. At this point, $\vec{x_s}$ is a fixpoint
   of $f_s$, so it follows that $f(\vec{x})_i = \vec{x}_i$ for $i \in [d-1]$. The condition ensures
   that also $\vec{x}_d = f(\vec{x})_d$, and $\vec{x}$ is a fixpoint of $f$.
 \end{proof}
 \begin{lemma}
-  \textsc{DangQiYe} termintes in at most $O(\log^d N)$ queries to $f$.
+  \textsc{DangQiYe} terminates in at most $O(\log^d N)$ queries to $f$.
 \end{lemma}
 \begin{proof}
   By induction. The base case follows from \cref{d1Case}. Suppose \textsc{DangQiYe} uses at most
-  $O(\log^{d-1}N)$ queries to solve the $d-1$ dimensional case. The $d$ dimensional algorithm
-  will require at most $\log N$ recursive calls to the $d-1$ dimensional algorithm, so the algorithm
-  terminates using at most $O(\log N) \cdot O(\log^{d-1} N) = O(\log^d N)$ queries to $f$.
+  $O(\log^{d-1}N)$ queries to solve the $d-1$ dimensional case. If the condition
+  on line 11 fails, note that $\vec{x}$ is a monotone point, so \cref{restricts} guarantees
+  that the function restricts to the smaller lattice bounded by lines 14 or 16.
+  The $d$-th dimension is shrunk by a factor of $\frac{1}{2}$ every iteration of the loop,
+  so will require at most $\log N$ recursive calls to the $d-1$ dimensional algorithm.
+  So the algorithm terminates using at most $O(\log N) \cdot O(\log^{d-1} N) = O(\log^d N)$ queries to $f$.
 \end{proof}
-\begin{theorem}
+\begin{theorem}[\citep{dangQiYe}]
   The query complexity of $\trsk(N, d)$ is $O(\log^d N)$.
 \end{theorem}
 \begin{cor}[\citep{lowerBound}]
@@ -306,12 +312,12 @@ ever reaches the target. A diagram of an example arrival graph is shown
 in $\cref{arrivalDiagram}$.
 \begin{definition}[Arrival Graph]
   An \emph{arrival graph} is a set of vertices $V$, a pair of
-  vertices $s, t$, and a pair of maps 
-  $s_0, s_1 : V \cup \{s\} \to V \cup \{s, t\}$. 
+  vertices $s, t \in V$, and a pair of maps 
+  $s_0, s_1 : V \to V$. 
 \end{definition}
 \begin{definition}[Arrival Walk]
   Let $(V, s, t, s_0, s_1)$ be an arrival graph. The \emph{arrival walk}
-  on this graph is a sequence of vertices $(v_i)_{i \in \znn} \in V \cup \{s, t\}$
+  on this graph is a sequence of vertices $(v_i)_{i \in \znn} \in V$
   such that $v_0 = s$, and $v_{i+1} = 
   \begin{cases} 
     s_0(v_i), & \text{$n_i$ even}\\  
@@ -325,24 +331,62 @@ is entirely defined by the structure of the graph, which is what
 lead it to be called a zero player graph game in \citep{arrivalBasic}.
 \begin{definition}[$\textsc{Arrival}$]
   The $\textsc{Arrival}$ problem is, given an arrival graph $(V, s, t, s_0, s_1)$,
-  decide whether or not the arrival graph ever reaches $t$.
+  decide whether or not the arrival walk ever reaches $t$.
 \end{definition}
 \begin{figure}[h]
   \input{diagrams/arrivalDiagram.tex}
   \caption{An example instance of the arrival problem.}\label{arrivalDiagram}
 \end{figure}
 There is an obvious algorithm to solve the $\textsc{Arrival}$ problem;
-just simulate the walk, the efficiency of which depends only on the length of
-the walk. As it turns out, there are instances of the arrival
-problem where the length of the walk grows like $\Theta(2^{|V|})$ as shown
-in \cref{expLongArrival}.
+just simulate the walk. However, the case of instances where $t$ is not reachable pose a problem.
+If $t$ is not reachable, the walk must cycle infinitely and never terminate!
+The following content demonstrates that this is a non issue.
+\begin{definition}[Hopeful and Desperation]
+  Let $(V, s, t, s_0, s_1)$ be an instance of the $\arr$ problem. A vertex $v \in V$
+  is \emph{hopeful} if there is a path $v \to t$ in the directed graph defined with
+  the vertex set $V$ the edge set $E \subseteq V \times V$ with $(u, v) \in E$ if and
+  only if either $s_0(u) = v$ or $s_1(u) = v$. The \emph{desperation} of a hopeful vertex
+  $v$ is the length of the shortest path from $v$ to $t$.
+\end{definition}
+\begin{lemma}[\citep{arrivalBasic}]
+  Let $(V, s, t, s_0, s_1)$  be an instance of the $\arr$ problem. If $v \in V$ is hopeful,
+  the arrival walk passes through $v$ at most $2^{|V|}$ times.
+\end{lemma}
+\begin{proof}
+  Begin by noting that if a vertex is hopeful, it's desperation is at most $|V|$. I perform
+  an induction on the desperation of $v$. Suppose the desperation of $v \in V$ is 1. Then either
+  $s_0(v) = t$ or $s_1(v) = t$. If $s_0(v) = t$, $t$ will be reached after passing through $v$ once.
+  If $s_1(v) = t$ and $s_0(v) \neq t$ $t$ will be reached after passing through $v$ twice. In
+  both cases $v$ is passed through at most $2^1 = 2$ times. \\
+  Suppose that all hopeful vertices with desperation $d - 1$ are passed through at most $2^{d-1}$ times.
+  Then if $v \in V$ is hopeful with desperation $d$, for some hopeful $w \in V$ with desperation
+  $d - 1$ either $s_0(v) = w$ or $s_1(v) = w$. So at least every second passing of $v$, the
+  walk will proceed to $w$. But the walk can pass through $w$ at most $2^{d-1}$ times,
+  so the walk can pass through $v$ at most $2 \cdot 2^{d - 1} = 2^d$ times.
+\end{proof}
+\begin{cor}\label{walkFinite}
+  Let $(V, s, t, s_0, s_1)$ be an instance of the $\arr$ problem. Then the arrival
+  walk either reaches $t$, or reaches a vertex which is not hopeful.
+\end{cor}
+From \cref{walkFinite} it is clear that deciding an instance of the $\arr$ problem is
+equivalent to deciding whether or not the arrival walk reaches $t$ or reaches a vertex which
+is not hopeful. 
+\begin{definition}[Processed Arrival]
+  Let $(V, s, t, s_0, s_1)$ be an instance of the arrival problem. The \emph{processed arrival problem}
+  is a set of vertices $V' = V / \sim$ where $\sim$ is the equivalence relation generated by
+  $u \sim v$ if $u$ and $v$ are both not hopeful.
+\end{definition}
+\begin{definition}[Switching Flow]
+  Let $(V, s, t, s_0, s_1)$ be an arrival graph. A \emph{switching flow} is a pair of maps 
+  $f_0, f_1 : V \to V$ such that the following axioms hold.
+  \begin{itemize}
+    \item For all $v \in V$
+  \end{itemize}
+\end{definition}
+Interestingly, the $\textsc{Arrival}$ problem is polynomial-time reducible to $\trsk$. 
+This idea was used in \citep{gärtner2021subexponential} in a slightly different form to what is presented here
+to give a sub-exponential time algorithm for solving the $\textsc{Arrival}$ problem. 
+The rest of this section will be demonstrating the reduction from $\arr$ to $\trsk$.
 \begin{figure}
   \caption{An arrival instance with an exponentially long walk.}\label{expLongArrival}
 \end{figure}
-Interestingly, the $\textsc{Arrival}$ problem is polynomial-time reducible to $\trsk$. 
-This idea was used in \citep{gärtner2021subexponential} in a slightly different form
-to give a sub-exponential time algorithm for solving the $\textsc{Arrival}$ problem. To
-show this reduction I'll need some more definitions.
-\begin{definition}[Switching Flow]
-  Let $(V, s, t, s_0, s_1)$ be an arrival graph. A \emph{switching flow} is a pair of maps $s$.
-\end{definition}
