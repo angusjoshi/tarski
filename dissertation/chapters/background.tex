@@ -75,7 +75,7 @@ The partial ordering induced by a lattice is in fact a very special case of a ge
   is $\mathcal{L} \times \mathcal{L'} = (L \times L', \wedge \times \wedge', \vee \times \vee')$ where for $(l, l'), (m, m') \in \mathcal{L} \times \mathcal{L'}$
   the product meet is defined $(l, l') (\wedge \times \wedge') (m, m') = ((l \wedge m), (l' \wedge' m'))$. Join is defined similarly.
 \end{definition}
-\begin{prop}
+\begin{prop}\label{productLatticeIsLattice}
   Let $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$. The product lattice $\mathcal{L} \times \mathcal{L'}$ is a lattice.
 \end{prop}
 \begin{proof}
@@ -338,13 +338,13 @@ lead it to be called a zero player graph game in \citep{arrivalBasic}.
   \caption{An example instance of the arrival problem.}\label{arrivalDiagram}
 \end{figure}
 There is an obvious algorithm to solve the $\textsc{Arrival}$ problem;
-just simulate the walk. However, the case of instances where $t$ is not reachable pose a problem.
-If $t$ is not reachable, the walk must cycle infinitely and never terminate!
+just simulate the walk. Cases of instances where $t$ is not reachable pose a problem however -
+the walk must cycle infinitely and never terminate!
 The following content demonstrates that this is a non issue.
 \begin{definition}[Hopeful and Desperation]
   Let $(V, s, t, s_0, s_1)$ be an instance of the $\arr$ problem. A vertex $v \in V$
   is \emph{hopeful} if there is a path $v \to t$ in the directed graph defined with
-  the vertex set $V$ the edge set $E \subseteq V \times V$ with $(u, v) \in E$ if and
+  the vertex set $V$ and edge set $E \subseteq V \times V$ with $(u, v) \in E$ if and
   only if either $s_0(u) = v$ or $s_1(u) = v$. The \emph{desperation} of a hopeful vertex
   $v$ is the length of the shortest path from $v$ to $t$.
 \end{definition}
@@ -395,19 +395,68 @@ constructed as above.
   $n$ vertices $w \in V$ such that $w \not\in \{t, \overline{t}\}$, so the walk can take at most
   $n \cdot 2^n$ steps.
 \end{proof}
-There are in fact instances of the $\arr$ problem with exponentially long walks. A diagram
-of such a case can be seen in \cref{expLongArrival}.
+There are in fact instances of the $\arr$ problem with exponentially long walks,
+as seen in \cref{expLongArrival}. It follows that simulating the walk has worst
+case exponential runtime. Recently a sub-exponential\footnote{Specifically an algorithm running
+in time $O(2^{\sqrt{n}})$.} upper bound for $\arr$ was given in \citep{gärtner2021subexponential}.
+Interestingly, their algorithm involves a reduction from $\arr$ to $\trsk$. I will not detail
+the reduction used in the sub-exponential algorithm, but I will spend the remainder of the section
+demonstrating a simpler reduction from $\arr$ to $\trsk$.
 \begin{figure}
   \caption{An arrival instance with an exponentially long walk.}\label{expLongArrival}
 \end{figure}
+\newcommand{\fin}{f_{\text{in}}}
 \begin{definition}[Switching Flow]
-  Let $(V, s, t, s_0, s_1)$ be an arrival graph. A \emph{switching flow} is a pair of maps 
-  $f_0, f_1 : V \to V$ such that the following axioms hold.
+  Let $(V, s, t, \overline{t}, s_0, s_1)$ be an arrival graph. A \emph{switching flow} is a pair of maps 
+  $f_0, f_1 : V \setminus \{t, \overline{t}\} \to \znn$ such that the following axioms hold.
+    Let $\fin(v) =
+        \sum_{\substack{w \in V \\ s_0(w) = v}} f_0(w) 
+        + \sum_{\substack{w \in V \\ s_1(w) = v}} f_1(w)$. 
   \begin{itemize}
-    \item For all $v \in V$
+    \item For all $v \in V \setminus \{s\}$, $\fin(v) = f_0(v) + f_1(v)$ (flow conservation),
+    \item $\fin(s) = f_0(s) + f_1(s) - 1$ (source flow conservation),
+    \item For all $v \in V$, $f_1(v) \leq f_0(v) \leq f_1(v) + 1$ (switching).
   \end{itemize}
+  It was observed in \citep{arrivalBasic} that the walk on an arrival graph can be characterized
+  by a switching flow.
+  \begin{lemma}[\citep{arrivalBasic}]\label{walkSwitching}
+    Let $(V, s, t, \overline{t}, s_0, s_1)$ be an instance of the $\arr$ problem. Define
+    $f_0 : V \setminus \{t, \overline{t}\} \to \znn$ by $f_0(v) =$ the number of times $s_0(v)$
+    is traversed in the arrival walk, and define $f_1$ similarly. Then $(f_0, f_1)$ is a switching
+    flow.
+  \end{lemma}
+  \begin{proof}
+    Flow conservation and source flow conservation follow from the fact that the walk must walk
+    out of a vertex if it walks in, minus the initial step it takes from the source. Switching
+    follows from the nature of the walk taking the $s_0$ edge on even passes, and $s_1$ edge on odd
+    passes.
+  \end{proof}
+  \begin{definition}[Switching Flow Lattice Order]
+    Let $(V, s, t, \overline{t}, s_0, s_1)$ be an instance of the arrival problem, and
+    $F$ be the set of all switching flows. The \emph{switching flow lattice order} is
+    defined as $(f_0, f_1) \leq (f'_0, f'_1)$ if and only if $f_0(v) + f_1(v) \leq f'_0(v) + f'_1(v)$
+    for all $v \in V \setminus \{t, \overline{t}\}$.
+  \end{definition}
+  \begin{lemma}
+    The switching flow lattice order is a lattice order.
+  \end{lemma}
+  \newcommand{\flf}{(f_0, f_1) \leq (f'_0, f'_1)}
+  \begin{proof}
+    For each individual $v \in V \setminus \{t, \overline{t}\}$, the order defined by
+    $\flf$ if and only if $f_0(v) + f_1(v) \leq f'_0(v) + f'_1(v)$
+    is clearly a total ordering. Ordering for all $v \in V$ is then just the product lattice,
+    which is a lattice ordering by \cref{productLatticeIsLattice}.
+  \end{proof}
+  The switching flow corresponding to the arrival walk plays a special role in this ordering.
+  \begin{lemma}
+    Let $(V, s, t, \overline{t}, s_0, s_1)$ be an instance of the $\arr$ problem, and
+    $(f_0, f_1)$ be the switching flow corresponding to the arrival walk as in \cref{walkSwitching}.
+    Then for all switching flows $(f'_0, f'_1)$ I have $\flf$.
+  \end{lemma}
+  \newcommand{\ff}{f_0(v) + f_1(v)}
+  \newcommand{\fpfp}{f'_0(v) + f'_1(v)}
+  \begin{proof}
+    Suppose for a contradiction that for some $v \in V \setminus \{t, \overline{t}\}$,
+    $\ff >  \fpfp$. Then $\fpfp - (\ff) < 0$.
+  \end{proof}
 \end{definition}
-Interestingly, the $\textsc{Arrival}$ problem is polynomial-time reducible to $\trsk$. 
-This idea was used in \citep{gärtner2021subexponential} in a slightly different form to what is presented here
-to give a sub-exponential time algorithm for solving the $\textsc{Arrival}$ problem. 
-The rest of this section will be demonstrating the reduction from $\arr$ to $\trsk$.
