@@ -126,6 +126,14 @@ demonstrating a simpler reduction from $\arr$ to $\trsk$.
     follows from the nature of the walk taking the $s_0$ edge on even passes, and $s_1$ edge on odd
     passes.
   \end{proof}
+  A switching flow can be uniquely characterized by a non-negative integer for each
+  $v \in V \setminus \{t, \overline{t}\}$.
+  \begin{lemma}
+    Let $d = |V \setminus \{t, \overline{t}\}|$ and $\vec{x} \in \znn^{d}$ such that
+    for some switching flow $(f_0, f_1)$, $(\vec{x})_i = f_0(\vec{v}_i) + f_1(\vec{v}_i)$ for each
+    $i \in [d]$. Then $(f_0, f_1)$
+    is a unique switching flow $(f_0, f_1) :$
+  \end{lemma}
   \begin{definition}[Switching Flow Lattice Order]
     Let $(V, s, t, \overline{t}, s_0, s_1)$ be an instance of the arrival problem, and
     $F$ be the set of all switching flows. The \emph{switching flow lattice order} is

@@ -47,6 +47,18 @@ Correctness of the algorithm if it terminates is clear, so all that is needed it
 \begin{theorem}
   The query complexity of $\trsk(N,d)$ is $O(Nd)$.
 \end{theorem}
+The fixpoint returned by $\textsc{KleeneTarski}$ isn't just any old fixpoint.
+\begin{lemma}\label{kleeneLfp}
+  Let $x$ be the fixpoint returned by $\textsc{KleeneTarski}$. Then $x$ is the least-fixpoint
+  of $f$. That is, for all other fixpoints $y \in [N]^d$, $y \leq x$.
+\end{lemma}
+\begin{proof}
+  Let $(f^i(\vec{1}))_{i \in \znn}$ be the sequence of points generated in $\textsc{KleeneTarski}$.
+  I will show inductively that $f^i(\vec{1}) \leq y$ for all $i \in \znn$. For the base case,
+  by construction of the lattice $f^0(\vec{1}) = \vec{1} \leq y$. Suppose $f^{i-1}(\vec{1}) \leq y$.
+  Then by monotonicity of $f$, $f(f^{i-1}(\vec{1})) = f^i(\vec{1}) \leq f(y)$. But $y$ is a fixpoint
+  so $f(y) = y$ and $f^i(\vec{1}) \leq y$.
+\end{proof}
 It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
 $N$ can be represented with $\log N$ bits of information. 
 Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
@@ -168,4 +180,11 @@ There have recently been improvements on this upper bound.
   The query complexity of $\trsk(N, d)$ is $O(\log^{\lceil (d+1)/2 \rceil} N)$.
 \end{theorem}
 The details of these algorithms will be shared in a later section.
+\begin{remark}
+  The problem of computing any fixpoint of a monotone function on a general lattice
+  is known to be intractable. In particular, it was shown in \citep{changComplexity}
+  that for any randomized algorithm there are general lattices of $N$ elements 
+  which require $\Omega(N)$ queries with high probability to find a fixpoint.
+  Focussing on a specific case such as $[N]^d$ is therefore justified.
+\end{remark}
 
