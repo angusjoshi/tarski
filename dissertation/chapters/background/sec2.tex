@@ -1,0 +1,171 @@
+\section{Fixpoint Existence and Computation}
+Tarski gave a theorem on the existence of fixpoints of monotone functions on complete lattices\citep{tarski} (which I have not defined). This theorem
+is in reality stronger than is needed for the finite case. I present a proof of the existence of fixpoints in a finite lattice.
+\begin{theorem}[\citep{tarski}]\label{fixExist}
+  Let $f : [N]^d \to [N]^d$ be monotone. Then there is a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
+\end{theorem}
+\begin{proof}
+  Firstly, note that for all $x \in [N]^d$ the point $\vec{1} = (1, ..., 1) \leq x$, and in particular $\vec{1} \leq f(\vec{1})$.
+  By an induction combined with monotonicity I find for all $i \in \znn$, $f^i (\vec{1}) \leq f^{i+1} (\vec{1})$. Suppose for a contradiction that there
+  is no point $x^* \in [N]^d$ such that $f(x^*) = x^*$. Then for all $i \in \znn$, $f^i (\vec{1}) \neq f^{i+1}(\vec{1})$ which implies
+  that $f^i (\vec{1}) < f^{i+1}(\vec{1})$. This gives infinitely many distinct points in $[N]^d$. But $[N]^d$ is finite, which is a contradiction.
+  It follows that
+  there is a fixpoint of $f$ in $[N]^d$.
+\end{proof}
+This gives rise to a natural problem; how can such a fixpoint be found?
+\begin{definition}[$\trsk$]
+  The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
+\end{definition}
+The proof of \cref{fixExist} implicitly contains our first algorithm for fixpoint computation.
+\begin{notation}
+  For $k \in \znn$ the notation $\vec{k} = (k, ..., k)$. It is assumed that
+  the dimensionality of this 'vector' is clear from context.
+\end{notation}
+\begin{algorithm}
+  \caption{Kleene Tarski Iteration}
+  \begin{algorithmic}[1]
+  \Procedure{KleeneTarski}{monotone $f : [N]^d \to [N]^d$}
+  \State $x \gets \vec{1}$
+  \While{$x \neq f(x)$} 
+    \State $x \gets f(x)$
+  \EndWhile
+  \Return $x$
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+Correctness of the algorithm if it terminates is clear, so all that is needed it a bound on it's runtime.
+\begin{lemma}
+  \textsc{KleeneTarski} always terminates in time $O(Nd)$.
+\end{lemma}
+\begin{proof}
+  As in the proof of \cref{fixExist}, for all $i \in \znn$, $f^i(\vec{1}) \leq f^{i+1}(\vec{1})$. If $f^i(\vec{1}) = f^{i+1}(\vec{1})$
+  then $f^i(\vec{1})$ is a fixpoint. So suppose for a contradiction for some $j > Nd$ that for all $i \leq j$, $f^i(\vec{1}) < f^{i+1}(\vec{1})$. 
+  By integrality, $\|f^{i+1}(x)\|_1 \geq \|f^i(x)\|_1 + 1$. It follows that $\|f_j(x)\|_1 > Nd$. But this implies that
+  $\|f_j(x)\|_1 > \|\vec{N}\|_1$, which is a contradiction of the definition of $f$. So for some $j \leq Nd$, $f^j(\vec{1}) = f^{j+1}(\vec{1})$.
+\end{proof}
+\begin{theorem}
+  The query complexity of $\trsk(N,d)$ is $O(Nd)$.
+\end{theorem}
+It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
+$N$ can be represented with $\log N$ bits of information. 
+Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
+on the problem.
+\begin{theorem}[\citep{lowerBound}]
+  The query complexity of $\trsk(N, d)$ is $\Omega(\log^2N)$.
+\end{theorem}
+Dang, Qi, and Ye gave an algorithm for solving the $\trsk$ problem\citep{dangQiYe} using a variant of the well
+known binary search algorithm. The details of their algorithm are instructive
+to the workings on the improved algorithms detailed  later, so they are given below.
+\begin{notation}
+  Given a tuple $x = (x_1, ..., x_n)$ for $i \in [n]$ the notation $x_{-i} = (x_1, ..., x_{i-1}, x_{i+1}, ..., x_n)$. That is, it drops
+  the $i$-th coordinate of the tuple.
+\end{notation}
+\begin{definition}[Slice]
+  Let $(S_i)_{i \in [d]}$ be totally ordered sets, $L = \prod_{i \in [d]} S_i$
+  be their product lattice, and $f : L \to L$ be monotone. 
+  Then a \emph{slice} of $f$ is a choice of coordinate $i \in [d]$,
+  and a choice of value $x_i \in S_i$, defining a new function 
+  $f_s : L_{-i} \to L_{-i}$ with
+  $f_s((l_1, ..., l_{d-1})) = f((l_1, ..., l_{i-1},  x_i, l_i, ..., l_{d-1}))_{-i}$.
+\end{definition}
+\begin{lemma}
+  Let $f : \nd \to \nd$ be monotone. Then for any $i \in [d]$, $x_i \in [N]$ the slice $f_s : [N]^{d-1} \to [N]^{d-1}$ at $i$ with value $x_i$  
+  is monotone. 
+\end{lemma}
+\begin{proof}
+  Suppose $l, l' \in [N]^{d-1}$ with $l = (l_1, ..., l_{d-1})$, $l' = (l'_1, ..., l'_{d-1})$, and $l \leq l'$.
+  By reflexivity, $x_i \leq x_i$, so $(l_1, ... , x_i, l_i, ..., l_{d-1}) \leq (l'_1, ... , x_i, l'_i, ..., l_{d-1})$,
+  and $f_s(l) \leq f_s(l')$ follows by monotonicity of $f$.
+\end{proof}
+\begin{notation}
+  Let $L$ be a lattice. Then for $x \in L$ the notation $L_{\geq x}$ is a sub-lattice of $L$ with underlying set
+  $\{l \in L | l \geq x\}$. It is clear that $L_{\geq x}$ is also a lattice, with the same joins, meets, and ordering as $L$.
+\end{notation}
+\begin{lemma}\label{restricts}
+  Let $f : [N]^d \to [N]^d$ is monotone, and $x \in [N]^d$ be such that $x \leq f(x)$. Then
+  $f$ restricts to a monotone function $\restr{f}{[N]^d_{\geq x}} : [N]^d_{\geq x} \to [N]^d_{\geq x}$. Similarly,
+  if $x \geq f(x)$ then $f$ restricts to a monotone function $\restr{f}{[N]^d_{\leq x}} : [N]^d_{\leq x} \to [N]^d_{\leq x}$.
+\end{lemma}
+\begin{proof}
+  I need to show that if $x \leq f(x)$ then for all $y \in [N]^d_{\geq x}$, $f(y) \in [N]^d_{\geq x}$. By construction,
+  $y \geq x$, and by monotonicity $f(y) \geq f(x)$. But $f(x) \geq x$, so $f(y) \geq x$, and $f(y) \in [N]^d_{\geq x}$. The second part
+  follows by duality.
+\end{proof}
+\begin{lemma}\label{d1Case}
+  Let $f : [N] \to [N]$ be monotone. Then a fixpoint of $f$ can be found in $O(\log N)$ queries of $f$.
+\end{lemma}
+\begin{proof}
+  Choose $x = \lfloor \frac{N}{2} \rfloor$. $[N]$ is totally ordered, so exactly one of the following hold; $x < f(x)$, $x = f(x)$, $x > f(x)$.
+  If $x = f(x)$ then I'm done. If $x < f(x)$ then by \cref{restricts} $f$ restricts to a monotone function $\restr{f}{[N]^d_{\geq x}}$, 
+  and a fixpoint of $\restr{f}{[N]^d_{\geq x}}$ is clearly also a fixpoint of $f$. Similarly, if $x > f(x)$ then $f$ restricts to
+  $\restr{f}{[N]^d_{\leq x}}$. This enables a recursion on the smaller sublattice. Finally,
+  noting that a fixpoint can be found trivially in the one-point set in a constant number of queries,
+  since the search space is halved every recursive call
+  the algorithm terminates in $O(\log N)$ queries.
+\end{proof}
+The algorithm of Dang, Qi, and Ye can be seen in \cref{dQiYiAlg}.
+
+\begin{algorithm}[h]
+  \caption{\citep{dangQiYe}}\label{dQiYiAlg}
+  \begin{algorithmic}[1]
+  \Procedure{DangQiYe}{monotone $f : [N]^d \to [N]^d$}
+    \State $\bot \gets \vec{1}$
+    \State $\top \gets \vec{N}$
+    \State \Return \Call{DangQiYeRec}{$f$, $\bot$, $\top$}
+  \EndProcedure
+  \Procedure{DangQiYeRec}{monotone $f : [N]^d \to [N]^d$, $\bot$, $\top$}
+  \While{true}
+    \State $\mi_d \gets \lfloor \frac{\bot_d + \top_d}{2} \rfloor$
+    \State $f_s \gets$ the slice of $f$ at $d$ with value $\mi_d$
+    \State $\vec{x_s} \gets$ \Call{DangQiYe}{$f_s$, $\bot_{-d}$, $\top_{-d}$}
+    \State $\vec{x} \gets ((\vec{x_s})_1, ..., (\vec{x_s})_{d-1}, \mi_d)$
+    \If{$\vec{x}_d = f(\vec{x})_d$}
+      \State \Return{$\vec{x}$}
+    \EndIf
+    \If{$\mi_d < f(\vec{x})_d$}
+      \State $\bot \gets \vec{x}$
+    \EndIf
+    \If{$\mi_d > f(\vec{x})_d$}
+      \State $\top \gets \vec{x}$
+    \EndIf
+  \EndWhile
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{lemma}
+  \textsc{DangQiYe} returns a fixpoint of $f$ if it terminates.
+\end{lemma}
+\begin{proof}
+  The algorithm only returns if it satisfies the condition on line 11. At this point, $\vec{x_s}$ is a fixpoint
+  of $f_s$, so it follows that $f(\vec{x})_i = \vec{x}_i$ for $i \in [d-1]$. The condition ensures
+  that also $\vec{x}_d = f(\vec{x})_d$, and $\vec{x}$ is a fixpoint of $f$.
+\end{proof}
+\begin{lemma}
+  \textsc{DangQiYe} terminates in at most $O(\log^d N)$ queries to $f$.
+\end{lemma}
+\begin{proof}
+  By induction. The base case follows from \cref{d1Case}. Suppose \textsc{DangQiYe} uses at most
+  $O(\log^{d-1}N)$ queries to solve the $d-1$ dimensional case. If the condition
+  on line 11 fails, note that $\vec{x}$ is a monotone point, so \cref{restricts} guarantees
+  that the function restricts to the smaller lattice bounded by lines 14 or 16.
+  The $d$-th dimension is shrunk by a factor of $\frac{1}{2}$ every iteration of the loop,
+  so will require at most $\log N$ recursive calls to the $d-1$ dimensional algorithm.
+  So the algorithm terminates using at most $O(\log N) \cdot O(\log^{d-1} N) = O(\log^d N)$ queries to $f$.
+\end{proof}
+\begin{theorem}[\citep{dangQiYe}]
+  The query complexity of $\trsk(N, d)$ is $O(\log^d N)$.
+\end{theorem}
+\begin{cor}[\citep{lowerBound}]
+  The query complexity of $\trsk(N, 2)$ is $\Theta(\log^2 N)$.
+\end{cor}
+There have recently been improvements on this upper bound.
+\begin{theorem}[\citep{fasterTarski}]
+  The query complexity of $\trsk(N, 3)$ is $\Theta(\log^2 N)$.
+\end{theorem}
+\begin{theorem}[\citep{chenLi}]
+  The query complexity of $\trsk(N, d)$ is $O(\log^{\lceil (d+1)/2 \rceil} N)$.
+\end{theorem}
+The details of these algorithms will be shared in a later section.
+

@@ -1,0 +1,130 @@
+\section{Lattices, Monotone Functions, and Fixpoints}
+\begin{definition}[Lattice]\label{latedef}
+  A \emph{lattice} is a set $L$, and two binary operators $\wedge, \vee : L \times L \to L$ called \emph{join} and \emph{meet} respectively,
+  such that the following axioms hold. For all $a, b, c \in L$,
+  \begin{itemize}
+    \item $a \wedge (a \vee b) = a$ and $a \vee (a \wedge b) = b$ (absorption),
+    \item $a \wedge b = b \wedge a$ and $a \vee b = b \vee a$ (commutativity),
+    \item $a \wedge (b \wedge c) = (a \wedge b) \wedge c$ and $a \vee (b \vee c) = (a \vee b) \vee a$ (associativity).
+  \end{itemize}
+\end{definition}
+For the purposes of this project, I'm primarily concerned with an order-theoretic characterization of lattices. 
+\begin{definition}[Poset]\label{posetdef}
+  A \emph{partially ordered set}, or \emph{poset} is a set $S$ with a binary relation $\leq$ on $S$ such that the following axioms hold,
+  \begin{itemize}
+    \item For all $s \in S$, $s \leq s$ (reflexivity),
+    \item for all $s, t, u \in S$, if $s \leq t$ and $t \leq u$ then $s \leq u$ (transitivity),
+    \item for all $s, t \in S$, if $s \leq t$ and $t \leq s$ then $s = t$ (antisymmetry).
+  \end{itemize}
+\end{definition}
+As it turns out, any lattice structure induces a partial order on it's underlying set.
+\begin{lemma}\label{joinMeetIdempotent}
+  Let $(L, \wedge, \vee)$ be a lattice. Then for all $l \in L$, $l \wedge l = l$ and $l \vee l = l$.
+\end{lemma}
+\begin{proof}
+  Let $l \in L$. Then by two applications of the absorption laws, $l = l \vee (l \wedge (l \vee l)) = l \wedge l$. $l \vee l = l$ follows
+  by duality.
+\end{proof}
+\begin{prop}\label{latOrd}
+  Let $(L, \wedge, \vee)$ be a lattice. Then for all $l, l' \in L$, the binary relation defined by $l \leq l'$ if and only if $l \vee l' = l'$
+  is a partial order on $L$.
+\end{prop}
+\begin{proof}
+  Reflexivity follows immediately by \cref{joinMeetIdempotent}. For transitivity, let $l, m, n \in L$ and suppose
+  $l \vee m = m$ and $m \vee n = n$. Then using associativity of $\vee$,
+  \begin{align*}
+    l \vee n = l \vee (m \vee n) = (l \vee m) \vee n = m \vee n = n.
+  \end{align*}
+  For antisymmetry, suppose $l \vee m = m$ and $m \vee l = l$. By commutativity of $\vee$, 
+  \begin{align*}
+    l = m \vee l = l \vee m = m.
+  \end{align*}
+\end{proof}
+\begin{remark}
+  Although \cref{latOrd} only uses half of the structure of the lattice to define a partial order,
+  there is a dual definition where $l \leq l'$ if and only if $l \wedge l' = l$, and the two are equivalent by the absorption laws.
+\end{remark}
+The partial ordering induced by a lattice is in fact a very special case of a general partial order.
+\begin{definition}[Least/Greatest Lower Bounds]
+  Let $S$ be a set with partial ordering $\leq$. For $s, s' \in S$, $t$ is the \emph{greatest lower bound} of $s$ and $s'$
+  if $s \geq t$, $s' \geq t$ and whenever $t' \in S$ satisfies $s \geq t'$ and $s' \geq t'$ I have $t \geq t'$.
+  The \emph{least upper bound} is dual to the greatest lower bound.
+\end{definition}
+\begin{definition}[Lattice Ordering]
+  Let $L$ be a set. A \emph{lattice ordering} on $L$ is a partial ordering $\leq$ on $L$ such that for all $l, l' \in L$, $l$ and $l'$
+  have a unique greatest lower bound, and least upper bound.
+\end{definition}
+\begin{prop}
+  Let $(L, \wedge, \vee)$ be a lattice. Then the binary relation $\leq$ on $L$ defined by $l \leq l'$ if and only if
+  $l \vee l' = l'$ is a lattice ordering on $L$.
+\end{prop}
+\begin{proof}
+  By \cref{latOrd}, $\leq$ is a partial order on $L$. So let $l, l' \in L$. I will show that the least upper bound of
+  $l$ and $l'$ is precisely $l \vee l'$. Firstly, $l \vee (l \vee l') = (l \vee l) \vee l' = l \vee l'$, and $l \leq (l \vee l')$.
+  $l' \leq (l \vee l')$ follows similarly. Now suppose $m \in L$ satisfies $l \vee m = m$ and $l' \vee m = m$. Then,
+  \begin{align*}
+    (l \vee l') \vee m = l \vee (l' \vee m) = l \vee m = m,
+  \end{align*}
+  and $l \vee l' \leq m$. Finally for uniqueness, if $m, m'$ are least upper bounds of $l$ and $l'$, then $m \leq m'$ and $m' \leq m$,
+  so by antisymmetry, $m = m'$. That $l \wedge l'$ is the greatest lower bound of $l$ and $l'$ follows by duality.
+\end{proof}
+\begin{definition}[Product Lattice]
+  Given two lattices $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$ the \emph{product lattice} 
+  is $\mathcal{L} \times \mathcal{L'} = (L \times L', \wedge \times \wedge', \vee \times \vee')$ where for $(l, l'), (m, m') \in \mathcal{L} \times \mathcal{L'}$
+  the product meet is defined $(l, l') (\wedge \times \wedge') (m, m') = ((l \wedge m), (l' \wedge' m'))$. Join is defined similarly.
+\end{definition}
+\begin{prop}\label{productLatticeIsLattice}
+  Let $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$. The product lattice $\mathcal{L} \times \mathcal{L'}$ is a lattice.
+\end{prop}
+\begin{proof}
+  Let $(l, l'), (m, m'), (n, n') \in L \times L'$. For absorption, 
+  \begin{align*}
+    (l, l') (\vee \times \vee') ((l, l') (\wedge \times \wedge') (m, m')) &= (l \vee (l \wedge m), l' \vee (l' \wedge m')) \\
+                                                                          &= (l, l').
+  \end{align*}
+  The other absorption law, commutativity, and associativity follow similarly.
+\end{proof}
+\begin{definition}[Total Order]
+  A partially ordered set $(S, \leq)$ is \emph{totally ordered} if whenever $a, b \in S$ at least one of $a \leq b$ or $b \leq a$ hold.
+  This gives binary operators $\max$ and $\min$ on $S$, where $\max (a, b) = \begin{cases} b, & a \leq b \\ a, & \text{otherwise,}  \end{cases}$
+    $\min (a, b) = \begin{cases} a, & a \leq b \\ b, & \text{otherwise.}  \end{cases}$
+\end{definition}
+\begin{prop}
+  Let $(S, \leq)$ be a total order. Then $(S, \min, \max)$ is a lattice.
+\end{prop}
+\begin{proof}
+  For absorption, let $a, b, c \in S$. Then 
+  \begin{align*}
+    \min(a, \max(a, b)) = \begin{cases} \min(a, b), & a \leq b \\ \min(a, a), & \text{otherwise}\end{cases} = a.
+  \end{align*}
+  The other absorption law follows similarly. Commutativity is clear, and for associativity of $\min$,
+  \begin{align*}
+    \min(a, \min(b, c)) = \begin{cases} \min(a, b), &  b \leq c \\ \min(a, c), & \text{otherwise}\end{cases} = \min(\min(a, b), c).
+  \end{align*}
+  Associativity of $\max$ follows similarly.
+\end{proof}
+The notion of a sublattice will be useful in turn.
+\begin{definition}[Sublattice]
+  Let $(L, \wedge, \vee)$ be a lattice. A sublattice $(M, \wedge, \vee)$ is a
+  subset $M \subseteq L$ such that whenever $m, n \in M$ I have $m \wedge n \in M$ and
+  $m \vee n \in M$.
+\end{definition}
+For the rest of the dissertation where join, meet, and $\leq$ are clear from context, I will denote a lattice purely by it's underlying set.
+\begin{notation}
+  For $N \in \mathbb{Z}_{\geq 1}$ I use the notation $[N] = \{1, ..., N\}$.
+\end{notation}
+It's clear that $[N]$ is totally ordered with the standard ordering on $\mathbb{Z}$.
+\begin{cor}
+  For $d \in \mathbb{Z}_{\geq 1}$ let $[N]^d = \prod_{i=1}^d [N]$. Then $[N]^d$ is a lattice. Join and meet
+  are given by coordinate-wise $\max$ and $\min$ respectively, and the lattice ordering is defined as $(l_1, ..., l_d) \leq (l'_1, ..., l'_d)$
+  if and only if $l_i \leq l'_i$ for each $i \in \{1, ..., d\}$.
+\end{cor}
+The focus will be on finding so-called fixopints of monotone functions on a lattice.
+\begin{definition}[Monotone Function]
+  Let $L$ be a lattice. Then a function $f : L \to L$ is \emph{monotone} if whenever $l, l' \in L$ with
+  $l \leq l'$ I have $f(l) \leq f(l')$.
+\end{definition}
+\begin{definition}[Fixpoint]
+  Let $S$ be a set and $f : S \to S$. Then $s \in S$ is a \emph{fixpoint} of $f$ if $f(s) = s$.
+\end{definition}
+
