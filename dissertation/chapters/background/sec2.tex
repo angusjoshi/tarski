@@ -23,7 +23,7 @@ The proof of \cref{fixExist} implicitly contains our first algorithm for fixpoin
 \end{notation}
 \begin{algorithm}
   \caption{Kleene Tarski Iteration}
-  \begin{algorithmic}[1]
+  \begin{algorithmic}[1]\label{kleeneTarski}
   \Procedure{KleeneTarski}{monotone $f : [N]^d \to [N]^d$}
   \State $x \gets \vec{1}$
   \While{$x \neq f(x)$} 

@@ -33,7 +33,7 @@ lead it to be called a zero player graph game in \citep{arrivalBasic}.
   \centering
   \input{diagrams/arrivalDiagram.tex}
   \caption{The goal of the arrival problem is to decide whether a partiular walk on a directed graph with a particular
-  structure reaches the target. In this example,
+  structure reaches the target. In this example
   the arrival walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} \label{arrivalDiagram}
 \end{figure}
 There is an obvious algorithm to solve the $\textsc{Arrival}$ problem;
@@ -100,11 +100,12 @@ in time $O(2^{\sqrt{n}})$.} upper bound for $\arr$ was given in \citep{gärtner2
 Interestingly, their algorithm involves a reduction from $\arr$ to $\trsk$. I will not detail
 the reduction used in the sub-exponential algorithm, but will spend the remainder of the section
 demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
-\begin{figure}
+\begin{figure}[h]
   \centering
   \input{diagrams/expLong.tex}
-  \caption{There are instances of the arrival problem with exponentially long walks. In this example, if
-  you consider the 'switch' at each node as a bit, the arrival walk is equivalent to counting from one up to $2^n$.}\label{expLongArrival}
+  \caption{There are instances of the arrival problem with exponentially long walks. A simple induction
+  on the number of steps to get from $s \to v_i$ shows that walk on the above
+  takes at least $\Omega(2^n)$ steps to reach $t$.}\label{expLongArrival}
 \end{figure}
 \newcommand{\fin}{f_{\text{in}}}
 \begin{definition}[Switching Flow]
@@ -161,7 +162,7 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     which is therefore montone.
   \end{proof}
   The monotone function was constructed precisely so that the following proposition holds.
-  \begin{prop}
+  \begin{prop}\label{fixpointIsFlow}
     Let $f : \znn^d \to \znn^d$ be an arrival monotone function, and $a = (a_1, ..., a_d) \in \znn^d$. 
     Define $g_0(v_i) = \lceil \frac{a_i}{2} \rceil$ and $g_1(v_i) = \lfloor \frac{a_i}{2} \rfloor$. 
     Then $(g_0, g_1)$ is a switching flow if and only if $f(a) = a$.
@@ -208,18 +209,68 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   \newcommand{\rc}{\right\rceil}
   \newcommand{\lf}{\left\lfloor}
   \newcommand{\rf}{\right\rfloor}
-  \begin{prop}
+  \begin{prop}\label{kleeneTarskiIsWalk}
     Let $(V, s, t, \overline{t}, s_0, s_1)$ be an instance of the problem, and $f$ be the 
     arrival monotone function. For $a \in \znn^d$ let $g_0(a) = \lc \frac{a}{2} \rc$ and 
-    $g_1(a) = \lf \frac{f(a)}{2} \rf$. Let 
-    $(f_0^i : [d] \to \znn, f_1a^i : [d] \to znn)_{i \in znn}$
-    be a sequence defined by $f_0^i(j) = $ the number of times the $s_0$ edge has been taken from $v_j$
-    after $i$ steps in the walk, and define $f_1^i(j)$ similarly for the $s_1$ edge.
-    by $f_0 = $ the number of times 
+    $g_1(a) = \lf \frac{a}{2} \rf$. For $i \in \{x \in \znn | x < n \}$ where $n$ number of steps
+    to reach $t$ or $\overline{t}$, let 
+    $(h_0^i : [d] \to \znn, h_1a^i : [d] \to \znn)_{i \in \znn}$
+    be a sequence defined by $h_0^i(j) = $ the number of times the $s_0$ edge has been taken from $v_j$
+    after $i$ steps in the walk, and define $h_1^i(j)$ similarly for the $s_1$ edge. Then for each $j \in [d]$
+    $g_0(f^i(\vec{0}))_j = h_0^i(j)$ and $g_1(f^i(\vec{0}))_j = h_1^i(j)$.
   \end{prop}
-  So finding a switching flow can be reduced to finding a fixpoint of a particular monotone function.
-  This doesn't quite fit into my definition of the $\trsk$ problem yet however, as that requires a finite
-  lattice and $\znn^d$ is infinite. Fortunately this isn't an issue.
+  \begin{proof}
+    By induction. For the base case where $i = 0$ no edges have been crossed, so for each
+    $j \in [d]$ $h_0^i(j) = h_1^i(j) = 0 = \frac{f^0(\vec{0})_i}{2} = 0$. \\
+    So suppose for some $i \in \znn$ the statement is true for all $j \in [i-1]$.
+    Let $v_k \in V \setminus \{t, \overline{t}\}$ be the vertex the walk is at after $i - 1$ steps, and $v_l$ after $i-2$ steps.
+    Then by the inductive hypothesis $f^{i-2}(\vec{0})_l + 1 = f^{i-1}(\vec{0})_l$ and for each
+    $m \in [d] \setminus \{l\}$, $f^{i-2}(\vec{0})_m = f^{i-1}(\vec{0})_m$. It follows that
+    $f^{i - 1}(\vec{0})_k + 1 = f^{i}(\vec{0})_k$, and the switching property of the monotone function
+    guarantees that the extra unit appears on the correct edge.
+  \end{proof}
+  All of that is really just to say that in the case of monotone functions from the arrival problem,
+  iteration from the bottom of the lattice as in \cref{kleeneTarski} \emph{is} the walk. This connection gives
+  me some useful corollaries.
+  \begin{cor}\label{walkLfp}
+    Let $f$ be an arrival monotone function, 
+    $(g_0, g_1)$ be the switching flow corresponding to an arrival walk as in \cref{walkSwitching},
+    and $a \in \znn^d$ be the fixpoint corresponding to this switching flow as in \cref{fixpointIsFlow}.
+    Then $a$ is the least fixpoint of $f$.
+  \end{cor}
+  \begin{proof}
+    Using a similar argument to \cref{kleeneLfp}, iteration from the bottom of the lattice gives the least
+    fixpoint. But \cref{kleeneTarskiIsWalk} says that iteration from the bottom of the lattice is the walk
+    and will give the fixpoint corresponding to the switching flow of the walk.
+  \end{proof}
+  \begin{cor}
+    Let $f : \znn^d \to \znn^d$ be an arrival monotone function, and $a \in \znn^d$ be a point
+    such that $f(a) = a$. If 
+    $f_t = \sum_{\substack{i \in [d] \\ s_0(v_i) = t}}  \lc \frac{a_i}{2} \rc +
+    \sum_{\substack{i \in [d] \\ s_1(v_i) = t}}  \lf \frac{a_i}{2} \rf$ and
+    $f_{\overline{t}} = \sum_{\substack{i \in [d] \\ s_0(v_i) = \overline{t}}}  \lc \frac{a_i}{2} \rc +
+    \sum_{\substack{i \in [d] \\ s_1(v_i) = \overline{t}}}  \lf \frac{a_i}{2} \rf$ are the inflows at $t$ and $\overline{t}$
+    respectively. Exactly one of the following hold,
+    \begin{itemize}
+      \item $f_t = 1$ and $f_{\overline{t}} = 0$,
+      \item $f_t = 0$ and $f_{\overline{t}} = 0$.
+    \end{itemize}
+  \end{cor}
+  \begin{proof}
+    The walk only terminates when it reaches either $t$ or $\overline{t}$, so the switching flow corresponding
+    to the walk must satisfy exactly one of $f_t = 1$ and $f_{\overline{t}} = 0$ or 
+    $f_t = 0$ and $f_{\overline{t}} = 0$. By \cref{walkLfp} the walk corresponds
+    to the least fixpoint, and for all other switching flows $(g_0, g_1)$, at least one of $g_t \geq 1$ or
+    $g_{\overline{t}} \geq 1$. Suppose for a contradiction that $g_t + g_{\overline{t}} \geq 2$ and let
+    $a \in \znn^d$ be the point corresponding to $(g_0, g_1)$. Then
+    $\sum_{i \in [d]} f(a)_i \leq \sum_{i \in [d]} a_i - 1$. But this contradicts $a$ being a fixpoint due to
+    \cref{fixpointIsFlow}, from which I find $g_t + g_{\overline{t}} = 1$, and the claim follows.
+  \end{proof}
+  Remarkably, this implies that \emph{any} switching flow is certificate to the walk reaching either $t$
+  or $\overline{t}$. Further, fixpoints are switching flows so deciding the $\arr$ problem is reducible
+  to finding a fixpoint of a particular monotone function! I'm not quite finished yet however;
+  the monotone functions of arrival instances considered so far have been on the infinite lattice $\znn^d$, but
+  the $\trsk$ problem I defined is on the finite lattice $[N]^d$. This will turn out to not be an issue.
   \begin{notation}
     For $N \in \znn$ notation $[N]_0$ represents $[N] \cup \{0\}$.
   \end{notation}
@@ -281,5 +332,6 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
       Since $a$ was a fixpoint of $F$, $a_j = \min(f(a)_j, N) = N$, and $f(a)_j = a_j + 1$.
     For $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$ I require that $f_{\text{in}}(t) = 0$ and $f_{\text{in}}(\overline{t}) = 0$.
   \end{proof}
-  So I've proven that finding switching flows is reducible to $\trsk$. The last step is to show that
-  finding a switching flow gives me the answer to the $\trsk$ problem.
+  \begin{theorem}
+    $\arr$ is polynomial time reducible to $\trsk$.
+  \end{theorem}
