@@ -12,28 +12,9 @@
   \node[main] (s) {$s$};
   \node[main] (1) [right of=s] {$v_1$};
   \node[main] (2) [right of=1]{$v_2$};
-  \node[main] (3) [below of=1]{$v_3$};
-  \node[main] (4) [below of=2]{$v_4$};
-  \node[main] (5) [below right of=2]{$v_5$};
-  \node[main] (t) [above right of=5]{$t$};
-
-  \draw (s) -- (1) node[near start, above, text=black]{$s_0$};
-  \draw (s) -- (3) node[near start, above, text=black]{$s_1$};
-
-  \draw (1) -- (4) node[near start, above, text=black]{$s_0$};
-  \draw (1) -- (2) node[near start, above, text=black]{$s_1$};
-
-  \draw (2) -- (4) node[near start, right, text=black]{$s_0$};
-  \draw (2) -- (3) node[near start, above, text=black]{$s_1$};
-
-  \draw (3) -- (1) node[near start, right, text=black]{$s_0$};
-  \draw (3) -- (4) node[near start, above, text=black]{$s_1$};
-
-  \draw (4) edge[bend right=70, min distance=2cm] node[near start, below, text=black]{$s_0$} (s.south);
-  \draw (4) -- (5) node[near start, above, text=black]{$s_1$};
-
-  \draw (5) -- (2) node[near start, above, text=black]{$s_0$};
-  \draw (5) -- (t) node[near start, above, text=black]{$s_1$};
+  \node[main] (3) [below of=1]{$v_2$};
+  \node[main] (4) [below of=2]{$v_3$};
+  \node[main] (5) [below right of=2]{$v_4$};
 
 % %Shape: Circle [id:dp5495329281078569] 
 % \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (32,49) .. controls (32,35.19) and (43.19,24) .. (57,24) .. controls (70.81,24) and (82,35.19) .. (82,49) .. controls (82,62.81) and (70.81,74) .. (57,74) .. controls (43.19,74) and (32,62.81) .. (32,49) -- cycle ;
