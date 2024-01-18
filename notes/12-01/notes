@@ -1,0 +1,30 @@
+pre optimization
+
+==================================================
+STARTING DECOMP TEST
+==================================================
+test size: 3
+avg queries was: 4
+avg time was: 0.00056665ms
+==================================================
+test size: 6
+avg queries was: 44
+avg time was: 0.0110187ms
+==================================================
+test size: 9
+avg queries was: 752
+avg time was: 0.249498ms
+==================================================
+test size: 12
+avg queries was: 13476
+avg time was: 5.37774ms
+==================================================
+test size: 15
+avg queries was: 54995
+avg time was: 25.8878ms
+==================================================
+test size: 18
+avg queries was: 957713
+avg time was: 561.308ms
+
+

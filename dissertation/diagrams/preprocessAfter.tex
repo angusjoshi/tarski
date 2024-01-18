@@ -1,0 +1,18 @@
+\begin{tikzpicture}[x=0.6pt,y=0.6pt,yscale=-1,xscale=1, 
+  main/.style = {draw, circle, 
+  fill={rgb, 255:red, 0; green, 0; blue, 0 }},
+  text=white,
+  node distance=2.5cm,
+  ->,
+  >={Stealth[round,sep]}]
+  \node[main] (s) {$s$};
+  \node[main] (1) [right of=s]{$\overline{t}$};
+  \node[main] (3) [above right of=s]{$v_3$};
+  
+  % \node[main] (4) [right of=3]{$v_n$};
+  \node[main] (4)[right of=3]{$t$};
+  \draw (s) -- (3) node[midway, below, text=black]{$s_0$};
+  \draw (s) -- (1) node[midway, below, text=black]{$s_1$};
+  \draw (3) -- (4) node[midway, below, text=black]{$s_1$};
+  \draw (3) -- (1) node[midway, above right, text=black]{$s_0$};
+\end{tikzpicture}

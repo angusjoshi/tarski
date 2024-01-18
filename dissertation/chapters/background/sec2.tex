@@ -60,7 +60,8 @@ The fixpoint returned by $\textsc{KleeneTarski}$ isn't just any old fixpoint.
   so $f(y) = y$ and $f^i(\vec{1}) \leq y$.
 \end{proof}
 It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
-$N$ can be represented with $\log N$ bits of information. 
+$N$ can be represented with $\log N$ bits of information. At the time of writing
+it is not known whether or not this problem is solvable in polynomial time.
 Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
 on the problem.
 \begin{theorem}[\citep{lowerBound}]
@@ -169,10 +170,23 @@ The algorithm of Dang, Qi, and Ye can be seen in \cref{dQiYiAlg}.
 \begin{theorem}[\citep{dangQiYe}]
   The query complexity of $\trsk(N, d)$ is $O(\log^d N)$.
 \end{theorem}
+Simply combining the theorems of Dang, Qi, and Ye, and Etessami et al. gives a tight
+bound on the 2 dimensional problem.
 \begin{cor}[\citep{lowerBound}]
   The query complexity of $\trsk(N, 2)$ is $\Theta(\log^2 N)$.
 \end{cor}
-There have recently been improvements on this upper bound.
+There have recently been improvements on this upper bound. In paricular,
+Fearnley et al. gave an algorithm for solving the 3 dimensional version
+of the problem. This used the crucial fact that, in contrast to the
+Dang, Qi, and Ye algorithm, restricting to a half-space does \emph{not} require
+a point which is fixed in $n-1$ dimensions, but a point which is monotone
+in all $n$ dimensions. They gave a so-called 'inner algorithm'
+which in three dimensions can find a monotone point with a particular
+value in one coordinate in $O(\log N)$ queries. Chen and Li showed
+how to decompose the problem of finding monotone
+points in higher dimensions - crucially using the inner algorithm - to a sort of product of 3 dimensional
+prolems, giving the current best known upper bound on the $\trsk$ problem.
+
 \begin{theorem}[\citep{fasterTarski}]
   The query complexity of $\trsk(N, 3)$ is $\Theta(\log^2 N)$.
 \end{theorem}

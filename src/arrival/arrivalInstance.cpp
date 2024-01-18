@@ -15,7 +15,7 @@ inline int floorDivideByTwo(int x) {
     return x / 2;
 }
 
-ArrivalInstance::ArrivalInstance(vector<pair<int, int>>&& adjList) : adjList(adjList) {
+ArrivalInstance::ArrivalInstance(vector<pair<int, int>>&& adjList) : adjList(adjList), flowUpperBounds(flowUpperBounds) {
     reverseAdjList = getReverseEvenOddAdjList(adjList);
     deadEndReverseAdj = getDeadEndReverseAdj(adjList);
     flowUpperBound = 1 << adjList.size();

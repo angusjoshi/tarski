@@ -33,8 +33,9 @@ lead it to be called a zero player graph game in \citep{arrivalBasic}.
   \centering
   \input{diagrams/arrivalDiagram.tex}
   \caption{The goal of the arrival problem is to decide whether a partiular walk on a directed graph with a particular
-  structure reaches the target. In this example
-  the arrival walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} \label{arrivalDiagram}
+  structure reaches the target. On successive visits to a particular
+  vertex the outgoing edge taken alternates. In this example
+  the walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} \label{arrivalDiagram}
 \end{figure}
 There is an obvious algorithm to solve the $\textsc{Arrival}$ problem;
 just simulate the walk. Cases of instances where $t$ is not reachable pose a problem however -
@@ -78,6 +79,20 @@ is not hopeful.
   is a set of vertices $V' = V / \sim$, the canonical projections of $s, t, s_0, s_1$ into $V'$,
   and a choice of representative $\overline{t} \in V'$ of all the non hopeful vertices in $V$.
 \end{definition}
+\begin{figure}[ht]
+  \centering
+  \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+  \raisebox{-0.62\height}{\input{diagrams/preprocess.tex}}
+  \hfil
+  $\mapsto$
+  \hfil
+  \raisebox{-0.5\height}{\input{diagrams/preprocessAfter.tex}}
+  \caption{Instances of the arrival problem can be preprocessed so that every non-target vertex
+  has a directed path to the target. An extra 'bad target' $\overline{t}$ is added which represents
+  all the vertices with no directed path to the target $t$, and the problem becomes to decide
+  which of the two targets is reached. From \cref{walkFinite} 
+  the walk in the resultant graph must be finite.}\label{arrivalPreprocess}
+\end{figure}
 Noting that the set of non hopeful vertices can be easily computed in linear time with a breadth first search
 from $t$, from this point on I will refer
 to instances of the $\arr$ problem exclusively as tuples $(V, s, t, \overline{t}, s_0, s_1)$ 
@@ -103,7 +118,7 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
 \begin{figure}[h]
   \centering
   \input{diagrams/expLong.tex}
-  \caption{There are instances of the arrival problem with exponentially long walks. A simple induction
+  \caption{There are instances of the arrival problem with exponentially long walks. An induction
   on the number of steps to get from $s \to v_i$ shows that walk on the above
   takes at least $\Omega(2^n)$ steps to reach $t$.}\label{expLongArrival}
 \end{figure}
@@ -230,7 +245,7 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     guarantees that the extra unit appears on the correct edge.
   \end{proof}
   All of that is really just to say that in the case of monotone functions from the arrival problem,
-  iteration from the bottom of the lattice as in \cref{kleeneTarski} \emph{is} the walk. This connection gives
+  \emph{iteration from the bottom of the lattice as in \cref{kleeneTarski} is the walk}. This connection gives
   me some useful corollaries.
   \begin{cor}\label{walkLfp}
     Let $f$ be an arrival monotone function, 
@@ -253,7 +268,7 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     respectively. Exactly one of the following hold,
     \begin{itemize}
       \item $f_t = 1$ and $f_{\overline{t}} = 0$,
-      \item $f_t = 0$ and $f_{\overline{t}} = 0$.
+      \item $f_t = 0$ and $f_{\overline{t}} = 1$.
     \end{itemize}
   \end{cor}
   \begin{proof}
@@ -324,13 +339,15 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     If $a \in \no^d$ satisfies $F(a) = a$, then $f(a) = a$. 
   \end{lemma}
   \begin{proof}
-    Begin by noting that for all $a \in \no^d$, $f(a) \geq F(a)$. It follows that if $f(a) \neq F(a)$ then
-    $F(a) > f(a)$. From \cref{upOne} combined with the fact that $F(a) = a$, I find that 
-    $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$. But for all $i \in [d]$, $f(a)_i \geq a_i$,
-    so it must be the case that for some $i \in [d]$, $f(a)_j = 
-    \begin{cases} a_j + 1 & j = i \\ a_j & j \neq i. \end{cases}$. By definition $F(a)_j = \min(f(a)_j, N)$.
-      Since $a$ was a fixpoint of $F$, $a_j = \min(f(a)_j, N) = N$, and $f(a)_j = a_j + 1$.
+    Begin by noting that for all $a \in \no^d$, $f(a) \geq F(a)$. Suppose for a contradiction that $f(a) \neq F(a)$.
+    Then $F(a) > f(a)$. From \cref{upOne} combined with the fact that $F(a) = a$, I find that 
+    $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$. 
+    It must therefore be the case that for some $i \in [d]$, $f(a)_j = 
+    \begin{cases} a_j + 1 & j = i \\ a_j & j \neq i. \end{cases}$. By definition $F(a)_i = \min(f(a)_i, N)$
+      from which it follows $a_i = N$ and $f(a)_i = N + 1$.
     For $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$ I require that $f_{\text{in}}(t) = 0$ and $f_{\text{in}}(\overline{t}) = 0$.
+    But \cref{walkFinite} combined with $a_i = N = 2^n$ implies that the walk must have terminated. That is,
+    either $f_{\text{in}}(t) > 0$ or $f_{\text{in}}(\overline{t}) > 0$, which is a contradiction. 
   \end{proof}
   \begin{theorem}
     $\arr$ is polynomial time reducible to $\trsk$.

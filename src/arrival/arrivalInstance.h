@@ -14,6 +14,7 @@ private:
     vector<pair<vector<int>, vector<int>>> reverseAdjList;
     pair<vector<int>, vector<int>> deadEndReverseAdj;
     int flowUpperBound;
+    vector<int> flowUpperBounds;
 
 
 public:
