@@ -69,16 +69,12 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
 pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun) {
     vector<pair<int, int>> instance = generateRandomInstance(instanceSize);
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
+
     ArrivalInstance arrivalInstance{std::move(preprocessedInstance)};
+
     auto g = arrivalInstance.getDirectionFunction();
-    auto otherG = arrivalInstance.getIntFunction();
-    auto otherBot = arrivalInstance.getBot();
     auto bot = arrivalInstance.getBot();
     auto top = arrivalInstance.getTop();
-
-    //    if(arrivalInstance.hasSelfLoops() || arrivalInstance.hasDiagonalEntries()) return {};
-    //    if(arrivalInstance.hasSelfLoops()) return {};
-    if (arrivalInstance.hasDiagonalEntries()) return {};
 
     long long queryCounter = 0;
     auto f = [&g, &queryCounter](const auto &v) {
@@ -91,6 +87,9 @@ pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun)
                             ? findFixpointByFixDecomposition(bot, top, f)
                             : findFixpointRecBin(bot, top, f);
     auto t2 = high_resolution_clock::now();
+
+    // quick test to confirm i got a fixpoint.
+    if(!isAllFixed(g(fixpoint))) throw;
 
     duration<double, std::milli> ms = t2 - t1;
 
@@ -125,10 +124,11 @@ void runAndPrintAnalysis() {
     //    auto [queryCount, time] = solveRandomArrivalWithIterate(5);
     //    auto fixpoint = findFixpointRecBin(bot, top, f);
 
-    vector<int> decompTestSizes{3, 6, 9, 12, 15};
+//    vector<int> decompTestSizes{3, 6, 9, 12, 15};
     vector<int> recBinTestSizes{3, 5, 7, 9};
+    vector<int> decompTestSizes{7, 10, 13, 15};
     //    vector<int> walkTestSizes {10, 100, 1000};//, 10000}; //, 100000, 10000000};
-    int n = 20;
+    int n = 10;
 
     string line = "==================================================\n";
 

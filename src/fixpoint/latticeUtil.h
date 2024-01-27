@@ -23,6 +23,8 @@ int getNextUpIndex(const vector<direction>& a);
 vector<int> searchSmallInstance(const vector<int>& bot,
                                 const vector<int>& top,
                                 const function<vector<direction> (const vector<int>&)>& f);
+vector<int> join(vector<int> &&a, const vector<int> &b);
+vector<int> meet(vector<int> &&a, const vector<int> &b);
 
 #endif //SRC_LATTICEUTIL_H
 

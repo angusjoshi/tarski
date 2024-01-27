@@ -107,3 +107,20 @@ bool latticeLe(const vector<int>& x, const vector<int>& y) {
 
     return true;
 }
+
+vector<int> join(vector<int> &&a, const vector<int> &b) {
+    assert(a.size() == b.size());
+    for (int i = 0; i < a.size(); i++) {
+        a[i] = max(a[i], b[i]);
+    }
+    return std::move(a);
+}
+
+vector<int> meet(vector<int> &&a, const vector<int> &b) {
+    assert(a.size() == b.size());
+
+    for (int i = 0; i < a.size(); i++) {
+        a[i] = min(a[i], b[i]);
+    }
+    return std::move(a);
+}

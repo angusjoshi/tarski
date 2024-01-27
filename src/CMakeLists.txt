@@ -43,5 +43,7 @@ add_executable(src main.cpp
         arrival/arrivalInstance.h
         analysis/runAnalysis.cpp
         analysis/runAnalysis.h
+        fixpoint/monotoneDecompAlgorithm.cpp
+        fixpoint/monotoneDecompAlgorithm.h
 )
 
