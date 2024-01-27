@@ -23,9 +23,11 @@ bounds findBounds(const vector<int>& bot,
     // this is refinedTarski in the Chen, Li paper.
     bounds b = {bot, top};
     size_t n = bot.size();
-    auto fPlus = [&f, n](const auto& v) {
-        vector<direction> result = f(v);
+    vector<direction> resultDirs{};
+    auto fPlus = [&f, n, &resultDirs](const auto& v) {
+        resultDirs = f(v);
 
+        vector<direction> result{resultDirs.begin(), resultDirs.end()};
         if(result[n] == fix) {
             result[n] = up;
         }
@@ -40,9 +42,8 @@ bounds findBounds(const vector<int>& bot,
         b.top = plusMonotonePoint.first;
     }
 
-    // ideally this doesn't query the function again;
-    // not clear how to implement this at the moment.
-    if(f(plusMonotonePoint.first)[n] != fix) {
+    // hacky using the last queried result in the function
+    if(resultDirs[n] != fix) {
         return b;
     }
 
