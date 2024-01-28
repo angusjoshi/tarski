@@ -70,9 +70,7 @@ bounds findBounds(const vector<int>& bot,
 
 pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vector<int> &bot,
                                              const vector<int> &top,
-                                             const function<vector<direction>(const vector<int> &)> &f,
-                                             int sliceDimension,
-                                             int sliceValue) {
+                                             const function<vector<direction>(const vector<int> &)> &f) {
     if(bot.size() == 1) {
         // use normal bin search
         int botVal = bot[0];
@@ -97,6 +95,7 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
     }
 
     assert(bot.size() > 2);
+
     vector<previousRound> previousRounds{};
     bounds lBounds{};
     vector<direction> lDirs{};
@@ -137,12 +136,13 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
         leftRight.insert(leftRight.end(), v.begin(), v.end());
         auto flr = f(leftRight);
 
+        previousRounds.push_back({v, lBounds});
         lDirs = vector<direction> {flr.begin(), flr.begin() + v.size()};
         return lDirs;
     };
 
-    vector<int> rBot {bot.end() - 3, top.end()};
-    vector<int> rTop {top.end() - 3, top.end()};
+    vector<int> rBot {bot.end() - 2, bot.end()};
+    vector<int> rTop {top.end() - 2, top.end()};
     auto rMonotonePoint = findMonotonePointByDecomposition(rBot, rTop, rFunction);
 
     if(isAllWeakUp(rMonotonePoint.second)) {

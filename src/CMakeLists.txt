@@ -45,5 +45,7 @@ add_executable(src main.cpp
         analysis/runAnalysis.h
         fixpoint/monotoneDecompAlgorithm.cpp
         fixpoint/monotoneDecompAlgorithm.h
+        fixpoint/findFixpointByMonotoneDecomp.cpp
+        fixpoint/findFixpointByMonotoneDecomp.h
 )
 

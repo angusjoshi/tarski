@@ -46,8 +46,6 @@ vector<int> findFixpointByFixDecomposition(const vector<int> &bot,
             }
         }
 
-        assert(isAllWeakUp(rightFunction(rightBot)));
-        assert(isAllWeakDown(rightFunction(rightTop)));
         assert(latticeLe(rightBot, rightTop));
 
         auto rightFunction = [&f, &v](const auto &w) {

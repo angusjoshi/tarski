@@ -67,3 +67,19 @@ bool isAllWeakDown(const vector<direction>& directions) {
 bool isAllFixed(const vector<direction>& directions) {
     return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction == fix;});
 }
+
+slicedLattice getSlicedLattice(const vector<int>& bot,
+                               const vector<int>& top,
+                               const function<vector<direction>(const vector<int> &)> &f,
+                               int sliceDimension,
+                               int sliceValue) {
+    auto slicedFunction = getSlicedFunction(f, sliceDimension, sliceValue);
+
+    auto slicedBot = vector<int>{bot.begin(), bot.end()};
+    slicedBot.erase(slicedBot.begin() + sliceDimension);
+
+    auto slicedTop = vector<int>{top.begin(), top.end()};
+    slicedTop.erase(slicedTop.begin() + sliceDimension);
+
+    return {slicedBot, slicedTop, slicedFunction};
+}

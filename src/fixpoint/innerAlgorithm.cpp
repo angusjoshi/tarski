@@ -393,13 +393,11 @@ pair<vector<int>, vector<direction>> findMonotonePoint3(const vector<int> &bot,
                                                                 const vector<int> &)> &directionFunction,
                                                         int sliceDimension,
                                                         int sliceValue) {
-    auto slicedFunction = getSlicedFunction(directionFunction, sliceDimension, sliceValue);
 
-    auto slicedBot = vector<int>{bot.begin(), bot.end()};
-    slicedBot.erase(slicedBot.begin() + sliceDimension);
-
-    auto slicedTop = vector<int>{top.begin(), top.end()};
-    slicedTop.erase(slicedTop.begin() + sliceDimension);
+    auto l = getSlicedLattice(bot, top, directionFunction, sliceDimension, sliceValue);
+    auto slicedFunction = l.slicedFunction;
+    auto slicedBot = l.slicedBot;
+    auto slicedTop = l.slicedTop;
 
     InnerAlgorithm innerAlgorithm{slicedBot, slicedTop, slicedFunction};
     pair<vector<int>, vector<direction>> monotonePoint = innerAlgorithm.findMonotonePoint();

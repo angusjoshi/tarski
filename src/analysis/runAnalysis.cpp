@@ -12,6 +12,7 @@
 #include "../fixpoint/kleeneTarski.h"
 #include "../fixpoint/latticeUtil.h"
 #include "../fixpoint/recursiveBinarySearch.h"
+#include "../fixpoint/findFixpointByMonotoneDecomp.h"
 #include <chrono>
 #include <future>
 #include <iostream>
@@ -28,6 +29,7 @@ vector<int> danqiyeSizes{3, 4, 5, 6, 7, 8};
 enum algorithm {
     recbin,
     decomp,
+    monotoneDecomp,
 };
 
 
@@ -85,6 +87,8 @@ pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun)
     auto t1 = high_resolution_clock::now();
     auto fixpoint = algorithmToRun == decomp
                             ? findFixpointByFixDecomposition(bot, top, f)
+                            : algorithmToRun == monotoneDecomp
+                            ? findFixpointByMonotoneDecomp(bot, top, f)
                             : findFixpointRecBin(bot, top, f);
     auto t2 = high_resolution_clock::now();
 
@@ -140,7 +144,7 @@ void runAndPrintAnalysis() {
         vector<double> times{};
 
         for (int j = 0; j < n; j++) {
-            auto [queryCount, time] = solveRandomArrival(testSize, decomp);
+            auto [queryCount, time] = solveRandomArrival(testSize, monotoneDecomp);
             queryCounts.push_back(queryCount);
             times.push_back(time);
         }
