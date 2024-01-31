@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  31 JAN 2024 16:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.23)  31 JAN 2024 17:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1079,55 +1079,58 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/scit' undefined
 
 ] (./arrivalDiagram.tex) [6
 
-] (./expLong.tex) [7
+] (./preprocess.tex) (./preprocessAfter.tex)
+[7
+
+] (./expLong.tex) [8
 
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/scit' undefined
-(Font)              using `OT1/cmss/m/sc' instead on input line 198.
+(Font)              using `OT1/cmss/m/sc' instead on input line 211.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/scit' undefined
-(Font)              using `OT1/cmss/m/sc' instead on input line 198.
+(Font)              using `OT1/cmss/m/sc' instead on input line 211.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <14.4> not available
-(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 198.
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 211.
 
-[8
+[9
 
 ]
-<avQueries.png, id=410, 462.528pt x 346.896pt>
+<avQueries.png, id=437, 462.528pt x 346.896pt>
 File: avQueries.png Graphic file (type png)
 <use avQueries.png>
-Package pdftex.def Info: avQueries.png  used on input line 212.
+Package pdftex.def Info: avQueries.png  used on input line 225.
 (pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
-<avTime.png, id=412, 462.528pt x 346.896pt>
+<avTime.png, id=439, 462.528pt x 346.896pt>
 File: avTime.png Graphic file (type png)
 <use avTime.png>
-Package pdftex.def Info: avTime.png  used on input line 212.
-(pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
- [9
-
- <./avQueries.png> <./avTime.png>]
-<walkLength.png, id=442, 462.528pt x 346.896pt>
-File: walkLength.png Graphic file (type png)
-<use walkLength.png>
-Package pdftex.def Info: walkLength.png  used on input line 223.
-(pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
-<walkTime.png, id=443, 462.528pt x 346.896pt>
-File: walkTime.png Graphic file (type png)
-<use walkTime.png>
-Package pdftex.def Info: walkTime.png  used on input line 223.
+Package pdftex.def Info: avTime.png  used on input line 225.
 (pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
  [10
+
+ <./avQueries.png> <./avTime.png>]
+<walkLength.png, id=468, 462.528pt x 346.896pt>
+File: walkLength.png Graphic file (type png)
+<use walkLength.png>
+Package pdftex.def Info: walkLength.png  used on input line 236.
+(pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
+<walkTime.png, id=469, 462.528pt x 346.896pt>
+File: walkTime.png Graphic file (type png)
+<use walkTime.png>
+Package pdftex.def Info: walkTime.png  used on input line 236.
+(pdftex.def)             Requested size: 158.99377pt x 119.2452pt.
+ [11
 
  <./walkLength.png> <./walkTime.png>]
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <10> not available
-(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 247.
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 260.
 
-[11
+[12
 
 ]
 \tf@nav=\write6
@@ -1141,16 +1144,16 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <10> not available
 
  (./presentation.aux)
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: EFA6710C70BAD9CBE14BB5F900F6520F;2032.
+(rerunfilecheck)             Checksum: 92945FC62EE0464B1066E660627C04AB;2033.
  ) 
 Here is how much of TeX's memory you used:
- 26125 strings out of 476025
- 532384 string characters out of 5790017
- 1870388 words of memory out of 5000000
- 45999 multiletter control sequences out of 15000+600000
+ 26148 strings out of 476025
+ 532790 string characters out of 5790017
+ 1872388 words of memory out of 5000000
+ 46014 multiletter control sequences out of 15000+600000
  526604 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,122p,408b,1030s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,122p,408b,1052s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pf
 b></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
@@ -1161,10 +1164,10 @@ sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
 /local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/
 local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on presentation.pdf (11 pages, 261274 bytes).
+Output written on presentation.pdf (12 pages, 264434 bytes).
 PDF statistics:
- 555 PDF objects out of 1000 (max. 8388607)
- 438 compressed objects within 5 object streams
- 33 named destinations out of 1000 (max. 500000)
+ 581 PDF objects out of 1000 (max. 8388607)
+ 463 compressed objects within 5 object streams
+ 35 named destinations out of 1000 (max. 500000)
  515 words of extra memory for PDF output out of 10000 (max. 10000000)
 

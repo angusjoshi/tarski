@@ -7,6 +7,8 @@
 #include "innerAlgorithm.h"
 #include "recursiveBinarySearch.h"
 
+#include <iostream>
+
 typedef struct {
     vector<int> bot;
     vector<int> top;
@@ -15,6 +17,7 @@ typedef struct {
 typedef struct {
     vector<int> queriedPoint;
     bounds b;
+    vector<direction> result;
 } previousRound;
 
 bool isMonotone(const vector<int>& v,
@@ -105,6 +108,15 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
     vector<direction> lDirs{};
 
     auto rFunction = [&bot, &top, &f, &previousRounds, &lBounds, &lDirs](const auto& v) {
+        // return memoized results
+        for(const auto& round : previousRounds) {
+            if(latEq(round.queriedPoint, v)) {
+                vector<direction> prev = round.result;
+                lBounds = round.b;
+                return prev;
+            }
+        }
+
         lBounds = {
                 vector<int>{bot.begin(), bot.end() - 2},
                 vector<int>{top.begin(), top.end() - 2},
@@ -141,9 +153,11 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
         leftRight.insert(leftRight.end(), v.begin(), v.end());
         auto flr = f(leftRight);
 
-        previousRounds.push_back({v, lBounds});
+        vector<direction> result {flr.end() - 3, flr.end()};
+
+        previousRounds.push_back({v, lBounds, result});
         lDirs = vector<direction> {flr.begin(), flr.end() - 3};
-        return vector<direction> {flr.end() - 3, flr.end()};
+        return result;
     };
 
     vector<int> rBot {bot.end() - 2, bot.end()};

@@ -134,45 +134,45 @@ void runAndPrintAnalysis() {
 
     string line = "==================================================\n";
 
-
-    cout << line;
-    cout << "STARTING DECOMP TEST" << endl;
-    for (auto testSize: decompTestSizes) {
-        vector<int> queryCounts{};
-        vector<double> times{};
-
-        for (int j = 0; j < n; j++) {
-            auto [queryCount, time] = solveRandomArrival(testSize, decomp);
-            queryCounts.push_back(queryCount);
-            times.push_back(time);
-        }
-        //
-        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-        cout << line;
-        cout << "test size: " << testSize << endl;
-        cout << "avg queries was: " << avgQueries << endl;
-        cout << "avg time was: " << avgTime << "ms" << endl;
-    }
-
-        cout << line;
-        cout << "STARTING RECBIN TEST" << endl;
-        for(auto testSize : recBinTestSizes) {
-            vector<int> queryCounts {};
-            vector<double> times {};
-            for(int i = 0; i < n; i++) {
-                auto [queryCount, time] = solveRandomArrival(testSize, recbin);
-                queryCounts.push_back(queryCount);
-                times.push_back(time);
-            }
-
-            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-            int avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-            cout << "===========================================================" << endl;
-            cout << "test size: " << testSize << endl;
-            cout << "avg queries was: " << avgQueries << endl;
-            cout << "avg time was: " << avgTime << "ms" << endl;
-        }
+//
+//    cout << line;
+//    cout << "STARTING DECOMP TEST" << endl;
+//    for (auto testSize: decompTestSizes) {
+//        vector<int> queryCounts{};
+//        vector<double> times{};
+//
+//        for (int j = 0; j < n; j++) {
+//            auto [queryCount, time] = solveRandomArrival(testSize, decomp);
+//            queryCounts.push_back(queryCount);
+//            times.push_back(time);
+//        }
+//        //
+//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//        double avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//        cout << line;
+//        cout << "test size: " << testSize << endl;
+//        cout << "avg queries was: " << avgQueries << endl;
+//        cout << "avg time was: " << avgTime << "ms" << endl;
+//    }
+//
+//        cout << line;
+//        cout << "STARTING RECBIN TEST" << endl;
+//        for(auto testSize : recBinTestSizes) {
+//            vector<int> queryCounts {};
+//            vector<double> times {};
+//            for(int i = 0; i < n; i++) {
+//                auto [queryCount, time] = solveRandomArrival(testSize, recbin);
+//                queryCounts.push_back(queryCount);
+//                times.push_back(time);
+//            }
+//
+//            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//            int avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//            cout << "===========================================================" << endl;
+//            cout << "test size: " << testSize << endl;
+//            cout << "avg queries was: " << avgQueries << endl;
+//            cout << "avg time was: " << avgTime << "ms" << endl;
+//        }
 
     cout << line;
     cout << "STARTING MONDECOMP TEST" << endl;
