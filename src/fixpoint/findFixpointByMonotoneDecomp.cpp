@@ -12,7 +12,7 @@ pair<vector<int>, vector<direction>> findMonotonePoint(const vector<int>& bot,
                                          int sliceDimension,
                                          int sliceValue) {
     auto slicedLattice = getSlicedLattice(bot, top, f, sliceDimension, sliceValue);
-    auto slicedBot = slicedLattice.slicedTop;
+    auto slicedBot = slicedLattice.slicedBot;
     auto slicedTop = slicedLattice.slicedTop;
     auto slicedF = slicedLattice.slicedFunction;
     auto monotonePoint = findMonotonePointByDecomposition(slicedBot, slicedTop, slicedF);
@@ -36,6 +36,8 @@ vector<int> findFixpointByMonotoneDecomp(const vector<int>& bot,
     auto monotonePointPair = findMonotonePoint(bot, top, f, sliceDimension, sliceValue);
     auto monotonePoint = monotonePointPair.first;
     auto monotonePointDirections = monotonePointPair.second;
+
+    assert(isAllWeakUp(monotonePointDirections) || isAllWeakDown(monotonePointDirections));
 
     vector<int> currentBot = bot;
     vector<int> currentTop = top;

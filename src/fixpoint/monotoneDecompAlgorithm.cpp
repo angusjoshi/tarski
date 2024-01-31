@@ -7,15 +7,21 @@
 #include "innerAlgorithm.h"
 #include "recursiveBinarySearch.h"
 
-typedef struct bounds {
+typedef struct {
     vector<int> bot;
     vector<int> top;
 } bounds;
 
-typedef struct previousRound {
+typedef struct {
     vector<int> queriedPoint;
     bounds b;
 } previousRound;
+
+bool isMonotone(const vector<int>& v,
+    const function<vector<direction>(const vector<int> &)> &f) {
+    auto result = f(v);
+    return isAllWeakDown(result) || isAllWeakUp(result);
+}
 
 bounds findBounds(const vector<int>& bot,
                      const vector<int>& top,
@@ -115,8 +121,9 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
             }
         }
 
-        for(int i = v.size() - 3; i < v.size() + 1; i++) {
-            auto lFunction = [&v, &f, i](const auto& w) {
+        // loop indexing maybe wrong?
+        for(int i = 0; i < v.size() + 1; i++) {
+            auto lFunction = [&v, &f, i, &lBounds](const auto& w) {
                 vector<int> x{};
                 x.insert(x.end(), w.begin(), w.end());
                 x.insert(x.end(), v.begin(), v.end());
@@ -124,7 +131,7 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
 
                 // sub 3 since the result has 1 more component.
                 vector<direction> result {fx.begin(), fx.end() - 3};
-                result.push_back(fx[i]);
+                result.push_back(fx[i + lBounds.bot.size()]);
                 return result;
             };
 
@@ -137,8 +144,9 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
         auto flr = f(leftRight);
 
         previousRounds.push_back({v, lBounds});
-        lDirs = vector<direction> {flr.begin(), flr.begin() + v.size()};
-        return lDirs;
+        // bug is here.
+        lDirs = vector<direction> {flr.begin(), flr.end() - 3};
+        return vector<direction> {flr.end() - 3, flr.end()};
     };
 
     vector<int> rBot {bot.end() - 2, bot.end()};
@@ -146,14 +154,9 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
     auto rMonotonePoint = findMonotonePointByDecomposition(rBot, rTop, rFunction);
 
     if(isAllWeakUp(rMonotonePoint.second)) {
-        vector<int> resultVec{lBounds.bot.begin(), lBounds.bot.end()};
+        vector<int> resultVec {lBounds.bot.begin(), lBounds.bot.end()};
         resultVec.insert(resultVec.end(), rMonotonePoint.first.begin(), rMonotonePoint.first.end());
-
-        // big hack here - the last call to lFunction must be the one that found the
-        // monotone point for this to be correct. kind of reasonable but should probably be changed.
-        vector<direction> resultDirs{lDirs.begin(), lDirs.end()};
-        resultDirs.insert(resultDirs.end(), rMonotonePoint.second.begin(), rMonotonePoint.second.end());
-
+        vector<direction> resultDirs = f(resultVec);
         return {resultVec, resultDirs};
     }
 
@@ -162,7 +165,8 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
     resultVec.insert(resultVec.end(), rMonotonePoint.first.begin(), rMonotonePoint.first.end());
 
     // big hack as above
-    vector<direction> resultDirs{lDirs.begin(), lDirs.end()};
-    resultDirs.insert(resultDirs.end(), rMonotonePoint.second.begin(), rMonotonePoint.second.end());
+    vector<direction> resultDirs = f(resultVec);
+//    vector<direction> resultDirs{lDirs.begin(), lDirs.end()};
+//    resultDirs.insert(resultDirs.end(), rMonotonePoint.second.begin(), rMonotonePoint.second.end());
     return {resultVec, resultDirs};
 }

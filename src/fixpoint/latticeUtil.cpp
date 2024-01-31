@@ -35,7 +35,7 @@ int getSliceMiddle(const vector<int>& bot, const vector<int>& top, int i) {
 int getLargeEnoughSliceIndex(const vector<int>& bot, const vector<int>& top) {
     assert(bot.size() == top.size());
 
-    for(int i = 2; i >= 0; i--) {
+    for(int i = bot.size() - 1; i >= 0; i--) {
         if(top[i] - bot[i] >= 2) {
             return i;
         }

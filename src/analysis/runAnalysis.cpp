@@ -71,7 +71,8 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
 pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun) {
     vector<pair<int, int>> instance = generateRandomInstance(instanceSize);
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
-
+//    vector<pair<int, int>> preprocessedInstance = { {-1, 3}, {3, -1}, {6, 6}, {2, -1}, {3, 6}, {-1, -1}, {6, 6} };
+//    vector<pair<int, int>> preprocessedInstance { {4, 6}, {0, 0}, {0, 0}, {2, 3}, {0, 5}, {0, 2}, {6, 6} };
     ArrivalInstance arrivalInstance{std::move(preprocessedInstance)};
 
     auto g = arrivalInstance.getDirectionFunction();
