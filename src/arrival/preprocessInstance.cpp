@@ -10,8 +10,6 @@ pair<vector<int>, vector<int>>
 getDeadEndReverseAdj(const vector<pair<int, int>> &instance) {
   pair<vector<int>, vector<int>> result{{}, {}};
   for (int i = 0; i < instance.size() - 1; i++) {
-    // don't add the self loops at sink here.
-
     auto succs = instance[i];
     auto s0 = succs.first;
     auto s1 = succs.second;
@@ -71,12 +69,6 @@ preprocessInstance(const vector<pair<int, int>> &instance) {
   bfsQueue.push(instance.size() - 1);
   vector<bool> seenBefore(instance.size(), false);
   seenBefore[instance.size() - 1] = true;
-  // vector<int> nextNodes{};
-  // int dist = 1;
-  // for (auto node : reverseAdjList[instance.size() - 1]) {
-  //   nextNodes.push_back(node);
-  //   seenBefore[node] = true;
-  // }
 
   while (!bfsQueue.empty()) {
     auto i = bfsQueue.front();

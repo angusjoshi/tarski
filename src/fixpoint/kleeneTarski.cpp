@@ -12,14 +12,10 @@ vector<int> kleeneTarski(const vector<int>& start,
     vector<int> fCurrent = f(current);
 
     while(!latEq(current, fCurrent)) {
-        cout << "current is: ";
-        printVec(current);
         current = fCurrent;
         fCurrent = f(current);
     }
 
-    cout << "current is: ";
-    printVec(current);
     if(!latEq(current, fCurrent)) throw;
     return current;
 }

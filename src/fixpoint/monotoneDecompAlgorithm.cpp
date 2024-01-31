@@ -7,8 +7,6 @@
 #include "innerAlgorithm.h"
 #include "recursiveBinarySearch.h"
 
-#include <iostream>
-
 typedef struct {
     vector<int> bot;
     vector<int> top;

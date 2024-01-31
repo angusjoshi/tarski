@@ -203,7 +203,6 @@ bool InnerAlgorithm::fixWitnesses() {
         int topRightBoundary = b[neDimension];
         int botLeftBoundary = a[neDimension];
 
-        // i think this is a bug - should check for ceil division.
         int neDimensionMiddle = botLeftBoundary + ((topRightBoundary - botLeftBoundary) / 2);
 
         if (u[neDimension] > neDimensionMiddle) {
@@ -286,10 +285,6 @@ pair<vector<int>, vector<direction>> InnerAlgorithm::helper() {
         auto result = trySolveWidthZeroInstance();
         if (result.has_value()) return result.value();
     }
-
-//    if(b[narrowDimension] - a[narrowDimension] == 0) {
-//      return solveZeroWidthInstance();
-//    }
 
     if (fixWitnesses()) {
         //recurse if fixWitnesses changes something.
@@ -404,10 +399,6 @@ pair<vector<int>, vector<direction>> findMonotonePoint3(const vector<int> &bot,
 
     assert(isAllWeakUp(monotonePoint.second) || isAllWeakDown(monotonePoint.second));
     monotonePoint.first.insert(monotonePoint.first.begin() + sliceDimension, sliceValue);
-//    if(isAllWeakUp(monotonePoint.second)) {
-//        printVec(monotonePoint.first);
-//        printDirections(monotonePoint.second);
-//    }
     return monotonePoint;
 }
 

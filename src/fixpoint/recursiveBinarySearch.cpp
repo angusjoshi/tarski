@@ -18,10 +18,8 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
     while(fCurrentMid != fix) {
         if(top - bot <= 1) {
             if(bot == currentMid) {
-//                assert(f(top) == fix);
                 return top;
             }
-//            assert(f(bot) == fix);
             return bot;
         }
         if(fCurrentMid == down) {
