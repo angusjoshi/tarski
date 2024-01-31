@@ -29,11 +29,8 @@ bounds findBounds(const vector<int>& bot,
     // this is refinedTarski in the Chen, Li paper.
     bounds b = {bot, top};
     size_t n = bot.size();
-    vector<direction> resultDirs{};
-    auto fPlus = [&f, n, &resultDirs](const auto& v) {
-        resultDirs = f(v);
-
-        vector<direction> result{resultDirs.begin(), resultDirs.end()};
+    auto fPlus = [&f, n](const auto& v) {
+        vector<direction> result = f(v);
         if(result[n] == fix) {
             result[n] = up;
         }
@@ -48,7 +45,7 @@ bounds findBounds(const vector<int>& bot,
         b.top = plusMonotonePoint.first;
     }
 
-    // hacky using the last queried result in the function
+    vector<direction> resultDirs = f(plusMonotonePoint.first);
     if(resultDirs[n] != fix) {
         return b;
     }
@@ -77,8 +74,9 @@ bounds findBounds(const vector<int>& bot,
 pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vector<int> &bot,
                                              const vector<int> &top,
                                              const function<vector<direction>(const vector<int> &)> &f) {
+    assert(!bot.empty());
+
     if(bot.size() == 1) {
-        // use normal bin search
         int botVal = bot[0];
         int topVal = top[0];
 
@@ -91,11 +89,11 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
 
         int resultVal = binarySearch(botVal, topVal, oneDimensionF);
         vector<int> result {resultVal};
-        return {result, dirs};
+        vector<direction> resultDirs {f(result)};
+        return {result, resultDirs};
     }
 
     if(bot.size() == 2) {
-        // use inner algorithm
         InnerAlgorithm innerAlgorithm{bot, top, f};
         return innerAlgorithm.findMonotonePoint();
     }
@@ -121,9 +119,9 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
             }
         }
 
-        // loop indexing maybe wrong?
         for(int i = 0; i < v.size() + 1; i++) {
             auto lFunction = [&v, &f, i, &lBounds](const auto& w) {
+                assert(w.size() == lBounds.bot.size());
                 vector<int> x{};
                 x.insert(x.end(), w.begin(), w.end());
                 x.insert(x.end(), v.begin(), v.end());
@@ -144,7 +142,6 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
         auto flr = f(leftRight);
 
         previousRounds.push_back({v, lBounds});
-        // bug is here.
         lDirs = vector<direction> {flr.begin(), flr.end() - 3};
         return vector<direction> {flr.end() - 3, flr.end()};
     };
@@ -164,9 +161,6 @@ pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vect
     vector<int> resultVec{lBounds.top.begin(), lBounds.top.end()};
     resultVec.insert(resultVec.end(), rMonotonePoint.first.begin(), rMonotonePoint.first.end());
 
-    // big hack as above
     vector<direction> resultDirs = f(resultVec);
-//    vector<direction> resultDirs{lDirs.begin(), lDirs.end()};
-//    resultDirs.insert(resultDirs.end(), rMonotonePoint.second.begin(), rMonotonePoint.second.end());
     return {resultVec, resultDirs};
 }

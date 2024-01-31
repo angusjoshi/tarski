@@ -71,8 +71,6 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
 pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun) {
     vector<pair<int, int>> instance = generateRandomInstance(instanceSize);
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
-//    vector<pair<int, int>> preprocessedInstance = { {-1, 3}, {3, -1}, {6, 6}, {2, -1}, {3, 6}, {-1, -1}, {6, 6} };
-//    vector<pair<int, int>> preprocessedInstance { {4, 6}, {0, 0}, {0, 0}, {2, 3}, {0, 5}, {0, 2}, {6, 6} };
     ArrivalInstance arrivalInstance{std::move(preprocessedInstance)};
 
     auto g = arrivalInstance.getDirectionFunction();
@@ -93,8 +91,7 @@ pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun)
                             : findFixpointRecBin(bot, top, f);
     auto t2 = high_resolution_clock::now();
 
-    // quick test to confirm i got a fixpoint.
-    if(!isAllFixed(g(fixpoint))) throw;
+    if(!isAllFixed(g(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
 
     duration<double, std::milli> ms = t2 - t1;
 
@@ -112,11 +109,9 @@ pair<int, double> solveRandomArrivalWithWalk(int instanceSize) {
     auto t1 = high_resolution_clock::now();
     auto [flows, counter] = simpleWalk(processedInstance);
     if (flows[flows.size() - 1] == 0) {
-        //        // answer is no
         if (!hasDiagonalEntries(vector<pair<int, int>>{processedInstance.begin(), processedInstance.end() - 1})) {
             printVec(flows);
             printInstance(processedInstance);
-            //            cout << "here" << endl;
         }
     }
     auto t2 = high_resolution_clock::now();
@@ -132,8 +127,9 @@ void runAndPrintAnalysis() {
 //    vector<int> decompTestSizes{3, 6, 9, 12, 15};
     vector<int> recBinTestSizes{3, 5, 7, 9};
     vector<int> decompTestSizes{7, 10, 13, 15};
+//    vector<int> decompTestSizes{7};
     //    vector<int> walkTestSizes {10, 100, 1000};//, 10000}; //, 100000, 10000000};
-    int n = 10;
+    int n = 1;
 
     string line = "==================================================\n";
 
