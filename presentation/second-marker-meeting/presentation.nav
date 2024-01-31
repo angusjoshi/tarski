@@ -24,25 +24,27 @@
 \headcommand {\beamer@subsectionentry {0}{2}{1}{6}{Definitions}}
 \headcommand {\slideentry {2}{1}{1}{6/6}{Definitions}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\beamer@subsectionpages {6}{6}}
-\headcommand {\beamer@subsectionentry {0}{2}{2}{7}{Reduction to \textsc {Tarski}}}
-\headcommand {\slideentry {2}{2}{1}{7/7}{Reduction to \textsc {Tarski}}{0}}
+\headcommand {\slideentry {2}{1}{2}{7/7}{Definitions}{0}}
 \headcommand {\beamer@framepages {7}{7}}
-\headcommand {\beamer@sectionpages {6}{7}}
-\headcommand {\beamer@subsectionpages {7}{7}}
-\headcommand {\sectionentry {3}{Progress, Next Steps, Open Questions}{8}{Progress, Next Steps, Open Questions}{0}}
-\headcommand {\beamer@subsectionpages {8}{7}}
-\headcommand {\beamer@subsectionentry {0}{3}{1}{8}{Testing the Algorithms}}
-\headcommand {\slideentry {3}{1}{1}{8/8}{Testing the Algorithms}{0}}
+\headcommand {\beamer@subsectionpages {6}{7}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{8}{Reduction to \textsc {Tarski}}}
+\headcommand {\slideentry {2}{2}{1}{8/8}{Reduction to \textsc {Tarski}}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\slideentry {3}{1}{2}{9/9}{Testing the Algorithms}{0}}
+\headcommand {\beamer@sectionpages {6}{8}}
+\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\sectionentry {3}{Progress, Next Steps, Open Questions}{9}{Progress, Next Steps, Open Questions}{0}}
+\headcommand {\beamer@subsectionpages {9}{8}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{9}{Testing the Algorithms}}
+\headcommand {\slideentry {3}{1}{1}{9/9}{Testing the Algorithms}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\beamer@subsectionpages {8}{9}}
-\headcommand {\beamer@subsectionentry {0}{3}{2}{10}{Progress, Next Steps, Open Problems}}
-\headcommand {\slideentry {3}{2}{1}{10/10}{Progress, Next Steps, Open Problems}{0}}
+\headcommand {\slideentry {3}{1}{2}{10/10}{Testing the Algorithms}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\beamer@partpages {1}{10}}
-\headcommand {\beamer@subsectionpages {10}{10}}
-\headcommand {\beamer@sectionpages {8}{10}}
-\headcommand {\beamer@documentpages {10}}
-\headcommand {\gdef \inserttotalframenumber {10}}
+\headcommand {\beamer@subsectionpages {9}{10}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{11}{Progress, Next Steps, Open Problems}}
+\headcommand {\slideentry {3}{2}{1}{11/11}{Progress, Next Steps, Open Problems}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\beamer@partpages {1}{11}}
+\headcommand {\beamer@subsectionpages {11}{11}}
+\headcommand {\beamer@sectionpages {9}{11}}
+\headcommand {\beamer@documentpages {11}}
+\headcommand {\gdef \inserttotalframenumber {11}}

@@ -80,6 +80,7 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{algorithmic}
 \usepackage{tikz}
+\usetikzlibrary{calc,arrows.meta,positioning, bending}
 
 
 %----------------------------------------------------------------------------------------
@@ -173,8 +174,18 @@ University of Edinburgh \\ % Your institution for the title page
 \subsection{Definitions}
 \begin{frame}
 \frametitle{The Arrival Problem}
+  \begin{figure}[h]
+    \centering
     \input{arrivalDiagram}
-    
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Long Walks}
+  \begin{figure}[h]
+    \centering
+    \input{expLong.tex}
+  \end{figure}
 \end{frame}
 
 
