@@ -129,7 +129,7 @@ University of Edinburgh \\ % Your institution for the title page
     \begin{definition}[Monotone function] 
         A function $f : [N]^d \to [N]^d$ is monotone if whenever $x, x' \in [N]^d$ with $x \leq x'$, $f(x) \leq f(x')$.
     \end{definition}
-    \begin{Theorem}[Tarski]
+    \begin{Theorem}[Tarski, '55]
         If $f : [N]^d \to [N]^d$ is monotone, then there is a point $x \in [N]^d$ with $f(x) = x$.
     \end{Theorem}
 \end{frame}
@@ -143,7 +143,7 @@ University of Edinburgh \\ % Your institution for the title page
         The problem $\textsc{Tarski}(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x \in [N]^d$ such that
         $f(x) = x$.
     \end{Definition}
-    \begin{Theorem}[Etessami, Papadimitriou, Rubinstein, Yannakakis]
+    \begin{Theorem}[Etessami, Papadimitriou, Rubinstein, Yannakakis, '20]
         The query complexity of $\textsc{Tarski}(N, 2)$ is $\Theta(\log^2 N)$.
     \end{Theorem}
     \begin{Corollary}
@@ -153,16 +153,16 @@ University of Edinburgh \\ % Your institution for the title page
 
 %------------------------------------------------
 
-\newcommand{\trsk}{\textsc{Tarski }}
+\newcommand{\trsk}{\textsc{Tarski}}
 
 \subsection{Known Upper Bounds}
 \begin{frame}
 \frametitle{Known Upper Bounds}
 
-\begin{Theorem}[Fearnley, Pálvölgyi, Savani]
+\begin{Theorem}[Fearnley, Pálvölgyi, Savani, '21]
     The query complexity of $\trsk(N, 3)$ is $\Theta(\log^2 N)$.
 \end{Theorem}
-\begin{Theorem}[Chen, Li]
+\begin{Theorem}[Chen, Li, '22]
     The query complexity of $\trsk(N, d)$ is $O(\log^{\lceil (d+1) / 2 \rceil} N)$.
 \end{Theorem}
 
@@ -205,14 +205,14 @@ University of Edinburgh \\ % Your institution for the title page
 \subsection{Reduction to \textsc{Tarski}}
 \begin{frame}
 \frametitle{Reduction to \textsc{Tarski}}
-    \begin{Theorem}[Gärtner, Haslebacher, Hoang]
+    \begin{Theorem}[Gärtner, Haslebacher, Hoang, '21]
         \textsc{Arrival} is polynomial-time reducible to \textsc{Tarski}.
     \end{Theorem}
 \end{frame}
 
 %------------------------------------------------
 
-\section{Progress, Next Steps, Open Questions}
+\section{Progress, Next Steps, Open Problems}
 \subsection{Testing the Algorithms}
 \begin{frame}
 \frametitle{Testing the Algorithms}
@@ -242,19 +242,24 @@ University of Edinburgh \\ % Your institution for the title page
     \begin{itemize}
         \item Progress
         \begin{itemize}
-            \item Explored solving the 4-dimensional \trsk problem,
-            \item Implemented Fearnley, \pav, Savani algorithm,
-            \item Applied the algorithm to randomly generated instances of \textsc{Arrival}.
+            \item Explored solving the 4-dimensional $\trsk$ problem,
+            \item Implemented all of the currently known algorithms,
+            \item Tested the performance of the algorithms on randomly generated
+              instances of \textsc{Arrival}.
         \end{itemize}
         \item Next Steps
         \begin{itemize}
-            \item Explore solving the 4-dimensional \trsk problem in the special case of monotone functions
-            corresponding to arrival instances.
+            \item Test the algorithms on pathological instances of the arrival problem,
+            \item Explore the $\trsk$ problem in the special case of monotone functions from
+              $\textsc{Arrival}$.
         \end{itemize}
       \item Open Problems
         \begin{itemize}
           \item Is \textsc{Tarski} fixed-parameter tractable? That is, is the query complexity of $\textsc{Tarski}(N, d)$ $\Theta(\log^2n)$ for fixed $d$?
-          \item Is \textsc{Tarski} fixed-parameter tractable in the special case of monotone functions from \textsc{Arrival}?
+          \item Is the query complexity of \textsc{Tarski}$(N, 4)$ $\Theta(\log ^{2} N)$? 
+          \item Is there an $\Omega(\log ^{3} N)$ lower bound to $\textsc{Tarski}(N, d)$ for some $d$?
+          \item Is there something to be said about $\trsk$ in the special case of monotone functions
+            corresponding to arrival instances?
         \end{itemize}
     \end{itemize}
 \end{frame}
