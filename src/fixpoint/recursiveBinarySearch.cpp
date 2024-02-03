@@ -3,7 +3,6 @@
 //
 
 #include "recursiveBinarySearch.h"
-#include <iostream>
 
 bool allButLastFixed(const vector<direction>& v) {
     for(int i = 0; i < v.size() - 1; i++) {
@@ -11,6 +10,7 @@ bool allButLastFixed(const vector<direction>& v) {
     }
     return true;
 }
+
 int binarySearch(int bot, int top, const function<direction(int)>& f) {
     int currentMid = bot + ((top - bot) / 2);
     direction fCurrentMid = f(currentMid);

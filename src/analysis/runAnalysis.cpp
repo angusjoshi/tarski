@@ -10,11 +10,9 @@
 #include "../arrival/simpleWalk.h"
 #include "../fixpoint/fixDecompAlgorithm.h"
 #include "../fixpoint/kleeneTarski.h"
-#include "../fixpoint/latticeUtil.h"
 #include "../fixpoint/recursiveBinarySearch.h"
 #include "../fixpoint/findFixpointByMonotoneDecomp.h"
 #include <chrono>
-#include <future>
 #include <iostream>
 #include <numeric>
 #include <thread>
@@ -22,9 +20,6 @@
 using std::chrono::duration;
 using std::chrono::high_resolution_clock;
 using namespace std;
-
-vector<int> sizes{3, 5, 8, 12, 15, 20};
-vector<int> danqiyeSizes{3, 4, 5, 6, 7, 8};
 
 enum algorithm {
     recbin,

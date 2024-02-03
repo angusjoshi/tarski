@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <ranges>
+#include <iostream>
 
 using namespace std;
 namespace rng = std::ranges;
@@ -17,7 +18,7 @@ enum direction {
     fix = 0
 };
 
-typedef struct slicedLattice {
+typedef struct {
     vector<int> slicedBot;
     vector<int> slicedTop;
     function<vector<direction>(const vector<int> &)> slicedFunction;

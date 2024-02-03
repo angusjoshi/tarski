@@ -4,7 +4,6 @@
 
 #include "kleeneTarski.h"
 #include "latticeUtil.h"
-#include <iostream>
 
 vector<int> kleeneTarski(const vector<int>& start,
                          const function<vector<int> (const vector<int>&)>& f) {
