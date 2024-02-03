@@ -5,7 +5,7 @@
 #include "runAnalysis.h"
 #include "../arrival/arrivalInstance.h"
 #include "../arrival/arrivalUtil.h"
-#include "../arrival/generateRandomInstance.h"
+#include "../arrival/generateInstance.h"
 #include "../arrival/preprocessInstance.h"
 #include "../arrival/simpleWalk.h"
 #include "../fixpoint/fixDecompAlgorithm.h"
@@ -52,6 +52,7 @@ pair<int, double> solveRandomArrivalWithIterate(int instanceSize) {
 
     return {queryCounter, ms.count()};
 }
+
 int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     assert(a.size() == b.size());
     int distance = 0;
@@ -63,8 +64,10 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     return distance;
 }
 
-pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun) {
-    vector<pair<int, int>> instance = generateRandomInstance(instanceSize);
+pair<int, double> solveArrival(int instanceSize,
+                               algorithm algorithmToRun,
+                               const function<vector<pair<int, int>>(int)>& instanceGenerator) {
+    vector<pair<int, int>> instance = instanceGenerator(instanceSize);
     vector<pair<int, int>> preprocessedInstance = preprocessInstance(instance);
     ArrivalInstance arrivalInstance{std::move(preprocessedInstance)};
 
@@ -80,10 +83,10 @@ pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun)
 
     auto t1 = high_resolution_clock::now();
     auto fixpoint = algorithmToRun == decomp
-                            ? findFixpointByFixDecomposition(bot, top, f)
-                            : algorithmToRun == monotoneDecomp
-                            ? findFixpointByMonotoneDecomp(bot, top, f)
-                            : findFixpointRecBin(bot, top, f);
+                    ? findFixpointByFixDecomposition(bot, top, f)
+                    : algorithmToRun == monotoneDecomp
+                      ? findFixpointByMonotoneDecomp(bot, top, f)
+                      : findFixpointRecBin(bot, top, f);
     auto t2 = high_resolution_clock::now();
 
     if(!isAllFixed(g(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
@@ -93,22 +96,19 @@ pair<int, double> solveRandomArrival(int instanceSize, algorithm algorithmToRun)
     return {queryCounter, ms.count()};
 }
 
+
 bool hasDiagonalEntries(const vector<pair<int, int>> &pairs) {
     return any_of(pairs.begin(), pairs.end(), [](const auto &p) { return p.first == p.second; });
 }
 
-pair<int, double> solveRandomArrivalWithWalk(int instanceSize) {
-    auto instance = generateRandomInstance(instanceSize);
+pair<int, double> solveRandomArrivalWithWalk(
+        int instanceSize,
+        const function<vector<pair<int, int>>(int)>& instanceGenerator) {
+    auto instance = instanceGenerator(instanceSize);
     auto processedInstance = preprocessInstance(instance);
 
     auto t1 = high_resolution_clock::now();
     auto [flows, counter] = simpleWalk(processedInstance);
-    if (flows[flows.size() - 1] == 0) {
-        if (!hasDiagonalEntries(vector<pair<int, int>>{processedInstance.begin(), processedInstance.end() - 1})) {
-            printVec(flows);
-            printInstance(processedInstance);
-        }
-    }
     auto t2 = high_resolution_clock::now();
     duration<double, std::milli> ms = t2 - t1;
 
@@ -125,7 +125,7 @@ void runAndPrintAnalysis() {
     vector<int> monDecompTestSizes{3, 5, 7, 9, 11, 13};
 //    vector<int> decompTestSizes{7};
     //    vector<int> walkTestSizes {10, 100, 1000};//, 10000}; //, 100000, 10000000};
-    int n = 20;
+    int n = 1;
 
     string line = "==================================================\n";
 
@@ -137,7 +137,7 @@ void runAndPrintAnalysis() {
         vector<double> times{};
 
         for (int j = 0; j < n; j++) {
-            auto [queryCount, time] = solveRandomArrival(testSize, decomp);
+            auto [queryCount, time] = solveArrival(testSize, decomp, generateLongInstance);
             queryCounts.push_back(queryCount);
             times.push_back(time);
         }
@@ -156,7 +156,7 @@ void runAndPrintAnalysis() {
             vector<int> queryCounts {};
             vector<double> times {};
             for(int i = 0; i < n; i++) {
-                auto [queryCount, time] = solveRandomArrival(testSize, recbin);
+                auto [queryCount, time] = solveArrival(testSize, recbin, generateLongInstance);
                 queryCounts.push_back(queryCount);
                 times.push_back(time);
             }
@@ -175,7 +175,7 @@ void runAndPrintAnalysis() {
         vector<int> queryCounts {};
         vector<double> times {};
         for(int i = 0; i < n; i++) {
-            auto [queryCount, time] = solveRandomArrival(testSize, monotoneDecomp);
+            auto [queryCount, time] = solveArrival(testSize, monotoneDecomp, generateLongInstance);
             queryCounts.push_back(queryCount);
             times.push_back(time);
         }
@@ -207,23 +207,22 @@ void runAndPrintAnalysis() {
     //        cout << "avg time was: " << avgTime << "ms" << endl;
     //    }
 
-    //    cout << line;
-    //    cout << "STARTING WALK TEST" << endl;
-    //    for(int testSize = 3; testSize <= 15; testSize++) {
-    //        cout << testSize << endl;
-    //        vector<int> queryCounts {};
-    //        vector<double> times {};
-    //        for(int i = 0; i < n; i++) {
-    //            auto [stepCount, time] = solveRandomArrivalWithWalk(testSize);
-    //            queryCounts.push_back(stepCount);
-    //            times.push_back(time);
-    //        }
+    cout << line;
+    cout << "STARTING WALK TEST" << endl;
+    for(int testSize = 3; testSize <= 15; testSize++) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < n; i++) {
+            auto [stepCount, time] = solveRandomArrivalWithWalk(testSize, generateLongInstance);
+            queryCounts.push_back(stepCount);
+            times.push_back(time);
+        }
 
-    //        double avgTime = accumulate(times.begin(), times.end(), 0.0) / 100;
-    //        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / 100;
-    //        cout << "===========================================================" << endl;
-    ////        cout << "test size: " << testSize << endl;
-    //        cout << "avg steps was: " << avgQueries << endl;
-    //        cout << "avg time was: " << avgTime << "ms" << endl;
-    //    }
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+        cout << "===========================================================" << endl;
+        cout << "test size: " << testSize << endl;
+        cout << "avg steps was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
 }

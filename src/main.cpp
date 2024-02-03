@@ -4,7 +4,7 @@
 #include "fixpoint/recursiveBinarySearch.h"
 #include "fixpoint/fixDecompAlgorithm.h"
 #include <chrono>
-#include "arrival/generateRandomInstance.h"
+#include "arrival/generateInstance.h"
 #include "arrival/arrivalUtil.h"
 #include "arrival/preprocessInstance.h"
 #include "arrival/simpleWalk.h"

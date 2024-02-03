@@ -33,8 +33,8 @@ add_executable(src main.cpp
         arrival/preprocessInstance.cpp
         arrival/preprocessInstance.h
         arrival/examples.h
-        arrival/generateRandomInstance.cpp
-        arrival/generateRandomInstance.h
+        arrival/generateInstance.cpp
+        arrival/generateInstance.h
         arrival/arrivalUtil.cpp
         arrival/arrivalUtil.h
         arrival/simpleWalk.cpp
