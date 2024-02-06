@@ -9,16 +9,20 @@
   \node[main] (1) [right of=s]{$v_1$};
   \node[main] (2) [right of=1]{$v_2$};
   \node[main] (3) [above right of=s]{$v_3$};
+  \node[main] (4) [above right of=3]{$v_4$};
   
   % \node[main] (4) [right of=3]{$v_n$};
-  \node[main] (4)[right of=3]{$t$};
+  \node[main] (t)[right of=3]{$t$};
   \draw (s) -- (3) node[midway, below, text=black]{$s_0$};
   \draw (s) -- (1) node[midway, below, text=black]{$s_1$};
   \draw (1) -- (2) node[midway, below, text=black]{$s_1$};
-  \draw (3) -- (4) node[midway, below, text=black]{$s_1$};
-  \draw (3) -- (1) node[midway, above right, text=black]{$s_0$};
+  \draw (3) -- (t) node[midway, below, text=black]{$s_1$};
+  \draw (3) -- (4) node[midway, below right, text=black]{$s_0$};
   \draw (2) edge[bend left] node[near start, above, text=black]{$s_0$} (1);
   \draw (1) edge[bend left] node[near start, below, text=black]{$s_0$}(2);
+
+  \draw (4.south) to[bend left=120, min distance=1.6cm] node[midway, left, text=black]{$s_0$} (4.north);
+  \draw (4.south) to[bend left=120, min distance=2.4cm] node[midway, left, text=black]{$s_1$} (4.north);
   % \draw (4) edge[bend left] node[near start, above, text=black]{$s_0$}(1);
   \draw (2) edge[bend right=70, min distance=0.8cm] node[near start, below, text=black]{$s_1$} (1.south);
 \end{tikzpicture}

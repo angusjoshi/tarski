@@ -7,6 +7,7 @@
 #include "recursiveBinarySearch.h"
 #include <iostream>
 
+#include "boost/multiprecision/gmp.hpp"
 
 
 vector<int> findFixpointByFixDecomposition(const vector<int> &bot,

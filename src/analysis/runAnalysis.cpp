@@ -85,8 +85,8 @@ pair<int, double> solveArrival(int instanceSize,
     auto fixpoint = algorithmToRun == decomp
                     ? findFixpointByFixDecomposition(bot, top, f)
                     : algorithmToRun == monotoneDecomp
-                      ? findFixpointByMonotoneDecomp(bot, top, f)
-                      : findFixpointRecBin(bot, top, f);
+                    ? findFixpointByMonotoneDecomp(bot, top, f)
+                    : findFixpointRecBin(bot, top, f);
     auto t2 = high_resolution_clock::now();
 
     if(!isAllFixed(g(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
@@ -150,24 +150,24 @@ void runAndPrintAnalysis() {
         cout << "avg time was: " << avgTime << "ms" << endl;
     }
 
-        cout << line;
-        cout << "STARTING RECBIN TEST" << endl;
-        for(auto testSize : recBinTestSizes) {
-            vector<int> queryCounts {};
-            vector<double> times {};
-            for(int i = 0; i < n; i++) {
-                auto [queryCount, time] = solveArrival(testSize, recbin, generateLongInstance);
-                queryCounts.push_back(queryCount);
-                times.push_back(time);
-            }
-
-            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-            int avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-            cout << "===========================================================" << endl;
-            cout << "test size: " << testSize << endl;
-            cout << "avg queries was: " << avgQueries << endl;
-            cout << "avg time was: " << avgTime << "ms" << endl;
+    cout << line;
+    cout << "STARTING RECBIN TEST" << endl;
+    for(auto testSize : recBinTestSizes) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < n; i++) {
+            auto [queryCount, time] = solveArrival(testSize, recbin, generateLongInstance);
+            queryCounts.push_back(queryCount);
+            times.push_back(time);
         }
+
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+        int avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+        cout << "===========================================================" << endl;
+        cout << "test size: " << testSize << endl;
+        cout << "avg queries was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
 
     cout << line;
     cout << "STARTING MONDECOMP TEST" << endl;
