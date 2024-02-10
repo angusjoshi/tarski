@@ -8,9 +8,9 @@
 #include "innerAlgorithm.h"
 #include <functional>
 
-vector<int> findFixpoint3(const vector<int>& bot,
-                         const vector<int>& top,
-                         const function<vector<direction> (const vector<int>&)>& f);
+vector<int_t> findFixpoint3(const vector<int_t>& bot,
+                         const vector<int_t>& top,
+                         const function<vector<direction> (const vector<int_t>&)>& f);
 
 
 

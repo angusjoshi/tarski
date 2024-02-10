@@ -5,14 +5,14 @@
 #include "threeDimensionAlgorithm.h"
 #include "latticeUtil.h"
 
-vector<int> findFixpoint3(const vector<int>& bot,
-                         const vector<int>& top,
-                         const function<vector<direction> (const vector<int>&)>& f) {
+vector<int_t> findFixpoint3(const vector<int_t>& bot,
+                         const vector<int_t>& top,
+                         const function<vector<direction> (const vector<int_t>&)>& f) {
     assert(bot.size() == 3);
     assert(top.size() == 3);
 
     int sliceDimension = getLargeEnoughSliceIndex(bot, top);
-    int sliceMiddleValue = getSliceMiddle(bot, top, sliceDimension);
+    int_t sliceMiddleValue = getSliceMiddle(bot, top, sliceDimension);
 
     if(sliceDimension == -1) {
         return searchSmallInstance(bot, top, f);
@@ -22,8 +22,8 @@ vector<int> findFixpoint3(const vector<int>& bot,
     auto monotonePoint = monotonePointPair.first;
     auto monotonePointDirections = monotonePointPair.second;
 
-    vector<int> currentBot = bot;
-    vector<int> currentTop = top;
+    vector<int_t> currentBot = bot;
+    vector<int_t> currentTop = top;
 
     while(!isAllFixed(monotonePointDirections)) {
         assert(isAllWeakUp(monotonePointDirections) || isAllWeakDown(monotonePointDirections));

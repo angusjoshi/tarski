@@ -9,11 +9,11 @@
 
 using namespace std;
 
-int oneDimensionExhaustiveSearch(int bot, int top, const function<direction(int)>& f);
-int binarySearch(int bot, int top, const function<direction(int)>& f);
+int_t oneDimensionExhaustiveSearch(int_t bot, int_t top, const function<direction(const int_t&)>& f);
+int_t binarySearch(int_t bot, int_t top, const function<direction(const int_t&)>& f);
 
-vector<int> findFixpointRecBin(const vector<int>& bot,
-                               const vector<int>& top,
-                               const function<vector<direction>(const vector<int>&)>& f);
+vector<int_t> findFixpointRecBin(const vector<int_t>& bot,
+                               const vector<int_t>& top,
+                               const function<vector<direction>(const vector<int_t>&)>& f);
 
 #endif //SRC_RECURSIVEBINARYSEARCH_H

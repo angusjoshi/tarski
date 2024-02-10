@@ -153,7 +153,7 @@ void runAndPrintAnalysis() {
     cout << line;
     cout << "STARTING RECBIN TEST" << endl;
     for(auto testSize : recBinTestSizes) {
-        vector<int> queryCounts {};
+        vector<long long> queryCounts {};
         vector<double> times {};
         for(int i = 0; i < n; i++) {
             auto [queryCount, time] = solveArrival(testSize, recbin, generateLongInstance);

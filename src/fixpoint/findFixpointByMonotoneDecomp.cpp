@@ -6,11 +6,11 @@
 #include "latticeUtil.h"
 #include "monotoneDecompAlgorithm.h"
 
-pair<vector<int>, vector<direction>> findMonotonePoint(const vector<int>& bot,
-                                         const vector<int>& top,
-                                         const function<vector<direction> (const vector<int>&)>& f,
+pair<vector<int_t>, vector<direction>> findMonotonePoint(const vector<int_t>& bot,
+                                         const vector<int_t>& top,
+                                         const function<vector<direction> (const vector<int_t>&)>& f,
                                          int sliceDimension,
-                                         int sliceValue) {
+                                         int_t sliceValue) {
     auto slicedLattice = getSlicedLattice(bot, top, f, sliceDimension, sliceValue);
     auto slicedBot = slicedLattice.slicedBot;
     auto slicedTop = slicedLattice.slicedTop;
@@ -20,14 +20,14 @@ pair<vector<int>, vector<direction>> findMonotonePoint(const vector<int>& bot,
     return monotonePoint;
 }
 
-vector<int> findFixpointByMonotoneDecomp(const vector<int>& bot,
-                                         const vector<int>& top,
-                                         const function<vector<direction> (const vector<int>&)>& f) {
+vector<int_t> findFixpointByMonotoneDecomp(const vector<int_t>& bot,
+                                         const vector<int_t>& top,
+                                         const function<vector<direction> (const vector<int_t>&)>& f) {
     assert(bot.size() > 1);
     assert(top.size() == bot.size());
 
     int sliceDimension = getLargeEnoughSliceIndex(bot, top);
-    int sliceValue = getSliceMiddle(bot, top, sliceDimension);
+    int_t sliceValue = getSliceMiddle(bot, top, sliceDimension);
 
     if(sliceDimension == -1) {
         return searchSmallInstance(bot, top, f);
@@ -39,8 +39,8 @@ vector<int> findFixpointByMonotoneDecomp(const vector<int>& bot,
 
     assert(isAllWeakUp(monotonePointDirections) || isAllWeakDown(monotonePointDirections));
 
-    vector<int> currentBot = bot;
-    vector<int> currentTop = top;
+    vector<int_t> currentBot = bot;
+    vector<int_t> currentTop = top;
 
     while(!isAllFixed(monotonePointDirections)) {
         assert(isAllWeakUp(monotonePointDirections) || isAllWeakDown(monotonePointDirections));

@@ -7,7 +7,7 @@
 #include <vector>
 #include "monotoneFunction.h"
 
-pair<vector<int>, vector<direction>> findMonotonePointByDecomposition(const vector<int> &bot,
-                                           const vector<int> &top,
-                                           const function<vector<direction>(const vector<int> &)> &f);
+pair<vector<int_t>, vector<direction>> findMonotonePointByDecomposition(const vector<int_t> &bot,
+                                           const vector<int_t> &top,
+                                           const function<vector<direction>(const vector<int_t> &)> &f);
 #endif //SRC_MONOTONEDECOMPALGORITHM_H

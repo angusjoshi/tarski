@@ -4,12 +4,13 @@
 
 #include "monotoneFunction.h"
 #include <iostream>
+#include "../config.h"
 
 namespace vw = std::views;
 namespace rng = std::ranges;
 
-function<vector<direction> (const vector<int>&)> getDirectionFunction(
-        const function<vector<int>(const vector<int>&)>& f) {
+function<vector<direction> (const vector<int_t>&)> getDirectionFunction(
+        const function<vector<int_t>(const vector<int_t>&)>& f) {
     return [f](const auto& v) {
         auto results = f(v);
 
@@ -39,12 +40,12 @@ void printDirections(const vector<direction>& directions) {
     }
     cout << endl;
 }
-function<vector<direction> (const vector<int>&)> getSlicedFunction(
-        const function<vector<direction> (const vector<int>&)>& f,
+function<vector<direction> (const vector<int_t>&)> getSlicedFunction(
+        const function<vector<direction> (const vector<int_t>&)>& f,
         int sliceDimension,
-        int sliceVal) {
+        int_t sliceVal) {
     return [&f, sliceDimension, sliceVal] (const auto& v) {
-        auto input = vector<int> { v.begin(), v.end() };
+        auto input = vector<int_t> { v.begin(), v.end() };
         input.insert(input.begin() + sliceDimension, sliceVal);
 
         auto result = f(input);
@@ -68,17 +69,17 @@ bool isAllFixed(const vector<direction>& directions) {
     return rng::all_of(directions.begin(), directions.end(), [](auto direction) {return direction == fix;});
 }
 
-slicedLattice getSlicedLattice(const vector<int>& bot,
-                               const vector<int>& top,
-                               const function<vector<direction>(const vector<int> &)> &f,
+slicedLattice getSlicedLattice(const vector<int_t>& bot,
+                               const vector<int_t>& top,
+                               const function<vector<direction>(const vector<int_t> &)> &f,
                                int sliceDimension,
-                               int sliceValue) {
+                               int_t sliceValue) {
     auto slicedFunction = getSlicedFunction(f, sliceDimension, sliceValue);
 
-    auto slicedBot = vector<int>{bot.begin(), bot.end()};
+    auto slicedBot = vector<int_t>{bot.begin(), bot.end()};
     slicedBot.erase(slicedBot.begin() + sliceDimension);
 
-    auto slicedTop = vector<int>{top.begin(), top.end()};
+    auto slicedTop = vector<int_t>{top.begin(), top.end()};
     slicedTop.erase(slicedTop.begin() + sliceDimension);
 
     return {slicedBot, slicedTop, slicedFunction};

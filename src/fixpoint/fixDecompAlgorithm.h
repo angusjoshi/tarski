@@ -11,8 +11,8 @@
 
 using namespace std;
 
-vector<int> findFixpointByFixDecomposition(const vector<int>& bot,
-                                           const vector<int>& top,
-                                           const function<vector<direction> (const vector<int>&)>& f);
+vector<int_t> findFixpointByFixDecomposition(const vector<int_t>& bot,
+                                           const vector<int_t>& top,
+                                           const function<vector<direction> (const vector<int_t>&)>& f);
 
 #endif //SRC_FIXDECOMPALGORITHM_H

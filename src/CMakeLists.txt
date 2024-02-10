@@ -21,7 +21,6 @@ find_package(Boost 1.84.0 REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(src main.cpp
-        fixpoint/examples.h
         fixpoint/innerAlgorithm.h
         fixpoint/innerAlgorithm.cpp
         fixpoint/kleeneTarski.h
@@ -38,7 +37,6 @@ add_executable(src main.cpp
         fixpoint/recursiveBinarySearch.h
         arrival/preprocessInstance.cpp
         arrival/preprocessInstance.h
-        arrival/examples.h
         arrival/generateInstance.cpp
         arrival/generateInstance.h
         arrival/arrivalUtil.cpp

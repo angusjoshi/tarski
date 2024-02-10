@@ -7,11 +7,12 @@
 #include <iostream>
 #include "arrivalUtil.h"
 #include "../fixpoint/latticeUtil.h"
+#include "../config.h"
 
-inline int ceilDivideByTwo(int x) {
+inline int_t ceilDivideByTwo(int_t x) {
     return x / 2 + (x % 2 != 0);
 }
-inline int floorDivideByTwo(int x) {
+inline int_t floorDivideByTwo(int_t x) {
     return x / 2;
 }
 
@@ -21,10 +22,10 @@ ArrivalInstance::ArrivalInstance(vector<pair<int, int>>&& adjList) : adjList(adj
     flowUpperBound = 1 << (adjList.size() - 1);
 }
 
-function<vector<int>(const vector<int> &)> ArrivalInstance::getIntFunction() {
+function<vector<int_t>(const vector<int_t> &)> ArrivalInstance::getIntFunction() {
     return [this] (const auto& v) {
         assert(v.size() == adjList.size() - 1);
-        vector<int> result (adjList.size() - 1, 0);
+        vector<int_t> result (adjList.size() - 1, 0);
 
         // the inflow from source.
         result[0] = 1;
@@ -42,15 +43,15 @@ function<vector<int>(const vector<int> &)> ArrivalInstance::getIntFunction() {
     };
 }
 
-function<vector<direction>(const vector<int> &)> ArrivalInstance::getDirectionFunction() {
+function<vector<direction>(const vector<int_t> &)> ArrivalInstance::getDirectionFunction() {
     return ::getDirectionFunction(getIntFunction());
 }
 
-vector<int> ArrivalInstance::getBot() {
-    return vector<int> (adjList.size() - 1, 0);
+vector<int_t> ArrivalInstance::getBot() {
+    return vector<int_t> (adjList.size() - 1, 0);
 }
-vector<int> ArrivalInstance::getTop() {
-    return vector<int> (adjList.size() - 1, flowUpperBound);
+vector<int_t> ArrivalInstance::getTop() {
+    return vector<int_t> (adjList.size() - 1, flowUpperBound);
 }
 
 bool ArrivalInstance::hasDiagonalEntries() {
@@ -73,10 +74,10 @@ void ArrivalInstance::print() {
 }
 
 
-int ArrivalInstance::computeSinkInflow(const vector<int>& outflows) {
+int_t ArrivalInstance::computeSinkInflow(const vector<int_t>& outflows) {
     assert(outflows.size() == adjList.size() - 1);
 
-    int result = 0;
+    int_t result = 0;
     for(const auto j : reverseAdjList[reverseAdjList.size() - 1].first) {
         result = min(flowUpperBound, result + ceilDivideByTwo(outflows[j]));
     }

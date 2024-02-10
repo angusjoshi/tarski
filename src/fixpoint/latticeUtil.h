@@ -10,21 +10,21 @@
 
 using namespace std;
 
-bool latticeLe(const vector<int>& x, const vector<int>& y);
-bool latEq(const vector<int>& a, const vector<int>& b);
-bool isFixpoint(const vector<int>& point, const function<vector<direction> (const vector<int>&)>& f);
-bool isUp(const vector<int>& point, const function<vector<direction> (const vector<int>&)>& f);
-bool isDown(const vector<int>& point, const function<vector<direction> (const vector<int>&)>& f);
-int getSliceMiddle(const vector<int>& bot, const vector<int>& top, int i);
-int getLargeEnoughSliceIndex(const vector<int>& bot, const vector<int>& top);
+bool latticeLe(const vector<int_t>& x, const vector<int_t>& y);
+bool latEq(const vector<int_t>& a, const vector<int_t>& b);
+bool isFixpoint(const vector<int_t>& point, const function<vector<direction> (const vector<int_t>&)>& f);
+bool isUp(const vector<int_t>& point, const function<vector<direction> (const vector<int_t>&)>& f);
+bool isDown(const vector<int_t>& point, const function<vector<direction> (const vector<int_t>&)>& f);
+int_t getSliceMiddle(const vector<int_t>& bot, const vector<int_t>& top, int i);
+int getLargeEnoughSliceIndex(const vector<int_t>& bot, const vector<int_t>& top);
 void printVec(const vector<long long>& v);
-void printVec(const vector<int>& v);
+void printVec(const vector<int_t>& v);
 int getNextUpIndex(const vector<direction>& a);
-vector<int> searchSmallInstance(const vector<int>& bot,
-                                const vector<int>& top,
-                                const function<vector<direction> (const vector<int>&)>& f);
-vector<int> join(vector<int> &&a, const vector<int> &b);
-vector<int> meet(vector<int> &&a, const vector<int> &b);
+vector<int_t> searchSmallInstance(const vector<int_t>& bot,
+                                const vector<int_t>& top,
+                                const function<vector<direction> (const vector<int_t>&)>& f);
+vector<int_t> join(vector<int_t> &&a, const vector<int_t> &b);
+vector<int_t> meet(vector<int_t> &&a, const vector<int_t> &b);
 
 #endif //SRC_LATTICEUTIL_H
 

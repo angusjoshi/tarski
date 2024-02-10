@@ -11,8 +11,8 @@ bool allButLastFixed(const vector<direction>& v) {
     return true;
 }
 
-int binarySearch(int bot, int top, const function<direction(int)>& f) {
-    int currentMid = bot + ((top - bot) / 2);
+int_t binarySearch(int_t bot, int_t top, const function<direction(const int_t&)>& f) {
+    int_t currentMid = bot + ((top - bot) / 2);
     direction fCurrentMid = f(currentMid);
 
     while(fCurrentMid != fix) {
@@ -35,24 +35,24 @@ int binarySearch(int bot, int top, const function<direction(int)>& f) {
 }
 
 
-vector<int> findFixpointRecBin(const vector<int>& bot,
-                               const vector<int>& top,
-                               const function<vector<direction>(const vector<int>&)>& f) {
+vector<int_t> findFixpointRecBin(const vector<int_t>& bot,
+                               const vector<int_t>& top,
+                               const function<vector<direction>(const vector<int_t>&)>& f) {
     assert(bot.size() == top.size());
     assert(!bot.empty());
 
     if(bot.size() == 1) {
-        int botVal = bot[0];
-        int topVal = top[0];
+        int_t botVal = bot[0];
+        int_t topVal = top[0];
 
-        auto oneDimensionF = [&f] (int x) {
-            vector<int> v {x};
+        auto oneDimensionF = [&f] (const int_t& x) {
+            vector<int_t> v {x};
             return f(v)[0];
         };
 
-        int resultVal = binarySearch(botVal, topVal, oneDimensionF);
-        vector<int> result {resultVal};
-        return std::move(result);
+        int_t resultVal = binarySearch(botVal, topVal, oneDimensionF);
+        vector<int_t> result {resultVal};
+        return result;
     }
 
     assert(bot.size() > 1);
@@ -63,25 +63,25 @@ vector<int> findFixpointRecBin(const vector<int>& bot,
     bool useCeilDivision = false;
 
     while(true) {
-        int botPlusTop = currentTop.back() + currentBot.back();
-        int currentMid = botPlusTop / 2;
+        int_t botPlusTop = currentTop.back() + currentBot.back();
+        int_t currentMid = botPlusTop / 2;
         if(useCeilDivision) {
             currentMid += botPlusTop % 2 == 1 ? 1 : 0;
         }
 
-        auto sliceFunction  = [&f, currentMid] (vector<int> v) {
+        auto sliceFunction  = [&f, currentMid] (vector<int_t> v) {
             v.push_back(currentMid);
             auto result = f(v);
             result.pop_back();
             return result;
         };
 
-        vector<int> sliceBot {bot.begin(), bot.end() - 1};
-        vector<int> sliceTop {top.begin(), top.end() - 1};
+        vector<int_t> sliceBot {bot.begin(), bot.end() - 1};
+        vector<int_t> sliceTop {top.begin(), top.end() - 1};
 
-        vector<int> sliceFixpoint = findFixpointRecBin(sliceBot, sliceTop, sliceFunction);
+        vector<int_t> sliceFixpoint = findFixpointRecBin(sliceBot, sliceTop, sliceFunction);
 
-        vector<int> other {sliceFixpoint.begin(), sliceFixpoint.end()};
+        vector<int_t> other {sliceFixpoint.begin(), sliceFixpoint.end()};
         other.push_back(currentMid);
         vector<direction> result = f(other);
 

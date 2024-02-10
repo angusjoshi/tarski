@@ -7,10 +7,11 @@
 
 #include <vector>
 #include <functional>
+#include "../config.h"
 
 using namespace std;
 
-vector<int> kleeneTarski(const vector<int>& bot,
-                         const function<vector<int> (const vector<int>&)>& f);
+vector<int_t> kleeneTarski(const vector<int_t>& bot,
+                         const function<vector<int_t> (const vector<int_t>&)>& f);
 
 #endif //SRC_KLEENETARSKI_H

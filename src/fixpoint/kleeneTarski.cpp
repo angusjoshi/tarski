@@ -5,10 +5,10 @@
 #include "kleeneTarski.h"
 #include "latticeUtil.h"
 
-vector<int> kleeneTarski(const vector<int>& start,
-                         const function<vector<int> (const vector<int>&)>& f) {
-    vector<int> current = start;
-    vector<int> fCurrent = f(current);
+vector<int_t> kleeneTarski(const vector<int_t>& start,
+                         const function<vector<int_t> (const vector<int_t>&)>& f) {
+    vector<int_t> current = start;
+    vector<int_t> fCurrent = f(current);
 
     while(!latEq(current, fCurrent)) {
         current = fCurrent;

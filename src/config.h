@@ -8,6 +8,13 @@
 #include <boost/multiprecision/cpp_int.hpp>
 using namespace boost::multiprecision;
 
-typedef int1024_t int_t;
+typedef cpp_int int_t;
+
+
+
+//int_t min(int_t &a, int_t &b) {
+//    if(a <= b) return a;
+//    return b;
+//}
 
 #endif //SRC_CONFIG_H
