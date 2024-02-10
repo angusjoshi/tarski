@@ -19,8 +19,6 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.84.0 REQUIRED)
 
-find_package(ortools CONFIG REQUIRED)
-
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(src main.cpp
         fixpoint/examples.h
@@ -55,7 +53,11 @@ add_executable(src main.cpp
         fixpoint/monotoneDecompAlgorithm.h
         fixpoint/findFixpointByMonotoneDecomp.cpp
         fixpoint/findFixpointByMonotoneDecomp.h
+        simple-stochatic-game/simpleStochasticGame.cpp
+        simple-stochatic-game/simpleStochasticGame.h
+        simple-stochatic-game/simpleStochasticGame.h
+        simple-stochatic-game/simpleStochasticGame.h
+        config.h
 )
 
 target_link_libraries(src ${Boost_LIBRARIES})
-target_link_libraries(src ortools::ortools)

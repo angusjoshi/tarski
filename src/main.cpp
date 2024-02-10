@@ -10,9 +10,13 @@
 #include "arrival/simpleWalk.h"
 #include "arrival/arrivalInstance.h"
 #include "analysis/runAnalysis.h"
+#include <boost/multiprecision/cpp_int.hpp>
+#include <ortools/linear_solver/linear_solver.h>
+#include <ortools/glpk/glpk_computational_form.h>
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
+
 
 vector<pair<int, int>> longExample { {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7}, {0, 8}, {0, 9}, {0, 10}, {10, 10} };
 
@@ -113,7 +117,7 @@ int main() {
 //    fixpointExample();
 //    randExample();
 //    arrivalFixpointExample();
-
+    boost::multiprecision::int1024_t x = 1;
     runAndPrintAnalysis();
     return 0;
 }

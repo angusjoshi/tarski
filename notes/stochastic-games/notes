@@ -1,0 +1,10 @@
+need some vertices
+  a start and two sinks (0 and 1)
+  rest are partitioned into max, min, chance
+  max and min nodes just have successors
+  chance nodes have successors with weights such that the weights sum to one.
+  
+  equations are 
+
+  i'll just put last as 0 sink, second last as one sink, first as source.
+
