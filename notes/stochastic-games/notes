@@ -8,3 +8,10 @@ need some vertices
 
   i'll just put last as 0 sink, second last as one sink, first as source.
 
+
+F^\beta(x)_i = (1 - \beta)F(x)
+
+this is a contraction map w.r.t. lp norm as,
+\| (1 - \beta)F(x) - (1 - \beta)F(y) \| = (1 - \beta)\|F(x) - F(y)\|
+
+why is \|F(x) - F(y)\| \leq \|x - y\|?

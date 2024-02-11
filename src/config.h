@@ -6,9 +6,10 @@
 #define SRC_CONFIG_H
 
 #include <boost/multiprecision/cpp_int.hpp>
-using namespace boost::multiprecision;
+#include <gmpxx.h>
 
-typedef cpp_int int_t;
+typedef long long int_t;
+typedef double f_t;
 
 
 

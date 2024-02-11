@@ -4,22 +4,66 @@
 
 #include "simpleStochasticGame.h"
 
-function<vector<int>(const vector<int>& v)> simpleStochasticGame::getMonotoneFunction() {
-    return [this](const vector<int>& v) {
+
+int_t simpleStochasticGame::discretize(f_t d) {
+    size_t n = this->vertices.size();
+    int_t N = 1 << (n*n);
+    int_t result = N * d;
+    return result;
+}
+
+vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
+    size_t n = this->vertices.size();
+    int_t N = 1 << (n*n);
+
+    vector<f_t> result;
+    for(auto val : v) {
+        double unDicretized = val / (double)N;
+        result.push_back(unDicretized);
+    }
+
+    return result;
+}
+
+
+function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonotoneFunction() {
+    return [this](const vector<int_t>& v) {
+        vector<int_t> result;
+
         for(const auto& vertex : this->vertices) {
+            if(vertex.succs.empty()) {
+                result.push_back(0);
+            }
             switch(vertex.type) {
                 case mini:
-                    break;
+                    {
+                        int_t minVal = INT_MAX;
+                        for(const auto& s : vertex.succs) {
+                            minVal = min(minVal, v[s.i]);
+                        }
+                        result.push_back(minVal);
+                        break;
+                    }
+
                 case maxi:
-                    break;
+                    {
+                        int_t maxVal = 0;
+                        for(const auto& s : vertex.succs) {
+                            maxVal = max(maxVal, v[s.i]);
+                        }
+                        result.push_back(maxVal);
+                        break;
+                    }
+
                 case chance:
-                    break;
-                case maxSink:
-                case minSink:
+                    int_t sumVal = 0;
+                    for(const auto& s : vertex.succs) {
+                        sumVal += v[s.i] * s.p;
+                    }
+                    result.push_back(sumVal);
                     break;
             }
         }
-        vector<int> result;
         return result;
     };
 }

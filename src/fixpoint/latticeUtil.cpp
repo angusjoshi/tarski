@@ -49,12 +49,12 @@ void printVec(const vector<long long>& v) {
     }
     cout << endl;
 }
-void printVec(const vector<int_t>& v) {
-    for(const auto& i : v) {
-        cout << i << '\t';
-    }
-    cout << endl;
-}
+//void printVec(const vector<int_t>& v) {
+//    for(const auto& i : v) {
+//        cout << i << '\t';
+//    }
+//    cout << endl;
+//}
 
 int getNextUpIndex(const vector<direction>& a) {
     for(int i = 0; i < a.size(); i++) {

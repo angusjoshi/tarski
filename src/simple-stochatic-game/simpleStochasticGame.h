@@ -7,6 +7,7 @@
 #include <vector>
 #include <functional>
 #include <boost/multiprecision/gmp.hpp>
+#include "../config.h"
 
 using namespace std;
 
@@ -14,25 +15,29 @@ enum vertexType {
     mini,
     maxi,
     chance,
-    minSink,
-    maxSink
 };
 
-typedef struct {
+// indexing with is assumed to be the same as the vertices vector.
+struct successor {
     int i;
-    double p;
-} successor;
+    f_t p;
+    bool isMaxSink;
+    bool isMinSink;
+};
 
-typedef struct {
+struct vertex {
     vertexType type;
     vector<successor> succs;
-} vertex;
+};
 
-typedef struct {
+struct simpleStochasticGame {
     vector<vertex> vertices;
 
-    function<vector<int>(const vector<int>& v)> getMonotoneFunction();
-} simpleStochasticGame;
+    function<vector<int_t>(const vector<int_t>& v)> getMonotoneFunction();
+    int_t discretize(f_t d);
+    vector<f_t> unDiscretize(const vector<int_t>& v);
+};
+
 
 
 #endif //SRC_SIMPLESTOCHASTICGAME_H
