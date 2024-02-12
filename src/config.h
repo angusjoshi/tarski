@@ -7,11 +7,15 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 #include <gmpxx.h>
+#include <gmp.h>
 
-typedef long long int_t;
-typedef double f_t;
+typedef mpz_class int_t;
+//typedef long long int_t;
+typedef mpq_class f_t;
+//typedef double f_t;
 
-
+mpz_class min(const mpz_class& a, const mpz_class& b);
+mpz_class max(const mpz_class& a, const mpz_class& b);
 
 //int_t min(int_t &a, int_t &b) {
 //    if(a <= b) return a;

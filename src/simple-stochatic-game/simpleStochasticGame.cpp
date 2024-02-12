@@ -6,10 +6,12 @@
 
 
 int_t simpleStochasticGame::discretize(f_t d) {
-    size_t n = this->vertices.size();
-    int_t N = 1 << (n*n);
-    int_t result = N * d;
-    return result;
+//    size_t n = this->vertices.size();
+//    int_t N = 1 << (n*n);
+//    int_t result = N * d;
+//    return result;
+
+    return 1;
 }
 
 vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
@@ -18,8 +20,8 @@ vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
 
     vector<f_t> result;
     for(auto val : v) {
-        double unDicretized = val / (double)N;
-        result.push_back(unDicretized);
+//        double unDicretized = val / (double)N;
+//        result.push_back(unDicretized);
     }
 
     return result;
