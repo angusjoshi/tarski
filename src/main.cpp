@@ -8,17 +8,6 @@
 using namespace std;
 
 int main() {
-//    fixpointExample();
-//    randExample();
-//    arrivalFixpointExample();
-
-    vector<mpz_class> x;
-    mpz_class a;
-    x.push_back(a);
-    int i;
-    x[i];
-
-//    int_t x = 1;
     runAndPrintAnalysis();
     return 0;
 }

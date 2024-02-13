@@ -78,8 +78,8 @@ pair<vector<int_t>, vector<direction>> findMonotonePointByDecomposition(const ve
     assert(!bot.empty());
 
     if(bot.size() == 1) {
-        int_t botVal = bot[0];
-        int_t topVal = top[0];
+        const int_t& botVal = bot[0];
+        const int_t& topVal = top[0];
 
         vector<direction> dirs{};
         auto oneDimensionF = [&f, &dirs] (const int_t& x) {

@@ -6,12 +6,10 @@
 
 
 int_t simpleStochasticGame::discretize(f_t d) {
-//    size_t n = this->vertices.size();
-//    int_t N = 1 << (n*n);
-//    int_t result = N * d;
-//    return result;
-
-    return 1;
+    size_t n = this->vertices.size();
+    int_t N = 1 << (n*n);
+    f_t result = N * d;
+    return result.get_num();
 }
 
 vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
@@ -34,7 +32,7 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
 
         for(const auto& vertex : this->vertices) {
             if(vertex.succs.empty()) {
-                result.push_back(0);
+                result.emplace_back(0);
             }
             switch(vertex.type) {
                 case mini:

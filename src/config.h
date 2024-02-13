@@ -5,9 +5,7 @@
 #ifndef SRC_CONFIG_H
 #define SRC_CONFIG_H
 
-#include <boost/multiprecision/cpp_int.hpp>
 #include <gmpxx.h>
-#include <gmp.h>
 
 typedef mpz_class int_t;
 //typedef long long int_t;
