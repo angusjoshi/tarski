@@ -12,6 +12,8 @@
 #include "../fixpoint/kleeneTarski.h"
 #include "../fixpoint/recursiveBinarySearch.h"
 #include "../fixpoint/findFixpointByMonotoneDecomp.h"
+#include "../simple-stochatic-game/simpleStochasticGameGenerator.h"
+#include "../simple-stochatic-game/simpleStochasticGame.h"
 #include <chrono>
 #include <iostream>
 #include <numeric>
@@ -62,6 +64,27 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     }
 
     return distance;
+}
+
+void solveSimpleStochasticGame() {
+    simpleStochasticGame g = getExampleOne();
+    auto f = getDirectionFunction(g.getMonotoneFunction());
+
+    long long queryCounter = 0;
+    auto fWithCounter = [&f, &queryCounter](const vector<int_t>& v) {
+        queryCounter++;
+        return f(v);
+    };
+    auto bot = g.getBot();
+    auto top = g.getTop();
+
+    auto t1 = high_resolution_clock::now();
+    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+    auto t2 = high_resolution_clock::now();
+
+    if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
+
+
 }
 
 pair<int, double> solveArrival(int instanceSize,
@@ -120,6 +143,8 @@ void runAndPrintAnalysis() {
     //    auto fixpoint = findFixpointRecBin(bot, top, f);
 
 //    vector<int> decompTestSizes{3, 6, 9, 12, 15};
+    solveSimpleStochasticGame();
+
     vector<int> recBinTestSizes{3, 5, 7, 9};
     vector<int> decompTestSizes{7, 10, 13, 15, 18};
     vector<int> monDecompTestSizes{3, 5, 7, 9, 11, 13};

@@ -6,8 +6,12 @@ SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
 
 set(GMP_DIR "/opt/homebrew/Cellar/gmp/6.3.0")
+
 set(GMPXX_LIBRARIES "/opt/homebrew/Cellar/gmp/6.3.0/lib/libgmpxx.a")
 set(GMP_LIBRARIES "/opt/homebrew/Cellar/gmp/6.3.0/lib/libgmp.a")
+
+set(GLPK_DIR "/opt/homebrew/Cellar/glpk/5.0")
+set(GLPK_LIB "/opt/homebrew/Cellar/glpk/5.0/lib/libglpk.a")
 
 #include(FetchContent)
 #FetchContent_Declare(
@@ -24,6 +28,9 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.84.0 REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${GMP_DIR})
+include_directories(${GLPK_DIR})
+
 add_executable(src main.cpp
         fixpoint/innerAlgorithm.h
         fixpoint/innerAlgorithm.cpp
@@ -61,8 +68,11 @@ add_executable(src main.cpp
         simple-stochatic-game/simpleStochasticGame.h
         config.h
         config.cpp
+        simple-stochatic-game/simpleStochasticGameGenerator.cpp
+        simple-stochatic-game/simpleStochasticGameGenerator.h
 )
 
 target_link_libraries(src ${GMP_LIBRARIES})
 target_link_libraries(src ${GMPXX_LIBRARIES})
+target_link_libraries(src ${GLPK_LIB})
 target_link_libraries(src ${Boost_LIBRARIES})
