@@ -68,9 +68,15 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
 
 void solveSimpleStochasticGame() {
     simpleStochasticGame g = getExampleOne();
-    auto f = getDirectionFunction(g.getMonotoneFunction());
+    auto normalF = g.getMonotoneFunction();
+    auto f = getDirectionFunction(normalF);
 
     long long queryCounter = 0;
+    auto normalFWithCounter = [&normalF, &f, &queryCounter](const vector<int_t>& v) {
+        queryCounter++;
+        return normalF(v);
+    };
+
     auto fWithCounter = [&f, &queryCounter](const vector<int_t>& v) {
         queryCounter++;
         return f(v);
@@ -79,8 +85,11 @@ void solveSimpleStochasticGame() {
     auto top = g.getTop();
 
     auto t1 = high_resolution_clock::now();
-    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+//    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
     auto t2 = high_resolution_clock::now();
+
+    auto soln = g.unDiscretize(fixpoint);
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
 

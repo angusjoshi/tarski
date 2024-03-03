@@ -15,3 +15,27 @@ this is a contraction map w.r.t. lp norm as,
 \| (1 - \beta)F(x) - (1 - \beta)F(y) \| = (1 - \beta)\|F(x) - F(y)\|
 
 why is \|F(x) - F(y)\| \leq \|x - y\|?
+
+
+shapley:
+  an instance of shapley is G = (V, A, P, s). 
+  V = {v_1, ..., v_n}
+  A = {A^1, ..., A^n} are the reward matrices at v_i
+  P = (P^i_{j, k}) is a collection of vectors of probabilities,
+    representing the transition probs given players play j, k at v_i.
+    
+    further note i require P^i_{j, k}(r) >= 0 and sum P < 1 (note STRICT inequality)
+
+  s \in V is the start vertex.
+
+  q^i_{j, k} = 1 - sum_r  P^i_{j, k} > 0 is the probability
+    with which the games halts immediately
+    given an action profile and vertex.
+
+  q = min_{i, j, k} q^i_{j, k} is the min of such probabilities.
+  we require q > 0 by assumption.
+
+
+
+
+

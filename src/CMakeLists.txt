@@ -13,23 +13,30 @@ set(GMP_LIBRARIES "/opt/homebrew/Cellar/gmp/6.3.0/lib/libgmp.a")
 set(GLPK_DIR "/opt/homebrew/Cellar/glpk/5.0")
 set(GLPK_LIB "/opt/homebrew/Cellar/glpk/5.0/lib/libglpk.a")
 
-#include(FetchContent)
-#FetchContent_Declare(
-#        googletest
-#        GIT_REPOSITORY https://github.com/google/googletest.git
-#        GIT_TAG        v1.14.0
-#)
-#
-#FetchContent_MakeAvailable(googletest)
+set(OR_DIR "/opt/homebrew/Cellar/or-tools/9.8_3")
+set(OR_LIB "/opt/homebrew/Cellar/or-tools/9.8_3/lib/libortools.9.8.dylib")
+
+set (SCIP_LIB "/opt/homebrew/Cellar/scip/9.0.0/lib/libscip.9.0.0.0.dylib")
+set(SCIP_DIR "/opt/homebrew/Cellar/scip/9.0.0")
+
+set(SOPLEX_LIB "/opt/homebrew/Cellar/soplex/7.0.0.0/lib/libsoplexshared.7.0.0.0.dylib")
+set(SOPLEX_LIB2 "/opt/homebrew/Cellar/soplex/7.0.0.0/lib/libsoplex-pic.a")
+set(SOPLEX_LIB3 "/opt/homebrew/Cellar/soplex/7.0.0.0/lib/libsoplex.a")
+
+set(SOPLEX_DIR "/opt/homebrew/Cellar/soplex/7.0.0.0")
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.84.0 REQUIRED)
+find_package(ortools CONFIG REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GMP_DIR})
-include_directories(${GLPK_DIR})
+include_directories(${SOPLEX_DIR})
+#include_directories(${GLPK_DIR})
+#include_directories(${OR_DIR})
+#include_directories(${SCIP_DIR})
 
 add_executable(src main.cpp
         fixpoint/innerAlgorithm.h
@@ -70,9 +77,18 @@ add_executable(src main.cpp
         config.cpp
         simple-stochatic-game/simpleStochasticGameGenerator.cpp
         simple-stochatic-game/simpleStochasticGameGenerator.h
+        shapley-stochastic-game/shapleyStochasticGame.cpp
+        shapley-stochastic-game/shapleyStochasticGame.h
 )
+
 
 target_link_libraries(src ${GMP_LIBRARIES})
 target_link_libraries(src ${GMPXX_LIBRARIES})
 target_link_libraries(src ${GLPK_LIB})
 target_link_libraries(src ${Boost_LIBRARIES})
+
+target_link_libraries(src ${SOPLEX_LIB})
+target_link_libraries(src ${SOPLEX_LIB2})
+target_link_libraries(src ${SOPLEX_LIB3})
+#target_link_libraries(src ${OR_LIB})
+#target_link_libraries(src ${SCIP_LIB})

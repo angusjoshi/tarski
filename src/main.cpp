@@ -1,11 +1,10 @@
-#include <chrono>
 #include "analysis/runAnalysis.h"
-#include <boost/multiprecision/cpp_int.hpp>
-#include "config.h"
-#include <gmpxx.h>
-#include <vector>
+#include <soplex.h>
+#include <soplex/gzstream.h>
 
 using namespace std;
+using namespace soplex;
+
 
 int main() {
 //    f_t x = 0.65;

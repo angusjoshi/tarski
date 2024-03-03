@@ -4,9 +4,10 @@
 
 #include "simpleStochasticGame.h"
 
-simpleStochasticGame::simpleStochasticGame(vector<vertex> vs) {
+simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs) {
     vertices = vs;
-    N = 1 << vs.size();
+//    N = LLONG_MAX;
+    N = 1 << (vs.size() - 3)*(vs.size() - 2);
 
     bool seenMaxBefore = false;
     bool seenMinBefore = false;
