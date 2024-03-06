@@ -49,30 +49,19 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : v
 }
 
 f_t getZeroSumVal(vector<vector<f_t>> payoffMatrix) {
-// example usage of soplex below
     assert(!payoffMatrix.empty());
 
     SoPlex mysoplex;
     mysoplex.setIntParam(SoPlex::OBJSENSE, SoPlex::OBJSENSE_MAXIMIZE);
-
-    // tell soplex (politely) to be quiet.
     mysoplex.setIntParam(SoPlex::VERBOSITY, SoPlex::VERBOSITY_ERROR);
-
     DSVector dummycol(0);
-    // the objective variable
     mysoplex.addColReal(LPCol(1.0, dummycol, infinity, -infinity));
-
-    //variables corresponding to strategies
     for(const auto& _ : payoffMatrix) {
-        // 0 objective value, unbounded above, bounded below by 0.
         mysoplex.addColReal(LPCol(0, dummycol, infinity, 0));
     }
 
     for(int j = 0; j < payoffMatrix[0].size(); j++) {
-        // matrix is small enough that looping opposite way round is probably fine for cache.
         DSVector currRow(payoffMatrix[0].size() + 1ul);
-
-        // constraint is 1.v - p[1][j]x_1 - ... - p[n][j]x_n <= 0
         currRow.add(0, 1);
         for(int i = 0; i < payoffMatrix.size(); i++) {
             currRow.add(i + 1, -payoffMatrix[i][j]);
