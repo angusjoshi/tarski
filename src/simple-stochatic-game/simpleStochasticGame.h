@@ -36,14 +36,14 @@ struct simpleStochasticGame {
     vector<int_t> getBot();
     vector<int_t> getTop();
     simpleStochasticGame(vector<simpleVertex> vertices);
+    vector<int_t> discretize(const vector<f_t>& d);
+    vector<f_t> unDiscretize(const vector<int_t>& v);
 
 private:
     int_t N;
     int maxSinkI;
     int minSinkI;
     f_t contractionFactor;
-    vector<int_t> discretize(const vector<f_t>& d);
-    vector<f_t> unDiscretize(const vector<int_t>& v);
     void contract(vector<f_t>& v);
 };
 

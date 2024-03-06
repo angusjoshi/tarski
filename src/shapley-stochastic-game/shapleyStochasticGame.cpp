@@ -6,13 +6,21 @@
 #include <soplex.h>
 #include <algorithm>
 
+using namespace soplex;
+
 shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : vertices{vertices} {
     // find max payoff
+    assert(vertices.size() != 0);
+    assert(vertices[0].payoffs.size() == vertices[0].succs.size());
+    nPlayers = vertices[0].payoffs.size();
+
     int_t M = 0;
     for(const auto& vertex : vertices) {
-        for(const auto& row : vertex.payoffs) {
-            for(const auto& cell : row) {
-                M = M < cell ? cell : M;
+        for(const auto& matrix : vertex.payoffs) {
+            for(const auto& row : matrix) {
+                for(const auto& cell : row) {
+                    M = M < cell ? cell : M;
+                }
             }
         }
     }
@@ -34,18 +42,117 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : v
                 q = q > current ? current : q;
             }
         }
-
     }
 
     N = (4*M)/(EPSILON*q);
+    scale = 4/EPSILON;
+}
+
+f_t getZeroSumVal(vector<vector<f_t>> payoffMatrix) {
+// example usage of soplex below
+    assert(!payoffMatrix.empty());
+
+    SoPlex mysoplex;
+    mysoplex.setIntParam(SoPlex::OBJSENSE, SoPlex::OBJSENSE_MAXIMIZE);
+
+    // tell soplex (politely) to be quiet.
+    mysoplex.setIntParam(SoPlex::VERBOSITY, SoPlex::VERBOSITY_ERROR);
+
+    DSVector dummycol(0);
+    // the objective variable
+    mysoplex.addColReal(LPCol(1.0, dummycol, infinity, -infinity));
+
+    //variables corresponding to strategies
+    for(const auto& _ : payoffMatrix) {
+        // 0 objective value, unbounded above, bounded below by 0.
+        mysoplex.addColReal(LPCol(0, dummycol, infinity, 0));
+    }
+
+    for(int j = 0; j < payoffMatrix[0].size(); j++) {
+        // matrix is small enough that looping opposite way round is probably fine for cache.
+        DSVector currRow(payoffMatrix[0].size() + 1ul);
+
+        // constraint is 1.v - p[1][j]x_1 - ... - p[n][j]x_n <= 0
+        currRow.add(0, 1);
+        for(int i = 0; i < payoffMatrix.size(); i++) {
+            currRow.add(i + 1, -payoffMatrix[i][j]);
+        }
+
+        mysoplex.addRowReal(LPRow(currRow, LPRow::LESS_EQUAL, 0));
+    }
+
+    DSVector equalityRow(payoffMatrix[0].size() + 1ul);
+    equalityRow.add(0, 0);
+    for(int i = 1; i <= payoffMatrix.size(); i++) {
+        equalityRow.add(i, 1);
+    }
+    mysoplex.addRowReal(LPRow(equalityRow, LPRow::EQUAL, 1));
+
+    auto status = mysoplex.optimize();
+    assert(status == soplex::SPxSolver::OPTIMAL);
+    return mysoplex.objValueReal();
+}
+
+void add(vector<vector<f_t>>& a, const vector<vector<int>>& b) {
+    assert(a.size() == b.size());
+    assert(a[0].size() == b[0].size());
+
+    int m = a[0].size();
+    for(int i = 0; i < a.size(); i++) {
+        assert(a[i].size() == m);
+        assert(b[i].size() == m);
+        for(int j = 0; j < a[i].size(); j++) {
+            a[i][j] += b[i][j];
+        }
+    }
+}
+
+
+
+vector<f_t> shapleyStochasticGame::scaleDown(const vector<int_t>& v) {
+    vector<f_t> result;
+    result.reserve(v.size());
+    for(const auto& x : v) {
+        result.push_back(x / scale);
+    }
+    return result;
+}
+
+vector<int_t> shapleyStochasticGame::scaleUp(const vector<f_t>& v) {
+    vector<int_t> result;
+    result.reserve(v.size());
+    for(const auto& x : v) {
+        // flooring will happen during coercion to int.
+        result.push_back(x * scale);
+    }
+    return result;
 }
 
 function<vector<int_t>(const vector<int_t>& v)> shapleyStochasticGame::getMonotoneFunction() {
-    // TODO
-    return [this](const vector<int_t>& v) {
+    return [this](const vector<int_t>& v) -> vector<int_t> {
+        auto scaled = scaleDown(v);
+        vector<f_t> results;
+        results.reserve(v.size());
+        for(int k = 0; k < vertices.size(); k++) {
+            auto vertex = vertices[k];
+            vector<vector<f_t>> m(
+                    vertex.payoffs.size(),
+                    vector<f_t>(vertex.payoffs[0].size(), 0));
 
-        return vector<int_t>{};
-    }
+            for(int i = 0; i < vertex.succs.size(); i++) {
+                for(int j = 0; j < vertex.succs[i].size(); j++) {
+                    for(const auto& succ : vertex.succs[i][j]) {
+                        m[i][j] += succ.p * scaled[succ.i];
+                    }
+                }
+            }
+            add(m, vertex.payoffs[k]);
+            f_t val = getZeroSumVal(m);
+            results.push_back(val);
+        }
+
+        return scaleUp(results);
+    };
 }
 vector<int_t> shapleyStochasticGame::getBot() {
     vector<int_t> bot(vertices.size(), -N);
@@ -56,46 +163,3 @@ vector<int_t> shapleyStochasticGame::getTop() {
     return top;
 }
 
-// example usage of soplex below
-//SoPlex mysoplex;
-//
-///* set the objective sense */
-//mysoplex.setIntParam(SoPlex::OBJSENSE, SoPlex::OBJSENSE_MINIMIZE);
-//
-///* we first add variables */
-//DSVector dummycol(0);
-//mysoplex.addColReal(LPCol(3.0, dummycol, infinity, 1.0));
-//mysoplex.addColReal(LPCol(2.0, dummycol, infinity, 1.0));
-//
-///* then constraints one by one */
-//DSVector row1(2);
-//row1.add(0, 0.2);
-//row1.add(1, 1.0);
-//mysoplex.addRowReal(LPRow(2.0, row1, infinity));
-//
-///* NOTE: alternatively, we could have added the matrix nonzeros in dummycol already; nonexisting rows are then
-// * created automatically. */
-//
-///* write LP in .lp format */
-//mysoplex.writeFileReal("dump_real.lp", NULL, NULL, NULL);
-//
-///* solve LP */
-//SPxSolver::Status stat;
-//DVector prim(2);
-//DVector dual(1);
-//stat = mysoplex.optimize();
-//
-///* get solution */
-//if(stat == SPxSolver::OPTIMAL)
-//{
-//mysoplex.getPrimal(prim);
-//mysoplex.getDual(dual);
-//std::cout << "LP solved to optimality.\n";
-//std::cout << "Objective value is " << mysoplex.objValueReal() << ".\n";
-//std::cout << "Primal solution is [" << prim[0] << ", " << prim[1] << "].\n";
-//std::cout << "Dual solution is [" << dual[0] << "].\n";
-//}
-//else
-//{
-//std::cout << "Error: SoPlex returned with status " << stat << ".\n";
-//}
