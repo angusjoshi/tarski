@@ -38,6 +38,6 @@ private:
     f_t scale;
 };
 
-f_t getZeroSumVal(vector<vector<f_t>> payoffMatrix);
+f_t getZeroSumVal(const vector<vector<f_t>>& payoffMatrix);
 
 #endif //SRC_SHAPLEYSTOCHASTICGAME_H

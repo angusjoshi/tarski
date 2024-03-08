@@ -5,6 +5,7 @@
 #include "shapleyStochasticGame.h"
 #include <soplex.h>
 #include <algorithm>
+#include <thread>
 
 using namespace soplex;
 
@@ -29,6 +30,7 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : v
             for(const auto& cell : row) {
                 f_t current = 1;
                 for(const auto& succ : cell) {
+                    assert(succ.i < vertices.size() && succ.i >= 0);
                     current -= succ.p;
                 }
 
@@ -45,7 +47,7 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : v
     scale = 4/EPSILON;
 }
 
-f_t getZeroSumVal(vector<vector<f_t>> payoffMatrix) {
+f_t getZeroSumVal(const vector<vector<f_t>>& payoffMatrix) {
     assert(!payoffMatrix.empty());
     SoPlex mysoplex;
     mysoplex.setIntParam(SoPlex::OBJSENSE, SoPlex::OBJSENSE_MAXIMIZE);
@@ -116,26 +118,33 @@ vector<int_t> shapleyStochasticGame::scaleUp(const vector<f_t>& v) {
 function<vector<int_t>(const vector<int_t>& v)> shapleyStochasticGame::getMonotoneFunction() {
     return [this](const vector<int_t>& v) -> vector<int_t> {
         auto scaled = scaleDown(v);
-        vector<f_t> results;
-        results.reserve(v.size());
-        for(int k = 0; k < vertices.size(); k++) {
-            auto vertex = vertices[k];
-            vector<vector<f_t>> m(
-                    vertex.payoffs.size(),
-                    vector<f_t>(vertex.payoffs[0].size(), 0));
+        vector<f_t> results(v.size(), -1);
+        vector<std::thread> threads;
+        threads.reserve(v.size());
 
-            for(int i = 0; i < vertex.succs.size(); i++) {
-                for(int j = 0; j < vertex.succs[i].size(); j++) {
-                    for(const auto& succ : vertex.succs[i][j]) {
-                        m[i][j] += succ.p * scaled[succ.i];
+        for(int k = 0; k < vertices.size(); k++) {
+            auto computeForVertex = [this, &results, k, &scaled]() {
+                auto vertex = vertices[k];
+                vector<vector<f_t>> m(
+                        vertex.payoffs.size(),
+                        vector<f_t>(vertex.payoffs[0].size(), 0));
+
+                for(int i = 0; i < vertex.succs.size(); i++) {
+                    for(int j = 0; j < vertex.succs[i].size(); j++) {
+                        for(const auto& succ : vertex.succs[i][j]) {
+                            m[i][j] += succ.p * scaled[succ.i];
+                        }
                     }
                 }
-            }
 
-            add(m, vertex.payoffs);
-            f_t val = getZeroSumVal(m);
-            results.push_back(val);
+                add(m, vertex.payoffs);
+                f_t val = getZeroSumVal(m);
+                results[k] = val;
+            };
+            threads.emplace_back(computeForVertex);
         }
+
+        for(std::thread& thread : threads) thread.join();
 
         return scaleUp(results);
     };
