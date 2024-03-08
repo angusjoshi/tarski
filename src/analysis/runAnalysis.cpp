@@ -18,6 +18,8 @@
 #include <iostream>
 #include <numeric>
 #include <thread>
+#include "../shapley-stochastic-game/shapleyStochasticGame.h"
+#include "../shapley-stochastic-game/shapleyStochasticGameGenerator.h"
 
 using std::chrono::duration;
 using std::chrono::high_resolution_clock;
@@ -66,6 +68,34 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     return distance;
 }
 
+void solveShapleyStochasticGame() {
+    shapleyStochasticGame g = getShapleyExampleOne();
+
+    auto normalF = g.getMonotoneFunction();
+    auto f = getDirectionFunction(normalF);
+
+    long long queryCounter = 0;
+    auto normalFWithCounter = [&normalF, f, &queryCounter](const vector<int_t>& v) -> vector<int_t> {
+        queryCounter++;
+        return normalF(v);
+    };
+
+    auto fWithCounter = [&f, &queryCounter](const vector<int_t>& v) -> vector<direction> {
+        queryCounter++;
+        return f(v);
+    };
+    auto bot = g.getBot();
+    auto top = g.getTop();
+
+    auto t1 = high_resolution_clock::now();
+    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+//    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
+    auto t2 = high_resolution_clock::now();
+
+    if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
+    printVec(fixpoint);
+    cout << "query count is: " << queryCounter << endl;
+}
 void solveSimpleStochasticGame() {
     simpleStochasticGame g = getExampleOne();
     auto normalF = g.getMonotoneFunction();
@@ -85,11 +115,14 @@ void solveSimpleStochasticGame() {
     auto top = g.getTop();
 
     auto t1 = high_resolution_clock::now();
-//    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
-    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
+    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+//    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
     auto t2 = high_resolution_clock::now();
 
     auto soln = g.unDiscretize(fixpoint);
+
+    printVec(fixpoint);
+    cout << "query count is: " << queryCounter << endl;
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
 
@@ -152,7 +185,9 @@ void runAndPrintAnalysis() {
     //    auto fixpoint = findFixpointRecBin(bot, top, f);
 
 //    vector<int> decompTestSizes{3, 6, 9, 12, 15};
-    solveSimpleStochasticGame();
+//    solveSimpleStochasticGame();
+    solveShapleyStochasticGame();
+    return;
 
     vector<int> recBinTestSizes{3, 5, 7, 9};
     vector<int> decompTestSizes{7, 10, 13, 15, 18};

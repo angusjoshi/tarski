@@ -21,7 +21,7 @@ struct shapleyVertex {
     // successor indexing is assumed to be the same as in the vertex vector
     // as in etessami et al., the probabilities are assumed to sum to strictly < 1.
     vector<vector<vector<shapleySuccessor>>> succs;
-    vector<vector<vector<int>>> payoffs;
+    vector<vector<int>> payoffs;
 };
 
 struct shapleyStochasticGame {
@@ -30,13 +30,12 @@ struct shapleyStochasticGame {
     vector<int_t> getBot();
     vector<int_t> getTop();
     shapleyStochasticGame(vector<shapleyVertex> vertices);
-
-private:
     vector<f_t> scaleDown(const vector<int_t>& v);
     vector<int_t> scaleUp(const vector<f_t>& v);
+
+private:
     int_t N;
     f_t scale;
-    int nPlayers;
 };
 
 f_t getZeroSumVal(vector<vector<f_t>> payoffMatrix);

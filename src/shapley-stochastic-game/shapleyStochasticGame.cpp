@@ -12,15 +12,12 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : v
     // find max payoff
     assert(vertices.size() != 0);
     assert(vertices[0].payoffs.size() == vertices[0].succs.size());
-    nPlayers = vertices[0].payoffs.size();
 
     int_t M = 0;
     for(const auto& vertex : vertices) {
-        for(const auto& matrix : vertex.payoffs) {
-            for(const auto& row : matrix) {
-                for(const auto& cell : row) {
-                    M = M < cell ? cell : M;
-                }
+        for(const auto& row : vertex.payoffs) {
+            for(const auto& cell : row) {
+                M = M < cell ? cell : M;
             }
         }
     }
@@ -50,7 +47,6 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : v
 
 f_t getZeroSumVal(vector<vector<f_t>> payoffMatrix) {
     assert(!payoffMatrix.empty());
-
     SoPlex mysoplex;
     mysoplex.setIntParam(SoPlex::OBJSENSE, SoPlex::OBJSENSE_MAXIMIZE);
     mysoplex.setIntParam(SoPlex::VERBOSITY, SoPlex::VERBOSITY_ERROR);
@@ -135,7 +131,8 @@ function<vector<int_t>(const vector<int_t>& v)> shapleyStochasticGame::getMonoto
                     }
                 }
             }
-            add(m, vertex.payoffs[k]);
+
+            add(m, vertex.payoffs);
             f_t val = getZeroSumVal(m);
             results.push_back(val);
         }
@@ -143,6 +140,7 @@ function<vector<int_t>(const vector<int_t>& v)> shapleyStochasticGame::getMonoto
         return scaleUp(results);
     };
 }
+
 vector<int_t> shapleyStochasticGame::getBot() {
     vector<int_t> bot(vertices.size(), -N);
     return bot;

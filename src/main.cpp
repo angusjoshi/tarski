@@ -29,8 +29,15 @@ int main() {
         {-2, -3, 10},
     };
 
+    vector<vector<f_t>> example3 {
+        {1, -2, 3},
+        {-1, 2, 1},
+        {4, -5, 2},
+    };
+
     auto x = getZeroSumVal(rockPaperScissors);
     auto y = getZeroSumVal(example2);
+    auto z = getZeroSumVal(example3);
 
     runAndPrintAnalysis();
     return 0;
