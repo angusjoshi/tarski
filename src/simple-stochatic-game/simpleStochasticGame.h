@@ -11,11 +11,12 @@
 using namespace std;
 
 enum simpleVertexType {
-    mini,
-    maxi,
-    chance,
-    maxSink,
-    minSink
+    mini = 0,
+    maxi = 1,
+    chance = 2,
+    maxSink = 3,
+    minSink = 4,
+    last
 };
 
 // simpleSuccessor indexing is assumed to be the same as the vertices vector.
@@ -38,6 +39,7 @@ struct simpleStochasticGame {
     simpleStochasticGame(vector<simpleVertex> vertices);
     vector<int_t> discretize(const vector<f_t>& d);
     vector<f_t> unDiscretize(const vector<int_t>& v);
+    void print();
 
 private:
     int_t N;

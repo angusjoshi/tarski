@@ -144,3 +144,14 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
         return discretize(resultf);
     };
 }
+
+void simpleStochasticGame::print() {
+    for(int i = 0 ; i < vertices.size(); i++) {
+        const auto& v = vertices[i];
+        printf("vertex: %d, type is: %d\n", i, v.type);
+        printf("succs are: \n");
+        for(const auto& succ : v.succs) {
+            printf("\t index: %d, p: %f\n", succ.i, succ.p);
+        }
+    }
+}

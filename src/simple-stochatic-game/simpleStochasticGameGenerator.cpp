@@ -3,6 +3,7 @@
 //
 
 #include "simpleStochasticGameGenerator.h"
+#include <random>
 
 simpleStochasticGame getExampleOne() {
     simpleVertex v0 = {
@@ -57,6 +58,52 @@ simpleStochasticGame getExampleOne() {
 }
 
 simpleStochasticGame generateSimpleStochasticGame(int size) {
+    //first vertex is assumed to be the start,
+    // second last is min sink,
+    // last is max sink.
+    // so need at least 3 vertices.
+    assert(size >= 3);
 
-    return {{}};
+    // the last vertex is assumed to be player 1s target,
+    // first is assumed to be the initial vertex.
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    // note the distribution uses the closed range for some reason...
+    std::uniform_int_distribution<> nodeDistribution(0, size - 1);
+
+    // bit hacky but using the last guy in the enum spec seems
+    // like the best way to gen a distribution.
+    // also drop the last 2 (don't want extra max/mins)
+
+    std::uniform_int_distribution<> typeDist(0, last - 3);
+
+    std::uniform_real_distribution<> partitionDistribution(0);
+
+    vector<simpleVertex> vertices;
+    vertices.reserve(size);
+
+    for(int i = 0; i < size - 2; i++) {
+        double p = partitionDistribution(gen);
+        simpleVertex v = {
+                .type = static_cast<simpleVertexType>(typeDist(gen)),
+                .succs = {
+                    { .i = nodeDistribution(gen), .p = p },
+                    { .i = nodeDistribution(gen), .p = 1 - p },
+                }
+        };
+
+        vertices.push_back(v);
+    }
+
+    simpleVertex miniSink = {
+            .type = minSink,
+    };
+    simpleVertex maxiSink = {
+            .type = maxSink,
+    };
+    vertices.push_back(miniSink);
+    vertices.push_back(maxiSink);
+
+    return { vertices };
 }

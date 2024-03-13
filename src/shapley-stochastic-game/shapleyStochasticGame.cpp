@@ -84,10 +84,7 @@ void add(vector<vector<f_t>>& a, const vector<vector<int>>& b) {
     assert(a.size() == b.size());
     assert(a[0].size() == b[0].size());
 
-    int m = a[0].size();
     for(int i = 0; i < a.size(); i++) {
-        assert(a[i].size() == m);
-        assert(b[i].size() == m);
         for(int j = 0; j < a[i].size(); j++) {
             a[i][j] += b[i][j];
         }
@@ -100,7 +97,7 @@ vector<f_t> shapleyStochasticGame::scaleDown(const vector<int_t>& v) {
     vector<f_t> result;
     result.reserve(v.size());
     for(const auto& x : v) {
-        result.push_back(x / scale);
+        result.emplace_back(x / scale);
     }
     return result;
 }
@@ -110,7 +107,7 @@ vector<int_t> shapleyStochasticGame::scaleUp(const vector<f_t>& v) {
     result.reserve(v.size());
     for(const auto& x : v) {
         // flooring will happen during coercion to int.
-        result.push_back(x * scale);
+        result.emplace_back(x * scale);
     }
     return result;
 }

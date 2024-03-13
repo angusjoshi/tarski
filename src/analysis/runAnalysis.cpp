@@ -96,8 +96,10 @@ void solveShapleyStochasticGame() {
     printVec(fixpoint);
     cout << "query count is: " << queryCounter << endl;
 }
-void solveSimpleStochasticGame() {
-    simpleStochasticGame g = getExampleOne();
+
+pair<int, double> solveSimpleStochasticGame(int instanceSize,
+                               algorithm algorithmToRun) {
+    simpleStochasticGame g = generateSimpleStochasticGame(instanceSize);
     auto normalF = g.getMonotoneFunction();
     auto f = getDirectionFunction(normalF);
 
@@ -115,18 +117,18 @@ void solveSimpleStochasticGame() {
     auto top = g.getTop();
 
     auto t1 = high_resolution_clock::now();
-    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
-//    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
+    auto fixpoint = algorithmToRun == decomp
+                    ? findFixpointByFixDecomposition(bot, top, fWithCounter)
+                    : algorithmToRun == monotoneDecomp
+                      ? findFixpointByMonotoneDecomp(bot, top, fWithCounter)
+                      : findFixpointRecBin(bot, top, fWithCounter);
     auto t2 = high_resolution_clock::now();
-
     auto soln = g.unDiscretize(fixpoint);
-
-    printVec(fixpoint);
-    cout << "query count is: " << queryCounter << endl;
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
 
-
+    duration<double, std::milli> ms = t2 - t1;
+    return {queryCounter, ms.count()};
 }
 
 pair<int, double> solveArrival(int instanceSize,
@@ -186,8 +188,8 @@ void runAndPrintAnalysis() {
 
 //    vector<int> decompTestSizes{3, 6, 9, 12, 15};
 //    solveSimpleStochasticGame();
-    solveShapleyStochasticGame();
-    return;
+//    solveShapleyStochasticGame();
+//    return;
 
     vector<int> recBinTestSizes{3, 5, 7, 9};
     vector<int> decompTestSizes{7, 10, 13, 15, 18};
@@ -198,6 +200,26 @@ void runAndPrintAnalysis() {
 
     string line = "==================================================\n";
 
+    cout << line;
+    cout << "STARTING SIMPLE STOCHASTIC GAME TEST" << endl;
+    for(int testSize = 3; testSize <= 15; testSize++) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < n; i++) {
+            auto [stepCount, time] = solveSimpleStochasticGame(testSize, decomp);
+            queryCounts.push_back(stepCount);
+            times.push_back(time);
+        }
+
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+        cout << "===========================================================" << endl;
+        cout << "test size: " << testSize << endl;
+        cout << "avg steps was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
+
+    return;
 
     cout << line;
     cout << "STARTING DECOMP TEST" << endl;
@@ -276,22 +298,23 @@ void runAndPrintAnalysis() {
     //        cout << "avg time was: " << avgTime << "ms" << endl;
     //    }
 
-    cout << line;
-    cout << "STARTING WALK TEST" << endl;
-    for(int testSize = 3; testSize <= 15; testSize++) {
-        vector<int> queryCounts {};
-        vector<double> times {};
-        for(int i = 0; i < n; i++) {
-            auto [stepCount, time] = solveRandomArrivalWithWalk(testSize, generateLongInstance);
-            queryCounts.push_back(stepCount);
-            times.push_back(time);
-        }
+//    cout << line;
+//    cout << "STARTING WALK TEST" << endl;
+//    for(int testSize = 3; testSize <= 15; testSize++) {
+//        vector<int> queryCounts {};
+//        vector<double> times {};
+//        for(int i = 0; i < n; i++) {
+//            auto [stepCount, time] = solveRandomArrivalWithWalk(testSize, generateLongInstance);
+//            queryCounts.push_back(stepCount);
+//            times.push_back(time);
+//        }
+//
+//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//        cout << "===========================================================" << endl;
+//        cout << "test size: " << testSize << endl;
+//        cout << "avg steps was: " << avgQueries << endl;
+//        cout << "avg time was: " << avgTime << "ms" << endl;
+//    }
 
-        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-        cout << "===========================================================" << endl;
-        cout << "test size: " << testSize << endl;
-        cout << "avg steps was: " << avgQueries << endl;
-        cout << "avg time was: " << avgTime << "ms" << endl;
-    }
 }
