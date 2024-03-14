@@ -156,3 +156,30 @@ vector<int_t> shapleyStochasticGame::getTop() {
     return top;
 }
 
+void shapleyStochasticGame::print() {
+    for(int i = 0; i < vertices.size(); i++) {
+        auto& v = vertices[i];
+        printf("vertex %d. payoff matrix is:\n", i);
+        for(const auto& row : v.payoffs) {
+            printf("\t");
+            for(const auto& cell : row) {
+                printf("%d\t", cell);
+            }
+            printf("\n");
+        }
+
+        printf("succ matrix is:\n");
+        for(const auto& row : v.succs) {
+            printf("\t");
+            for(const auto& cell : row) {
+                for(int i = 0; i < cell.size(); i++) {
+                    const auto& succ = cell[i];
+                    printf("(succ %d: to=%d, p=%f) ", i, succ.i, succ.p);
+                }
+                printf("\t");
+            }
+            printf("\n");
+        }
+    }
+}
+

@@ -3,6 +3,10 @@
 //
 
 #include "shapleyStochasticGameGenerator.h"
+#include <random>
+
+const double PROB_OF_NOT_HALTING = 0.8;
+const int MAX_PAYOFF_VAL = 10;
 
 shapleyStochasticGame getShapleyExampleOne() {
     shapleyVertex v0 = {
@@ -104,4 +108,54 @@ shapleyStochasticGame getShapleyExampleOne() {
     };
 
     return {{v0, v1, v2, v3, v4, v5, v6}};
+}
+
+shapleyStochasticGame generateShapleyStochasticGame(int size) {
+    assert(size >= 1);
+    // for shapley, there is no specific target so don't need as many vertices
+    // as the simple stochastic games.
+
+    // it will be assumed that the action space is 3x3 at every vertex,
+    // every action joint action will yield a probability distribution on two successors.
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    // note the distribution uses the closed range for some reason...
+    std::uniform_int_distribution<> nodeDistribution(0, size - 1);
+
+    std::uniform_int_distribution<> payoffDistribution(-MAX_PAYOFF_VAL, MAX_PAYOFF_VAL);
+
+
+    // predefined probability of not halting at every transition. split this
+    // into two.
+    std::uniform_real_distribution<> partitionDistribution(0, PROB_OF_NOT_HALTING);
+
+    vector<shapleyVertex> vertices;
+    vertices.reserve(size);
+
+    for(int i = 0; i < size; i++) {
+        vector<vector<int>> payoffMatrix(3, vector<int>(3, 0));
+
+        for(auto& row : payoffMatrix) {
+            for(auto& cell : row) {
+                cell = payoffDistribution(gen);
+            }
+        }
+
+        vector<vector<vector<shapleySuccessor>>> successorMatrix(
+                3,
+                vector<vector<shapleySuccessor>>(3, vector<shapleySuccessor>{}));
+
+        for(auto& row : successorMatrix) {
+            for(auto& cell : row) {
+                auto p = partitionDistribution(gen);
+                cell.push_back({nodeDistribution(gen), p});
+                cell.push_back({nodeDistribution(gen), PROB_OF_NOT_HALTING - p});
+            }
+        }
+
+        vertices.push_back({successorMatrix, payoffMatrix});
+    }
+
+    return { vertices };
 }

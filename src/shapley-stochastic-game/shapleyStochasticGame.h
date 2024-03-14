@@ -32,6 +32,7 @@ struct shapleyStochasticGame {
     shapleyStochasticGame(vector<shapleyVertex> vertices);
     vector<f_t> scaleDown(const vector<int_t>& v);
     vector<int_t> scaleUp(const vector<f_t>& v);
+    void print();
 
 private:
     int_t N;

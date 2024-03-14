@@ -68,8 +68,8 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     return distance;
 }
 
-void solveShapleyStochasticGame() {
-    shapleyStochasticGame g = getShapleyExampleOne();
+pair<int, double> solveShapleyStochasticGame(int size) {
+    shapleyStochasticGame g = generateShapleyStochasticGame(size);
 
     auto normalF = g.getMonotoneFunction();
     auto f = getDirectionFunction(normalF);
@@ -88,13 +88,16 @@ void solveShapleyStochasticGame() {
     auto top = g.getTop();
 
     auto t1 = high_resolution_clock::now();
-    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
-//    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
+//    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
     auto t2 = high_resolution_clock::now();
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
     printVec(fixpoint);
     cout << "query count is: " << queryCounter << endl;
+
+    duration<double, std::milli> ms = t2 - t1;
+    return {queryCounter, ms.count()};
 }
 
 pair<int, double> solveSimpleStochasticGame(int instanceSize,
@@ -202,11 +205,11 @@ void runAndPrintAnalysis() {
 
     cout << line;
     cout << "STARTING SIMPLE STOCHASTIC GAME TEST" << endl;
-    for(int testSize = 3; testSize <= 15; testSize++) {
+    for(int testSize = 3; testSize <= 8; testSize++) {
         vector<int> queryCounts {};
         vector<double> times {};
         for(int i = 0; i < n; i++) {
-            auto [stepCount, time] = solveSimpleStochasticGame(testSize, decomp);
+            auto [stepCount, time] = solveShapleyStochasticGame(testSize);
             queryCounts.push_back(stepCount);
             times.push_back(time);
         }

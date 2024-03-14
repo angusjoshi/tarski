@@ -7,5 +7,6 @@
 #include "shapleyStochasticGame.h"
 
 shapleyStochasticGame getShapleyExampleOne();
+shapleyStochasticGame generateShapleyStochasticGame(int size);
 
 #endif //SRC_SHAPLEYSTOCHASTICGAMEGENERATOR_H

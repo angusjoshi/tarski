@@ -5,6 +5,7 @@
 #include <glpk.h>
 
 #include "simple-stochatic-game/simpleStochasticGameGenerator.h"
+#include "shapley-stochastic-game/shapleyStochasticGameGenerator.h"
 
 using namespace std;
 using namespace soplex;
@@ -41,6 +42,7 @@ int main() {
 //    auto y = getZeroSumVal(example2);
 //    auto z = getZeroSumVal(example3);
 //
+
     runAndPrintAnalysis();
 
     return 0;
