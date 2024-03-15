@@ -1,6 +1,51 @@
 \section{Overview}
-Recent developments have been made in upper bounds on the $\trsk$ problem.
+Recent developments have been made in upper bounds for the $\trsk$ problem.
 The critical component to the algorithmic improvements is
-the surprising result from \citep{fasterTarski} giving a tight
-upper bound of $\Theta(log^2N)$ for the query complexity of
-$\trsk(N, 3)$.
+the surprising result from \citep{fasterTarski} that $\trsk(N, 3)$
+can be solved in at most $O(\log^2 N)$ queries.
+The idea is roughly as follows; suppose I have
+a monotone function $f : [N]^3 \to [N]^3$ and an algorithm which
+given a coordinate $i \in \{1, 2, 3\}$ and a value $v \in [N]$
+returns a monotone point $x \in [N]^3$ with the guarantee
+that $x_i = v$. If this algorithm takes $q(N)$ queries in the worst case,
+then a fixpoint of $f$ can be found in $O(\log N \cdot q(N))$ in the
+same fashion as \cref{dQiYiAlg}. This problem will prove to be
+important, so I will define it in it's own right.
+\newcommand{\trsks}{\textsc{Tarski*}}
+\begin{definition}[\trsks]
+  The problem $\trsks(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$,
+  a coordinate $i \in \{1, ..., d\}$, and value $v \in [N]$, find a monotone point $x \in [N]^d$ such that
+  $x_i = v$. 
+\end{definition}
+The breakthrough in \citep{fasterTarski} was in detailing a so-called inner-algorithm which leads to
+the following result.
+\begin{theorem}[\citep{fasterTarski}]
+  The query complexity of $\trsks(N, 3)$ is $O(\log N)$.
+\end{theorem}
+Fearnley et al. also gave a method of decomposition, allowing for $\trsk$ in higher
+dimensions to be decomposed into a product of sorts of lower
+dimensional problems. This can be seen as a generalization of the method in \cref{dQiYiAlg}.
+Dang et al. solve $\trsk(N, d)$ by solving an instance $A$ of $\trsk(N, 1)$ in the $d$-th 
+where every query of the monotone function from $\trsk(N, 1)$ at $v$ is answered by recursively finding
+a fixpoint in the slice at the $d-th$ coordinate with value $v$. It then follows that
+a soution to $A$ can be used to recover a solution of the entire problem. The algorithm of
+Fearnley et al. shows that it is possible to make more general decompositions using a method
+which I call \emph{fixpoint decomposition}. There is slight complication with making this precise
+which will be detailed in a later section of this chapter.
+\begin{theorem}[Fixpoint Decomposition, \citep{fasterTarski}]\label{fixDecomp}
+  For positive integers $a, b \in \zpos$, given an algorithm $A$
+  which can solve $\trsk(N, a)$ in $p(N, a)$ queries, and an algorithm $B$
+  which can solve $\trsk(N, b)$ in $p(N, b)$ queries, the problem
+  $\trsk(N, a + b)$ can be solved in $O(p(N, a)\cdot (q(N, b) + 2))$ queries.
+\end{theorem}
+Chen and Li take this one step further; instead of decomposing the $\trsk$ problem
+they show that it is possible to make a decomposition on $\trsks$ using a method
+I will call \emph{monotone decomposition}. The details
+of this are more complicated still than \cref{fixDecomp}, and will be shared in a later
+section.
+\begin{theorem}[Monotone Decomposition, \citep{chenLi}]
+  For positive integers $a, b \in \zpos$, given an algorithm $A$
+  which can solve $\trsks(N, a)$ in $p(N, a)$ queries, and an algorithm $B$
+  which an solve $\trsks(N, b)$ in $q(N, b)$ queries, the problem $\trsks(N, a + b)$
+  can be solved in $O((b + 1) \cdot p(N, a) \cdot q(N, b))$ queries.
+\end{theorem}
