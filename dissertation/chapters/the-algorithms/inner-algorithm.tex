@@ -1,5 +1,39 @@
 \section{The Inner Algorithm}
 I will not detail the inner algorithm in it's entirety, nor prove it's correctness;
 the reader is instead directed to \citep{fasterTarski}. Instead I will introduce
-the main invariant, showing how the algorithm can make progress in 'normal'
-cases.
+the main invariant, showing how the algorithm can make progress in the important 
+cases. I require a weakening of the invariant used in \cref{dQiYiAlg}; whereas
+in \cref{dQiYiAlg} two opposing monotone points are maintained essentially
+defining the top and bottom of a sublattice on which the monotone function
+naturally restricts, the inner algorithm allows for more possibilities.
+\begin{definition}[Witness, \citep{fasterTarski}]
+  Let $f : [N]^3 \to [N]^3$. A \emph{down set witness} is a pair of points
+  $(d, b) \in ([N]^3)^2$ such that $f(d)_3 = f(b)_3$ and for some $i, j \in \{1, 2\}$
+  with $i \neq j$,
+  \begin{itemize}
+    \item $d_i = b_i$, $b_j \leq d_j$, $f(b)_j \geq b_j$, and $f(d)_j \leq d_j$,
+    \item $f(d)_3 \geq d_3$ and $f(b)_3 \geq b_3$.
+  \end{itemize}
+  An \emph{up set witness} is a pair of points
+  $(a, u) \in ([N]^3)^2$ such that $f(a)_3 = f(u)_3$ and for some $i, j \in \{1, 2\}$
+  with $i \neq j$,
+  \begin{itemize}
+    \item $a_i = u_i$, $a_j \leq u_j$, $f(a)_j \geq a_j$, and $f(u)_j \leq u_j$,
+    \item $f(d)_3 \geq d_3$ and $f(b)_3 \geq b_3$.
+  \end{itemize}
+\end{definition}
+[add ref to figure with witness diagrams] shows the different possible configurations
+of witnesses to aid the reader in digesting this definition.
+Now for the main invariant of the inner algorithm.
+\begin{definition}[Inner algorithm invariant]
+  Let $f : [N]^3 \to [N]^3$ be a monotone function. The \emph{inner algorithm invariant}
+  is an up set witness $(d, b)$ and a down set witness $(a, u)$ such that $u \leq d$.
+\end{definition}
+\begin{prop}
+  Let $f : [N]^3 \to [N]^3$ be a monotone function with $(a, u)$, $(d, b)$ up
+  and down set witnesses respectively satisfying the inner algorithm invariant.
+  Then there is a point $x \in [N]^3$ with $a \leq x \leq b$ and $f(x) = x$.
+\end{prop}
+\begin{proof}
+  sorry
+\end{proof}
