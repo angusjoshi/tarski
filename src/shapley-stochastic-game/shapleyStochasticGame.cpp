@@ -6,6 +6,7 @@
 #include <soplex.h>
 #include <algorithm>
 #include <thread>
+#include "../fixpoint/latticeUtil.h"
 
 using namespace soplex;
 
@@ -142,8 +143,10 @@ function<vector<int_t>(const vector<int_t>& v)> shapleyStochasticGame::getMonoto
         }
 
         for(std::thread& thread : threads) thread.join();
-
-        return scaleUp(results);
+        auto result = scaleUp(results);
+        assert(latticeLe(result, getTop()));
+        assert(latticeLe(getBot(), result));
+        return result;
     };
 }
 

@@ -88,8 +88,8 @@ pair<int, double> solveShapleyStochasticGame(int size) {
     auto top = g.getTop();
 
     auto t1 = high_resolution_clock::now();
-//    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
-    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
+    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
+//    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
     auto t2 = high_resolution_clock::now();
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");

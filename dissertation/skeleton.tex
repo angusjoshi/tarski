@@ -47,11 +47,13 @@
 \newcommand{\zpos}{\mathbb{Z}_{> 0}}
 \newcommand{\trsk}{\textsc{Tarski}}
 \newcommand{\nd}{[N]^d}
-% \newcommand{\bot}{\text{bot}}
-% \newcommand{\top}{\text{top}}
+\newenvironment{sproof}{%
+  \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
 \newcommand{\mi}{\text{mid}}
 \newcommand{\arr}{\textsc{Arrival}}
 
+\newcommand{\Up}{\text{Up}}
+\newcommand{\Down}{\text{Down}}
 \newcommand\restr[2]{{
   \left.\kern-\nulldelimiterspace 
   #1 
