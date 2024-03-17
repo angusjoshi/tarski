@@ -1,14 +1,6 @@
 \section{Lattices, Monotone Functions, and Fixpoints}
-\begin{definition}[Lattice]\label{latedef}
-  A \emph{lattice} is a set $L$, and two binary operators $\wedge, \vee : L \times L \to L$ called \emph{join} and \emph{meet} respectively,
-  such that the following axioms hold. For all $a, b, c \in L$,
-  \begin{itemize}
-    \item $a \wedge (a \vee b) = a$ and $a \vee (a \wedge b) = b$ (absorption),
-    \item $a \wedge b = b \wedge a$ and $a \vee b = b \vee a$ (commutativity),
-    \item $a \wedge (b \wedge c) = (a \wedge b) \wedge c$ and $a \vee (b \vee c) = (a \vee b) \vee a$ (associativity).
-  \end{itemize}
-\end{definition}
-For the purposes of this project, I'm primarily concerned with an order-theoretic characterization of lattices. 
+For the purposes of this project, I'm primarily concerned with an order-theoretic characterization of lattices.
+I begin with some definitions.
 \begin{definition}[Poset]\label{posetdef}
   A \emph{partially ordered set}, or \emph{poset} is a set $S$ with a binary relation $\leq$ on $S$ such that the following axioms hold,
   \begin{itemize}
@@ -17,106 +9,60 @@ For the purposes of this project, I'm primarily concerned with an order-theoreti
     \item for all $s, t \in S$, if $s \leq t$ and $t \leq s$ then $s = t$ (antisymmetry).
   \end{itemize}
 \end{definition}
-As it turns out, any lattice structure induces a partial order on it's underlying set.
-\begin{lemma}\label{joinMeetIdempotent}
-  Let $(L, \wedge, \vee)$ be a lattice. Then for all $l \in L$, $l \wedge l = l$ and $l \vee l = l$.
+\begin{definition}[Least/Greatest Upper/Lower Bounds]
+  Let $(S, \leq)$ be a partially ordered set and $A \subseteq S$. A \emph{greatest lower bound} of $A$ is
+  a $l \in S$ such that for all $a \in A$ $a \geq l$, and whenever $l' \in S$ also satisfies for all $a \in A$
+  $a \geq l'$ I have $l \geq l'$. When it exists is denoted $l = \bigwedge A$. \\
+  A \emph{least upper bound} of $A$ is a $u \in S$ such that for all $a \in A$ $a \leq u$, and whenever $u' \in S$ also satisfies for all $a \in A$
+  $a \leq u'$ I have $u \leq u'$. When it exists it is denoted $u = \bigvee A$.
+\end{definition}
+\begin{remark}
+  Least upper bounds and greatest lower bounds need not exist in general. Take for example $(\Z, \leq)$ which
+  is claimed to be a partial ordering. $\Z$ is a subset of $\Z$, but clearly $\Z$ has no upper bounds.
+\end{remark}
+\begin{lemma}[Least/Greatest Upper/Lower bounds are unique]
+  Let $L$ be a lattice, $A \subset L$ and $u, u'$ least upper bounds of $A$. Then $u = u'$.
+  If $l, l'$ are greatest lower bounds of $A$ then $l = l'$.
 \end{lemma}
 \begin{proof}
-  Let $l \in L$. Then by two applications of the absorption laws, $l = l \vee (l \wedge (l \vee l)) = l \wedge l$. $l \vee l = l$ follows
-  by duality.
+  The second part of the definition on a least upper bound gives $u \leq u'$ and $u' \leq u$. Then
+  antisymmetry of a partial order gives $u = u'$. That $l = l'$ follows similarly.
 \end{proof}
-\begin{prop}\label{latOrd}
-  Let $(L, \wedge, \vee)$ be a lattice. Then for all $l, l' \in L$, the binary relation defined by $l \leq l'$ if and only if $l \vee l' = l'$
-  is a partial order on $L$.
-\end{prop}
-\begin{proof}
-  Reflexivity follows immediately by \cref{joinMeetIdempotent}. For transitivity, let $l, m, n \in L$ and suppose
-  $l \vee m = m$ and $m \vee n = n$. Then using associativity of $\vee$,
-  \begin{align*}
-    l \vee n = l \vee (m \vee n) = (l \vee m) \vee n = m \vee n = n.
-  \end{align*}
-  For antisymmetry, suppose $l \vee m = m$ and $m \vee l = l$. By commutativity of $\vee$, 
-  \begin{align*}
-    l = m \vee l = l \vee m = m.
-  \end{align*}
-\end{proof}
-\begin{remark}
-  Although \cref{latOrd} only uses half of the structure of the lattice to define a partial order,
-  there is a dual definition where $l \leq l'$ if and only if $l \wedge l' = l$, and the two are equivalent by the absorption laws.
-\end{remark}
-The partial ordering induced by a lattice is in fact a very special case of a general partial order.
-\begin{definition}[Least/Greatest Lower Bounds]
-  Let $S$ be a set with partial ordering $\leq$. For $s, s' \in S$, $t$ is the \emph{greatest lower bound} of $s$ and $s'$
-  if $s \geq t$, $s' \geq t$ and whenever $t' \in S$ satisfies $s \geq t'$ and $s' \geq t'$ I have $t \geq t'$.
-  The \emph{least upper bound} is dual to the greatest lower bound.
+
+\begin{definition}[Complete Lattice Ordering]
+  Let $L$ be a set. A \emph{complete lattice ordering} on $L$ is a partial ordering $\leq$ on $L$ such that for all 
+  $A \subseteq$ there is a least upper bound $u = \bigvee A$ and a greatest lower bound $l = \bigwedge A$.
 \end{definition}
-\begin{definition}[Lattice Ordering]
-  Let $L$ be a set. A \emph{lattice ordering} on $L$ is a partial ordering $\leq$ on $L$ such that for all $l, l' \in L$, $l$ and $l'$
-  have a unique greatest lower bound, and least upper bound.
-\end{definition}
-\begin{prop}
-  Let $(L, \wedge, \vee)$ be a lattice. Then the binary relation $\leq$ on $L$ defined by $l \leq l'$ if and only if
-  $l \vee l' = l'$ is a lattice ordering on $L$.
-\end{prop}
-\begin{proof}
-  By \cref{latOrd}, $\leq$ is a partial order on $L$. So let $l, l' \in L$. I will show that the least upper bound of
-  $l$ and $l'$ is precisely $l \vee l'$. Firstly, $l \vee (l \vee l') = (l \vee l) \vee l' = l \vee l'$, and $l \leq (l \vee l')$.
-  $l' \leq (l \vee l')$ follows similarly. Now suppose $m \in L$ satisfies $l \vee m = m$ and $l' \vee m = m$. Then,
-  \begin{align*}
-    (l \vee l') \vee m = l \vee (l' \vee m) = l \vee m = m,
-  \end{align*}
-  and $l \vee l' \leq m$. Finally for uniqueness, if $m, m'$ are least upper bounds of $l$ and $l'$, then $m \leq m'$ and $m' \leq m$,
-  so by antisymmetry, $m = m'$. That $l \wedge l'$ is the greatest lower bound of $l$ and $l'$ follows by duality.
-\end{proof}
 \begin{definition}[Product Lattice]
-  Given two lattices $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$ the \emph{product lattice} 
-  is $\mathcal{L} \times \mathcal{L'} = (L \times L', \wedge \times \wedge', \vee \times \vee')$ where for $(l, l'), (m, m') \in \mathcal{L} \times \mathcal{L'}$
-  the product meet is defined $(l, l') (\wedge \times \wedge') (m, m') = ((l \wedge m), (l' \wedge' m'))$. Join is defined similarly.
+  Given two complete lattices $(L, \leq)$ and $(L', \leq')$ the \emph{product lattice} $(L \times L, \leq \times \leq')$
+  is the cartesian product of the underlying sets with $(l, l') \leq \times \leq' (m, m')$ if and only if
+  $l \leq m$ and $l' \leq m'$ for all $l, m \in L$ and $l', m' \in L'$.
 \end{definition}
-\begin{prop}\label{productLatticeIsLattice}
-  Let $\mathcal{L} = (L, \wedge, \vee)$ and $\mathcal{L'} = (L', \wedge', \vee')$. The product lattice $\mathcal{L} \times \mathcal{L'}$ is a lattice.
-\end{prop}
-\begin{proof}
-  Let $(l, l'), (m, m'), (n, n') \in L \times L'$. For absorption, 
-  \begin{align*}
-    (l, l') (\vee \times \vee') ((l, l') (\wedge \times \wedge') (m, m')) &= (l \vee (l \wedge m), l' \vee (l' \wedge m')) \\
-                                                                          &= (l, l').
-  \end{align*}
-  The other absorption law, commutativity, and associativity follow similarly.
-\end{proof}
-\begin{definition}[Total Order]
-  A partially ordered set $(S, \leq)$ is \emph{totally ordered} if whenever $a, b \in S$ at least one of $a \leq b$ or $b \leq a$ hold.
-  This gives binary operators $\max$ and $\min$ on $S$, where $\max (a, b) = \begin{cases} b, & a \leq b \\ a, & \text{otherwise,}  \end{cases}$
-    $\min (a, b) = \begin{cases} a, & a \leq b \\ b, & \text{otherwise.}  \end{cases}$
-\end{definition}
-\begin{prop}
-  Let $(S, \leq)$ be a total order. Then $(S, \min, \max)$ is a lattice.
-\end{prop}
-\begin{proof}
-  For absorption, let $a, b, c \in S$. Then 
-  \begin{align*}
-    \min(a, \max(a, b)) = \begin{cases} \min(a, b), & a \leq b \\ \min(a, a), & \text{otherwise}\end{cases} = a.
-  \end{align*}
-  The other absorption law follows similarly. Commutativity is clear, and for associativity of $\min$,
-  \begin{align*}
-    \min(a, \min(b, c)) = \begin{cases} \min(a, b), &  b \leq c \\ \min(a, c), & \text{otherwise}\end{cases} = \min(\min(a, b), c).
-  \end{align*}
-  Associativity of $\max$ follows similarly.
-\end{proof}
-The notion of a sublattice will be useful in turn.
+That a finite product of complete lattices is also a complete lattice is taken as fact.
+The notion of a complete sublattice will in turn be useful as well.
 \begin{definition}[Sublattice]
-  Let $(L, \wedge, \vee)$ be a lattice. A sublattice $(M, \wedge, \vee)$ is a
-  subset $M \subseteq L$ such that whenever $m, n \in M$ I have $m \wedge n \in M$ and
-  $m \vee n \in M$.
+  Let $(L, \leq)$ be a lattice. A complete sublattice $(M, \leq)$ is a
+  subset $M \subseteq L$ such that for all $N \subseteq M$ I have $\bigvee N \in M$
+  and $\bigwedge N \in M$.
 \end{definition}
-For the rest of the dissertation where join, meet, and $\leq$ are clear from context, I will denote a lattice purely by it's underlying set.
+For the rest of the dissertation where the ordering is clear from context, I will denote a lattice purely by
+it's underlying set.
 \begin{notation}
   For $N \in \mathbb{Z}_{\geq 1}$ I use the notation $[N] = \{1, ..., N\}$.
 \end{notation}
-It's clear that $[N]$ is totally ordered with the standard ordering on $\mathbb{Z}$.
+It is clear that any finite totally ordered set is a complete lattice.
 \begin{cor}
-  For $d \in \mathbb{Z}_{\geq 1}$ let $[N]^d = \prod_{i=1}^d [N]$. Then $[N]^d$ is a lattice. Join and meet
-  are given by coordinate-wise $\max$ and $\min$ respectively, and the lattice ordering is defined as $(l_1, ..., l_d) \leq (l'_1, ..., l'_d)$
+  For $d \in \mathbb{Z}_{\geq 1}$ let $[N]^d = \prod_{i=1}^d [N]$. Then $[N]^d$ is a lattice. 
+  The ordering is defined as $(l_1, ..., l_d) \leq (l'_1, ..., l'_d)$
+  if and only if $l_i \leq l'_i$ for each $i \in \{1, ..., d\}$.
+\end{cor}
+At times I will also need continuous lattices. I take the result from elementary analysis
+that all bounded subsets of the real numbers have a least upper bound and greatest lower bound
+in the real numbers to find that $[a, b] \subseteq \R$ is a complete lattice for all $a, b \in \R$
+under the usual ordering.
+\begin{cor}
+  For $d \in \mathbb{Z}_{\geq 1}$ let $[0, 1]^d = \prod_{i=1}^d [0, 1]$. Then $[0, 1]^d$ is a lattice. 
+  The ordering is defined as $(l_1, ..., l_d) \leq (l'_1, ..., l'_d)$
   if and only if $l_i \leq l'_i$ for each $i \in \{1, ..., d\}$.
 \end{cor}
 The focus will be on finding so-called fixpoints of monotone functions on a lattice.
@@ -137,3 +83,9 @@ The notion of a monotone point will also be useful.
   Let $L$ be a lattice and $a, b \in L$. The notation $[a, b] = \{x \in L : a \leq x \leq b\}$ is sometimes
   used.
 \end{notation}
+And now for Tarski.
+\begin{theorem}[Tarski's Fixed Point Theorem \citep{tarski}]
+  Let $L$ be a complete lattice and $f : L \to L$ a monotone function. Define 
+  $\Fix(f) = \{x \in L : f(x) = x\}$. Then $\Fix(f)$ is a complete lattice under
+  the same ordering as $L$. In particular, $\Fix(f)$ contains a least fixpoint $l = \bigwedge \Fix(f)$.
+\end{theorem}

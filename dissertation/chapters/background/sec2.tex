@@ -1,6 +1,7 @@
-\section{Fixpoint Existence and Basic Algorithms}
-Tarski gave a theorem on the existence of fixpoints of monotone functions on complete lattices\citep{tarski} (which I have not defined). This theorem
-is in reality stronger than is needed for the finite case. I present a proof of the existence of fixpoints in a finite lattice.
+\section{Basic Algorithms}
+Although Tarski's theorem easily subsumes the finite case detailed below,
+I include a basic proof of the existence of fixopints of monotone functions of finite lattices
+as the ideas involved will be useful in the development of algorithms.
 \begin{theorem}[\citep{tarski}]\label{fixExist}
   Let $f : [N]^d \to [N]^d$ be monotone. Then there is a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
 \end{theorem}
@@ -12,7 +13,6 @@ is in reality stronger than is needed for the finite case. I present a proof of 
   It follows that
   there is a fixpoint of $f$ in $[N]^d$.
 \end{proof}
-This gives rise to a natural problem; how can such a fixpoint be found?
 \begin{definition}[$\trsk$]
   The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
 \end{definition}
@@ -59,8 +59,9 @@ The fixpoint returned by $\textsc{KleeneTarski}$ isn't just any old fixpoint.
   Then by monotonicity of $f$, $f(f^{i-1}(\vec{1})) = f^i(\vec{1}) \leq f(y)$. But $y$ is a fixpoint
   so $f(y) = y$ and $f^i(\vec{1}) \leq y$.
 \end{proof}
-It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
-$N$ can be represented with $\log N$ bits of information. At the time of writing
+It should be emphasized that this is algorithm does \emph{not} run in time polynomial with the encoding size
+of problem instances. For numbers of size $2^n$ can be represented with a $n$ bits of information. 
+At the time of writing
 it is not known whether or not this problem is solvable in polynomial time.
 Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
 on the problem.
@@ -200,5 +201,8 @@ The details of these algorithms will be shared in a later section.
   that for any randomized algorithm there are general lattices of $N$ elements 
   which require $\Omega(N)$ queries with high probability to find a fixpoint.
   Focussing on a specific case such as $[N]^d$ is therefore justified.
+  Further, the case of computing least fixpoints of even one dimensional
+  functions $f : [2^n] \to [2^n]$ is proven to be NP-hard in \citep{lowerBound}
+  so would seem that focussing on find any fixpoint is the best course of action.
 \end{remark}
 

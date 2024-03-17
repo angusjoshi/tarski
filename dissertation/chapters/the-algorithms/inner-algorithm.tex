@@ -5,7 +5,9 @@ the main invariant, showing how the algorithm can make progress in the important
 cases. I require a weakening of the invariant used in \cref{dQiYiAlg}; whereas
 in \cref{dQiYiAlg} two opposing monotone points are maintained essentially
 defining the top and bottom of a sublattice on which the monotone function
-naturally restricts, the inner algorithm allows for more possibilities.
+naturally restricts (and hence contains a fixpoint), 
+the inner algorithm maintains an invariant so that only a monotone point is guaranteed
+within the current search space.
 \begin{definition}[Witness, \citep{fasterTarski}]
   Let $f : [N]^3 \to [N]^3$. A \emph{down set witness} is a pair of points
   $(d, b) \in ([N]^3)^2$ such that $d_3 = b_3$ and for some $i, j \in \{1, 2\}$
