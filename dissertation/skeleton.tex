@@ -49,6 +49,9 @@
 \newcommand{\nd}{[N]^d}
 \newenvironment{sproof}{%
   \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
+
+\newenvironment{proofOf}[1]{%
+  \renewcommand{\proofname}{Proof of #1}\proof}{\endproof}
 \newcommand{\mi}{\text{mid}}
 \newcommand{\arr}{\textsc{Arrival}}
 

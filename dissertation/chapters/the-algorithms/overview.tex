@@ -36,7 +36,7 @@ which will be detailed in a later section of this chapter.
   For positive integers $a, b \in \zpos$, given an algorithm $A$
   which can solve $\trsk(N, a)$ in $p(N, a)$ queries, and an algorithm $B$
   which can solve $\trsk(N, b)$ in $p(N, b)$ queries, the problem
-  $\trsk(N, a + b)$ can be solved in $O(p(N, a)\cdot (q(N, b) + 2))$ queries.
+  $\trsk(N, a + b)$ can be solved in $O(p(N, a)\cdot q(N, b))$ queries.
 \end{theorem}
 Chen and Li take this one step further; instead of decomposing the $\trsk$ problem
 they show that it is possible to make a decomposition on $\trsks$ using a method
@@ -49,3 +49,4 @@ section.
   which an solve $\trsks(N, b)$ in $q(N, b)$ queries, the problem $\trsks(N, a + b)$
   can be solved in $O((b + 1) \cdot p(N, a) \cdot q(N, b))$ queries.
 \end{theorem}
+
