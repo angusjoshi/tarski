@@ -1,1 +1,50 @@
 \section{Fixpoint Decomposition}
+Throughout I will fix $a, b \in \zpos$,
+$d = a + b$, and $f : [N]^a \times [N]^b \to [N]^a \times [N]^b$.
+Suppose I have an algorithm $A$ which can solve $\trsk(N, a)$,
+and an algorithm $B$ which can solve $\trsk(N, b)$. A naive approach 
+for finding a fixpoint of $f$ would be to define a
+function on the right hand side of the lattice
+$f_r : [N]^b \to [N]^b$ where given $x_r \in [N]^b$ the value of 
+$f_r(x_r)$
+is computed by defining the slice $f_l : [N]^a \to [N]^a$
+such that $f_l(x_l) = f((x_l, x_r))$, finding a fixpoint $x_l^* \in [N]^a$
+of $f_l$, then using $f(x_l^*, x_r)_{-l}$ as the result of $f_r(x_r)$.
+The punch-line is then that if $x_r$ is a fixpoint of $f_r$, then if
+$x_l^*$ was the fixpoint of $f_l$ associated with $x_r$ the point
+$(x_l^*, x_r)$ is a fixpoint of $f$. This does not work however -
+there is no guarantee that $f_r$ is monotone. That is,
+if points $x_r, x_r' \in [N]^b$ are queried by algorithm $B$
+with $x_r \leq x_r'$ it is not necessarily the case that the associated
+fixpoints of $f_l$ $x_l^*$ and $x_l'^* \in [N]^a$ satisfy $x_l^* \leq x_l'^*$, so
+monotonocity of $f$ does not carry over. The trick will thus be
+to find a way to guarantee that $x_l*$ and $x_l'^*$ satisfy 
+$x_l^* \leq x_l'^*$ whenever $x_r \leq x_r'$.
+
+\begin{algorithm}[h]
+  \caption{\citep{fasterTarski}}\label{fixDecompAlg}
+  \begin{algorithmic}[1]
+    \Procedure{FixpointDecomposition}{\\
+      \qquad monotone $f : [N]^a \times [N]^b \to [N]^a \times [N]^b$,\\
+      \qquad algorithm $A$ for solving $\trsk(N, a)$, \\
+      \qquad algorithm $B$ for solving $\trsk(N, b)$ 
+    }
+
+    \State $\text{prev} \subseteq [N]^a \times [N]^b \gets \emptyset$
+    \Procedure{$f_r$}{$x_r \in [N]^b$}
+      \Procedure{$f_l$}{$x_l \in [N]^a$}
+        \Return $f((x_l, x_r))_{-r}$.
+      \EndProcedure
+      \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$
+      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \text{prev} : p_r \geq x_r \}$
+      \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
+      $\bot_l$, $\top_l$.
+      \State $\text{prev} \gets \text{prev} \cup \{(x_l^*, x_r)\}$
+      \State \Return $f((x_l^*, x_r))_{-l}$.
+    \EndProcedure
+    \State run algorithm $B$ on $f_r$ to find fixpoint $x_r^*$
+    \State \Return $(x_l^*, x_r^*)$ where $x_l^*$ is the fixpoint of $f_l$ 
+    found when evaluating $f(x_r^*)$.
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}

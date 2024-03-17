@@ -8,14 +8,14 @@ defining the top and bottom of a sublattice on which the monotone function
 naturally restricts, the inner algorithm allows for more possibilities.
 \begin{definition}[Witness, \citep{fasterTarski}]
   Let $f : [N]^3 \to [N]^3$. A \emph{down set witness} is a pair of points
-  $(d, b) \in ([N]^3)^2$ such that $f(d)_3 = f(b)_3$ and for some $i, j \in \{1, 2\}$
+  $(d, b) \in ([N]^3)^2$ such that $d_3 = b_3$ and for some $i, j \in \{1, 2\}$
   with $i \neq j$,
   \begin{itemize}
     \item $d_i = b_i$, $b_j \leq d_j$, $f(b)_j \geq b_j$, and if $b \neq d$ then $f(d)_j \leq d_j$,
     \item $f(d)_3 \geq d_3$ and $f(b)_3 \geq b_3$.
   \end{itemize}
   An \emph{up set witness} is a pair of points
-  $(a, u) \in ([N]^3)^2$ such that $f(a)_3 = f(u)_3$ and for some $i, j \in \{1, 2\}$
+  $(a, u) \in ([N]^3)^2$ such that $a_3 = u_3$ and for some $i, j \in \{1, 2\}$
   with $i \neq j$,
   \begin{itemize}
     \item $a_i = u_i$, $a_j \leq u_j$, $f(a)_j \geq a_j$, and if $u \neq a$ then $f(u)_j \leq u_j$,
@@ -57,12 +57,14 @@ Now for the main invariant of the inner algorithm.
 The key is then to half the search instance in a constant amount of time by finding
 a new set of points satisfying the inner algorithm invariant. There are many distinct cases
 to be handled here and I will not cover them all. In particular, special cases are required for
-instance which have width $\leq 1$ (that is, for some $i \in \{1, 2, 3\}$ $b_i - a_i \leq 1$). The 
+instances which have are narrow (that is, for some $i \in \{1, 2, 3\}$ $b_i - a_i \leq 1$). The 
 reader is directed to \citep{fasterTarski} for these. The first case is under the assumption that $u$ and $d$ are
 not past the midpoint of the line they are on.
-Throughout I set $\mi_i = \frac{a_i + b_i}{2}$ for each $i \in \{1, 2, 3\}$.
+Throughout I set $\mi_i = \left \lfloor \frac{a_i + b_i}{2} \right\rfloor$ for each $i \in \{1, 2, 3\}$, and take
+$f_s$ to be the slice of $f$ at the $3$rd coordinate with value $a_3 = b_3$.
 \begin{lemma}[\citep{fasterTarski}]\label{innerMainCase}
-  Suppose for each $i \in \{1, 2\}$ that $u_i \leq \frac{a_i + b_i}{2}$ and $d_i \geq \frac{a_i + b_i}{2}$.
+  Suppose for each $i \in \{1, 2\}$ that $u_i \leq \left \lfloor \frac{a_i + b_i}{2} \right \rfloor$
+  and $d_i \geq \left \lfloor \frac{a_i + b_i}{2} \right\rfloor$.
   Then a pair of witnesses $(\overline{a}, \overline{u})$, $(\overline{d}, \overline{b})$ satisfying the invariant can be found
   such that for some $j \in \{1, 2\}$ $\overline{b}_j - \overline{a}_j \leq \left\lceil \frac{a_j - b_j}{2}\right \rceil$ using a constant
   number of queries. 
@@ -82,22 +84,24 @@ Throughout I set $\mi_i = \frac{a_i + b_i}{2}$ for each $i \in \{1, 2, 3\}$.
   The case $f(\mi)_3 \leq \mi_3$ is similar and ommitted for brevity.
 \end{sproof}
 [insert ref to a figure here] should be examined to help understand what is happening in the proof sketch of \cref{innerMainCase}.
-I must now justify the assumption in \cref{innerMainCase} that $u_i \leq \frac{a_i + b_i}{2}$ and $d_i \geq \frac{a_i + b_i}{2}$.
+I must now justify the assumption in \cref{innerMainCase} that 
+$u_i \leq \mi$ and $d_i \geq \mi$.
 \begin{lemma}[\citep{fasterTarski}]\label{innerOtherCase}
-  Suppose for some $i \in \{1, 2\}$ that $u_i > \frac{a_i + b_i}{2}$.
-  Then a point $p \in [N]^3$ can be found such that $p_i \leq \frac{a_i + b_i}{2}$ and $(a, p)$ is a valid down-set
+  Suppose for some $i \in \{1, 2\}$ that $u_i \not\leq \mi_i$.
+  Then a point $p \in [N]^3$ can be found such that $p_i \leq \mi_i$ and $(a, p)$ is a valid down-set
   witness, or $(p, u)$ is a valid down-set witness. 
-  If $d_i > \frac{a_i + b_i}{2}$ then a point $q \in [N]^3$ can be found such that $q_i \geq \frac{a_i + b_i}{2}$ and $(q, b)$ is a valid up-set
+  If $d_i \not\geq \mi$ then a point $q \in [N]^3$ can be found such that $q_i \geq \mi$
+  and $(q, b)$ is a valid up-set
   witness, or $(d, q)$ is a valid up-set witness. 
 \end{lemma}
 \begin{sproof}
-  Suppose for some $i \in \{1, 2\}$ I have $u_i > \frac{a_i + b_i}{2}$. Then
+  Suppose for some $i \in \{1, 2\}$ I have $u_i > \mi_i$. Then
   by definition of a witness, if $j \in \{1, 2\}$ and $i \neq j$ then $u_j = a_j$.
-  Put $p_j = u_j$, $p_i = \left \lfloor \frac{a_i + b_i}{2} \right \rfloor$. Then since $u \geq p$ by monotonicity
+  Put $p_j = u_j$, $p_i = \mi_i$. Then since $u \geq p$ by monotonicity
   and definition of a witness I have $f(u)_3 \geq u_3$. If $f(p)_i \leq p_i$ then
-  $(a, p)$ is a valid down set witness that satisfies $p_i \leq \frac{a_i + b_i}{2}$. If
+  $(a, p)$ is a valid down set witness that satisfies $p_i \leq \mi_i$. If
   $f(p)_i \geq p_i$ then $(p, u)$ is a valid down-set witness.
-  The case with $d_i < \frac{a_i + b_i}{2}$ is similar.
+  The case with $d_i < \mi_i$ is similar.
 \end{sproof}
 [ref to a figure] shows visually how the proof of \cref{innerOtherCase} works. Combining
 the previous two lemmas, a 'normal' iteration of the inner algorithm is as follows.

@@ -9,7 +9,7 @@ given a coordinate $i \in \{1, 2, 3\}$ and a value $v \in [N]$
 returns a monotone point $x \in [N]^3$ with the guarantee
 that $x_i = v$. If this algorithm takes $q(N)$ queries in the worst case,
 then a fixpoint of $f$ can be found in $O(\log N \cdot q(N))$ in the
-same fashion as \cref{dQiYiAlg}. This problem will prove to be
+same fashion as \cref{dQiYiAlg}. This sub-problem will prove to be
 important, so I will define it in it's own right.
 \newcommand{\trsks}{\textsc{Tarski*}}
 \begin{definition}[\trsks]
@@ -25,9 +25,9 @@ the following result.
 Fearnley et al. also gave a method of decomposition, allowing for $\trsk$ in higher
 dimensions to be decomposed into a product of sorts of lower
 dimensional problems. This can be seen as a generalization of the method in \cref{dQiYiAlg}.
-Dang et al. solve $\trsk(N, d)$ by solving an instance $A$ of $\trsk(N, 1)$ in the $d$-th 
+Dang et al. solve $\trsk(N, d)$ by solving an instance $A$ of $\trsk(N, 1)$ 
 where every query of the monotone function from $\trsk(N, 1)$ at $v$ is answered by recursively finding
-a fixpoint in the slice at the $d-th$ coordinate with value $v$. It then follows that
+a fixpoint in the $d-1$ dimensional slice at the $d$-th coordinate with value $v$. It then follows that
 a soution to $A$ can be used to recover a solution of the entire problem. The algorithm of
 Fearnley et al. shows that it is possible to make more general decompositions using a method
 which I call \emph{fixpoint decomposition}. There is slight complication with making this precise
