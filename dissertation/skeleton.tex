@@ -13,8 +13,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocodex}
 
-\usetikzlibrary{calc,arrows.meta,positioning, bending}
-
+\usetikzlibrary{calc,arrows.meta,positioning, bending, shapes.geometric}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
@@ -59,6 +58,9 @@
   \renewcommand{\proofname}{Proof of #1}\proof}{\endproof}
 \newcommand{\mi}{\text{mid}}
 \newcommand{\arr}{\textsc{Arrival}}
+\newcommand{\flin}{\ensuremath{\f_{\text{in}}}}
+\newcommand{\glin}{\ensuremath{\g_{\text{in}}}}
+
 
 \newcommand{\Up}{\text{Up}}
 \newcommand{\Down}{\text{Down}}
@@ -81,7 +83,7 @@
 \begin{document}
 \begin{preliminary}
 
-\title{Tarski Fixed Point Computation and the Arrival Problem}
+\title{Tarski Fixed Point Computation and Related Problems in Algorithmic Game Theory}
 
 \author{Angus Joshi}
 

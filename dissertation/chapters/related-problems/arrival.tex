@@ -1,4 +1,7 @@
 \section{The Arrival Problem}
+\newcommand{\flowin}{\ensuremath{f_{\text{in}}}}
+\newcommand{\glowin}{\ensuremath{g_{\text{in}}}}
+
 The arrival problem is, given a directed graph with
 a particular structure and designated source and target vertex,
 decide whether or not a particular walk starting at the source
@@ -122,19 +125,23 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   on the number of steps to get from $s \to v_i$ shows that walk on the above
   takes at least $\Omega(2^n)$ steps to reach $t$.}\label{expLongArrival}
 \end{figure}
-\newcommand{\fin}{f_{\text{in}}}
 \begin{definition}[Switching Flow]
   Let $(V, s, t, \overline{t}, s_0, s_1)$ be an arrival graph. A \emph{switching flow} is a pair of maps 
   $f_0, f_1 : V \setminus \{t, \overline{t}\} \to \znn$ such that the following axioms hold.
-    Let $\fin(v) =
+    Let $\flowin(v) =
         \sum_{\substack{w \in V \\ s_0(w) = v}} f_0(w) 
         + \sum_{\substack{w \in V \\ s_1(w) = v}} f_1(w)$. 
   \begin{itemize}
-    \item For all $v \in V \setminus \{s, t, \overline{t}\}$, $\fin(v) = f_0(v) + f_1(v)$ (flow conservation),
-    \item $\fin(s) = f_0(s) + f_1(s) - 1$ (source flow conservation),
+    \item For all $v \in V \setminus \{s, t, \overline{t}\}$, $\flowin(v) = f_0(v) + f_1(v)$ (flow conservation),
+    \item $\flowin(s) = f_0(s) + f_1(s) - 1$ (source flow conservation),
     \item For all $v \in V$, $f_1(v) \leq f_0(v) \leq f_1(v) + 1$ (switching).
   \end{itemize}
 \end{definition}
+\begin{notation}
+    Throughout this section if $(f_0, f_1)$ are switching flows the notation $\flowin(v) =
+        \sum_{\substack{w \in V \\ s_0(w) = v}} f_0(w) 
+        + \sum_{\substack{w \in V \\ s_1(w) = v}} f_1(w)$ will be used. 
+\end{notation}
   It was observed in \citep{arrivalBasic} that the walk on an arrival graph can be characterized
   by a switching flow.
   \begin{lemma}[\citep{arrivalBasic}]\label{walkSwitching}
@@ -261,25 +268,25 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   \begin{cor}
     Let $f : \znn^d \to \znn^d$ be an arrival monotone function, and $a \in \znn^d$ be a point
     such that $f(a) = a$. If 
-    $f_t = \sum_{\substack{i \in [d] \\ s_0(v_i) = t}}  \lc \frac{a_i}{2} \rc +
+    $f_{\text{in}} (t) = \sum_{\substack{i \in [d] \\ s_0(v_i) = t}}  \lc \frac{a_i}{2} \rc +
     \sum_{\substack{i \in [d] \\ s_1(v_i) = t}}  \lf \frac{a_i}{2} \rf$ and
     $f_{\overline{t}} = \sum_{\substack{i \in [d] \\ s_0(v_i) = \overline{t}}}  \lc \frac{a_i}{2} \rc +
     \sum_{\substack{i \in [d] \\ s_1(v_i) = \overline{t}}}  \lf \frac{a_i}{2} \rf$ are the inflows at $t$ and $\overline{t}$
     respectively. Exactly one of the following hold,
     \begin{itemize}
-      \item $f_t = 1$ and $f_{\overline{t}} = 0$,
-      \item $f_t = 0$ and $f_{\overline{t}} = 1$.
+      \item $\flowin (t) = 1$ and $\flowin (\overline{t}) = 0$,
+      \item $\flowin (t) = 0$ and $\flowin ()\overline{t}) = 1$.
     \end{itemize}
   \end{cor}
   \begin{proof}
     The walk only terminates when it reaches either $t$ or $\overline{t}$, so the switching flow corresponding
-    to the walk must satisfy exactly one of $f_t = 1$ and $f_{\overline{t}} = 0$ or 
-    $f_t = 0$ and $f_{\overline{t}} = 0$. By \cref{walkLfp} the walk corresponds
-    to the least fixpoint, and for all other switching flows $(g_0, g_1)$, at least one of $g_t \geq 1$ or
-    $g_{\overline{t}} \geq 1$. Suppose for a contradiction that $g_t + g_{\overline{t}} \geq 2$ and let
+    to the walk must satisfy exactly one of $\flowin(t) = 1$ and $\flowin(\overline{t}) = 0$ or 
+    $\flowin(t) = 0$ and $\flowin(\overline{t}) = 0$. By \cref{walkLfp} the walk corresponds
+    to the least fixpoint, and for all other switching flows $(g_0, g_1)$, at least one of $\glowin (t) \geq 1$ or
+    $\glowin (\overline{t}) \geq 1$. Suppose for a contradiction that $\glowin (t) + \glowin (\overline{t}) \geq 2$ and let
     $a \in \znn^d$ be the point corresponding to $(g_0, g_1)$. Then
     $\sum_{i \in [d]} f(a)_i \leq \sum_{i \in [d]} a_i - 1$. But this contradicts $a$ being a fixpoint due to
-    \cref{fixpointIsFlow}, from which I find $g_t + g_{\overline{t}} = 1$, and the claim follows.
+    \cref{fixpointIsFlow}, from which I find $\glowin (t) + \glowin (\overline{t}) = 1$, and the claim follows.
   \end{proof}
   Remarkably, this implies that \emph{any} switching flow is certificate to the walk reaching either $t$
   or $\overline{t}$. Further, fixpoints are switching flows so deciding the $\arr$ problem is reducible

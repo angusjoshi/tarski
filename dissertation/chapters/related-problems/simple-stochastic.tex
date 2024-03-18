@@ -10,7 +10,8 @@ The relationship to $\trsk$ then comes from \citep{lowerBound}, where Etessami e
 that computing the \emph{exact} value of (not necessarily $\beta$-stopping) simple stochastic games as well as a pure stationary strategy profile
 to achieve this value is 
 polynomial-time reducible to $\trsk$. This section will lay out the required definitions,
-and describe the aforementioned reduction to $\trsk$ in the special case of $\beta$-stopping.
+and describe the aforementioned reduction to $\trsk$ in the special case of $\beta$-stopping simple stochastic games.
+
 \newcommand{\vmax}{V_{\max}}
 \newcommand{\vmin}{V_{\min}}
 \begin{definition}[Simple Stochastic Game]
@@ -28,6 +29,14 @@ and describe the aforementioned reduction to $\trsk$ in the special case of $\be
   then the game halts. The payoffs of to the maximizer is $1$ if the game reaches $t$, and $0$ otherwise.
   The minimizer achieves the negative payoff of the maximizer.
 \end{definition}
+
+\begin{figure}[h]
+  \centering
+  \input{diagrams/simple-stochastic-diagram.tex}
+  \caption{In $\beta$-stopping simple stochastic games, one of the two players aims to maximize the probability
+  of play reaching the target $t$, while the other aims to minimize it.}
+\end{figure}
+
 It is clear that since $\beta > 0$ the game eventually halts with probability $1$. 
 \begin{definition}[Pure Stationary Strategy]
   Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game. A \emph{pure stationary strategy}
@@ -38,4 +47,7 @@ It is clear that since $\beta > 0$ the game eventually halts with probability $1
   $(v, \tau(v)) \in E$. The set of all such pure stationary strategies for the minimizer is denoted $T$. 
   A \emph{pure stationary strategy profile} is a pair $(\sigma, \tau) \in S \times T$.
 \end{definition}
-
+\begin{theorem}[\citep{condon}, lemma 6]
+  Let $G$ be a $\beta$-stopping simple stochastic game.
+  Then $\max_{\sigma \in S} \min_{\tau \in T}$
+\end{theorem}
