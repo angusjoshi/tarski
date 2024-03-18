@@ -10,7 +10,6 @@ simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs) {
     N = 1 << (vs.size() - 3)*(vs.size() - 2);
 
     bool seenMaxBefore = false;
-    bool seenMinBefore = false;
     for(int i = 0; i < vs.size(); i++) {
         if(vs[i].type == maxSink) {
             if(seenMaxBefore) {
@@ -19,18 +18,9 @@ simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs) {
             seenMaxBefore = true;
             maxSinkI = i;
         }
-
-        if(vs[i].type == minSink) {
-            if(seenMinBefore) {
-                throw runtime_error("more than one min sink detected.");
-            }
-            seenMinBefore = true;
-            minSinkI = i;
-        }
     }
 
     if(!seenMaxBefore) throw runtime_error("no maxSink detected.");
-    if(!seenMinBefore) throw runtime_error("no minSink detected.");
 
     contractionFactor = 1.f - (1.f / (1ll << vs.size()));
 }
@@ -83,10 +73,6 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
                     {
                         f_t minVal = 1;
                         for(const auto& s : vertex.succs) {
-                            if(s.i == minSinkI) {
-                                minVal = 0;
-                                continue;
-                            }
                             if(s.i == maxSinkI) {
                                 continue;
                             }
@@ -101,9 +87,6 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
                     {
                         f_t maxVal = 0;
                         for(const auto& s : vertex.succs) {
-                            if(s.i == minSinkI) {
-                                continue;
-                            }
                             if(s.i == maxSinkI) {
                                 maxVal = 1;
                                 continue;
@@ -119,9 +102,6 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
                     {
                         f_t sumVal = 0;
                         for(const auto& s : vertex.succs) {
-                            if(s.i == minSinkI) {
-                                continue;
-                            }
                             if(s.i == maxSinkI) {
                                 sumVal += s.p;
                                 continue;
@@ -134,7 +114,6 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
                     }
 
                 case maxSink:
-                case minSink:
                     break;
             }
         }

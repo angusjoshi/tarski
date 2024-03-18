@@ -1,14 +1,41 @@
 \section{Simple Stochastic Games}
 Simple stochastic games, as defined in \citep{condon}, are a class of
 zero-sum games played on graphs with two players called the maximizer and minimizer
-respectively. The vertices of the graph are partitioned into three disjoint
-subsets with one for each player and one for chance, and there is a designated
-max sink and min sinks within the vertex set where the game terminates.
-A token is placed on an initial vertex and at each stage of the game,
-if the current vertex belongs to a particular player they may choose an outgoing edge to transition through.
-If the current node belongs to chance then the next vertex is chosen randomly according to the distribution
-of the weights of the current vertex's outgoing edges, which are defined to be non-negative and sum to one.
-The goal of the maximizer is then to maximize the probability that the game reaches the max sink, and similarly
-the minimizer tries to maximize the probability that the game reaches the min sink or never halts (or equivalently to minimize the
-probability that it reaches the max sink). \\
-Condon shows in \citep{condon} that these games necessarily have 
+respectively. For the purposes of this dissertation I will consider only $\beta$-stopping
+simple stochastic games (the meaning of which will be defined in turn).
+Condon shows in \citep{condon} that these games necessarily have a rational value for rationally described instances
+of the problem, and further that
+the value can be achieved in pure stationary strategies (all of these concepts will be made precise).
+The relationship to $\trsk$ then comes from \citep{lowerBound}, where Etessami et al. show
+that computing the \emph{exact} value of (not necessarily $\beta$-stopping) simple stochastic games as well as a pure stationary strategy profile
+to achieve this value is 
+polynomial-time reducible to $\trsk$. This section will lay out the required definitions,
+and describe the aforementioned reduction to $\trsk$ in the special case of $\beta$-stopping.
+\newcommand{\vmax}{V_{\max}}
+\newcommand{\vmin}{V_{\min}}
+\begin{definition}[Simple Stochastic Game]
+  A \emph{simple stochastic game} is a directed graph $G = (V, V_p, \vmax, \vmin, E, v_0, t, \beta)$ with designated start vertex $v_0 \in V$,
+  target vertex $t \in V$, $\beta \in (0, 1] \cap \Q$,
+  a partition of $V \setminus \{t\}$ into three disjoint subsets $V_p, V_{\min}, V_{\max}$,
+  and a mapping $p : V_p \times V \to [0, 1]$ such that for all $v_p \in V_p$,
+  $v \in V$ if $(v_p, v) \not\in E$ I have $p(v_p, v) = 0$, for each
+  $v_p \in V_p$ $\sum_{v \in V} p(v_p, v) = 1$, and for every $v \in V \setminus \{t\}$ there
+  is necessarily an edge $(v, w) \in E$ for some $w \in V$. A \emph{play} in a simple stochastic game
+  transpires as follows. A token is placed on the initial vertex of the game $v_0$.
+  Let $v_i$ be the vertex on which the token currently lies. Then at each step, the game halts with probability $\beta$. If it did not halt and $v_i \in \vmax \; (\vmin)$
+  then the maximizer (minimzer) chooses and edge $(v_i, v_{i + 1}) \in E$ for some $v_{i + 1} \in V$. If
+  $v_i \in V_p$ then an edge $(v_i, w) \in E$ is chosen randomly with probability $p(v_i, w)$. If $v_i = t$
+  then the game halts. The payoffs of to the maximizer is $1$ if the game reaches $t$, and $0$ otherwise.
+  The minimizer achieves the negative payoff of the maximizer.
+\end{definition}
+It is clear that since $\beta > 0$ the game eventually halts with probability $1$. 
+\begin{definition}[Pure Stationary Strategy]
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game. A \emph{pure stationary strategy}
+  for the maximizer is a mapping $\sigma : \vmax \to V$ with the requirement that for all $v \in \vmax$
+  $(v, \sigma(v)) \in E$. The set of all such pure stationary strategies for the maximizer is denoted
+  $S$. A pure stationary strategy for the minimizer is a map $\tau : \vmin \to V$ such that
+  for all $v \in \vmin$ 
+  $(v, \tau(v)) \in E$. The set of all such pure stationary strategies for the minimizer is denoted $T$. 
+  A \emph{pure stationary strategy profile} is a pair $(\sigma, \tau) \in S \times T$.
+\end{definition}
+

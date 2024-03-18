@@ -15,7 +15,6 @@ enum simpleVertexType {
     maxi = 1,
     chance = 2,
     maxSink = 3,
-    minSink = 4,
     last
 };
 
@@ -44,7 +43,6 @@ struct simpleStochasticGame {
 private:
     int_t N;
     int maxSinkI;
-    int minSinkI;
     f_t contractionFactor;
     void contract(vector<f_t>& v);
 };

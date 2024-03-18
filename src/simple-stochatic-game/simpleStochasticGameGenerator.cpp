@@ -50,11 +50,8 @@ simpleStochasticGame getExampleOne() {
             .type = maxSink,
     };
 
-    simpleVertex minTarget = {
-            .type = minSink,
-    };
 
-    return  {{v0, v1, v2, v3, v4, v5, maxTarget, minTarget}};
+    return  {{v0, v1, v2, v3, v4, v5, maxTarget}};
 }
 
 simpleStochasticGame generateSimpleStochasticGame(int size) {
@@ -96,13 +93,9 @@ simpleStochasticGame generateSimpleStochasticGame(int size) {
         vertices.push_back(v);
     }
 
-    simpleVertex miniSink = {
-            .type = minSink,
-    };
     simpleVertex maxiSink = {
             .type = maxSink,
     };
-    vertices.push_back(miniSink);
     vertices.push_back(maxiSink);
 
     return { vertices };
