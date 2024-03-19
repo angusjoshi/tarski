@@ -14,11 +14,12 @@ and describe the aforementioned reduction to $\trsk$ in the special case of $\be
 
 \newcommand{\vmax}{V_{\max}}
 \newcommand{\vmin}{V_{\min}}
-\begin{definition}[Simple Stochastic Game]
-  A \emph{simple stochastic game} is a directed graph $G = (V, V_p, \vmax, \vmin, E, v_0, t, \beta)$ with designated start vertex $v_0 \in V$,
+\begin{definition}[$\beta$-stopping Simple Stochastic Game]
+  A \emph{$\beta$-stopping simple stochastic game} is a directed graph $G = (V, V_p, \vmax, \vmin, E, v_0, t, \beta)$ with designated start vertex $v_0 \in V$,
   target vertex $t \in V$, $\beta \in (0, 1] \cap \Q$,
   a partition of $V \setminus \{t\}$ into three disjoint subsets $V_p, V_{\min}, V_{\max}$,
-  and a mapping $p : V_p \times V \to [0, 1]$ such that for all $v_p \in V_p$,
+  and a mapping $p : V_p \times V \to [0, 1] \cap \Q$
+  such that for all $v_p \in V_p$,
   $v \in V$ if $(v_p, v) \not\in E$ I have $p(v_p, v) = 0$, for each
   $v_p \in V_p$ $\sum_{v \in V} p(v_p, v) = 1$, and for every $v \in V \setminus \{t\}$ there
   is necessarily an edge $(v, w) \in E$ for some $w \in V$. A \emph{play} in a simple stochastic game
@@ -26,8 +27,9 @@ and describe the aforementioned reduction to $\trsk$ in the special case of $\be
   Let $v_i$ be the vertex on which the token currently lies. Then at each step, the game halts with probability $\beta$. If it did not halt and $v_i \in \vmax \; (\vmin)$
   then the maximizer (minimzer) chooses and edge $(v_i, v_{i + 1}) \in E$ for some $v_{i + 1} \in V$. If
   $v_i \in V_p$ then an edge $(v_i, w) \in E$ is chosen randomly with probability $p(v_i, w)$. If $v_i = t$
-  then the game halts. The payoffs of to the maximizer is $1$ if the game reaches $t$, and $0$ otherwise.
-  The minimizer achieves the negative payoff of the maximizer.
+  then the game halts. 
+  When the game halts, the maximizer gets a payoff of $1$ if the game reached
+  $t$, and $0$ otherwise. The payoff of the minimizer is the negative of the maximizer's.
 \end{definition}
 
 \begin{figure}[h]
@@ -47,7 +49,33 @@ It is clear that since $\beta > 0$ the game eventually halts with probability $1
   $(v, \tau(v)) \in E$. The set of all such pure stationary strategies for the minimizer is denoted $T$. 
   A \emph{pure stationary strategy profile} is a pair $(\sigma, \tau) \in S \times T$.
 \end{definition}
-\begin{theorem}[\citep{condon}, lemma 6]
-  Let $G$ be a $\beta$-stopping simple stochastic game.
-  Then $\max_{\sigma \in S} \min_{\tau \in T}$
+Once you fix a pure stationary strategy profile $(\sigma, \tau)$
+in a simple stochastic game, the resultant process is easily seen
+to be a discrete markov chain with two absorbing states corresponding to
+the to the game reaching $t$ or halting elsewhere. The probability
+of reaching $t$ from any particular vertex can then be computed 
+by simply solving a system of linear
+equations which leads to our definition of the expected value under 
+a fixed pure stationary strategy profile.
+\begin{definition}[Expected Value]
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game.
+  The \emph{expected value} of
+  a particular vertex $i \in V$ under the pure strategy profile 
+  $(\sigma, \tau)$ written $v_{\sigma, \tau}(i)$ is the probability
+  of absorption at $t$ in the resulting markov chain after fixing actions
+  according to $\sigma$ and $\tau$.
+\end{definition}
+The content of the following result is that simple stochastic games necessarily
+have a value.
+\begin{theorem}[\citep{condon}]
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game.
+  Then for each $i \in V$,
+  \begin{align*}
+    \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau} (i) = 
+  \min_{\tau \in T} \max_{\sigma \in S} v_{\sigma, \tau} (i).
+  \end{align*}
+  Further if $q_i^* = \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau} (i)$
+  then for each $i \in V$, $q_i^* \in \mathbb{Q}$.
 \end{theorem}
+
+

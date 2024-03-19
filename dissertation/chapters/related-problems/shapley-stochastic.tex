@@ -1,1 +1,18 @@
 \section{Shapley's Stochastic Games}
+Shapley's stochastic games, or just stochastic games,
+can be seen as a more general framework than simple stochastic games.
+As described in \citep{shapley}, a stochastic game is roughly speaking
+a set of game states, where at each stage two players choose from
+a set of action. Based on the joint action chosen and the state the game is in
+the two players receive a payoff which sums to zero, and
+the game transitions to another state chosen randomly from a distribution
+associated with the joint action and the state. The game then halts
+with some positive probability, and if it did not then the process repeats.
+\begin{figure}[h]
+  \centering
+  \input{diagrams/shapley-diagram.tex}
+  \caption{The goal of the arrival problem is to decide whether a partiular walk on a directed graph with a particular
+  structure reaches the target. On successive visits to a particular
+  vertex the outgoing edge taken alternates. In this example
+  the walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} 
+\end{figure}
