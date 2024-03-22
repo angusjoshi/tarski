@@ -65,10 +65,13 @@ not past the midpoint of the line they are on.
 Throughout I set $\mi_i = \left \lfloor \frac{a_i + b_i}{2} \right\rfloor$ for each $i \in \{1, 2, 3\}$, and take
 $f_s$ to be the slice of $f$ at the $3$rd coordinate with value $a_3 = b_3$.
 \begin{lemma}[\citep{fasterTarski}]\label{innerMainCase}
-  Suppose for each $i \in \{1, 2\}$ that $u_i \leq \left \lfloor \frac{a_i + b_i}{2} \right \rfloor$
+  Let $f : [N]^3 \to [N]^3$ and
+  suppose for each $i \in \{1, 2\}$ that $u_i \leq \left \lfloor \frac{a_i + b_i}{2} \right \rfloor$
   and $d_i \geq \left \lfloor \frac{a_i + b_i}{2} \right\rfloor$.
-  Then a pair of witnesses $(\overline{a}, \overline{u})$, $(\overline{d}, \overline{b})$ satisfying the invariant can be found
-  such that for some $j \in \{1, 2\}$ $\overline{b}_j - \overline{a}_j \leq \left\lceil \frac{a_j - b_j}{2}\right \rceil$ using a constant
+  Then either a pair of witnesses $(\overline{a}, \overline{u})$, $(\overline{d}, \overline{b})$ satisfying the invariant
+  such that for some $j \in \{1, 2\}$ $\overline{b}_j - \overline{a}_j \leq \left\lceil \frac{a_j - b_j}{2}\right \rceil$, 
+  or a point $x \in \Up(f) \cup \Down(f)$
+  can be found using a constant
   number of queries. 
 \end{lemma}
 \begin{sproof}
@@ -115,3 +118,4 @@ such that the new search space is at most half the size of the previous.
 With the additional fact from \citep{fasterTarski} that the search space can be halfed in a constant amount of
 queries when the search space as a width of at most 1, this gives an $O(\log N)$ query algorithm
 for the $\trsks(N, 3)$ problem.
+

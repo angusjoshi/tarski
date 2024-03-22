@@ -1,13 +1,18 @@
 \section{Shapley's Stochastic Games}
-Shapley's stochastic games, or just stochastic games,
-can be seen as a more general framework than simple stochastic games.
-As described in \citep{shapley}, a stochastic game is roughly speaking
-a set of game states, where at each stage two players choose from
-a set of action. Based on the joint action chosen and the state the game is in
-the two players receive a payoff which sums to zero, and
-the game transitions to another state chosen randomly from a distribution
-associated with the joint action and the state. The game then halts
-with some positive probability, and if it did not then the process repeats.
+Shapley's stochastic games, or just stochastic games as described in \citep{shapley}
+are a class of zero-sum game played on a set of states with two players
+called the maximizer and minimizer respectively.
+At each state the players concurrently choose an action,  
+and then receive a payoff which sums to zero based on the joint
+action of the two players. The game then halts with some fixed probability.
+If it didn't halt then a next state is chosen randomly with probability distribution
+dependent on the joint action chosen.
+It is shown in \citep{shapley} that stochastic games necessarily have an optimal expected value,
+and further that this value can be achieved in stationary strategies. Unlike
+simple stochastic games however, the value need not be rational or the strategies
+achieving this value pure. In \citep{lowerBound} it is shown that the  problem
+of finding a rational number $\varepsilon$ close to the actual value of the game
+is polynomial-time reducible to $\trsk$ which will be described in this section.
 \begin{figure}[h]
   \centering
   \input{diagrams/shapley-diagram.tex}
@@ -16,3 +21,6 @@ with some positive probability, and if it did not then the process repeats.
   vertex the outgoing edge taken alternates. In this example
   the walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} 
 \end{figure}
+\begin{definition}[Stochastic Game]
+  A \emph{stochastic game} $G = (V)$
+\end{definition}
