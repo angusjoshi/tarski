@@ -73,7 +73,7 @@ simpleStochasticGame generateSimpleStochasticGame(int size) {
     // like the best way to gen a distribution.
     // also drop the last 2 (don't want extra max/mins)
 
-    std::uniform_int_distribution<> typeDist(0, last - 3);
+    std::uniform_int_distribution<> typeDist(0, last - 2);
 
     std::uniform_real_distribution<> partitionDistribution(0);
 

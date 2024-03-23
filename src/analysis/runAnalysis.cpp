@@ -209,7 +209,8 @@ void runAndPrintAnalysis() {
         vector<int> queryCounts {};
         vector<double> times {};
         for(int i = 0; i < n; i++) {
-            auto [stepCount, time] = solveShapleyStochasticGame(testSize);
+//            auto [stepCount, time] = solveShapleyStochasticGame(testSize);
+            auto [stepCount, time] = solveSimpleStochasticGame(testSize, decomp);
             queryCounts.push_back(stepCount);
             times.push_back(time);
         }

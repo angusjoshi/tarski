@@ -26,11 +26,11 @@ simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs) {
 }
 
 vector<int_t> simpleStochasticGame::getTop() {
-    return vector<int_t>(vertices.size() - 2, N);
+    return vector<int_t>(vertices.size() - 1, N);
 }
 
 vector<int_t> simpleStochasticGame::getBot() {
-    return vector<int_t>(vertices.size() - 2, 0);
+    return vector<int_t>(vertices.size() - 1, 0);
 }
 
 
