@@ -41,11 +41,52 @@ are as follows.
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game. A \emph{mixed stationary strategy}
   for the maximizer is a vector of rational vectors 
   $\sigma = ((\sigma_1^{1}, ..., \sigma_1^{n_1}), ..., ((\sigma_n^{1}, ..., \sigma_n^{n_n})))$ such
-  that for each $i \in [n]$, $\sum_{j \in n_i} \sigma_i^j = 1$ and for each $j \in [n_i]$, $\sigma_i^j \geq 0$.
+  that for each $i \in [n]$, $\sum_{j \in [n_i]} \sigma_i^j = 1$ and for each $j \in [n_i]$, $\sigma_i^j \geq 0$.
   The set of all mixed stationary strategies for the maximizer is denoted $S$.
   A mixed stationary strategy for the minimizer is 
-  $\tau = ((\tau_1^{1}, ..., \tau_1^{m_1}), ..., ((\tau_n^{1}, ..., \tau_n^{m_n})))$
-  such that for each $i \in [n]$, $\sum_{j \in m_i} \tau_i^j = 1$ 
+  $\tau = ((\tau_1^{1}, ..., \tau_1^{m_1}), ..., (\tau_n^{1}, ..., \tau_n^{m_n}))$
+  such that for each $i \in [n]$, $\sum_{j \in [m_i]} \tau_i^j = 1$ 
   and for each $j \in [m_i]$, $\tau_i^j \geq 0$.
   The set of all mixed stationary strategies for the minimizer is denoted $T$.
 \end{definition}
+Recall the definition of $\val$ from \cref{matrixGameVal}.
+\begin{definition}[Stopping Stochastic Game Monotone Function] \label{shapleyMonotone}
+  Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $d = |V|$ and $M = \max_{i, j, k} |A_{j, k}^i|$. Then the
+  \emph{stopping stochastic game monotone function} is a function
+  $F : [-\frac{M}{q}, \frac{M}{q}]^d \to [-\frac{M}{q}, \frac{M}{q}]^d$ defined coordinatewise as
+  $F(x)_i =  \val \left( A^i + (1 - q) \cdot T \right)$ where $T$ is an $n_i \times m_i$ matrix defined
+  $T_{j, k} = \sum_{l = 1}^n (P_{j, k}^i)_l x_l$.
+\end{definition}
+I was perhaps hasty in writing the codomain of this function, but the following lemma
+shows it to be correct.
+\begin{lemma}
+  Let $G = (V, A, P, s, q)$ be a stopping stochastic game and $F$ as defined in \cref{shapleyMonotone}.
+  Then for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \in [-\frac{M}{q}, \frac{M}{q}]^d$.
+  Further, $F$ is monotone.
+\end{lemma}
+\newcommand{\mat}{\mathrm{Mat}}
+\begin{proof}
+  The first observation is that the $\val(\cdot)$ operator is monotone in the coordinatewise ordering
+  for the corresponding set of matrices. For
+  if $\val(B) = k$ for some $B \in \mathbf{Mat}(\Q, n \times m)$ then there is some
+  distribution $x \in \Q^n$ such that for all distributions $y \in \Q^m$, $x^T B y \geq k$.
+  Then if $B \leq B' \in \mathbf{Mat}(\Q, n \times m)$ then since $x$ and $y$ necessarily have
+  all non-negative entries, with $x$ and $y$ quantified similarly, $k \leq x^T B y \leq x^T B' y$. So $\val(B) \leq \val(B')$.
+  It also follows easily at this point that $F$ is montone, for all multiplicative factors involved can be seen to be
+  non-negative.
+  Secondly, if $N = \max_{j, k} |B_{j, k}|$ then clearly the maximizer can achieve payoff
+  no larger than the largest entry in the matrix, and no smaller than the smallest. So $-N \leq \val(B) \leq N$.
+  Now by monotonicity I have for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \leq F\left(\vec{\frac{M}{q}}\right)$.
+  I take some liberty in denoting $\mat(k)$ to be the matrix
+  with entries all equal to $k$ with size inferred from context in calculating for each $i \in [d]$,
+  \begin{align*}
+    F\left(\vec{\frac{M}{q}}\right)_i &= \val(A^i + (1 - q) \cdot T) \\
+                               &\leq \val\left(\mat(M) + (1 - q) \mat\left(\frac{M}{q}\right)\right) \\
+                               &= \val\left(\mat(M) - \mat(M) + \mat\left(\frac{M}{q}\right)\right) = \frac{M}{q}.
+  \end{align*}
+  Noting that in the case $x = \vec{\frac{M}{q}}$, $T$ can clearly be seen to be equal to $[\frac{M}{q}]$.
+  It can be shown using a similar argument that $F(x) \geq -\frac{M}{q}$ by observing again by monotonicity
+  that $F(x) \geq F\left(-\frac{M}{q}\right)$.
+\end{proof}
+Shapley shows in \citep{shapley} that this function is a contraction map. That is,
+For all $x, x' \in [-\frac{M}{q}, \frac{M}{q}]^d$ I have $\|F(x) - F(x')\|_\infty \leq (1 - q) \|x - x'\|_\infty$.

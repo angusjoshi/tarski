@@ -91,3 +91,43 @@ And now for Tarski.
   $\Fix(f) = \{x \in L : f(x) = x\}$. Then $\Fix(f)$ is a complete lattice under
   the same ordering as $L$. In particular, $\Fix(f)$ contains a least fixpoint $l = \bigwedge \Fix(f)$.
 \end{theorem}
+
+\section{Matrix Games}
+Basic theory of matrix games is required for \cref{shapleyChap} so is included here. Some prior knowledge on game theory is assumed.
+\begin{definition}[Matrix Game]
+  A \emph{matrix game} is a zero-sum game played by two players called the maximizer and minimizer respectively with
+  strategy sets $[n]$ and $[m]$ respectively. Players choose an action $i \in [n]$ and $j \in [m]$, then receive
+  payoff $A_{i, j}$ and $-A_{i, j}$ respectively where $A \in \mathbf{Mat}(\Q, n \times m)$.
+  A \emph{mixed strategy} for the maximizer is a probability distribution on $[n]$. That is,
+  a vector $x \in \Q^n$ such that $x_i \geq 0$ for each $i \in [n]$ and $\sum_{i} x_i = 1$. The
+  set of all mixed strategies for the maximizer is denoted $X$.
+  A mixed strategy for the minimizer is defined similarly as a probability distrubution $y \in \Q^n$ on $[m]$.
+  The set of all mixed strategies for the minimizer is denoted $Y$.
+  The \emph{expected payoff} of a matrix game $A$ under mixed strategies $x \in X$ and $y \in Y$ is defined
+  to be $U(x, y) = x^T A y$ which is easily seen to be the expected payoff the maximizer receives
+  when both players independently and simultaneously choose random strategies according to probability
+  distributions $x$ and $y$.
+\end{definition}
+They key result in the theory of matrix games is the so-called minimax theorem due to Von Nuemann. A
+proof can be found in \citep[Chapter 15]{matrixGamesChvatal}.
+\begin{theorem}[Minimax, \citep{matrixGamesChvatal}]
+  Let $A \in \mathbf{Mat}(\Q, n \times m)$ be a matrix game, $X$ and $Y$ the sets of mixed
+  strategies for the maximizer and minimizer respectively. Then,
+  \begin{align*}
+    \max_{x \in X} \min_{y \in Y} x^T A y = \min_{y \in Y}\max_{x \in X} x^T A y.
+  \end{align*}
+\end{theorem}
+This yields a notion of 'value' of a matrix game.
+\begin{definition} \label{matrixGameVal}
+  Let $A \in \mathbf{Mat}(\Q, n \times m)$ be a matrix game, $X$ and $Y$ the sets of mixed
+  for the maximizer and minimizer respectively. The \emph{value} of $A$ is defined 
+  $\val(A) = \max_{x \in X} \min_{y \in Y} x^T A y$.
+\end{definition}
+Fortunately computing the value of a matrix game is computationally not hard.
+\begin{prop}
+  Let $A \in \mathbf{Mat}(\Q, n \times m)$ be a matrix game. Then 
+  $\val(A)$ can be computed in polynomial time.
+\end{prop}
+For details on this the reader is again referred to \citep[Chapter 15]{matrixGamesChvatal} where
+it is shown the the problem can be reduced to a sufficiently small linear programming problem,
+for which polynomial time algorithms are known.

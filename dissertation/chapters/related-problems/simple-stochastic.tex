@@ -149,6 +149,7 @@ This is proved using ideas from \citep{nashComp} and \citep{lowerBound} in the f
     \frac{1}{\beta \varepsilon}\right \rfloor$.
     If $x^* \in [0, 1]^d$ is the unique fixpoint of $F$
     and $x = f(x)$ then $\|\beta \varepsilon \cdot x - x^*\|_\infty < \varepsilon$.
+    Further, $f$ is monotone.
 \end{lemma}
 \newcommand{\bed}{\beta \varepsilon \cdot}
 \begin{proof}
@@ -171,7 +172,9 @@ This is proved using ideas from \citep{nashComp} and \citep{lowerBound} in the f
     &= \| \bed x - F(\bed x)\|_\infty + \|F(\bed x) - F(x^*) \|_\infty  \\
     &< \beta \varepsilon + (1 - \beta)\|\bed x - x^*\|_\infty.
   \end{align*}
-  Rearranging and dividing through by $\beta$ gives the claim.
+  Rearranging and dividing through by $\beta$ gives the first part of the claim.
+  That $f$ is monotone easily follows from monotonicity of $F$, and that $\lfloor \cdot \rfloor$ and
+  multiplication by constants preserve monotonicity.
 \end{proof}
 The culmination of this section is the following result.
 \begin{theorem}
