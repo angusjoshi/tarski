@@ -78,13 +78,13 @@ shows it to be correct.
   no larger than the largest entry in the matrix, and no smaller than the smallest. So $-N \leq \val(B) \leq N$.
   Now by monotonicity I have for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \leq F\left(\vec{\frac{M}{q}}\right)$.
   I take some liberty in denoting $\mat(k)$ to be the matrix
-  with entries all equal to $k$ with size inferred from context in calculating for each $i \in [d]$,
+  with entries all equal to $k$ with size inferred from context. For each $i \in [d]$,
   \begin{align*}
     F\left(\vec{\frac{M}{q}}\right)_i &= \val(A^i + (1 - q) \cdot T) \\
                                &\leq \val\left(\mat(M) + (1 - q) \mat\left(\frac{M}{q}\right)\right) \\
                                &= \val\left(\mat(M) - \mat(M) + \mat\left(\frac{M}{q}\right)\right) = \frac{M}{q}.
   \end{align*}
-  Noting that in the case $x = \vec{\frac{M}{q}}$, $T$ can clearly be seen to be equal to $[\frac{M}{q}]$.
+  Noting that in the case $x = \vec{\frac{M}{q}}$, $T$ can clearly be seen to be equal to $\mat\left(\frac{M}{q}\right)$.
   It can be shown using a similar argument that $F(x) \geq -\frac{M}{q}$ by observing again by monotonicity
   that $F(x) \geq F\left(-\frac{M}{q}\right)$.
 \end{proof}
