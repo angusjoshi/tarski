@@ -12,9 +12,9 @@
 \usepackage{cleveref}
 \usepackage{algorithm}
 \usepackage{algpseudocodex}
+\usepackage{mathrsfs}
 
-\usetikzlibrary{calc,arrows.meta,positioning, bending}
-
+\usetikzlibrary{calc,arrows.meta,positioning, bending, shapes.geometric}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
@@ -33,6 +33,9 @@
 \theoremstyle{theorem}
 \newtheorem{theorem}[definition]{Theorem}
 
+\theoremstyle{theorem}
+\newtheorem{open}[definition]{Open problem}
+
 \theoremstyle{definition}
 \newtheorem{remark}[definition]{Remark}
 
@@ -42,15 +45,32 @@
 \theoremstyle{definition}
 \newtheorem{ex}[definition]{Example}
 
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\PClass}{\ensuremath{\mathbf{P}}}
+\newcommand{\Fix}{\text{Fix}}
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \newcommand{\znn}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\zpos}{\mathbb{Z}_{> 0}}
+\newcommand{\rpos}{\mathbb{R}_{> 0}}
 \newcommand{\trsk}{\textsc{Tarski}}
 \newcommand{\nd}{[N]^d}
-% \newcommand{\bot}{\text{bot}}
-% \newcommand{\top}{\text{top}}
+\newenvironment{sproof}{%
+  \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
+
+\newenvironment{proofOf}[1]{%
+  \renewcommand{\proofname}{Proof of #1}\proof}{\endproof}
 \newcommand{\mi}{\text{mid}}
 \newcommand{\arr}{\textsc{Arrival}}
+\newcommand{\flin}{\ensuremath{\f_{\text{in}}}}
+\newcommand{\glin}{\ensuremath{\g_{\text{in}}}}
 
+
+\newcommand{\Up}{\mathrm{Up}}
+\newcommand{\Down}{\text{Down}}
 \newcommand\restr[2]{{
   \left.\kern-\nulldelimiterspace 
   #1 
@@ -70,7 +90,7 @@
 \begin{document}
 \begin{preliminary}
 
-\title{Tarski Fixed Point Computation and the Arrival Problem}
+\title{Tarski Fixed Point Computation and Related Problems in Algorithmic Game Theory}
 
 \author{Angus Joshi}
 
@@ -181,11 +201,15 @@ Divide your chapters into sub-parts as appropriate.
 \section{Citations}
 
 Citations, such as \citet{P1} or \citep{P2}, can be generated using
+\setcitestyle{numbers}
 \texttt{BibTeX}. We recommend using the \texttt{natbib} package (default) or the newer \texttt{biblatex} system. 
 
 You may use any consistent reference style that you prefer, including ``(Author, Year)'' citations. 
 
-\include{chapters/background/background.tex}
+\input{chapters/background/background.tex}
+\input{chapters/the-algorithms/the-algorithms.tex}
+\input{chapters/related-problems/related-problems.tex}
+\input{chapters/testing-the-algorithms/testing-the-algorithms.tex}
 
 \chapter{Your next chapter}
 

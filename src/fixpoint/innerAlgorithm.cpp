@@ -317,8 +317,8 @@ pair<vector<int_t>, vector<direction>> InnerAlgorithm::helper() {
         return helper();
     }
 
-    int_t lteDimension = midDirections[0] == down ? 0 : 1;
-    int_t gteDimension = midDirections[0] == up ? 0 : 1;
+    int lteDimension = midDirections[0] == down ? 0 : 1;
+    int gteDimension = midDirections[0] == up ? 0 : 1;
 
     assert(lteDimension != gteDimension);
 

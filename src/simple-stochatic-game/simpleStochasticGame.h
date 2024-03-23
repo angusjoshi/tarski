@@ -6,36 +6,45 @@
 #define SRC_SIMPLESTOCHASTICGAME_H
 #include <vector>
 #include <functional>
-#include <boost/multiprecision/gmp.hpp>
 #include "../config.h"
 
 using namespace std;
 
-enum vertexType {
-    mini,
-    maxi,
-    chance,
+enum simpleVertexType {
+    mini = 0,
+    maxi = 1,
+    chance = 2,
+    maxSink = 3,
+    last
 };
 
-// indexing with is assumed to be the same as the vertices vector.
-struct successor {
+// simpleSuccessor indexing is assumed to be the same as the vertices vector.
+struct simpleSuccessor {
     int i;
     f_t p;
-    bool isMaxSink;
-    bool isMinSink;
 };
 
-struct vertex {
-    vertexType type;
-    vector<successor> succs;
+struct simpleVertex {
+    simpleVertexType type;
+    vector<simpleSuccessor> succs;
 };
 
 struct simpleStochasticGame {
-    vector<vertex> vertices;
+    vector<simpleVertex> vertices;
 
     function<vector<int_t>(const vector<int_t>& v)> getMonotoneFunction();
-    int_t discretize(f_t d);
+    vector<int_t> getBot();
+    vector<int_t> getTop();
+    simpleStochasticGame(vector<simpleVertex> vertices);
+    vector<int_t> discretize(const vector<f_t>& d);
     vector<f_t> unDiscretize(const vector<int_t>& v);
+    void print();
+
+private:
+    int_t N;
+    int maxSinkI;
+    f_t contractionFactor;
+    void contract(vector<f_t>& v);
 };
 
 

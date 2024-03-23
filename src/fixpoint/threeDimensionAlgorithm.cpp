@@ -12,11 +12,13 @@ vector<int_t> findFixpoint3(const vector<int_t>& bot,
     assert(top.size() == 3);
 
     int sliceDimension = getLargeEnoughSliceIndex(bot, top);
-    int_t sliceMiddleValue = getSliceMiddle(bot, top, sliceDimension);
 
     if(sliceDimension == -1) {
         return searchSmallInstance(bot, top, f);
     }
+
+    int_t sliceMiddleValue = getSliceMiddle(bot, top, sliceDimension);
+
 
     auto monotonePointPair = findMonotonePoint3(bot, top, f, sliceDimension, sliceMiddleValue);
     auto monotonePoint = monotonePointPair.first;

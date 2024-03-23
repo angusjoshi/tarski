@@ -1,0 +1,193 @@
+\section{Simple Stochastic Games}\label{ssgs}
+Simple stochastic games, as defined in \citep{condon}, are a class of
+zero-sum games played on graphs with two players called the maximizer and minimizer
+respectively. For the purposes of this dissertation I will consider only $\beta$-stopping
+simple stochastic games which roughly speaking are simple stochastic games
+where at every stage the game automatically halts with probability $\beta$.
+Condon shows in \citep{condon} that these games necessarily have a rational value for rationally described instances
+of the problem, and further that
+the value can be achieved in pure stationary strategies which is to say
+that players can achieve optimal expected payoff by fixing a deterministic
+action for every one of their vertices prior to play commencing.
+The relationship to $\trsk$ then comes from \citep{lowerBound}, where Etessami et al. show
+that computing the \emph{exact} value of (not necessarily $\beta$-stopping) simple stochastic games as well as a pure stationary strategy profile
+to achieve this value is 
+polynomial-time reducible to $\trsk$. This section will lay out the required definitions,
+and describe the aforementioned reduction to $\trsk$ in the special case of 
+$\beta$-stopping simple stochastic games.
+
+\newcommand{\vmax}{V_{\max}}
+\newcommand{\vmin}{V_{\min}}
+\begin{definition}[$\beta$-stopping Simple Stochastic Game]
+  A \emph{$\beta$-stopping simple stochastic game} is a directed graph $G = (V, V_p, \vmax, \vmin, E, v_0, t, \beta)$ with designated start vertex $v_0 \in V$,
+  target vertex $t \in V$, $\beta \in (0, 1] \cap \Q$,
+  a partition of $V \setminus \{t\}$ into three disjoint subsets $V_p, V_{\min}, V_{\max}$,
+  and a mapping $p : V_p \times V \to [0, 1] \cap \Q$
+  such that for all $v_p \in V_p$,
+  $v \in V$ if $(v_p, v) \not\in E$ I have $p(v_p, v) = 0$, for each
+  $v_p \in V_p$ $\sum_{v \in V} p(v_p, v) = 1$, and for every $v \in V \setminus \{t\}$ there
+  is necessarily an edge $(v, w) \in E$ for some $w \in V$. A \emph{play} in a simple stochastic game
+  transpires as follows. A token is placed on the initial vertex of the game $v_0$.
+  Let $v_i$ be the vertex on which the token currently lies. Then at each step, the game halts with probability $\beta$. If it did not halt and $v_i \in \vmax \; (\vmin)$
+  then the maximizer (minimzer) chooses and edge $(v_i, v_{i + 1}) \in E$ for some $v_{i + 1} \in V$. If
+  $v_i \in V_p$ then an edge $(v_i, w) \in E$ is chosen randomly with probability $p(v_i, w)$. If $v_i = t$
+  then the game halts. 
+  When the game halts, the maximizer gets a payoff of $1$ if the game reached
+  $t$, and $0$ otherwise. The payoff of the minimizer is the negative of the maximizer's.
+\end{definition}
+
+\begin{figure}[h]
+  \centering
+  \input{diagrams/simple-stochastic-diagram.tex}
+  \caption{In $\beta$-stopping simple stochastic games, one of the two players aims to maximize the probability
+  of play reaching the target $t$, while the other aims to minimize it.}
+\end{figure}
+
+It is clear that since $\beta > 0$ the game eventually halts with probability $1$. 
+\begin{definition}[Pure Stationary Strategy]
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game. A \emph{pure stationary strategy}
+  for the maximizer is a mapping $\sigma : \vmax \to V$ with the requirement that for all $v \in \vmax$
+  $(v, \sigma(v)) \in E$. The set of all such pure stationary strategies for the maximizer is denoted
+  $S$. A pure stationary strategy for the minimizer is a map $\tau : \vmin \to V$ such that
+  for all $v \in \vmin$ 
+  $(v, \tau(v)) \in E$. The set of all such pure stationary strategies for the minimizer is denoted $T$. 
+  A \emph{pure stationary strategy profile} is a pair $(\sigma, \tau) \in S \times T$.
+\end{definition}
+Once you fix a pure stationary strategy profile $(\sigma, \tau)$
+in a simple stochastic game, the resultant process is easily seen
+to be a discrete markov chain with two absorbing states corresponding to
+the to the game reaching $t$ or halting elsewhere. The probability
+of reaching $t$ from any particular vertex can then be computed 
+by solving a system of linear equations, leading to our definition of the expected value under 
+a fixed pure stationary strategy profile.
+\begin{definition}[Expected Value]
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game.
+  The \emph{expected value} of
+  a particular vertex $i \in V$ under the pure strategy profile 
+  $(\sigma, \tau)$ written $v_{\sigma, \tau}(i)$ is the probability
+  of absorption at $t$ in the resulting markov chain after fixing actions
+  according to $\sigma$ and $\tau$.
+  The \emph{game expected value} is the value of the start vertex $v_{\sigma, \tau}(v_0)$.
+\end{definition}
+The content of the following result is that simple stochastic games have a well defined
+notion of value.
+\begin{theorem}[\citep{condon}, lemma 6]\label{ssgHasValue}
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a $\beta$-stopping simple 
+  stochastic game. And $S, T$ the pure strategy stationary strategy sets
+  for the maxmimizer and minimizer respectively.
+  Then for each $i \in V$,
+  \begin{align*}
+    \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau} (i) = 
+  \min_{\tau \in T} \max_{\sigma \in S} v_{\sigma, \tau} (i).
+  \end{align*}
+  Further if $q_i^* = \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau} (i)$
+  then for each $i \in V$, $q_i^* \in \mathbb{Q}$.
+\end{theorem}
+The trick is then to construct a monotone function $F : [0, 1]^d \to [0, 1]^d$
+such that $F(x) = x$ if and only if $x = (q_1, ..., q_d)$.
+\begin{definition}[$\beta$-stopping Simple Stochastic Game Monotone Function]
+  Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a $\beta$-stopping simple stochastic game, 
+  $d = |V|$, and $(v_i)_{i \in [d]}$ some enumeration of the vertices in $V$. 
+  The \emph{$\beta$-stopping simple stochastic game monotone function} is a function
+  $F : [0, 1]^d \to [0, 1]^d$ defined coordinatewise as,
+  \begin{align*}
+    F((x_1, ..., x_d))_i = 
+      \left( 1 - \beta \right) \cdot
+      \begin{cases}
+        1, & v_i = t \\
+        \max\{x_j : (v_i, v_j) \in E\}, & v_i \in \vmax \\
+        \min\{x_j : (v_i, v_j) \in E\}, & v_i \in \vmin \\
+        \sum_{v_j \in V} p(v_i, v_j) \cdot x_j, & v_i \in V_p.
+      \end{cases}
+  \end{align*}
+\end{definition}
+This is really what you would expect from the function corresponding to a $\beta$-stopping
+simple stochastic game; the value of a maximizer (minimizer) vertex is the maximum (minimum)
+of it's successors, the value of a chance node is a weighted average of the value of the successors
+according to the probability of transitioning, and the value of the target is 1. The factor
+of $(1 - \beta)$ at the front corresponds exactly to the fact the game halts with probability $\beta$
+at every step.
+\begin{lemma}\label{ssgUnique}
+  Let $F : [0, 1]^d \to [0, 1]^d$ be a \emph{$\beta$-stopping simple stochastic game monotone function} and $x, x' \in [0, 1]^d$.
+  Then $F$ has a \emph{unique} fixpoint $x^* \in [0, 1]^d$.
+\end{lemma}
+\begin{proof}
+  It can be calculated that for all $x, x' \in [0, 1]^d$ if $\|\cdot \|_\infty$ is the $\ell^\infty$ norm then
+  $\|F(x) - F(x')\|_\infty \leq (1 - \beta)\|x - x'\|_{\infty}$. By definition $\beta$ is in the range $(0, 1]$, so 
+  by the banach fixpoint theorem $F$ has a unique
+  fixpoint.
+\end{proof}
+\begin{lemma}
+  Let $F : [0, 1]^d \to [0, 1]^d$ be a $\beta$-stopping simple stochastic game monotone function. 
+  Then $F$ is monotone in the usual coordinatewise ordering.
+\end{lemma}
+\begin{proof}
+  Fix some enumeration $(v_i)_{i \in [d]}$ of $V$ and $x, x' \in [0, 1]^d$ with $x \leq x'$.
+  Then for each $i \in [d]$ I consider cases on $v_i$. If $v_i = t$ then $F(x)_i = F(x')_i$ and
+  the claim holds. If $v_i \in \vmax$ suppose that $F(x)_i > F(x')_i$. 
+  Then for some $j \in [d]$ with $(v_i, v_j) \in E$ I have for all $j' \in [d]$
+  with $(v_i, v_{j'}) \in E$ that $x_j > x_{j'}$. I can put $j' = j$ to find $x_j > x'_{j}$ which is a contradiction.
+  The case $v_i \in \vmin$ is similar, and if $v_i \in V_p$ then,
+  \begin{align*}
+    F(x)_i = (1 - \beta) \sum_{v_j \in V} p(v_i, v_j) x_j \leq (1 - \beta) \sum_{v_j \in V} p(v_i, v_j) x'_j = F(x')_i.
+  \end{align*}
+\end{proof}
+It is shown in \citep{condon} that if $q^* = (q_1^*, ..., q_d^*)$ then $q^* = F(q^*)$, from which it follows
+by \cref{ssgUnique} that $q^*$ is the unique fixpoint of $F$. The last stage in reduction to $\trsk$
+is to discretize the function $F : [0, 1]^d \to [0, 1]^d$ to a function $f : [N]_0^d \to [N]_0^d$
+such that a fixpoint of $f$ can be converted to an approximate fixpoint of $F$.
+This is proved using ideas from \citep{nashComp} and \citep{lowerBound} in the following.
+\begin{lemma}[Discretized $\beta$-stopping Simple Stochastic Game Monotone Function]
+ Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a $\beta$-stopping simple 
+  stochastic game,
+  $F : [0, 1]^d \to [0, 1]^d$ it's corresponding monotone function, and 
+  $\varepsilon \in \rpos$.
+  Let $M = \left \lfloor \frac{1}{\beta \varepsilon}\right \rfloor$
+  and define 
+  $f : [M]_0^d \to [M]_0^d$ coordinatewise with 
+  $f(x)_i = \left \lfloor F(\beta \varepsilon \cdot x)_i \cdot 
+    \frac{1}{\beta \varepsilon}\right \rfloor$.
+    If $x^* \in [0, 1]^d$ is the unique fixpoint of $F$
+    and $x = f(x)$ then $\|\beta \varepsilon \cdot x - x^*\|_\infty < \varepsilon$.
+\end{lemma}
+\newcommand{\bed}{\beta \varepsilon \cdot}
+\begin{proof}
+  Let $x \in [M]_0^d$, suppose $x = f(x)$ and $F(x^*) = x^*$.
+  From $x = f(x)$ I have by definition of $\lfloor \cdot \rfloor$
+  for each $i \in [d]$,
+  \begin{align*}
+  1 > 
+    F(\beta \varepsilon \cdot x)_i \cdot \frac{1}{\beta \varepsilon} - x_i
+  \geq 0.
+  \end{align*}
+  This implies by definition of $\|\cdot\|_\infty$ and homogoneity of the norm that,
+  \begin{align*}
+    \|\beta \varepsilon \cdot x - F(\beta \varepsilon \cdot x) \|_\infty < \beta \varepsilon.
+  \end{align*}
+  So I calculate,
+  \begin{align*}
+    \|\bed x - x^* \|_\infty &\leq 
+     \| \bed x - F(\bed x)\|_\infty + \|F(\bed x) - x^* \|_\infty  \\
+    &= \| \bed x - F(\bed x)\|_\infty + \|F(\bed x) - F(x^*) \|_\infty  \\
+    &< \beta \varepsilon + (1 - \beta)\|\bed x - x^*\|_\infty.
+  \end{align*}
+  Rearranging and dividing through by $\beta$ gives the claim.
+\end{proof}
+The culmination of this section is the following result.
+\begin{theorem}
+  Let $G$ be a $\beta$-stopping simple stochastic game and $q^* \in \Q$ the value of the game.
+  For all $\varepsilon \in \rpos$ finding a $q \in \Q$ such that $|q - q^*| < \varepsilon$
+  is polynomial time reducible to $\trsk$.
+\end{theorem}
+\begin{remark}
+  In \citep{lowerBound} Etessami et al. show a stronger result; in a slightly more general
+  model of simple stochastic games that don't necessarily have the $\beta$ stopping property used above,
+  the problem of finding the exact value of the game $q^*$ is polynomial-time reducible to $\trsk$.
+  The simplified stopping game approximation result is shown above instead to simplify exposition,
+  as well as to simplify implementation\footnote{Computing the exact value of non-stopping games requires working with
+  numbers on the order of $2^{\Omega(n^2)}$, where $n$ is the number of vertices in the graph. For $n = 15$ for example this requires $225$ bits
+  of precision, which is larger than fits in a machine word on my laptop.} during the practical testing chapter of this dissertation.
+\end{remark}
+%notes: make less brackets, particularly in the introducotry part
+% at a citation at the bit describing value of the game? i.e. 'the resultant
+% process is easily seen to be a markov chain'

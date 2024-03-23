@@ -1,0 +1,109 @@
+\section{Fixpoint Decomposition}
+Throughout I will fix $a, b \in \zpos$,
+$d = a + b$, and $f : [N]^a \times [N]^b \to [N]^a \times [N]^b$.
+Suppose I have an algorithm $A$ which can solve $\trsk(N, a)$,
+and an algorithm $B$ which can solve $\trsk(N, b)$. A naive approach 
+for finding a fixpoint of $f$ would be to define a
+function on the right hand side of the lattice
+$f_r : [N]^b \to [N]^b$ where given $x_r \in [N]^b$ the value of 
+$f_r(x_r)$
+is computed by defining the slice $f_l : [N]^a \to [N]^a$
+such that $f_l(x_l) = f((x_l, x_r))$, finding a fixpoint $x_l^* \in [N]^a$
+of $f_l$, then using $f(x_l^*, x_r)_{-l}$ as the result of $f_r(x_r)$.
+The punch-line is then that if $x_r$ is a fixpoint of $f_r$, then if
+$x_l^*$ was the fixpoint of $f_l$ associated with $x_r$ the point
+$(x_l^*, x_r)$ is a fixpoint of $f$. This does not work however -
+there is no guarantee that $f_r$ is monotone. That is,
+if points $x_r, x_r' \in [N]^b$ are queried by algorithm $B$
+with $x_r \leq x_r'$ it is not necessarily the case that the associated
+fixpoints of $f_l$ $x_l^*$ and $x_l'^* \in [N]^a$ satisfy $x_l^* \leq x_l'^*$, so
+monotonocity of $f$ does not carry over. The trick will thus be
+to find a way to guarantee that $x_l*$ and $x_l'^*$ satisfy 
+$x_l^* \leq x_l'^*$ whenever $x_r \leq x_r'$. Fortunately
+this is achieveable; in \cref{fixDecompAlg} the issue is solved
+by carefully choosing bounds of the sublattice to search in based
+on previously computed points. The correctness of which will be
+the concern of the remainder of this section.
+
+\begin{algorithm}[h]
+  \caption{\citep{fasterTarski}}\label{fixDecompAlg}
+  \begin{algorithmic}[1]
+    \Procedure{FixpointDecomposition}{\\
+      \qquad monotone $f : [N]^a \times [N]^b \to [N]^a \times [N]^b$,\\
+      \qquad algorithm $A$ for solving $\trsk(N, a)$, \\
+      \qquad algorithm $B$ for solving $\trsk(N, b)$ 
+    }
+    \State $\text{prev} \subseteq [N]^a \times [N]^b \gets \emptyset$
+    \Procedure{$f_r$}{$x_r \in [N]^b$}
+      \Procedure{$f_l$}{$x_l \in [N]^a$}
+        \Return $f((x_l, x_r))_{-r}$.
+      \EndProcedure
+      \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$
+      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \text{prev} : p_r \geq x_r \}$
+      \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
+      $\bot_l$, $\top_l$.
+      \State $\text{prev} \gets \text{prev} \cup \{(x_l^*, x_r)\}$
+      \State \Return $f((x_l^*, x_r))_{-l}$.
+    \EndProcedure
+    \State run algorithm $B$ on $f_r$ to find fixpoint $x_r^*$
+    \State \Return $(x_l^*, x_r^*)$ where $x_l^*$ is the fixpoint of $f_l$ 
+    found when evaluating $f(x_r^*)$.
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{lemma}\label{orderPreserved}
+  If $(p_l, p_r), (p_l', p_r') \in \text{prev}$ with $p_r \leq p_r'$ then
+  $p_l \leq p_l'$
+\end{lemma}
+\begin{proof}
+  Suppose without loss of generality that $p_r$ was queried by algorithm $B$
+  before $p_r'$. Then when $p_r'$ is queried, $p_l$ is an element of
+  $\{pl : (pl, pr) \in \text{prev} : p_r \leq p_r'\}$ whence $\bot_l \geq p_l$,
+  so the fixpoint found by algorithm $A$ satisfies $x_l^* \geq p_l$.
+\end{proof}
+\begin{lemma}
+  At line 7 of \cref{fixDecompAlg} $\bot_l \leq \top_l$.
+\end{lemma}
+\begin{proof}
+  By \cref{orderPreserved} I have for all 
+  $p_l \in \{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$ and
+  $p_l' \in \{p_l : (p_l, p_r) \in \text{prev} : p_r \geq x_r \}$ that
+  $p_l \leq p_l'$. Then by definition of $\wedge$ and $\vee$ $\bot_l \leq \top_l$.
+\end{proof}
+\begin{lemma}\label{leftRestricts}
+  At line 7 of \cref{fixDecompAlg} I have $f_l(\bot_l) \geq \bot_l$ and $f_r(\top_l) \leq \top_l$.
+\end{lemma}
+\begin{proof}
+  I prove the first case and the second is similar. Suppose not. That is,
+  for some $i \in [a]$ I have $f_l(\bot_l)_i < (\bot_l)_i$. If 
+  $L = \{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$ is empty then
+  $\vee L = \vec{1}$ and the claim holds. If $L$ is non-empty then by definition
+  of finite joins, there is some $(p_l, p_r) \in \text{prev}$ such that $(p_l)_i = (\bot_l)_i$
+  and $(p_l, p_r) \leq (x_l, x_r)$. But $f(((p_l, p_r))_{-r})_i = (p_l)_i$ so
+  I contradict monotinicity.
+\end{proof}
+\begin{lemma}
+  At line 7 of $\cref{fixDecompAlg}$ $f_l$ is a monotone function on the lattice
+  $[\bot_l, \top_l]$.
+\end{lemma}
+\begin{proof}
+  That $f_l$ is monotone follows from an inductive application of \cref{sliceMonotone}.
+  Then the rest follows from \cref{leftRestricts} and \cref{restricts}.
+\end{proof}
+\begin{prop}
+  The point $(x_l^*, x_r^*)$ returned by \cref{fixDecompAlg} is a fixpoint of $f$.
+\end{prop}
+\begin{proof}
+  \cref{orderPreserved} guarantees that $f_r$ is monotone, and hence
+  on line 10 a fixpoint $x_r^*$ can be found. Then by construction
+  $(x_l^*, x_r^*)$ is clearly a fixpoint of $f$.
+\end{proof}
+\begin{proofOf}{\cref{fixDecomp}}
+  Suppose algorithm $A$ takes at most $p(N, a)$ queries and algorithm $B$ takes at most
+  $q(N, a)$ queries to find a fixpoint. Then every query of $f_r$ by algorithm $A$
+  makes at most $q(N, b)$ queries to $f$ to find a fixpoint of $f_l$, so
+  given algorithm $A$ makes a most $p(N, a)$ queries, the entire algorithms
+  makes at most $p(N, a) \cdot q(N, b)$ queries to $f$.
+\end{proofOf}
+

@@ -1,6 +1,7 @@
-\section{Fixpoint Existence and Computation}
-Tarski gave a theorem on the existence of fixpoints of monotone functions on complete lattices\citep{tarski} (which I have not defined). This theorem
-is in reality stronger than is needed for the finite case. I present a proof of the existence of fixpoints in a finite lattice.
+\section{Basic Algorithms}
+Although Tarski's theorem easily subsumes the finite case detailed below,
+I include a basic proof of the existence of fixpoints of monotone functions of finite lattices
+as the ideas involved will be useful in the development of algorithms.
 \begin{theorem}[\citep{tarski}]\label{fixExist}
   Let $f : [N]^d \to [N]^d$ be monotone. Then there is a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
 \end{theorem}
@@ -12,7 +13,6 @@ is in reality stronger than is needed for the finite case. I present a proof of 
   It follows that
   there is a fixpoint of $f$ in $[N]^d$.
 \end{proof}
-This gives rise to a natural problem; how can such a fixpoint be found?
 \begin{definition}[$\trsk$]
   The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
 \end{definition}
@@ -59,8 +59,9 @@ The fixpoint returned by $\textsc{KleeneTarski}$ isn't just any old fixpoint.
   Then by monotonicity of $f$, $f(f^{i-1}(\vec{1})) = f^i(\vec{1}) \leq f(y)$. But $y$ is a fixpoint
   so $f(y) = y$ and $f^i(\vec{1}) \leq y$.
 \end{proof}
-It should be emphasized that this is \emph{not} a polynomial-time algorithm for solving the $\trsk$ problem, as a number
-$N$ can be represented with $\log N$ bits of information. At the time of writing
+It should be emphasized that this is algorithm does \emph{not} run in time polynomial with the encoding size
+of problem instances. For numbers of size $2^n$ can be represented with a $n$ bits of information. 
+At the time of writing
 it is not known whether or not this problem is solvable in polynomial time.
 Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
 on the problem.
@@ -82,7 +83,7 @@ to the workings on the improved algorithms detailed  later, so they are given be
   $f_s : L_{-i} \to L_{-i}$ with
   $f_s((l_1, ..., l_{d-1})) = f((l_1, ..., l_{i-1},  x_i, l_i, ..., l_{d-1}))_{-i}$.
 \end{definition}
-\begin{lemma}
+\begin{lemma} \label{sliceMonotone}
   Let $f : \nd \to \nd$ be monotone. Then for any $i \in [d]$, $x_i \in [N]$ the slice $f_s : [N]^{d-1} \to [N]^{d-1}$ at $i$ with value $x_i$  
   is monotone. 
 \end{lemma}
@@ -91,28 +92,25 @@ to the workings on the improved algorithms detailed  later, so they are given be
   By reflexivity, $x_i \leq x_i$, so $(l_1, ... , x_i, l_i, ..., l_{d-1}) \leq (l'_1, ... , x_i, l'_i, ..., l_{d-1})$,
   and $f_s(l) \leq f_s(l')$ follows by monotonicity of $f$.
 \end{proof}
-\begin{notation}
-  Let $L$ be a lattice. Then for $x \in L$ the notation $L_{\geq x}$ is a sub-lattice of $L$ with underlying set
-  $\{l \in L | l \geq x\}$. It is clear that $L_{\geq x}$ is also a lattice, with the same joins, meets, and ordering as $L$.
-\end{notation}
 \begin{lemma}\label{restricts}
   Let $f : [N]^d \to [N]^d$ is monotone, and $x \in [N]^d$ be such that $x \leq f(x)$. Then
-  $f$ restricts to a monotone function $\restr{f}{[N]^d_{\geq x}} : [N]^d_{\geq x} \to [N]^d_{\geq x}$. Similarly,
-  if $x \geq f(x)$ then $f$ restricts to a monotone function $\restr{f}{[N]^d_{\leq x}} : [N]^d_{\leq x} \to [N]^d_{\leq x}$.
+  $f$ restricts to a monotone function $\restr{f}{[x, \infty)} : [x, \infty) \to [x, \infty)$. Similarly,
+  if $x \geq f(x)$ then $f$ restricts to a monotone function $\restr{f}{(-\infty, x]} : (-\infty, x] \to (-\infty, x]$.
 \end{lemma}
 \begin{proof}
-  I need to show that if $x \leq f(x)$ then for all $y \in [N]^d_{\geq x}$, $f(y) \in [N]^d_{\geq x}$. By construction,
-  $y \geq x$, and by monotonicity $f(y) \geq f(x)$. But $f(x) \geq x$, so $f(y) \geq x$, and $f(y) \in [N]^d_{\geq x}$. The second part
-  follows by duality.
+  I need to show that if $x \leq f(x)$ then for all $y \in [x, \infty)$, $f(y) \in [x, \infty)$. By construction,
+  $y \geq x$, and by monotonicity $f(y) \geq f(x)$. But $f(x) \geq x$, so $f(y) \geq x$, and $f(y) \in [x, \infty)$. The second part
+  is similar.
 \end{proof}
 \begin{lemma}\label{d1Case}
   Let $f : [N] \to [N]$ be monotone. Then a fixpoint of $f$ can be found in $O(\log N)$ queries of $f$.
 \end{lemma}
 \begin{proof}
-  Choose $x = \lfloor \frac{N}{2} \rfloor$. $[N]$ is totally ordered, so exactly one of the following hold; $x < f(x)$, $x = f(x)$, $x > f(x)$.
-  If $x = f(x)$ then I'm done. If $x < f(x)$ then by \cref{restricts} $f$ restricts to a monotone function $\restr{f}{[N]^d_{\geq x}}$, 
-  and a fixpoint of $\restr{f}{[N]^d_{\geq x}}$ is clearly also a fixpoint of $f$. Similarly, if $x > f(x)$ then $f$ restricts to
-  $\restr{f}{[N]^d_{\leq x}}$. This enables a recursion on the smaller sublattice. Finally,
+  Choose $x = \lfloor \frac{N}{2} \rfloor$. $[N]$ is totally ordered, so exactly one of the following hold; 
+  $x < f(x)$, $x = f(x)$, $x > f(x)$.
+  If $x = f(x)$ then I'm done. If $x < f(x)$ then by \cref{restricts} $f$ restricts to a monotone function $\restr{f}{[x, \infty)}$, 
+  and a fixpoint of $\restr{f}{[x, \infty)}$ is clearly also a fixpoint of $f$. Similarly, if $x > f(x)$ then $f$ restricts to
+  $\restr{f}{(\infty, x]}$. This enables a recursion on the smaller sublattice. Finally,
   noting that a fixpoint can be found trivially in the one-point set in a constant number of queries,
   since the search space is halved every recursive call
   the algorithm terminates in $O(\log N)$ queries.
@@ -200,5 +198,7 @@ The details of these algorithms will be shared in a later section.
   that for any randomized algorithm there are general lattices of $N$ elements 
   which require $\Omega(N)$ queries with high probability to find a fixpoint.
   Focussing on a specific case such as $[N]^d$ is therefore justified.
+  Further, the case of computing least fixpoints of even one dimensional
+  functions $f : [2^n] \to [2^n]$ is proven to be NP-hard in \citep{lowerBound}
+  so would seem that focussing on find any fixpoint is the best course of action.
 \end{remark}
-
