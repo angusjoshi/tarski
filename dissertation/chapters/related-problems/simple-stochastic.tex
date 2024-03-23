@@ -1,4 +1,4 @@
-\section{Simple Stochastic Games}
+\section{Simple Stochastic Games}\label{ssgs}
 Simple stochastic games, as defined in \citep{condon}, are a class of
 zero-sum games played on graphs with two players called the maximizer and minimizer
 respectively. For the purposes of this dissertation I will consider only $\beta$-stopping
@@ -58,7 +58,7 @@ in a simple stochastic game, the resultant process is easily seen
 to be a discrete markov chain with two absorbing states corresponding to
 the to the game reaching $t$ or halting elsewhere. The probability
 of reaching $t$ from any particular vertex can then be computed 
-by inverting a (necessarily invertible) matrix, leading to our definition of the expected value under 
+by solving a system of linear equations, leading to our definition of the expected value under 
 a fixed pure stationary strategy profile.
 \begin{definition}[Expected Value]
   Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game.
@@ -173,7 +173,21 @@ This is proved using ideas from \citep{nashComp} and \citep{lowerBound} in the f
   \end{align*}
   Rearranging and dividing through by $\beta$ gives the claim.
 \end{proof}
- 
+The culmination of this section is the following result.
+\begin{theorem}
+  Let $G$ be a $\beta$-stopping simple stochastic game and $q^* \in \Q$ the value of the game.
+  For all $\varepsilon \in \rpos$ finding a $q \in \Q$ such that $|q - q^*| < \varepsilon$
+  is polynomial time reducible to $\trsk$.
+\end{theorem}
+\begin{remark}
+  In \citep{lowerBound} Etessami et al. show a stronger result; in a slightly more general
+  model of simple stochastic games that don't necessarily have the $\beta$ stopping property used above,
+  the problem of finding the exact value of the game $q^*$ is polynomial-time reducible to $\trsk$.
+  The simplified stopping game approximation result is shown above instead to simplify exposition,
+  as well as to simplify implementation\footnote{Computing the exact value of non-stopping games requires working with
+  numbers on the order of $2^{\Omega(n^2)}$, where $n$ is the number of vertices in the graph. For $n = 15$ for example this requires $225$ bits
+  of precision, which is larger than fits in a machine word on my laptop.} during the practical testing chapter of this dissertation.
+\end{remark}
 %notes: make less brackets, particularly in the introducotry part
 % at a citation at the bit describing value of the game? i.e. 'the resultant
 % process is easily seen to be a markov chain'

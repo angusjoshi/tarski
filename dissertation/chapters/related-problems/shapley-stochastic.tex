@@ -1,5 +1,5 @@
-\section{Shapley's Stochastic Games}
-Shapley's stochastic games, or just stochastic games as described in \citep{shapley}
+\section{Shapley's Stochastic Games} \label{shapleyChap}
+Shapley's stochastic games, or stopping stochastic games as described in \citep{shapley}
 are a class of zero-sum game played on a set of states with two players
 called the maximizer and minimizer respectively.
 At each state the players concurrently choose an action,  
@@ -21,6 +21,31 @@ is polynomial-time reducible to $\trsk$ which will be described in this section.
   vertex the outgoing edge taken alternates. In this example
   the walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} 
 \end{figure}
-\begin{definition}[Stochastic Game]
-  A \emph{stochastic game} $G = (V)$
+\begin{definition}[Stopping Stochastic Game]
+  A \emph{stopping stochastic game} $G = (V, A, P, s, q)$ is a set of states of $n$ states
+  $V = (v_1, ..., v_n)$, for each state $v_i$ an $n_i \times m_i$ rational valued matrix $A^i \in A$ called
+  the \emph{payoff matrix}, for each state $v_i$ an $n_i \times m_i$ matrix $P^i \in P$ called
+  the \emph{transition matrix} who's $j, k$-th entry is an $n$-vector 
+  $P_{j, k}^i = \left((P_{j, k}^i)_1, ..., (P_{j, k}^i)_n \right)$
+  such that $\sum_{l \in [n]} (P_{j, k}^i)_l = 1$ and for each $l \in [n]$, $(P_{j, k}^i)_l \geq 0$.
+  The \emph{starting state} is a state $s \in V$ and the \emph{stopping probability} is a positive
+  rational number $q \in \Q_{> 0}$. A \emph{play} is as follows. A token is placed on the initial
+  state $s = v_i$. The maximizer and minimizer choose actions $j \in [n_i]$ and $k \in [m_i]$ respectively,
+  and receive payoffs $p_{\max} = A_{j, k}^i$ and $p_{\min} = -A_{j, k}^i$ respectively. The game then
+  halts with probability $q$, and if it did not transitions to state $l \in [n]$ with probability
+  $(P_{j, k}^i)_l$. Play continues until it halts (which happens with probability 1).
+\end{definition}
+We require a more general notion of strategy to the pure strategies introduced in \cref{ssgs} which
+are as follows.
+\begin{definition}[Mixed Stationary Strategy]
+  Let $G = (V, A, P, s, q)$ be a stopping stochastic game. A \emph{mixed stationary strategy}
+  for the maximizer is a vector of rational vectors 
+  $\sigma = ((\sigma_1^{1}, ..., \sigma_1^{n_1}), ..., ((\sigma_n^{1}, ..., \sigma_n^{n_n})))$ such
+  that for each $i \in [n]$, $\sum_{j \in n_i} \sigma_i^j = 1$ and for each $j \in [n_i]$, $\sigma_i^j \geq 0$.
+  The set of all mixed stationary strategies for the maximizer is denoted $S$.
+  A mixed stationary strategy for the minimizer is 
+  $\tau = ((\tau_1^{1}, ..., \tau_1^{m_1}), ..., ((\tau_n^{1}, ..., \tau_n^{m_n})))$
+  such that for each $i \in [n]$, $\sum_{j \in m_i} \tau_i^j = 1$ 
+  and for each $j \in [m_i]$, $\tau_i^j \geq 0$.
+  The set of all mixed stationary strategies for the minimizer is denoted $T$.
 \end{definition}

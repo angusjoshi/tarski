@@ -1,0 +1,29 @@
+\section{Open Problems}
+Many problems on the algorithmic complexity of $\trsk$ remain 
+open. The most impressive upper bound on query complexity would be the following.
+\begin{open} \label{tarskiInP}
+  Is the query complexity of $\trsk(N, d)$ $O(\poly(\log N) \cdot \poly(d))$?
+\end{open}
+The implications of such a result would be significant to say the least.
+For example, it would give a polynomial time algorithm for
+computing the exact value of simple stochastic games as described in \cref{ssgs},
+which has remained open since 1992 when studied by Condon in \citep{condon}.
+It would also imply a polynomial-time algorithm for the $\arr$ problem as described in \cref{arr}
+which has seen a significant amount of study in recent years, 
+for example in \citep{gärtner2021subexponential, gärtner2018arrival, arrivalBasic}. 
+Another implication would be a polynomial time algorithm for approximating the value of
+stochastic games as in \cref{shapleyChap}. The strength of the implications of \cref{tarskiInP}
+are evidence that solving it in the near future is unlikely, and that considering weaker conjectures
+might be more realistic.
+\begin{open} \label{tarskiFixedParameterTractable}
+  Is the query complexity of 
+  $\trsk(N, d)$ $O(\log^2 N)$ for fixed $d$? That is, is $\trsk$ fixed-parameter tractable?
+\end{open}
+Recent results such as \cref{tightThreeDimension} from \citep{fasterTarski} make this seem
+plausible. Perhaps the notion of a 'witness' as described in \cref{witnessDef} can be
+generalized to higher dimensions, with a method of halfing the search space as in \cref{innerMainCase}
+in a potentially exponential number of queries? A useful intermediate result towards this problem could be
+the following.
+\begin{open} \label{tightFourDimension}
+  Is the query complexity of $\trsk(N, 4)$ $O(\log^2 N)$?
+\end{open}
