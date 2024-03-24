@@ -49,6 +49,17 @@ are as follows.
   and for each $j \in [m_i]$, $\tau_i^j \geq 0$.
   The set of all mixed stationary strategies for the minimizer is denoted $T$.
 \end{definition}
+The content of the following result from \citep{shapley} is that stopping stochastic games
+necessarily have a value which can be achieved in mixed stationary strategies, which is to say
+players can achieve optimal expected payoff by fixing probability distributions on their action sets
+for every state prior to the game commencing.
+\begin{prop}[\citep{shapley}]
+  Let $G = (V, A, P, s, q)$ be a stopping stochastic game and $S$, $T$ be the mixed stationary strategy
+  sets for the maximizer and minimizer respectively. Then,
+  \begin{align*}
+    \max_{\sigma \in S} \min_{\tau \in T} 
+  \end{align*}
+\end{prop}
 Recall the definition of $\val$ from \cref{matrixGameVal}.
 \begin{definition}[Stopping Stochastic Game Monotone Function] \label{shapleyMonotone}
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $d = |V|$ and $M = \max_{i, j, k} |A_{j, k}^i|$. Then the
@@ -88,5 +99,8 @@ shows it to be correct.
   It can be shown using a similar argument that $F(x) \geq -\frac{M}{q}$ by observing again by monotonicity
   that $F(x) \geq F\left(-\frac{M}{q}\right)$.
 \end{proof}
+Shapley shows in \citep{shapley} that for all $x, x' \in [-\frac{M}{q}, \frac{M}{q}]^d$ 
+that $\|F(x) - F(x)'\|_|infty \leq (1 - q) \|x - x'\|_\infty$,
+which is to say $F$ is a contraction map and has a \emph{unique} fixpoint by the banach fixpoint theorem. Further
 Shapley shows in \citep{shapley} that this function is a contraction map. That is,
 For all $x, x' \in [-\frac{M}{q}, \frac{M}{q}]^d$ I have $\|F(x) - F(x')\|_\infty \leq (1 - q) \|x - x'\|_\infty$.
