@@ -1,0 +1,504 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 1 COL 1/2: 04_up_set.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\upset
+\begin{lrbox}{\upset}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fill in lhs (early so in background)
+\draw[draw=none,fill=lightgray] (0,0) rectangle (5,10);
+\draw[draw=none,fill=lightgray] (0,0) rectangle (10,5);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draw[dashed] (5,5) -- (5,10);
+\draw[dashed] (5,5) -- (10,5);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myrightarrow{5}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=above right:\midp] at (5,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 1 COL 2/2: 04_dn_set.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\dnset
+\begin{lrbox}{\dnset}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fill in lhs (early so in background)
+\draw[draw=none, fill=lightgray] (10,10) rectangle (0,5);
+\draw[draw=none, fill=lightgray] (10,10) rectangle (5,0);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draw[dashed] (5,5) -- (0,5);
+\draw[dashed] (5,5) -- (5,0);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myleftarrow{5}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=above right:\midp] at (5,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 2 COL 1/3: 04_dn_right_right_v1.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowtwocolone
+\begin{lrbox}{\rowtwocolone}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backarrow{5}{5}{darkpastelgreen}
+\forwardarrow{10}{5}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myrightarrow{5}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=left:\midp] at (5,5) {};
+\node[query,label=above left:$p$] at (10,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 2 COL 2/3: 04_dn_right_right_v2.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowtwocoltwo
+\begin{lrbox}{\rowtwocoltwo}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backarrow{5}{5}{darkpastelgreen}
+\backarrow{10}{5}{darkpastelgreen}
+\backarrow{10}{7}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myrightarrow{5}{5}
+\myrightarrow{10}{5}
+\myrightarrow{10}{7}
+\myuparrow{10}{7}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=above left:\midp] at (5,5) {};
+\node[query,label=left:$p$] at (10,5) {};
+\node[query, label=left:$d$] at (10, 7) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 2 COL 3/3: 04_dn_right_right_rule_out_top.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowtwocolthr
+\begin{lrbox}{\rowtwocolthr}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fill in lhs (early so in background)
+\draw[white, fill=lightgray] (0,5) rectangle (10,10);
+\draw[dashed] (0,5) -- (10,5);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backarrow{5}{5}{darkpastelgreen}
+\backarrow{10}{5}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myrightarrow{5}{5}
+\myleftarrow{10}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=below left:\midp] at (5,5) {};
+\node[query,label=below left:$p$] at (10,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 3 COL 1/3: 04_dn_right_dn_v1.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowthrcolone
+\begin{lrbox}{\rowthrcolone}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\forwardarrow{5}{5}{darkpastelgreen}
+\backarrow{5}{0}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myrightarrow{5}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=above left:\midp] at (5,5) {};
+\node[query,label=above left:\botp] at (5,0) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 3 COL 2/3: 04_dn_right_dn_v2.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowthrcoltwo
+\begin{lrbox}{\rowthrcoltwo}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\forwardarrow{5}{5}{darkpastelgreen}
+\forwardarrow{5}{0}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myrightarrow{5}{5}
+\mydnarrow{5}{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=above left:\midp] at (5,5) {};
+\node[query, label=above:\botp] at (5,0) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 3 COL 3/3: 04_dn_right_dn_rule_out_left.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowthrcolthr
+\begin{lrbox}{\rowthrcolthr}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fill in lhs (early so in background)
+\draw[white, fill=lightgray] (0,0) rectangle (5,10);
+\draw[dashed] (5,0) -- (5,10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\forwardarrow{5}{5}{darkpastelgreen}
+\forwardarrow{5}{0}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mydnarrow{5}{5}
+\myrightarrow{5}{5}
+\myuparrow{5}{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=above left:\midp] at (5,5) {};
+\node[query, label=above right:\botp] at (5,0) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 4 COL 1/3: 04_up_left_left_v1.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowfoucolone
+\begin{lrbox}{\rowfoucolone}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backarrow{5}{5}{darkpastelgreen}
+\forwardarrow{5}{10}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myleftarrow{5}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=below:\midp] at (5,5) {};
+\node[query,label=below right:\topp] at (5,10) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 4 COL 2/3: 04_up_left_left_v2.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowfoucoltwo
+\begin{lrbox}{\rowfoucoltwo}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backarrow{5}{5}{darkpastelgreen}
+\backarrow{5}{10}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myleftarrow{5}{5}
+\myuparrow{5}{10}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=below:\midp] at (5,5) {};
+\node[query, label=below:\topp] at (5,10) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 4 COL 3/3: 04_up_left_left_rule_out_right.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowfoucolthr
+\begin{lrbox}{\rowfoucolthr}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fill in lhs (early so in background)
+\draw[white, fill=lightgray] (5,0) rectangle (10,10);
+\draw[dashed] (5,0) -- (5,10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backarrow{5}{5}{darkpastelgreen}
+\backarrow{5}{10}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myleftarrow{5}{5}
+\mydnarrow{5}{10}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=below left:\midp] at (5,5) {};
+\node[query,label=below left:\topp] at (5,10) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 5 COL 1/3: 04_up_left_up_v1.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowfivcolone
+\begin{lrbox}{\rowfivcolone}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\forwardarrow{5}{5}{darkpastelgreen}
+\backarrow{0}{5}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myleftarrow{5}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query,label=right:\midp] at (5,5) {};
+\node[query,label=below right:\leftp] at (0,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 5 COL 2/3: 04_up_left_up_v2.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowfivcoltwo
+\begin{lrbox}{\rowfivcoltwo}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\forwardarrow{5}{5}{darkpastelgreen}
+\forwardarrow{0}{5}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myleftarrow{5}{5}
+\myleftarrow{0}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=right:\midp] at (5,5) {};
+\node[query, label=right:\leftp] at (0,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ROW 5 COL 3/3: 04_up_left_up_rule_out_bot.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newsavebox\rowfivcolthr
+\begin{lrbox}{\rowfivcolthr}
+\begin{tikzpicture}[scale=\myscale]
+\tikzset{every node}=[font=\Huge]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Phantom arrows for equal spacing of subfigs
+\backarrow{10}{10}{white}
+\forwardarrow{0}{0}{white}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fill in lhs (early so in background)
+\draw[white, fill=lightgray] (0,0) rectangle (10,5);
+\draw[dashed] (0,5) -- (10,5);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN SQUARE
+\draw (0, 0) rectangle (10, 10);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\forwardarrow{5}{5}{darkpastelgreen}
+\forwardarrow{0}{5}{darkpastelgreen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\myuparrow{5}{5}
+\myleftarrow{5}{5}
+\myrightarrow{0}{5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\node[query, label=above right:\midp] at (5,5) {};
+\node[query, label=above right:\leftp] at (0,5) {};
+\node[query,label=above right:$a$] at (0,0) {};
+\node[query,label=below left:$b$] at (10,10) {};
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{lrbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE MAIN FIGURE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{tikzpicture}
+%% ROW 1
+%\subfig{0}{0}{Case 1: $\midp \in \Up(f_s)$}{\upset}
+%\subfig{10}{0}{Case 2: $\midp \in \Down(f_s)$}{\dnset}
+
+%% ROW 2
+%\subfig{0}{-10}{Case 3.a.i: \midp and \rightp VOP}{\rowtwocolone}
+%\subfig{10}{-10}{Case 3.a.ii: apply Lemma~\ref{lem:logn}}{\rowtwocoltwo}
+%\subfig{20}{-10}{Case 3.a.iii: (\midp, \rightp) is a DSW}{\rowtwocolthr}
+
+%% ROW 3
+%\subfig{0}{-20}{Case 3.b.i: \midp and \botp VOP}{\rowthrcolone}
+%\subfig{10}{-20}{Case 3.b.ii: apply Lemma~\ref{lem:logn}}{\rowthrcoltwo}
+%\subfig{20}{-20}{Case 3.b.iii: (\botp, \midp) is an USW}{\rowthrcolthr}
+
+%% ROW 4
+%\subfig{0}{-30}{Case 4.a.i: \midp and \topp VOP}{\rowfoucolone}
+%\subfig{10}{-30}{Case 4.a.ii: apply Lemma~\ref{lem:logn}}{\rowfoucoltwo}
+%\subfig{20}{-30}{Case 4.a.iii: (\midp, \topp) is a DSW}{\rowfoucolthr}
+
+%% ROW 5
+%\subfig{0}{-40}{Case 4.b.i: \midp and \leftp VOP}{\rowfivcolone}
+%\subfig{10}{-40}{Case 4.b.ii: apply Lemma~\ref{lem:logn}}{\rowfivcoltwo}
+%\subfig{20}{-40}{Case 4.b.iii: (\leftp, \midp) is an USW}{\rowfivcolthr}
+
+\pgfmathsetmacro{\rheight}{-12}
+
+% ROW 1
+% \subfigprime{0}{0}{Case 1:}{$\midp \in \Up(f_s)$}{\upset}
+% \subfigprime{8}{0}{Case 2:}{$\midp \in \Down(f_s)$}{\dnset}
+
+% ROW 2
+% \subfigprime{0}{\rheight}{Case 3.a.i:}{VOP: \midp, \rightp}{\rowtwocolone}
+  \subfigprime{0}{\rheight}{If $f(\mi)_3 \geq \mi_3$ and }{$f(p)_j \geq p_j$ then $d \in \Up(f)$.}{\rowtwocoltwo}
+  \subfigprime{16}{\rheight}{If $f(\mi)_3 \geq \mi_3$ and $f(p)_j \leq p_j$}{ then $(\mi, d)$ is a down-set witness.}{\rowtwocolthr}
+
+% ROW 3
+% \subfigprime{24}{\rheight}{Case 3.b.i:}{VOP: \midp, \botp}{\rowthrcolone}
+% \subfigprime{32}{\rheight}{Case 3.b.ii:}{apply Lemma~\ref{lem:logn}}{\rowthrcoltwo}
+% \subfigprime{40}{\rheight}{Case 3.b.iii:}{USW: (\botp, \midp)}{\rowthrcolthr}
+
+% % ROW 4
+% \subfigprime{0}{2*\rheight}{Case 4.a.i:}{VOP: \midp, \topp}{\rowfoucolone}
+% \subfigprime{8}{2*\rheight}{Case 4.a.ii:}{apply Lemma~\ref{lem:logn}}{\rowfoucoltwo}
+% \subfigprime{16}{2*\rheight}{Case 4.a.iii:}{DSW: (\midp, \topp)}{\rowfoucolthr}
+
+% % ROW 5
+% \subfigprime{24}{2*\rheight}{Case 4.b.i:}{VOP: \midp, \leftp}{\rowfivcolone}
+% \subfigprime{32}{2*\rheight}{Case 4.b.ii:}{apply Lemma~\ref{lem:logn}}{\rowfivcoltwo}
+% \subfigprime{40}{2*\rheight}{Case 4.b.iii:}{USW: (\leftp, \midp)}{\rowfivcolthr}
+
+
+
+\end{tikzpicture}
+

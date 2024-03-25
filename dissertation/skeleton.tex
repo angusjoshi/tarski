@@ -14,15 +14,13 @@
 \usepackage{algpseudocodex}
 \usepackage{mathrsfs}
 \usepackage{xcolor,xparse}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
 \usepackage{listings}
-\definecolor{mygray}{rgb}{0.8,0.8,0.8}
-\lstset{%
-basicstyle=\ttfamily,
-breaklines = true,
-backgroundcolor=\color{mygray},
-}
+\usepackage{relsize}
+\usepackage{tkz-euclide}
 
-\usetikzlibrary{calc,arrows.meta,positioning, bending, shapes.geometric}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
@@ -70,6 +68,15 @@ backgroundcolor=\color{mygray},
 \newenvironment{sproof}{%
   \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
 
+\input{diagrams/from-fps/macros.tex}
+
+\definecolor{mygray}{rgb}{0.8,0.8,0.8}
+\lstset{%
+basicstyle=\ttfamily,
+breaklines = true,
+backgroundcolor=\color{mygray},
+}
+
 \newenvironment{proofOf}[1]{%
   \renewcommand{\proofname}{Proof of #1}\proof}{\endproof}
 \newcommand{\mi}{\text{mid}}
@@ -97,6 +104,23 @@ backgroundcolor=\color{mygray},
 \usepackage{natbib} % recommended for citations
 
 \begin{document}
+
+\usetikzlibrary{
+  arrows,
+  shapes,
+  matrix,
+  snakes,
+  decorations.markings,
+  fadings,
+  shapes.arrows,
+  shadows,
+  calc,
+  patterns,
+  arrows.meta,
+  positioning,
+  bending,
+  shapes.geometric}
+
 \begin{preliminary}
 
 \title{Tarski Fixed Point Computation and Related Problems in Algorithmic Game Theory}

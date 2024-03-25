@@ -1,0 +1,109 @@
+\newcommand{\midp}{\ensuremath{\textsf{mid}}\xspace}
+\newcommand{\midpone}{\ensuremath{\textsf{midone}}\xspace}
+\newcommand{\midptwo}{\ensuremath{\textsf{midtwo}}\xspace}
+\newcommand{\topp}{\ensuremath{\textsf{top}}\xspace}
+\newcommand{\botp}{\ensuremath{\textsf{bot}}\xspace}
+\newcommand{\leftp}{\ensuremath{\textsf{left}}\xspace}
+\newcommand{\rightp}{\ensuremath{\textsf{right}}\xspace}
+
+% for bmatrix
+
+
+
+% add the following two lines to your document to get bigger arrows
+\usetikzlibrary{arrows.meta}
+\tikzset{>={Latex[width=3mm,length=2.25mm]}}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{medgray}{gray}{0.55}
+\definecolor{darkgray}{gray}{0.4}
+
+%\definecolor{pastelblue}{rgb}{0.6, 0.8, 0.91}
+\definecolor{pastelblue}{rgb}{0.4, 0.5, 0.91}
+%\definecolor{pastelred}{rgb}{1.0, 0.41, 0.38}
+\definecolor{pastelred}{rgb}{0.9, 0.18, 0.10}
+
+\definecolor{darkpastelgreen}{rgb}{0.01, 0.75, 0.24}
+\definecolor{pastelyellow}{rgb}{0.01, 0.75, 0.24}
+
+\definecolor{shade1}{rgb}{0.87, 0.91, 0.92} % blue
+\definecolor{shade2}{rgb}{1, 1, 0.88} % yellow
+\definecolor{shade3}{rgb}{0.69, 0.94, 0.92} % turquoise
+\definecolor{shade4}{rgb}{1, 0.79, 0.78} % red
+
+\definecolor{darkpastelblue}{rgb}{0.27, 0.47, 0.70}
+\definecolor{darkpastelred}{rgb}{0.59, 0.18, 0.10}
+\definecolor{darkpastelbrown}{rgb}{0.39, 0.31, 0.25}
+\definecolor{darkpastelmagenta}{rgb}{0.59, 0.44, 0.84}
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% TIKZ MACROS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\tikzset{fontscale/.style = {font=\relsize{#1}}}				
+\tikzset{query/.style={draw, circle, fill=black, inner sep=2pt, minimum size=0.05cm}}
+%corner/.style={draw, circle, fill=black, inner sep=2pt, minimum size=0.05cm}
+
+\pgfmathsetmacro{\diag}{0.2 + sqrt(1/2)}
+
+\pgfmathsetmacro{\myscale}{0.65}
+
+\pgfmathsetmacro{\lw}{0.9mm}
+\pgfmathsetmacro{\ll}{1.2}
+\pgfmathsetmacro{\lls}{0.5}
+
+\newcommand{\myuparrow}[2]{
+	\draw[->, line width=\lw, color=pastelblue] (#1,#2) -- (#1,#2+\ll);
+}
+
+\newcommand{\mydnarrow}[2]{
+	\draw[->, line width=\lw, color=pastelblue] (#1,#2) -- (#1,#2-\ll);
+}
+
+\newcommand{\myuparrowshort}[2]{
+	\draw[->, line width=\lw, color=pastelblue] (#1,#2) -- (#1,#2+\lls);
+}
+
+\newcommand{\mydnarrowshort}[2]{
+	\draw[->, line width=\lw, color=pastelblue] (#1,#2) -- (#1,#2-\lls);
+}
+
+\newcommand{\myleftarrow}[2]{
+	\draw[->, line width=\lw, color=pastelred] (#1,#2) -- (#1-\ll,#2);
+}
+
+\newcommand{\myrightarrow}[2]{
+	\draw[->, line width=\lw, color=pastelred] (#1,#2) -- (#1+\ll,#2);
+}
+
+\newcommand{\myleftarrowshort}[2]{
+	\draw[->, line width=\lw, color=pastelred] (#1,#2) -- (#1-\lls,#2);
+}
+
+\newcommand{\myrightarrowshort}[2]{
+	\draw[->, line width=\lw, color=pastelred] (#1,#2) -- (#1+\lls,#2);
+}
+
+\newcommand{\backarrow}[3]{
+	\draw[->, line width=\lw, color=#3] (#1,#2) -- (#1+\diag,#2+\diag);
+}
+
+\newcommand{\forwardarrow}[3]{
+	\draw[->, line width=\lw, color=#3] (#1,#2) -- (#1-\diag, #2-\diag);
+}
+
+\newcommand{\subfig}[4]{
+	\node[label={[yshift=2mm]above:{\Huge #3}}] at (#1,#2) {\usebox#4};
+}
+\newcommand{\subfigprime}[5]{
+	
+\node[label={[yshift=2mm]above:{{\renewcommand*{\arraystretch}{2.5} \begin{tabular}{c}\Huge #3\\ \Huge #4 \end{tabular}}}}] at (#1,#2) {\usebox#5};
+}
