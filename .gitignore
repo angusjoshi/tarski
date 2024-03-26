@@ -6,4 +6,4 @@ src-old
 dissertation/build
 CMakeFiles/Progress
 CmakeFiles/src.dir
-
+src/analysis/.venv

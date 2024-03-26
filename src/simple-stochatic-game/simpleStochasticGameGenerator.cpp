@@ -67,7 +67,7 @@ simpleStochasticGame generateSimpleStochasticGame(int size) {
     std::random_device rd;
     std::mt19937 gen(rd());
     // note the distribution uses the closed range for some reason...
-    std::uniform_int_distribution<> nodeDistribution(0, size - 1);
+    std::uniform_int_distribution<> nodeDistribution(0, size - 2);
 
     // bit hacky but using the last guy in the enum spec seems
     // like the best way to gen a distribution.

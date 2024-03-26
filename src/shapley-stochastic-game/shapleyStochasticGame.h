@@ -8,7 +8,7 @@
 #include <vector>
 #include "../config.h"
 
-#define EPSILON 0.001
+#define EPSILON 0.1
 
 using namespace std;
 

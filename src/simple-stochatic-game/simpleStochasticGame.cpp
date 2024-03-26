@@ -3,11 +3,13 @@
 //
 
 #include "simpleStochasticGame.h"
+#include "../fixpoint/latticeUtil.h"
 
 simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs) {
     vertices = vs;
 //    N = LLONG_MAX;
-    N = 1 << (vs.size() - 3)*(vs.size() - 2);
+//    N = 1 << (vs.size() - 3)*(vs.size() - 2);
+    N = 1 << (vs.size() - 1);
 
     bool seenMaxBefore = false;
     for(int i = 0; i < vs.size(); i++) {
@@ -22,7 +24,8 @@ simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs) {
 
     if(!seenMaxBefore) throw runtime_error("no maxSink detected.");
 
-    contractionFactor = 1.f - (1.f / (1ll << vs.size()));
+    contractionFactor = 0.99;
+//    contractionFactor = 1.f - (1.f / (1ll << vs.size()));
 }
 
 vector<int_t> simpleStochasticGame::getTop() {
@@ -119,6 +122,7 @@ function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonoton
         }
 
         contract(resultf);
+
 
         return discretize(resultf);
     };
