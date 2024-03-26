@@ -8,8 +8,6 @@
 #include <vector>
 #include "../config.h"
 
-#define EPSILON 0.1
-
 using namespace std;
 
 struct shapleySuccessor {
@@ -29,12 +27,13 @@ struct shapleyStochasticGame {
     function<vector<int_t>(const vector<int_t>& v)> getMonotoneFunction();
     vector<int_t> getBot();
     vector<int_t> getTop();
-    shapleyStochasticGame(vector<shapleyVertex> vertices);
+    shapleyStochasticGame(vector<shapleyVertex> vertices, f_t eps);
     vector<f_t> scaleDown(const vector<int_t>& v);
     vector<int_t> scaleUp(const vector<f_t>& v);
     void print();
 
 private:
+    const f_t EPSILON;
     int_t N;
     f_t scale;
 };

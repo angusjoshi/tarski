@@ -8,6 +8,6 @@
 #include "simpleStochasticGame.h"
 
 simpleStochasticGame getExampleOne();
-simpleStochasticGame generateSimpleStochasticGame(int size);
+simpleStochasticGame generateSimpleStochasticGame(int size, f_t eps = 0.01);
 
 #endif //SRC_SIMPLESTOCHASTICGAMEGENERATOR_H

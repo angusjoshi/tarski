@@ -10,7 +10,7 @@
 
 using namespace soplex;
 
-shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices) : vertices{vertices} {
+shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices, f_t eps = 0.01) : vertices{vertices}, EPSILON{eps} {
     // find max payoff
     assert(vertices.size() != 0);
     assert(vertices[0].payoffs.size() == vertices[0].succs.size());

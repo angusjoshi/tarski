@@ -83,8 +83,8 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     return distance;
 }
 
-pair<int, double> solveShapleyStochasticGame(int size, algorithm algorithmToRun) {
-    shapleyStochasticGame g = generateShapleyStochasticGame(size);
+pair<int, double> solveShapleyStochasticGame(int size, algorithm algorithmToRun, f_t eps) {
+    shapleyStochasticGame g = generateShapleyStochasticGame(size, eps);
 
     auto normalF = g.getMonotoneFunction();
     auto f = getDirectionFunction(normalF);
@@ -118,8 +118,8 @@ pair<int, double> solveShapleyStochasticGame(int size, algorithm algorithmToRun)
 }
 
 pair<int, double> solveSimpleStochasticGame(int instanceSize,
-                               algorithm algorithmToRun) {
-    simpleStochasticGame g = generateSimpleStochasticGame(instanceSize);
+                               algorithm algorithmToRun, f_t eps = 0.01) {
+    simpleStochasticGame g = generateSimpleStochasticGame(instanceSize, eps);
     auto normalF = g.getMonotoneFunction();
     auto f = getDirectionFunction(normalF);
 
@@ -141,7 +141,9 @@ pair<int, double> solveSimpleStochasticGame(int instanceSize,
                     ? findFixpointByFixDecomposition(bot, top, fWithCounter)
                     : algorithmToRun == monotoneDecomp
                     ? findFixpointByMonotoneDecomp(bot, top, fWithCounter)
-                    : findFixpointRecBin(bot, top, fWithCounter);
+                    : algorithmToRun == recbin
+                    ? findFixpointRecBin(bot, top, fWithCounter)
+                    : kleeneTarski(bot, normalFWithCounter);
     auto t2 = high_resolution_clock::now();
     auto soln = g.unDiscretize(fixpoint);
 
@@ -214,22 +216,52 @@ void runAndPrintAnalysis() {
     vector<int> recBinTestSizes{3, 5, 7, 9};
     vector<int> decompTestSizes{7, 10, 13, 15, 18};
     vector<int> monDecompTestSizes{3, 5, 7, 9, 11, 13};
+
+    vector<int> simpleStochasticTestSizes{3, 5, 7, 9, 11, 13};
+    vector<int> shapleyTestSizes{2, 3, 4, 5, 6};
 //    vector<int> decompTestSizes{7};
-    //    vector<int> walkTestSizes {10, 100, 1000};//, 10000}; //, 100000, 10000000};
-    int n = 1;
-
+    vector<int> shapleyWalkSizes {10, 15, 20, 30, 40};
+    vector<int> walkTestSizes {10, 100, 1000, 10000, 100000, 10000000};
+    vector<f_t> epsilons {0.5, 0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001};
+    int n = 20;
     string line = "==================================================\n";
-    cout << "STARTING SIMPLE STOCHASTIC GAME TEST" << endl;
 
+//    cout << "STARTING SIMPLE STOCHASTIC GAME EPSILON TEST" << endl;
+//    for(int algI = recbin; algI != lastEntry; algI++) {
+//        auto alg = static_cast<algorithm>(algI);
+//        cout << line;
+//        printAlgorithmType(alg);
+//        for(f_t epsilon : epsilons) {
+//            int testSize = 11;
+//            vector<int> queryCounts {};
+//            vector<double> times {};
+//            for(int i = 0; i < n; i++) {
+//                auto [stepCount, time] = solveSimpleStochasticGame(testSize, alg, epsilon);
+//                queryCounts.push_back(stepCount);
+//                times.push_back(time);
+//            }
+//
+//            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//            long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//            cout << "===========================================================" << endl;
+//            cout << "test size: " << testSize << endl;
+//            cout << "epsilon: " << epsilon << endl;
+//            cout << "avg steps was: " << avgQueries << endl;
+//            cout << "avg time was: " << avgTime << "ms" << endl;
+//        }
+//    }
+
+    cout << "STARTING SHAPLEY STOCHASTIC GAME EPSILON TEST" << endl;
     for(int algI = recbin; algI != lastEntry; algI++) {
         auto alg = static_cast<algorithm>(algI);
         cout << line;
         printAlgorithmType(alg);
-        for(int testSize = 3; testSize <= 8; testSize++) {
+        for(f_t epsilon : epsilons) {
+            int testSize = 3;
             vector<int> queryCounts {};
             vector<double> times {};
             for(int i = 0; i < n; i++) {
-                auto [stepCount, time] = solveSimpleStochasticGame(testSize + 1, alg);
+                auto [stepCount, time] = solveShapleyStochasticGame(testSize, alg, epsilon);
                 queryCounts.push_back(stepCount);
                 times.push_back(time);
             }
@@ -238,34 +270,101 @@ void runAndPrintAnalysis() {
             long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
             cout << "===========================================================" << endl;
             cout << "test size: " << testSize << endl;
+            cout << "epsilon: " << epsilon << endl;
             cout << "avg steps was: " << avgQueries << endl;
             cout << "avg time was: " << avgTime << "ms" << endl;
         }
     }
-    cout << line;
-    cout << "STARTING SHAPLEY STOCHASTIC GAME TEST" << endl;
-    for(int algI = recbin; algI != lastEntry; algI++) {
-        auto alg = static_cast<algorithm>(algI);
-        cout << line;
-        printAlgorithmType(alg);
-        cout << line;
-        for(int testSize = 3; testSize <= 8; testSize++) {
-            vector<int> queryCounts {};
-            vector<double> times {};
-            for(int i = 0; i < n; i++) {
-                auto [stepCount, time] = solveShapleyStochasticGame(testSize, alg);
-                queryCounts.push_back(stepCount);
-                times.push_back(time);
-            }
 
-            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-            long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-            cout << "===========================================================" << endl;
-            cout << "test size: " << testSize << endl;
-            cout << "avg queries was: " << avgQueries << endl;
-            cout << "avg time was: " << avgTime << "ms" << endl;
-        }
-    }
+//    cout << "STARTING SIMPLE STOCHASTIC GAME TEST" << endl;
+
+//    for(int algI = recbin; algI != lastEntry; algI++) {
+//        auto alg = static_cast<algorithm>(algI);
+//        cout << line;
+//        printAlgorithmType(alg);
+//        for(int testSize : simpleStochasticTestSizes) {
+//            vector<int> queryCounts {};
+//            vector<double> times {};
+//            for(int i = 0; i < n; i++) {
+//                auto [stepCount, time] = solveSimpleStochasticGame(testSize + 1, alg);
+//                queryCounts.push_back(stepCount);
+//                times.push_back(time);
+//            }
+//
+//            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//            long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//            cout << "===========================================================" << endl;
+//            cout << "test size: " << testSize << endl;
+//            cout << "avg steps was: " << avgQueries << endl;
+//            cout << "avg time was: " << avgTime << "ms" << endl;
+//        }
+//    }
+//    cout << line;
+//    cout << "STARTING SHAPLEY STOCHASTIC GAME TEST" << endl;
+//    for(int algI = recbin; algI != lastEntry; algI++) {
+//        auto alg = static_cast<algorithm>(algI);
+//        cout << line;
+//        printAlgorithmType(alg);
+//        cout << line;
+//        for(int testSize : shapleyTestSizes) {
+//            vector<int> queryCounts {};
+//            vector<double> times {};
+//            for(int i = 0; i < n; i++) {
+//                auto [stepCount, time] = solveShapleyStochasticGame(testSize, alg);
+//                queryCounts.push_back(stepCount);
+//                times.push_back(time);
+//            }
+//
+//            double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//            long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//            cout << "===========================================================" << endl;
+//            cout << "test size: " << testSize << endl;
+//            cout << "avg queries was: " << avgQueries << endl;
+//            cout << "avg time was: " << avgTime << "ms" << endl;
+//        }
+//    }
+
+//    cout << line;
+//    cout << "STARTING SHAPLEY STOCHASTIC GAME WALK TEST" << endl;
+//    cout << line;
+//    for(int testSize : shapleyWalkSizes) {
+//        vector<int> queryCounts {};
+//        vector<double> times {};
+//        for(int i = 0; i < n; i++) {
+//            auto [stepCount, time] = solveShapleyStochasticGame(testSize, iterate);
+//            queryCounts.push_back(stepCount);
+//            times.push_back(time);
+//        }
+//
+//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//        cout << "===========================================================" << endl;
+//        cout << "test size: " << testSize << endl;
+//        cout << "avg queries was: " << avgQueries << endl;
+//        cout << "avg time was: " << avgTime << "ms" << endl;
+//    }
+
+
+//    cout << line;
+//    cout << "STARTING SIMPLE STOCHASTIC GAME WALK TEST" << endl;
+//    cout << line;
+//    for(int testSize : walkTestSizes) {
+//        vector<int> queryCounts {};
+//        vector<double> times {};
+//        for(int i = 0; i < n; i++) {
+//            auto [stepCount, time] = solveSimpleStochasticGame(testSize, iterate);
+//            queryCounts.push_back(stepCount);
+//            times.push_back(time);
+//        }
+//
+//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//        cout << "===========================================================" << endl;
+//        cout << "test size: " << testSize << endl;
+//        cout << "avg queries was: " << avgQueries << endl;
+//        cout << "avg time was: " << avgTime << "ms" << endl;
+//    }
+
     return;
 
     cout << line;

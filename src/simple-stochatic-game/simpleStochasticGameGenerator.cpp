@@ -54,7 +54,7 @@ simpleStochasticGame getExampleOne() {
     return  {{v0, v1, v2, v3, v4, v5, maxTarget}};
 }
 
-simpleStochasticGame generateSimpleStochasticGame(int size) {
+simpleStochasticGame generateSimpleStochasticGame(int size, f_t eps) {
     //first vertex is assumed to be the start,
     // second last is min sink,
     // last is max sink.
@@ -98,5 +98,5 @@ simpleStochasticGame generateSimpleStochasticGame(int size) {
     };
     vertices.push_back(maxiSink);
 
-    return { vertices };
+    return { vertices, eps};
 }

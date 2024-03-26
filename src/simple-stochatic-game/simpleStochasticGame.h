@@ -35,12 +35,13 @@ struct simpleStochasticGame {
     function<vector<int_t>(const vector<int_t>& v)> getMonotoneFunction();
     vector<int_t> getBot();
     vector<int_t> getTop();
-    simpleStochasticGame(vector<simpleVertex> vertices);
+    simpleStochasticGame(vector<simpleVertex> vertices, f_t eps = 0.01);
     vector<int_t> discretize(const vector<f_t>& d);
     vector<f_t> unDiscretize(const vector<int_t>& v);
     void print();
 
 private:
+    const f_t EPSILON;
     int_t N;
     int maxSinkI;
     f_t contractionFactor;

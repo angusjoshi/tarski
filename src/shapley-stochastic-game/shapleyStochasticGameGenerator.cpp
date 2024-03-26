@@ -107,10 +107,10 @@ shapleyStochasticGame getShapleyExampleOne() {
             }
     };
 
-    return {{v0, v1, v2, v3, v4, v5, v6}};
+    return {{v0, v1, v2, v3, v4, v5, v6}, 0.01};
 }
 
-shapleyStochasticGame generateShapleyStochasticGame(int size) {
+shapleyStochasticGame generateShapleyStochasticGame(int size, f_t eps) {
     assert(size >= 1);
     // for shapley, there is no specific target so don't need as many vertices
     // as the simple stochastic games.
@@ -157,5 +157,5 @@ shapleyStochasticGame generateShapleyStochasticGame(int size) {
         vertices.push_back({successorMatrix, payoffMatrix});
     }
 
-    return { vertices };
+    return { vertices, eps };
 }

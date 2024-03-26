@@ -1,0 +1,25 @@
+throughout max entry in shapley payoff matrices is 10.
+varying epsilon vs max entry doesn't matter
+
+all normal plots are epsilon = 0.01, beta = 0.01 (contraction = 1 - beta).
+
+test protocol is as follows
+  for arrival, 
+    just test with different sizes all the algorithms, 
+    so a separate test for the walk with bigger sizes
+
+  for shapley,
+    test all algorithms with fixed epsilon, varying size
+    test all algorithms with fixed size (4?), varying epsilon
+    test iterate separately?
+
+  for simple,
+    test all algorithms with fixed epsilon, varying size
+    test all algorithms with fixed size (9?), varying epsilon
+    test iterate separately?
+
+
+epsilon test is as follows
+  simple test size is fixed 11
+  shapley test size is 3
+  
