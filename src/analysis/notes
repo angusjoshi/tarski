@@ -1,3 +1,5 @@
+should revisit the shapley eps plots
+size = 3 is useless because it just runs the inner algorithm for chen li and fearnley pav savani
 throughout max entry in shapley payoff matrices is 10.
 varying epsilon vs max entry doesn't matter
 
