@@ -12,14 +12,14 @@ I begin with some definitions.
 \begin{definition}[Least/Greatest Upper/Lower Bounds]
   Let $(S, \leq)$ be a partially ordered set and $A \subseteq S$. A \emph{greatest lower bound} of $A$ is
   a $l \in S$ such that for all $a \in A$ $a \geq l$, and whenever $l' \in S$ also satisfies for all $a \in A$
-  $a \geq l'$ I have $l \geq l'$. When it exists is denoted $l = \bigwedge A$. 
+  $a \geq l'$ I have $l \geq l'$. When it exists it is denoted $l = \bigwedge A$. 
   A \emph{least upper bound} of $A$ is a $u \in S$ such that for all $a \in A$ $a \leq u$, and whenever $u' \in S$ also satisfies for all $a \in A$
   $a \leq u'$ I have $u \leq u'$. When it exists it is denoted $u = \bigvee A$.
 \end{definition}
 \begin{remark}
   Least upper bounds and greatest lower bounds need not exist in general. Take for example $(\Z, \leq)$ which
   is claimed to be a partial ordering. $\Z$ is a subset of $\Z$, but clearly $\Z$ has no upper bounds.
-  Boundedness is also in general not suffiecient. 
+  Boundedness is also in general not sufficient. 
 \end{remark}
 \begin{lemma}[Least/Greatest Upper/Lower bounds are unique]
   Let $L$ be a lattice, $A \subseteq L$ and $u, u'$ least upper bounds of $A$. Then $u = u'$.

@@ -66,7 +66,7 @@ these equalities follow from the witness definitions).
   $b \in \Down(f_s)$, so \cref{restricts} guarantees fixpoint of $f_s$ in the range $[a, b]$, which is then
   necessarily a monotone point of $f$. \\
   By the witnesses definition, there are $j, j' \in \{1, 2\}$ such that $d_j = b_j$ and $a_{j'} = u_{j'}$.
-  Then let $i, i' \in \{1, 2\}$ with $i \neq j$ and $j \neq j'$.
+  Then let $i, i' \in \{1, 2\}$ with $i \neq j$ and $i' \neq j'$.
   If $a \neq u$ then \cref{restricts} gives a point $c \in [N]^3$ with $a \leq c \leq u$ and $f(c)_{i'} = c_{i'}$.
   By monotonicity and $c \leq u$ I have $f(c)_3 \leq c_3$. If $f(c)_1 \leq c_{j'}$ then $c \in \Down(f)$ and I'm done.
   If $f(c)_{j'} \geq c_{j'}$ then I consider $b$ and $d$. Using a similar argument there is a $v \in [N]^3$ with $d \leq v \leq b$
@@ -147,7 +147,7 @@ Combining
 the previous two lemmas, a 'normal' iteration of the inner algorithm is as follows.
 Check if $u < \mi$ or $d > \mi$. If so, using \cref{innerOtherCase} either find a new
 set of witnesses with a search space that is half the size of the previous, or a new of
-witnesses such that $u \leq \mi$ and $d \geq \mi$. Then continue to the next iteration.
+witnesses such that $u \leq \mi$ and $d \geq \mi$ and continue to the next iteration.
 If $u \geq \mi$ and $d \leq \mi$ then using \cref{innerMainCase} find a new set of witnesses
 such that the new search space is at most half the size of the previous.
 With the additional fact from \citep{fasterTarski} that the search space can be halfed in a constant amount of

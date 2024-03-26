@@ -387,7 +387,6 @@ pair<vector<int_t>, vector<direction>> findMonotonePoint3(const vector<int_t> &b
                                                                 const vector<int_t> &)> &directionFunction,
                                                         int sliceDimension,
                                                         int_t sliceValue) {
-
     auto l = getSlicedLattice(bot, top, directionFunction, sliceDimension, sliceValue);
     auto slicedFunction = l.slicedFunction;
     auto slicedBot = l.slicedBot;

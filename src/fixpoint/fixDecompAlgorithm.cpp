@@ -79,6 +79,5 @@ vector<int_t> findFixpointByFixDecomposition(const vector<int_t> &bot,
     vector<int_t> resultFixpoint{};
     resultFixpoint.insert(resultFixpoint.end(), leftFixpoint.begin(), leftFixpoint.end());
     resultFixpoint.insert(resultFixpoint.end(), rightFixpoint.begin(), rightFixpoint.end());
-
     return resultFixpoint;
 }

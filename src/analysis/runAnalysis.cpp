@@ -29,6 +29,7 @@ enum algorithm {
     recbin,
     decomp,
     monotoneDecomp,
+    iterate,
 };
 
 
@@ -68,7 +69,7 @@ int manhattanDistance(const vector<int> &a, const vector<int> &b) {
     return distance;
 }
 
-pair<int, double> solveShapleyStochasticGame(int size) {
+pair<int, double> solveShapleyStochasticGame(int size, algorithm algorithmToRun) {
     shapleyStochasticGame g = generateShapleyStochasticGame(size);
 
     auto normalF = g.getMonotoneFunction();
@@ -88,8 +89,13 @@ pair<int, double> solveShapleyStochasticGame(int size) {
     auto top = g.getTop();
 
     auto t1 = high_resolution_clock::now();
-    auto fixpoint = findFixpointByFixDecomposition(bot, top, fWithCounter);
-//    auto fixpoint = kleeneTarski(bot, normalFWithCounter);
+    auto fixpoint = algorithmToRun == decomp
+                    ? findFixpointByFixDecomposition(bot, top, fWithCounter)
+                    : algorithmToRun == monotoneDecomp
+                    ? findFixpointByMonotoneDecomp(bot, top, fWithCounter)
+                    : algorithmToRun == decomp
+                    ? findFixpointRecBin(bot, top, fWithCounter)
+                    : kleeneTarski(bot, normalFWithCounter);
     auto t2 = high_resolution_clock::now();
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
@@ -209,8 +215,8 @@ void runAndPrintAnalysis() {
         vector<int> queryCounts {};
         vector<double> times {};
         for(int i = 0; i < n; i++) {
-//            auto [stepCount, time] = solveShapleyStochasticGame(testSize);
-            auto [stepCount, time] = solveSimpleStochasticGame(testSize, decomp);
+            auto [stepCount, time] = solveShapleyStochasticGame(testSize, decomp);
+//            auto [stepCount, time] = solveSimpleStochasticGame(testSize, decomp);
             queryCounts.push_back(stepCount);
             times.push_back(time);
         }

@@ -201,29 +201,29 @@ arrival/arrivalUtil.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/arrivalUtil.cpp.s
 .PHONY : arrival/arrivalUtil.cpp.s
 
-arrival/generateRandomInstance.o: arrival/generateRandomInstance.cpp.o
-.PHONY : arrival/generateRandomInstance.o
+arrival/generateInstance.o: arrival/generateInstance.cpp.o
+.PHONY : arrival/generateInstance.o
 
 # target to build an object file
-arrival/generateRandomInstance.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.o
-.PHONY : arrival/generateRandomInstance.cpp.o
+arrival/generateInstance.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/generateInstance.cpp.o
+.PHONY : arrival/generateInstance.cpp.o
 
-arrival/generateRandomInstance.i: arrival/generateRandomInstance.cpp.i
-.PHONY : arrival/generateRandomInstance.i
+arrival/generateInstance.i: arrival/generateInstance.cpp.i
+.PHONY : arrival/generateInstance.i
 
 # target to preprocess a source file
-arrival/generateRandomInstance.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.i
-.PHONY : arrival/generateRandomInstance.cpp.i
+arrival/generateInstance.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/generateInstance.cpp.i
+.PHONY : arrival/generateInstance.cpp.i
 
-arrival/generateRandomInstance.s: arrival/generateRandomInstance.cpp.s
-.PHONY : arrival/generateRandomInstance.s
+arrival/generateInstance.s: arrival/generateInstance.cpp.s
+.PHONY : arrival/generateInstance.s
 
 # target to generate assembly for a file
-arrival/generateRandomInstance.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/generateRandomInstance.cpp.s
-.PHONY : arrival/generateRandomInstance.cpp.s
+arrival/generateInstance.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/generateInstance.cpp.s
+.PHONY : arrival/generateInstance.cpp.s
 
 arrival/preprocessInstance.o: arrival/preprocessInstance.cpp.o
 .PHONY : arrival/preprocessInstance.o
@@ -272,6 +272,54 @@ arrival/simpleWalk.s: arrival/simpleWalk.cpp.s
 arrival/simpleWalk.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/arrival/simpleWalk.cpp.s
 .PHONY : arrival/simpleWalk.cpp.s
+
+config.o: config.cpp.o
+.PHONY : config.o
+
+# target to build an object file
+config.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/config.cpp.o
+.PHONY : config.cpp.o
+
+config.i: config.cpp.i
+.PHONY : config.i
+
+# target to preprocess a source file
+config.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/config.cpp.i
+.PHONY : config.cpp.i
+
+config.s: config.cpp.s
+.PHONY : config.s
+
+# target to generate assembly for a file
+config.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/config.cpp.s
+.PHONY : config.cpp.s
+
+fixpoint/findFixpointByMonotoneDecomp.o: fixpoint/findFixpointByMonotoneDecomp.cpp.o
+.PHONY : fixpoint/findFixpointByMonotoneDecomp.o
+
+# target to build an object file
+fixpoint/findFixpointByMonotoneDecomp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/findFixpointByMonotoneDecomp.cpp.o
+.PHONY : fixpoint/findFixpointByMonotoneDecomp.cpp.o
+
+fixpoint/findFixpointByMonotoneDecomp.i: fixpoint/findFixpointByMonotoneDecomp.cpp.i
+.PHONY : fixpoint/findFixpointByMonotoneDecomp.i
+
+# target to preprocess a source file
+fixpoint/findFixpointByMonotoneDecomp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/findFixpointByMonotoneDecomp.cpp.i
+.PHONY : fixpoint/findFixpointByMonotoneDecomp.cpp.i
+
+fixpoint/findFixpointByMonotoneDecomp.s: fixpoint/findFixpointByMonotoneDecomp.cpp.s
+.PHONY : fixpoint/findFixpointByMonotoneDecomp.s
+
+# target to generate assembly for a file
+fixpoint/findFixpointByMonotoneDecomp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/findFixpointByMonotoneDecomp.cpp.s
+.PHONY : fixpoint/findFixpointByMonotoneDecomp.cpp.s
 
 fixpoint/fixDecompAlgorithm.o: fixpoint/fixDecompAlgorithm.cpp.o
 .PHONY : fixpoint/fixDecompAlgorithm.o
@@ -369,6 +417,30 @@ fixpoint/latticeUtil.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/latticeUtil.cpp.s
 .PHONY : fixpoint/latticeUtil.cpp.s
 
+fixpoint/monotoneDecompAlgorithm.o: fixpoint/monotoneDecompAlgorithm.cpp.o
+.PHONY : fixpoint/monotoneDecompAlgorithm.o
+
+# target to build an object file
+fixpoint/monotoneDecompAlgorithm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/monotoneDecompAlgorithm.cpp.o
+.PHONY : fixpoint/monotoneDecompAlgorithm.cpp.o
+
+fixpoint/monotoneDecompAlgorithm.i: fixpoint/monotoneDecompAlgorithm.cpp.i
+.PHONY : fixpoint/monotoneDecompAlgorithm.i
+
+# target to preprocess a source file
+fixpoint/monotoneDecompAlgorithm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/monotoneDecompAlgorithm.cpp.i
+.PHONY : fixpoint/monotoneDecompAlgorithm.cpp.i
+
+fixpoint/monotoneDecompAlgorithm.s: fixpoint/monotoneDecompAlgorithm.cpp.s
+.PHONY : fixpoint/monotoneDecompAlgorithm.s
+
+# target to generate assembly for a file
+fixpoint/monotoneDecompAlgorithm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/monotoneDecompAlgorithm.cpp.s
+.PHONY : fixpoint/monotoneDecompAlgorithm.cpp.s
+
 fixpoint/monotoneFunction.o: fixpoint/monotoneFunction.cpp.o
 .PHONY : fixpoint/monotoneFunction.o
 
@@ -465,6 +537,102 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+shapley-stochastic-game/shapleyStochasticGame.o: shapley-stochastic-game/shapleyStochasticGame.cpp.o
+.PHONY : shapley-stochastic-game/shapleyStochasticGame.o
+
+# target to build an object file
+shapley-stochastic-game/shapleyStochasticGame.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/shapley-stochastic-game/shapleyStochasticGame.cpp.o
+.PHONY : shapley-stochastic-game/shapleyStochasticGame.cpp.o
+
+shapley-stochastic-game/shapleyStochasticGame.i: shapley-stochastic-game/shapleyStochasticGame.cpp.i
+.PHONY : shapley-stochastic-game/shapleyStochasticGame.i
+
+# target to preprocess a source file
+shapley-stochastic-game/shapleyStochasticGame.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/shapley-stochastic-game/shapleyStochasticGame.cpp.i
+.PHONY : shapley-stochastic-game/shapleyStochasticGame.cpp.i
+
+shapley-stochastic-game/shapleyStochasticGame.s: shapley-stochastic-game/shapleyStochasticGame.cpp.s
+.PHONY : shapley-stochastic-game/shapleyStochasticGame.s
+
+# target to generate assembly for a file
+shapley-stochastic-game/shapleyStochasticGame.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/shapley-stochastic-game/shapleyStochasticGame.cpp.s
+.PHONY : shapley-stochastic-game/shapleyStochasticGame.cpp.s
+
+shapley-stochastic-game/shapleyStochasticGameGenerator.o: shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.o
+.PHONY : shapley-stochastic-game/shapleyStochasticGameGenerator.o
+
+# target to build an object file
+shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.o
+.PHONY : shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.o
+
+shapley-stochastic-game/shapleyStochasticGameGenerator.i: shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.i
+.PHONY : shapley-stochastic-game/shapleyStochasticGameGenerator.i
+
+# target to preprocess a source file
+shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.i
+.PHONY : shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.i
+
+shapley-stochastic-game/shapleyStochasticGameGenerator.s: shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.s
+.PHONY : shapley-stochastic-game/shapleyStochasticGameGenerator.s
+
+# target to generate assembly for a file
+shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.s
+.PHONY : shapley-stochastic-game/shapleyStochasticGameGenerator.cpp.s
+
+simple-stochatic-game/simpleStochasticGame.o: simple-stochatic-game/simpleStochasticGame.cpp.o
+.PHONY : simple-stochatic-game/simpleStochasticGame.o
+
+# target to build an object file
+simple-stochatic-game/simpleStochasticGame.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGame.cpp.o
+.PHONY : simple-stochatic-game/simpleStochasticGame.cpp.o
+
+simple-stochatic-game/simpleStochasticGame.i: simple-stochatic-game/simpleStochasticGame.cpp.i
+.PHONY : simple-stochatic-game/simpleStochasticGame.i
+
+# target to preprocess a source file
+simple-stochatic-game/simpleStochasticGame.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGame.cpp.i
+.PHONY : simple-stochatic-game/simpleStochasticGame.cpp.i
+
+simple-stochatic-game/simpleStochasticGame.s: simple-stochatic-game/simpleStochasticGame.cpp.s
+.PHONY : simple-stochatic-game/simpleStochasticGame.s
+
+# target to generate assembly for a file
+simple-stochatic-game/simpleStochasticGame.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGame.cpp.s
+.PHONY : simple-stochatic-game/simpleStochasticGame.cpp.s
+
+simple-stochatic-game/simpleStochasticGameGenerator.o: simple-stochatic-game/simpleStochasticGameGenerator.cpp.o
+.PHONY : simple-stochatic-game/simpleStochasticGameGenerator.o
+
+# target to build an object file
+simple-stochatic-game/simpleStochasticGameGenerator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGameGenerator.cpp.o
+.PHONY : simple-stochatic-game/simpleStochasticGameGenerator.cpp.o
+
+simple-stochatic-game/simpleStochasticGameGenerator.i: simple-stochatic-game/simpleStochasticGameGenerator.cpp.i
+.PHONY : simple-stochatic-game/simpleStochasticGameGenerator.i
+
+# target to preprocess a source file
+simple-stochatic-game/simpleStochasticGameGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGameGenerator.cpp.i
+.PHONY : simple-stochatic-game/simpleStochasticGameGenerator.cpp.i
+
+simple-stochatic-game/simpleStochasticGameGenerator.s: simple-stochatic-game/simpleStochasticGameGenerator.cpp.s
+.PHONY : simple-stochatic-game/simpleStochasticGameGenerator.s
+
+# target to generate assembly for a file
+simple-stochatic-game/simpleStochasticGameGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGameGenerator.cpp.s
+.PHONY : simple-stochatic-game/simpleStochasticGameGenerator.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -483,15 +651,21 @@ help:
 	@echo "... arrival/arrivalUtil.o"
 	@echo "... arrival/arrivalUtil.i"
 	@echo "... arrival/arrivalUtil.s"
-	@echo "... arrival/generateRandomInstance.o"
-	@echo "... arrival/generateRandomInstance.i"
-	@echo "... arrival/generateRandomInstance.s"
+	@echo "... arrival/generateInstance.o"
+	@echo "... arrival/generateInstance.i"
+	@echo "... arrival/generateInstance.s"
 	@echo "... arrival/preprocessInstance.o"
 	@echo "... arrival/preprocessInstance.i"
 	@echo "... arrival/preprocessInstance.s"
 	@echo "... arrival/simpleWalk.o"
 	@echo "... arrival/simpleWalk.i"
 	@echo "... arrival/simpleWalk.s"
+	@echo "... config.o"
+	@echo "... config.i"
+	@echo "... config.s"
+	@echo "... fixpoint/findFixpointByMonotoneDecomp.o"
+	@echo "... fixpoint/findFixpointByMonotoneDecomp.i"
+	@echo "... fixpoint/findFixpointByMonotoneDecomp.s"
 	@echo "... fixpoint/fixDecompAlgorithm.o"
 	@echo "... fixpoint/fixDecompAlgorithm.i"
 	@echo "... fixpoint/fixDecompAlgorithm.s"
@@ -504,6 +678,9 @@ help:
 	@echo "... fixpoint/latticeUtil.o"
 	@echo "... fixpoint/latticeUtil.i"
 	@echo "... fixpoint/latticeUtil.s"
+	@echo "... fixpoint/monotoneDecompAlgorithm.o"
+	@echo "... fixpoint/monotoneDecompAlgorithm.i"
+	@echo "... fixpoint/monotoneDecompAlgorithm.s"
 	@echo "... fixpoint/monotoneFunction.o"
 	@echo "... fixpoint/monotoneFunction.i"
 	@echo "... fixpoint/monotoneFunction.s"
@@ -516,6 +693,18 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... shapley-stochastic-game/shapleyStochasticGame.o"
+	@echo "... shapley-stochastic-game/shapleyStochasticGame.i"
+	@echo "... shapley-stochastic-game/shapleyStochasticGame.s"
+	@echo "... shapley-stochastic-game/shapleyStochasticGameGenerator.o"
+	@echo "... shapley-stochastic-game/shapleyStochasticGameGenerator.i"
+	@echo "... shapley-stochastic-game/shapleyStochasticGameGenerator.s"
+	@echo "... simple-stochatic-game/simpleStochasticGame.o"
+	@echo "... simple-stochatic-game/simpleStochasticGame.i"
+	@echo "... simple-stochatic-game/simpleStochasticGame.s"
+	@echo "... simple-stochatic-game/simpleStochasticGameGenerator.o"
+	@echo "... simple-stochatic-game/simpleStochasticGameGenerator.i"
+	@echo "... simple-stochatic-game/simpleStochasticGameGenerator.s"
 .PHONY : help
 
 

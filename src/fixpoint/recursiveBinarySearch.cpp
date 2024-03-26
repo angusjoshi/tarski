@@ -66,7 +66,7 @@ vector<int_t> findFixpointRecBin(const vector<int_t>& bot,
         int_t botPlusTop = currentTop.back() + currentBot.back();
         int_t currentMid = botPlusTop / 2;
         if(useCeilDivision) {
-            currentMid += botPlusTop % 2 == 1 ? 1 : 0;
+            currentMid += botPlusTop % 2;
         }
 
         auto sliceFunction  = [&f, currentMid] (vector<int_t> v) {
@@ -76,8 +76,8 @@ vector<int_t> findFixpointRecBin(const vector<int_t>& bot,
             return result;
         };
 
-        vector<int_t> sliceBot {bot.begin(), bot.end() - 1};
-        vector<int_t> sliceTop {top.begin(), top.end() - 1};
+        vector<int_t> sliceBot {currentBot.begin(), currentBot.end() - 1};
+        vector<int_t> sliceTop {currentTop.begin(), currentTop.end() - 1};
 
         vector<int_t> sliceFixpoint = findFixpointRecBin(sliceBot, sliceTop, sliceFunction);
 
@@ -91,7 +91,7 @@ vector<int_t> findFixpointRecBin(const vector<int_t>& bot,
             return other;
         }
 
-        if(currentTop.back() - currentBot.back() <= 1) {
+        if(abs(currentTop.back() - currentBot.back()) <= 1) {
             useCeilDivision = !useCeilDivision;
         }
 
