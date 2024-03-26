@@ -19,6 +19,7 @@
 \usepackage{listings}
 \usepackage{relsize}
 \usepackage{tkz-euclide}
+\usepackage{stmaryrd}
 
 
 \theoremstyle{definition}
@@ -79,14 +80,14 @@ backgroundcolor=\color{mygray},
 
 \newenvironment{proofOf}[1]{%
   \renewcommand{\proofname}{Proof of #1}\proof}{\endproof}
-\newcommand{\mi}{\text{mid}}
+\newcommand{\mi}{\ensuremath{\mathrm{mid}}}
 \newcommand{\arr}{\textsc{Arrival}}
-\newcommand{\flin}{\ensuremath{\f_{\text{in}}}}
-\newcommand{\glin}{\ensuremath{\g_{\text{in}}}}
+\newcommand{\flin}{\ensuremath{\f_{\mathrm{in}}}}
+\newcommand{\glin}{\ensuremath{\g_{\mathrm{in}}}}
 
 
 \newcommand{\Up}{\mathrm{Up}}
-\newcommand{\Down}{\text{Down}}
+\newcommand{\Down}{\mathrm{Down}}
 \newcommand\restr[2]{{
   \left.\kern-\nulldelimiterspace 
   #1 

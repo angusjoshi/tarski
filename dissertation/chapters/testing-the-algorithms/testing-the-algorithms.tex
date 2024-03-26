@@ -5,7 +5,7 @@ While the algorithms of previous sections are of great theoretical interest,
 questions remain on their practicality. To address this,
 I have implemented the algorithms and tested their performance on
 randomly generated instances of $\arr$, simple stochastic games, and
-shapley's stochastic games. The notable conclusions are roughly speaking as follows;
+shapley's stochastic games. The notable conclusions are roughly speaking as follows,
 \begin{itemize}
   \item the most basic \cref{kleeneTarski} outperforms all of the
 more complex algorithms in all cases in terms of query count and time,
@@ -22,7 +22,8 @@ Complete source code can be found \href{https://github.com/angusjoshi/tarski}{he
 Implementation follows the description of the algorithms from previous chapters closely,
 and I will not share too much detail on my code for fear of it not being helpful. The interested
 reader is instead urged to read the code linked above. Compilation and linking was done with
-clang version 14.0.3. Soplex\citep{soplex} was used as a dependency to solve linear programs
+clang version 14.0.3 with the C++20 standard and \lstinline{-03} optimization settings.
+Soplex\citep{soplex} was used as a dependency to solve linear programs
 as part of the shapley's stochastic games solver, and GMP\citep{gmp} was used for multiprecision types. \\
 \subsubsection{Performance Improvements}
 There are certainly performance optimizations that could be made. For simplicity of implementation\footnote{particularly
@@ -83,7 +84,8 @@ In order, these are addressed as follows,
     to be one of two states,
   \item every probability distribution in the successor matrix is chosen as a u.a.r. partition of $[0, 1]$
     as in the simple stochastic game case,
-  \item all entries of the payoff matrices are chosen to be u.a.r. integers in the range $[-M, M]$.
+  \item all entries of the payoff matrices are chosen to be u.a.r. integers in the range $[-M, M]$ for some
+    fixed $M \in \zpos$.
 \end{itemize}
 \subsubsection{Limitations}
 I acknowledge that testing with random instances in this fashion is necessarily limited; the results

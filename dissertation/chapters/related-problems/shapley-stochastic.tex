@@ -65,8 +65,8 @@ Recall the definition of $\val$ from \cref{matrixGameVal}.
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $d = |V|$ and $M = \max_{i, j, k} |A_{j, k}^i|$. Then the
   \emph{stopping stochastic game monotone function} is a function
   $F : [-\frac{M}{q}, \frac{M}{q}]^d \to [-\frac{M}{q}, \frac{M}{q}]^d$ defined coordinatewise as
-  $F(x)_i =  \val \left( A^i + (1 - q) \cdot T \right)$ where $T$ is an $n_i \times m_i$ matrix defined
-  $T_{j, k} = \sum_{l = 1}^n (P_{j, k}^i)_l x_l$.
+  $F(x)_i =  \val \left( A^i + (1 - q) \cdot T^i \right)$ where $T^i$ is an $n_i \times m_i$ matrix defined
+  $T^i_{j, k} = \sum_{l = 1}^n (P_{j, k}^i)_l \cdot x_l$.
 \end{definition}
 I was perhaps hasty in writing the codomain of this function, but the following lemma
 shows it to be correct.
@@ -75,7 +75,7 @@ shows it to be correct.
   Then for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \in [-\frac{M}{q}, \frac{M}{q}]^d$.
   Further, $F$ is monotone.
 \end{lemma}
-\newcommand{\mat}{\mathrm{Mat}}
+\newcommand{\mat}[1]{\left\llbracket #1 \right\rrbracket}
 \begin{proof}
   The first observation is that the $\val(\cdot)$ operator is monotone in the coordinatewise ordering
   for the corresponding set of matrices. For
@@ -88,14 +88,14 @@ shows it to be correct.
   Secondly, if $N = \max_{j, k} |B_{j, k}|$ then clearly the maximizer can achieve payoff
   no larger than the largest entry in the matrix, and no smaller than the smallest. So $-N \leq \val(B) \leq N$.
   Now by monotonicity I have for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \leq F\left(\vec{\frac{M}{q}}\right)$.
-  I take some liberty in denoting $\mat(k)$ to be the matrix
+  I take some liberty in denoting $\mat{k}$ to be the matrix
   with entries all equal to $k$ with size inferred from context. For each $i \in [d]$,
   \begin{align*}
-    F\left(\vec{\frac{M}{q}}\right)_i &= \val(A^i + (1 - q) \cdot T) \\
-                               &\leq \val\left(\mat(M) + (1 - q) \mat\left(\frac{M}{q}\right)\right) \\
-                               &= \val\left(\mat(M) - \mat(M) + \mat\left(\frac{M}{q}\right)\right) = \frac{M}{q}.
+    F\left(\vec{\frac{M}{q}}\right)_i &= \val(A^i + (1 - q) \cdot T^i) \\
+                               &\leq \val\left(\mat{M} + (1 - q) \mat{\frac{M}{q}}\right) \\
+                               &= \val\left(\mat{M} - \mat{M} + \mat{\frac{M}{q}}\right) = \frac{M}{q}.
   \end{align*}
-  Noting that in the case $x = \vec{\frac{M}{q}}$, $T$ can clearly be seen to be equal to $\mat\left(\frac{M}{q}\right)$.
+  Noting that in the case $x = \vec{\frac{M}{q}}$, $T$ can clearly be seen to be equal to $\mat{\frac{M}{q}}$.
   It can be shown using a similar argument that $F(x) \geq -\frac{M}{q}$ by observing again by monotonicity
   that $F(x) \geq F\left(-\frac{M}{q}\right)$.
 \end{proof}

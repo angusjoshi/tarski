@@ -1,10 +1,11 @@
 \section{The Inner Algorithm}
-[rewrite this introduction a little, i prove correctness of main cases]
-I will not detail the inner algorithm in it's entirety, nor prove it's correctness;
-the reader is instead directed to \citep{fasterTarski}. Instead I will introduce
-the main invariant, showing how the algorithm can make progress in the important 
-cases. I require a weakening of the invariant used in \cref{dQiYiAlg}; whereas
-in \cref{dQiYiAlg} two opposing monotone points are maintained essentially
+In the interest of saving space, I will not detail the inner algorithm in it's entirety.
+Instead I will introduce
+the main invariant, proving lemmas showing how the inner algorithm
+can make progress in the main cases.\footnote{The key missing cases are when the current search space is 'narrow',
+in that the width in some dimension is $\leq 1$.
+The reader is directed to \citep{fasterTarski} for these.} In contrast to
+\cref{dQiYiAlg} where two opposing monotone points are maintained essentially
 defining the top and bottom of a sublattice on which the monotone function
 naturally restricts (and hence contains a fixpoint), 
 the inner algorithm maintains an invariant so that only a monotone point is guaranteed
@@ -27,21 +28,23 @@ within the current search space.
 \end{definition}
 
 I use a notational convenience from \citep{fasterTarski}.
-\begin{notation}
-  Let $f : L \to L$ be a monotone function. Then Up$(f) = \{x \in L : x \leq f(x)\}$
-  and Down$(f) = \{x \in L : x \geq f(x)\}$. At times an abuse of notation is used,
+\begin{definition}[Up/Down Set]
+  Let $f : L \to L$ be a monotone function. Then the \emph{up-set} of $f$ is defined $\Up(f) = \{x \in L : x \leq f(x)\}$
+  and the \emph{down-set} of $f$ is defined $\Down(f) = \{x \in L : x \geq f(x)\}$. At times an abuse of notation is used,
   where elements of the lattice $x \in [N]^d$ are said to be in the up set or down
   set of the slice $f_s$ of a monotone function $f : [N]^d \to [N]^d$. The meaning
   is assumed to be clear from context.
-\end{notation}
+\end{definition}
 Now for the main invariant of the inner algorithm.
 \begin{definition}[Inner algorithm invariant]
   Let $f : [N]^3 \to [N]^3$ be a monotone function. The \emph{inner algorithm invariant}
   is an up set witness $(d, b)$ and a down set witness $(a, u)$ such that $u \leq d$.
 \end{definition}
-The reader is directed to \cref{witnessFig} to aid with digesting the witness and invariant
-definitions.
-\begin{figure}[ht] \label{witnessFig}
+The reader is directed to \cref{witnessFig} to aid in digesting the witness and invariant
+definitions. Throughout whenever the inner algorithm invariant is satisfied,  
+I fix $f_s$ be the slice of $f$ at coordinate $3$ with value $b_3 = a_3 = d_3 = u_3$ (where all of
+these equalities follow from the witness definitions).
+\begin{figure}[ht] 
   \centering
   \scalebox{0.4}{\input{diagrams/from-fps/witnesses.tex}}
   \caption{There are many possible configurations of witnesses that satisfy the invariant.
@@ -50,8 +53,8 @@ definitions.
   represents some 'slice' of the three dimensional cube in the third coordinate. An arrow
   extending from a point $x \in [N]^3$ in direction $i \in \{1, 2, 3\}$ in the positive (negative) direction
   should be read as $f(x)_i \geq (\leq) x_i$. For example in the rightmost square if 1 is the horizontal
-  direction and 2 is the vertical direction, 3 is forwards dimension then $f(b)_2 \leq b_2$ and $f(b)_3 \geq b_3$. 
-  Diagram source: \citep{fasterTarski}}
+  direction and 2 is the vertical direction, and 3 is forwards dimension then $f(b)_2 \leq b_2$ and $f(b)_3 \geq b_3$. 
+  Diagram source: \citep{fasterTarski}} \label{witnessFig}
 \end{figure}
 \begin{lemma}
   Let $f : [N]^3 \to [N]^3$ be a monotone function with $(a, u)$, $(d, b)$ up
@@ -59,20 +62,21 @@ definitions.
   Then there is a point $x \in [N]^3$ with $a \leq x \leq b$ and $x \in \Up(f)$ or $x \in \Down(f)$.
 \end{lemma}
 \begin{proof}
-  I will prove the case that $d_1 = b_1$ and $a_1 = u_1$, and the others follow similarly.
-  Let $f_s$ be the slice of $f$ at coordinate $3$ with value $b_3 = a_3 = d_3 = u_3$ (where all of
-  these equalities follow from the witness definitions). If $a = u$ and $b = d$ then $a \in \Up(f_s)$ and
+   If $a = u$ and $b = d$ then by the witness definition $a \in \Up(f_s)$ and
   $b \in \Down(f_s)$, so \cref{restricts} guarantees fixpoint of $f_s$ in the range $[a, b]$, which is then
-  necessarily a monotone point. \\
-  If $a \neq u$ then \cref{restricts} gives a point $c \in [N]^3$ with $a \leq c \leq u$ and $f(c)_2 = c_2$.
-  By monotonicity and $c \leq u$ I have $f(c)_3 \leq c_3$. If $f(c)_1 \leq c_1$ then $c \in \Down(f)$ and I'm done.
-  If $f(c)_1 \geq c_1$ then I consider $b$ and $d$. Using a similar argument there is a $v \in [N]^3$ with $d \leq v \leq b$
-  such that $f(v)_3 \geq v_3$, and $f(v)_2 = v_2$. If $f(v)_1 \geq v_1$ then $v \in \Up(f)$, and if $f(v)_1 \leq v_1$
-  then \cref{restricts} guarantees a fixpoint of $f_s$ in the range $[c, v]$, which is neccessarily monotone.
+  necessarily a monotone point of $f$. \\
+  By the witnesses definition, there are $j, j' \in \{1, 2\}$ such that $d_j = b_j$ and $a_{j'} = u_{j'}$.
+  Then let $i, i' \in \{1, 2\}$ with $i \neq j$ and $j \neq j'$.
+  If $a \neq u$ then \cref{restricts} gives a point $c \in [N]^3$ with $a \leq c \leq u$ and $f(c)_{i'} = c_{i'}$.
+  By monotonicity and $c \leq u$ I have $f(c)_3 \leq c_3$. If $f(c)_1 \leq c_{j'}$ then $c \in \Down(f)$ and I'm done.
+  If $f(c)_{j'} \geq c_{j'}$ then I consider $b$ and $d$. Using a similar argument there is a $v \in [N]^3$ with $d \leq v \leq b$
+  such that $f(v)_3 \geq v_3$, and $f(v)_i = v_i$. If $f(v)_j \geq v_j$ then $v \in \Up(f)$, and if $f(v)_j \leq v_j$
+  then by the invariant, $v \geq d \geq u \geq c$ gives $v \geq c$, 
+  and \cref{restricts} guarantees a fixpoint of $f_s$ in the range $[c, v]$, which is neccessarily monotone.
 \end{proof}
-The key is then to half the search instance in a constant amount of time by finding
+The key is then to half the current search space in a constant amount of time by finding
 a new set of points satisfying the inner algorithm invariant. There are many distinct cases
-to be handled here and I will not cover them all. In particular, special cases are required for
+to be handled here and I have not covered them all. In particular, special cases are required for
 instances which have are narrow (that is, for some $i \in \{1, 2, 3\}$ $b_i - a_i \leq 1$). The 
 reader is directed to \citep{fasterTarski} for these. The first case is under the assumption that $u$ and $d$ are
 not past the midpoint of the line they are on.
