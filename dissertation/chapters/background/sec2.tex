@@ -1,22 +1,9 @@
 \section{Basic Algorithms}
-Although Tarski's theorem easily subsumes the finite case detailed below,
-I include a basic proof of the existence of fixpoints of monotone functions of finite lattices
-as the ideas involved will be useful in the development of algorithms.
-\begin{theorem}[\citep{tarski}]\label{fixExist}
-  Let $f : [N]^d \to [N]^d$ be monotone. Then there is a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
-\end{theorem}
-\begin{proof}
-  Firstly, note that for all $x \in [N]^d$ the point $\vec{1} = (1, ..., 1) \leq x$, and in particular $\vec{1} \leq f(\vec{1})$.
-  By an induction combined with monotonicity I find for all $i \in \znn$, $f^i (\vec{1}) \leq f^{i+1} (\vec{1})$. Suppose for a contradiction that there
-  is no point $x^* \in [N]^d$ such that $f(x^*) = x^*$. Then for all $i \in \znn$, $f^i (\vec{1}) \neq f^{i+1}(\vec{1})$ which implies
-  that $f^i (\vec{1}) < f^{i+1}(\vec{1})$. This gives infinitely many distinct points in $[N]^d$. But $[N]^d$ is finite, which is a contradiction.
-  It follows that
-  there is a fixpoint of $f$ in $[N]^d$.
-\end{proof}
+Tarski's fixed point theorem gives rise to a natural computational problem.
 \begin{definition}[$\trsk$]
   The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
 \end{definition}
-The proof of \cref{fixExist} implicitly contains our first algorithm for fixpoint computation.
+And now for the first basic algorithm for solving \trsk.
 \begin{notation}
   For $k \in \znn$ the notation $\vec{k} = (k, ..., k)$. It is assumed that
   the dimensionality of this 'vector' is clear from context.

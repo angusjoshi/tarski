@@ -9,7 +9,7 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{hyperref}
-\usepackage[noabbrev,nameinlink]{cleveref}
+\usepackage{cleveref}
 \usepackage{algorithm}
 \usepackage{algpseudocodex}
 \usepackage{mathrsfs}
@@ -71,6 +71,7 @@
 \newcommand{\rpos}{\mathbb{R}_{> 0}}
 \newcommand{\trsk}{\textsc{Tarski}}
 \newcommand{\nd}{[N]^d}
+\newcommand{\E}{\mathbb{E}}
 \newenvironment{sproof}{%
   \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
 
@@ -107,8 +108,8 @@ backgroundcolor=\color{mygray},
 % you should catch most accidental changes of page layout though.
 
 \usepackage{microtype} % recommended, but you can remove if it causes problems
-\usepackage{natbib} % recommended for citations
-
+% \usepackage{natbib} % recommended for citations
+\usepackage[square,numbers]{natbib}
 \begin{document}
 
 \usetikzlibrary{
@@ -191,88 +192,14 @@ Any acknowledgements go here.
 
 \chapter{Introduction}
 
-The preliminary material of your report should contain:
-\begin{itemize}
-\item
-The title page.
-\item
-An abstract page.
-\item
-Declaration of ethics and own work.
-\item
-Optionally an acknowledgements page.
-\item
-The table of contents.
-\end{itemize}
-
-As in this example \texttt{skeleton.tex}, the above material should be
-included between:
-\begin{verbatim}
-\begin{preliminary}
-    ...
-\end{preliminary}
-\end{verbatim}
-This style file uses roman numeral page numbers for the preliminary material.
-
-The main content of the dissertation, starting with the first chapter,
-starts with page~1. \emph{\textbf{The main content must not go beyond page~40.}}
-
-The report then contains a bibliography and any appendices, which may go beyond
-page~40. The appendices are only for any supporting material that's important to
-go on record. However, you cannot assume markers of dissertations will read them.
-
-You may not change the dissertation format (e.g., reduce the font size, change
-the margins, or reduce the line spacing from the default single spacing). Be
-careful if you copy-paste packages into your document preamble from elsewhere.
-Some \LaTeX{} packages, such as \texttt{fullpage} or \texttt{savetrees}, change
-the margins of your document. Do not include them!
-
-Over-length or incorrectly-formatted dissertations will not be accepted and you
-would have to modify your dissertation and resubmit. You cannot assume we will
-check your submission before the final deadline and if it requires resubmission
-after the deadline to conform to the page and style requirements you will be
-subject to the usual late penalties based on your final submission time.
-
-\section{Using Sections}
-
-Divide your chapters into sub-parts as appropriate.
-
-\section{Citations}
-
-Citations, such as \citet{P1} or \citep{P2}, can be generated using
-\setcitestyle{numbers}
-\texttt{BibTeX}. We recommend using the \texttt{natbib} package (default) or the newer \texttt{biblatex} system. 
-
-You may use any consistent reference style that you prefer, including ``(Author, Year)'' citations. 
 
 \input{chapters/background/background.tex}
 \input{chapters/the-algorithms/the-algorithms.tex}
 \input{chapters/related-problems/related-problems.tex}
 \input{chapters/testing-the-algorithms/testing-the-algorithms.tex}
 
-\chapter{Your next chapter}
+\input{chapters/conclusion.tex}
 
-A dissertation usually contains several chapters.
-
-\chapter{Conclusions}
-
-\section{Final Reminder}
-
-The body of your dissertation, before the references and any appendices,
-\emph{must} finish by page~40. The introduction, after preliminary material,
-should have started on page~1.
-
-You may not change the dissertation format (e.g., reduce the font size, change
-the margins, or reduce the line spacing from the default single spacing). Be
-careful if you copy-paste packages into your document preamble from elsewhere.
-Some \LaTeX{} packages, such as \texttt{fullpage} or \texttt{savetrees}, change
-the margins of your document. Do not include them!
-
-Over-length or incorrectly-formatted dissertations will not be accepted and you
-would have to modify your dissertation and resubmit. You cannot assume we will
-check your submission before the final deadline and if it requires resubmission
-after the deadline to conform to the page and style requirements you will be
-subject to the usual late penalties based on your final submission time.
 
 % \bibliographystyle{plain}
 \bibliographystyle{plainnat}

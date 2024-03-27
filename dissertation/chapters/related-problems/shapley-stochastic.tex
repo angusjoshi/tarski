@@ -49,17 +49,23 @@ are as follows.
   and for each $j \in [m_i]$, $\tau_i^j \geq 0$.
   The set of all mixed stationary strategies for the minimizer is denoted $T$.
 \end{definition}
-The content of the following result from \citep{shapley} is that stopping stochastic games
-necessarily have a value which can be achieved in mixed stationary strategies, which is to say
-players can achieve optimal expected payoff by fixing probability distributions on their action sets
-for every state prior to the game commencing.
+Once a stationary strategy profile is fixed, given a starting state, 
+I can define a sequence of random variables
+$(X_t)_{t \in \znn}$ representing the payoff at the $t$-th step, allowing for the convention
+that the game continues to 'play' after halting, just giving both players payoff 0 repeatedly. The value of the game
+then becomes the (necessarily convergent) series $\sum_{t = 0}^\infty \E[X_t]$. More detail on this can be found in
+\citep{compMdps}. Then the value of a state $x \in V$ 
+under stationay strategy profile $(\sigma, \tau)$ is denoted $v_{\sigma, \tau}(x)$. The content of the following
+result from \citep{shapley} is that stochastic games necessarily have a minimax value, and that value can be achieved
+in stationary strategies.
 \begin{prop}[\citep{shapley}]
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game and $S$, $T$ be the mixed stationary strategy
-  sets for the maximizer and minimizer respectively. Then,
+  sets for the maximizer and minimizer respectively. Then for all $x \in V$, 
   \begin{align*}
-    \max_{\sigma \in S} \min_{\tau \in T} 
+    \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau}(x) = \min_{\tau \in T} \max_{\sigma \in S} v_{\sigma, \tau}(x).
   \end{align*}
 \end{prop}
+The value of the game is then denoted $v(s)$. The value of a particular state $x \in V$ is denoted $v(x)$.
 Recall the definition of $\val$ from \cref{matrixGameVal}.
 \begin{definition}[Stopping Stochastic Game Monotone Function] \label{shapleyMonotone}
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $d = |V|$ and $M = \max_{i, j, k} |A_{j, k}^i|$. Then the
@@ -101,7 +107,42 @@ shows it to be correct.
   that $F(x) \geq F\left(-\frac{M}{q}\right)$.
 \end{proof}
 Shapley shows in \citep{shapley} that for all $x, x' \in [-\frac{M}{q}, \frac{M}{q}]^d$ 
-that $\|F(x) - F(x)'\|_|infty \leq (1 - q) \|x - x'\|_\infty$,
-which is to say $F$ is a contraction map and has a \emph{unique} fixpoint by the banach fixpoint theorem. Further
-Shapley shows in \citep{shapley} that this function is a contraction map. That is,
-For all $x, x' \in [-\frac{M}{q}, \frac{M}{q}]^d$ I have $\|F(x) - F(x')\|_\infty \leq (1 - q) \|x - x'\|_\infty$.
+that $\|F(x) - F(x)'\|_\infty \leq (1 - q) \|x - x'\|_\infty$,
+which is to say $F$ is a contraction map and has a \emph{unique} fixpoint by the banach fixpoint theorem. 
+It is further shown in \citep{shapley} the unique fixpoint gives precisely the value of the game. That is, 
+if $x^* = F(x^*)$ then
+for all $i \in [d]$, $v(v_i) = x^*_i$. The last step is a discretization. Similar to \citep{lowerBound} I
+use the notation $\langle M \rangle = \{-M, ..., 0, ..., M\}$. 
+\newcommand{\angm}{\langle M \rangle}
+\begin{lemma}[Stopping Stochastic Game Discretization] \label{shapleyDiscretization}
+  Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $F$ as defined in \cref{shapleyMonotone}, 
+  and $\varepsilon \in \rpos$. Then if $M$ is the maximum entry in the set of payoff matrices, let 
+  $N = \frac{M}{\varepsilon q^2}$ and define a function $f : \langle N \rangle \to \langle N \rangle$ coordinatewise with
+  $f(x)_i = \left\lfloor \frac{1}{\varepsilon q} F(\varepsilon q \cdot x)_i \right\rfloor$. Then if $f(x) = x$
+  and $x^*$ is the unique fixpoint of $F$, $\|\varepsilon q \cdot x - x^*\|_\infty$.
+\end{lemma}
+\begin{proof}
+  From $f(x) = x$ I have by definition of $\lfloor \cdot \rfloor$ for each $i \in [d]$,
+  $1 > \frac{1}{\varepsilon q} \cdot F(\varepsilon q \cdot x)_i - x_i \geq 0$, which is to say
+  $\|\frac{1}{\varepsilon q} \cdot F(\varepsilon q \cdot x) - x\|_\infty < 1$. Then by homogeneity of the norm,
+  $\|F(\varepsilon q \cdot x) - x\|_\infty < \varepsilon q$. I calculate,
+  \begin{align*}
+    \|\varepsilon q \cdot x - x^* \|_\infty &\leq \|\varepsilon q \cdot x - F(\varepsilon q \cdot x) \|_\infty
+                                           + \| F(\varepsilon q \cdot x) - x^* \|_\infty \\
+                                      &=  \|\varepsilon q x - F(\varepsilon q \cdot x) \|_\infty
+                                        +  \| F(\varepsilon q \cdot x) - F(x^*) \|_\infty \\
+                                      &< \varepsilon q + (1 - q)\| \varepsilon q \cdot x - x^* \|_\infty.
+  \end{align*}
+  Rearranging and dividing through by $q$ gives the claim.
+\end{proof}
+It should be noted that in \citep[Proposition 6.2.]{lowerBound} a similar result to \cref{shapleyDiscretization} 
+is proven. There is however a mistake at the end of the proof in defining the discretized function, which the above
+shows how to rectify.
+I leave out details on encoding sizes, but these can be found in \citep{lowerBound}.
+Putting it all together,
+\begin{theorem}[\citep{lowerBound}]
+  Let $G$ be a stopping stochastic game and $v \in \R$ the value of the game. Then for all $\varepsilon \in \Q_{> 0}$
+  computing 
+  an $x \in \Q$ such that $|x - v| < \varepsilon$ is polynomial-time reducible to $\trsk$ in the encoding size
+  of $\varepsilon$ and $G$.
+\end{theorem}
