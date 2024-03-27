@@ -9,7 +9,7 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{hyperref}
-\usepackage{cleveref}
+\usepackage[noabbrev,nameinlink]{cleveref}
 \usepackage{algorithm}
 \usepackage{algpseudocodex}
 \usepackage{mathrsfs}
@@ -20,6 +20,7 @@
 \usepackage{relsize}
 \usepackage{tkz-euclide}
 \usepackage{stmaryrd}
+\usepackage{float}
 
 
 \theoremstyle{definition}
@@ -50,8 +51,12 @@
 \newtheorem{notation}[definition]{Notation}
 
 \theoremstyle{definition}
+\newtheorem{test}[definition]{Test}
+
+\theoremstyle{definition}
 \newtheorem{ex}[definition]{Example}
 
+\newcommand{\pav}{Pálvölgyi}
 \newcommand{\val}{\mathrm{val}}
 \newcommand{\poly}{\mathrm{poly}}
 \newcommand{\PClass}{\ensuremath{\mathbf{P}}}

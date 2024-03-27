@@ -43,7 +43,6 @@ simpleStochasticData = {
         'queries': [28, 479, 2895, 27837, 76880, 978393],
         'times': [0.0061, 0.147, 1.513, 17.61, 53.40, 736.1],
     },
-    # todo
     'walkData': {
         'testSize': [10, 100, 1000, 10000, 100000],
         'queries': [19, 23, 12, 10, 6],
@@ -52,6 +51,29 @@ simpleStochasticData = {
     }
 }
 
+longWalkData = {
+    'recbin': {
+        'testSize': [3, 6, 9, 12, 15],
+        'queries': [4, 215, 2525, 17491, 143923],
+        'times': [0.0005, 0.05, 0.88, 8.1, 89.0],
+    },
+    'decomp': {
+        'testSize': [3, 7, 10, 13, 15, 18, 24],
+        'queries': [4, 127, 968, 6109, 33824, 116885, 676685],
+        'times': [0.0004, 0.050, 0.435, 3.44, 17.6, 75.9, 590],
+    },
+    'monDecomp': {
+        'testSize': [3, 5, 7, 9, 11, 13],
+        'queries': [4, 186, 2085, 21043, 175119, 1263033],
+        'times': [0.0015, 0.041, 0.648, 8.61, 86.9, 740.1],
+    },
+    'walkData': {
+        'testSize': [3, 6, 11, 17, 22],
+        'queries': [7, 63, 2047, 131071, 4194303],
+        'times': [0.00027, 0.0025, 0.086, 8.38, 379.1],
+
+    }
+}
 shapleyData = {
     'recbin': {
         'testSize': [2, 3, 4, 5, 6],
@@ -101,24 +123,24 @@ epsilonData = {
     },
     'shapley': {
         'recbin': {
-            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001],
-            'queries': [111, 191, 370, 551, 779, 1389, 1779],
-            'times': [42.0, 52.7, 77.56, 114.4, 176.7, 283.6, 338.8]
+            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001],
+            'queries': [1553, 3493, 8488, 18008, 36145],
+            'times': [881.5, 1751, 4267, 9104, 18207]
         },
         'decomp': {
-            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001],
-            'queries': [29, 39, 55, 73, 89, 118, 120],
-            'times': [5.48, 7.27, 10.5, 14.8, 17.2, 24.1, 23.2]
+            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001],
+            'queries': [320, 541, 1253, 2172, 2763],
+            'times': [189.1, 305.6, 645.6, 1097, 1379]
         },
         'monDecomp': {
-            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001],
-            'queries': [32, 41, 54, 71, 93, 103, 122],
-            'times': [5.95, 7.93, 10.7, 13.8, 17.7, 21.0, 23.38]
+            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001],
+            'queries': [3492, 5045, 9314, 13469, 19336],
+            'times': [1726, 2452, 4509, 6489, 9490]
         },
         'walkData': {
-            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001],
-            'queries': [26, 33, 43, 54, 64, 74, 85],
-            'times': [7.97, 7.57, 8.64, 9.22, 12.2, 20.14, 25.1]
+            'epsilon': [0.5, 0.1, 0.01, 0.001, 0.0001],
+            'queries': [28, 36, 45, 56, 66],
+            'times': [14.2, 17.2, 21.8, 26.9, 31.7]
         },
     }
 }
@@ -145,7 +167,7 @@ def plotSimpleStochastic():
         else:
             plt.ylabel('Average number of queries')
 
-        plt.legend()
+        plt.legend(loc='upper left')
         plt.show()
 
         d = simpleStochasticData['walkData']
@@ -171,7 +193,7 @@ def plotEpsilons():
 
             title = f"Average {type} for random {problem} stochastic game instance (n=20)"
             if problem == 'shapley':
-                title += '\ninstance size = 3'
+                title += '\ninstance size = 6'
             else:
                 title += '\ninstance size = 11'
 
@@ -186,7 +208,7 @@ def plotEpsilons():
                 pass
             else:
                 plt.ylabel('Average number of queries')
-            plt.legend()
+            plt.legend(loc='upper left')
             plt.show()
 
 
@@ -199,14 +221,12 @@ def plotShapley():
         plt.title(f"Average {type} for random shapley stochastic game instance (n=20)")
         plt.yscale('log')
         plt.xlabel('Number of vertices')
-        if algorithm == 'walkData':
-            plt.xscale('log')
         if type == 'times':
             plt.ylabel('Average time (ms)')
             pass
         else:
             plt.ylabel('Average number of queries')
-        plt.legend()
+        plt.legend(loc='upper left')
         plt.show()
 
         d = shapleyData['walkData']
@@ -219,6 +239,23 @@ def plotShapley():
             plt.ylabel('Average number of steps')
         plt.show()
 
+def plotLongWalk():
+    for type in ['queries', 'times']:
+        for algorithm in ['recbin', 'decomp', 'monDecomp', 'walkData']:
+            d = longWalkData[algorithm]
+            plt.plot(d['testSize'], d[type], label=algorithmNames[algorithm])
+
+        plt.title(f"Average {type} for longest arrival instance (n=20)")
+        plt.yscale('log')
+        plt.xlabel('Number of vertices')
+        if type == 'times':
+            plt.ylabel('Average time (ms)')
+            pass
+        else:
+            plt.ylabel('Average number of queries')
+        plt.legend(loc='upper left')
+        plt.show()
+
 def plotAverageQueries():
     plt.plot(recBinData['testSize'], recBinData['queries'], label='Dan, Qi, Ye')
     plt.plot(decompData['testSize'], decompData['queries'], label='Fearnley, Pálvölgyi, Savani')
@@ -229,7 +266,7 @@ def plotAverageQueries():
     plt.xlabel('Number of vertices')
     plt.ylabel('Average number of queries')
 
-    plt.legend()
+    plt.legend(loc='upper left')
     plt.show()
 
 def plotAverageTime():
@@ -242,7 +279,7 @@ def plotAverageTime():
     plt.xlabel('Number of vertices')
     plt.ylabel('Average time (ms)')
 
-    plt.legend()
+    plt.legend(loc='upper left')
     plt.show()
 
 def plotWalkSteps():
@@ -253,7 +290,7 @@ def plotWalkSteps():
     plt.xscale('log')
     plt.yscale('log')
 
-    plt.legend()
+    plt.legend(loc='upper left')
     plt.show()
 def plotWalkTime():
     plt.plot(walkData['testSize'], walkData['times'])
@@ -263,10 +300,11 @@ def plotWalkTime():
     plt.xscale('log')
     plt.yscale('log')
 
-    plt.legend()
+    plt.legend(loc='upper left')
     plt.show()
 
-plotEpsilons()
+plotLongWalk()
+# plotEpsilons()
 # plotSimpleStochastic()
 # plotShapley()
 # plotAverageQueries()

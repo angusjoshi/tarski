@@ -1,0 +1,81 @@
+\section{Discussion}
+Inspecting the plots from \cref{resultsSec} clearly shows that
+the simplest algorithm KT outperforms all other
+algorithms in almost all cases. Interestingly, of the binary-search based
+algorithms, FPS 
+performs the best in all cases,
+while CL and DQY alternate
+which performs better in different cases. I now provide more detailed
+analysis for each individual case.
+\subsection{\arr Tests}
+It can clearly be seen in \cref{arrivalMainPlot} and \cref{arrivalWalkPlot}
+that simulating the arrival walk vastly outperforms the binary-search based
+algorithms on randomly generated instances of the arrival problem.
+The distinction is less clear when testing with the worst case instance
+for the walk as seen in \cref{arrivalLongPlot}; FPS outperforms KT
+in terms of query count for more than 15 vertices, and in terms of time for more than
+20. This is somewhat unexpected as the number of steps in the walk on
+the worst case instance is $\Theta(2^n)$, while the upper bound we
+get from FPS when applied to the walk is 
+$O(\log^{\lceil (n + 2)/3 \rceil } (2^n)) = O(n^{\lceil (n + 2)/3 \rceil})$,
+which is clearly a weaker bound than $O(2^n)$. I believe the cause of this
+is that the recursive binary search algorithms work particularly well
+on this specific long walk instance; the fixpoint for this specific instance
+will be something like $\vec{x} = (2^{n}, 2^{n - 1}, ..., 1)$, and the
+binary search algorithms always start by querying midpoints which happen
+to be powers of two so coincide exactly with the actual fixpoint.
+This perhaps motivates further testing- are there other instances
+for which FPS outperforms KT?  \\
+In comparing the binary search style algorithms, it can be seen that
+FPS performs best in all cases, and in particular performs better
+than the asymptotically superior CL algorithm. The difference between
+CL and DQY is less clear however; for random instances CL performs
+better as seen in \cref{arrivalMainPlot},
+but DQY performs better on the long walk instance as seen in \cref{arrivalLongPlot}.
+
+\subsection{Simple Stochastic Games Tests}
+Similarly to $\arr$, KT is the most performant algorithm for solving
+random simple stochastic games - it even seems to be the case
+that the number of queries goes \emph{down} as the number of vertices
+goes up for the walk as seen in \cref{simpleWalkPlot}. 
+I believe that this is a limitation of the method
+of random instance generation which perhaps motivates further investigation
+into methods for generating 'hard' simple stochastic games. It could also
+be the case that testing with a fixed approximiation factor $\varepsilon$
+and stopping probability $\beta$ causes this behaviour. \\
+In comparing the binary search based algorithms, it can be seen in \cref{ssgMainTest} 
+that
+FPS is again the most performant, and DQY is the least performant. The difference
+between FPS and CL is small in this case however. \\
+In the test with varying approximation factor as seen in \cref{ssgApproxTest}, KT 
+is again the most performant, with FPS the best of the binary search algorithms.
+DQY is again the slowest, with CL in the middle. Varying the approximation factor
+for the simple stochastic game problem has the effect of changing the height of the lattice
+that is searched; if $\beta$ is the stopping probability, and $\varepsilon$ is the approximation
+factor, the associated discretized function is 
+defined on $\left[\left \lfloor \frac{1}{\beta \varepsilon}\right \rfloor\right]^d$.
+Since KT runs in worst case complexity $O(Nd)$ where $N$ is the height of the lattice,
+and FPS in $O(\log^{\lceil \frac{n + 2}{3} \rceil})$, one might expect that for
+very small approximation factors that FPS is more performant. This is not shown in
+the results however, so perhaps more investigation should be done into finding
+instances of simple stochastic games which are 'hard' for KT.
+
+\subsection{Shapley Stochastic Games Tests}
+Testing on shapley's stochastic games was much more limited than the other two problems
+as the associated monotone function took a lot longer to compute. It could be the case
+the the LP solver that I used (\lstinline{soplex}) is not optimized for solving
+many thousands of small LPs, or that solving LPs in this fashion will necessarily
+take significantly more time than the functions for \arr and simple stochastic games. \\
+In comparing the algorithms running on random instances, it can be seen in \cref{shapleyMainPlot}
+and \cref{shapleyWalkPlot} that 
+again KT is the most performant. DQY is the least performant on random instances, and the difference
+between CL and FPS is small. Interestingly, there seems to be some association between
+the parity of the dimension and the performance of CL and FPS. I believe this is because of the 
+$\lceil \cdot \rceil$ in the exponent of their respective complexities, and the only reason
+we don't see this in other plots is because we are measuring with less granularity on size. \\
+The test with varying approximation factor as seen in \cref{shapleyApproxPlot} shows
+again that KT is the most performant, and FPS is the most performant of the binary search algorithms.
+There is not much difference between CL and DQY in this case. Similarly to simple stochastic games,
+one would expect that for very small approximation factors that the binary search algorithms
+perform better than KT - but again this is not seen in the results for these tests. This is again
+perhaps motivation for more investigation in finding 'hard' stochastic games for the KT algorithm.
