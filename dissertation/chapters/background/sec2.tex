@@ -1,4 +1,4 @@
-\section{Basic Algorithms}
+\section{Basic Algorithms and Lower Bounds}
 Tarski's fixed point theorem gives rise to a natural computational problem.
 \begin{definition}[$\trsk$]
   The problem $\trsk(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$, find a point $x^* \in [N]^d$ such that $f(x^*) = x^*$.
@@ -26,8 +26,10 @@ Correctness of the algorithm if it terminates is clear, so all that is needed it
   \textsc{KleeneTarski} always terminates in time $O(Nd)$.
 \end{lemma}
 \begin{proof}
-  As in the proof of \cref{fixExist}, for all $i \in \znn$, $f^i(\vec{1}) \leq f^{i+1}(\vec{1})$. If $f^i(\vec{1}) = f^{i+1}(\vec{1})$
-  then $f^i(\vec{1})$ is a fixpoint. So suppose for a contradiction for some $j > Nd$ that for all $i \leq j$, $f^i(\vec{1}) < f^{i+1}(\vec{1})$. 
+  By definition of the lattice, for all $x \in [N]^d$ I have $\vec{1} \leq x$, and in particular
+  $\vec{1} \leq f(\vec{1})$. Then by induction for all $i \in \znn$, $f^i(\vec{1}) \leq f^{i + 1}(\vec{1})$, where the convention
+  that $f^0(x) = x$ is used.
+  So suppose for a contradiction for some $j > Nd$ that for all $i \leq j$, $f^i(\vec{1}) < f^{i+1}(\vec{1})$. 
   By integrality, $\|f^{i+1}(x)\|_1 \geq \|f^i(x)\|_1 + 1$. It follows that $\|f_j(x)\|_1 > Nd$. But this implies that
   $\|f_j(x)\|_1 > \|\vec{N}\|_1$, which is a contradiction of the definition of $f$. So for some $j \leq Nd$, $f^j(\vec{1}) = f^{j+1}(\vec{1})$.
 \end{proof}
@@ -52,7 +54,7 @@ At the time of writing
 it is not known whether or not this problem is solvable in polynomial time.
 Etessami et al. gave the current best known lower bound on the query complexity of $\textsc{Tarski}$, along with other complexity-theoretic results
 on the problem.
-\begin{theorem}[\citep{lowerBound}]
+\begin{theorem}[\citep{lowerBound}]\label{lowerBoundThm}
   The query complexity of $\trsk(N, d)$ is $\Omega(\log^2N)$.
 \end{theorem}
 Dang, Qi, and Ye gave an algorithm for solving the $\trsk$ problem\citep{dangQiYe} using a variant of the well
@@ -155,30 +157,11 @@ The algorithm of Dang, Qi, and Ye can be seen in \cref{dQiYiAlg}.
 \begin{theorem}[\citep{dangQiYe}]
   The query complexity of $\trsk(N, d)$ is $O(\log^d N)$.
 \end{theorem}
-Simply combining the theorems of Dang, Qi, and Ye, and Etessami et al. gives a tight
+Simply combining \cref{dQiYiAlg}, and \cref{lowerBoundThm} gives a tight
 bound on the 2 dimensional problem.
-\begin{cor}[\citep{lowerBound}]
+\begin{cor}[\citep{lowerBound}] 
   The query complexity of $\trsk(N, 2)$ is $\Theta(\log^2 N)$.
 \end{cor}
-There have recently been improvements on this upper bound. In paricular,
-Fearnley et al. gave an algorithm for solving the 3 dimensional version
-of the problem. This used the crucial fact that, in contrast to the
-Dang, Qi, and Ye algorithm, restricting to a half-space does \emph{not} require
-a point which is fixed in $n-1$ dimensions, but a point which is monotone
-in all $n$ dimensions. They gave a so-called 'inner algorithm'
-which in three dimensions can find a monotone point with a particular
-value in one coordinate in $O(\log N)$ queries. Chen and Li showed
-how to decompose the problem of finding monotone
-points in higher dimensions - crucially using the inner algorithm - to a product of sorts of 2 dimensional
-prolems, giving the current best known upper bound on the $\trsk$ problem.
-
-\begin{theorem}[\citep{fasterTarski}]
-  The query complexity of $\trsk(N, 3)$ is $\Theta(\log^2 N)$.
-\end{theorem}
-\begin{theorem}[\citep{chenLi}]
-  The query complexity of $\trsk(N, d)$ is $O(\log^{\lceil (d+1)/2 \rceil} N)$.
-\end{theorem}
-The details of these algorithms will be shared in a later section.
 \begin{remark}
   The problem of computing any fixpoint of a monotone function on a general lattice
   is known to be intractable. In particular, it was shown in \citep{changComplexity}
@@ -186,6 +169,6 @@ The details of these algorithms will be shared in a later section.
   which require $\Omega(N)$ queries with high probability to find a fixpoint.
   Focussing on a specific case such as $[N]^d$ is therefore justified.
   Further, the case of computing least fixpoints of even one dimensional
-  functions $f : [2^n] \to [2^n]$ is proven to be NP-hard in \citep{lowerBound}
+  functions $f : [2^n] \to [2^n]$ is proven to be $\mathbf{NP}$-hard in \citep{lowerBound}
   so would seem that focussing on find any fixpoint is the best course of action.
 \end{remark}

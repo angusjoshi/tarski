@@ -72,12 +72,13 @@ these equalities follow from the witness definitions).
   If $f(c)_{j'} \geq c_{j'}$ then I consider $b$ and $d$. Using a similar argument there is a $v \in [N]^3$ with $d \leq v \leq b$
   such that $f(v)_3 \geq v_3$, and $f(v)_i = v_i$. If $f(v)_j \geq v_j$ then $v \in \Up(f)$, and if $f(v)_j \leq v_j$
   then by the invariant, $v \geq d \geq u \geq c$ gives $v \geq c$, 
-  and \cref{restricts} guarantees a fixpoint of $f_s$ in the range $[c, v]$, which is neccessarily monotone.
+  and \cref{restricts} guarantees a fixpoint of $f_s$ in the range $[c, v]$, which is neccessarily a monotone
+  point of $f$.
 \end{proof}
 The key is then to half the current search space in a constant amount of time by finding
 a new set of points satisfying the inner algorithm invariant. There are many distinct cases
 to be handled here and I have not covered them all. In particular, special cases are required for
-instances which have are narrow (that is, for some $i \in \{1, 2 \}$ $b_i - a_i \leq 1$). The 
+instances which are narrow (that is, for some $i \in \{1, 2 \}$ $b_i - a_i \leq 1$). The 
 reader is directed to \citep{fasterTarski} for these. The first case is under the assumption that $u$ and $d$ are
 not past the midpoint of the line they are on.
 Throughout I set $\mi_i = \left \lfloor \frac{a_i + b_i}{2} \right\rfloor$ for each $i \in \{1, 2, 3\}$, and take
