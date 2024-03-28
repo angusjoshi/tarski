@@ -179,20 +179,14 @@ This is proved using ideas from \citep{nashComp} and \citep{lowerBound} in the f
   multiplication by non-negative constants preserve monotonicity.
 \end{proof}
 The culmination of this section is the following result.
-\begin{theorem}
-  Let $G$ be a $\beta$-stopping simple stochastic game and $q^* \in \Q$ the value of the game.
-  For all $\varepsilon \in \rpos$ finding a $q \in \Q$ such that $|q - q^*| < \varepsilon$
-  is polynomial time reducible to $\trsk$.
-\end{theorem}
-\begin{remark}
+\begin{theorem}\footnote{
   In \citep{lowerBound} Etessami et al. show a stronger result; in a slightly more general
   model of simple stochastic games that don't necessarily have the $\beta$ stopping property used above,
   the problem of finding the exact value of the game $q^*$ is polynomial-time reducible to $\trsk$.
   The simplified stopping game approximation result is shown above instead to simplify exposition,
-  as well as to simplify implementation\footnote{Computing the exact value of non-stopping games requires working with
-  numbers on the order of $2^{\Omega(n^2)}$, where $n$ is the number of vertices in the graph. For $n = 15$ for example this requires $225$ bits
-  of precision, which is larger than fits in a machine word on my laptop.} during the practical testing chapter of this dissertation.
-\end{remark}
-%notes: make less brackets, particularly in the introducotry part
-% at a citation at the bit describing value of the game? i.e. 'the resultant
-% process is easily seen to be a markov chain'
+  as well as to simplify implementation during the practical testing chapter of this dissertation.
+  }
+  Let $G$ be a $\beta$-stopping simple stochastic game and $q^* \in \Q$ the value of the game.
+  For all $\varepsilon \in \rpos$ finding a $q \in \Q$ such that $|q - q^*| < \varepsilon$
+  is polynomial time reducible to $\trsk$ in the encoding size of $G$ and $\varepsilon$.
+\end{theorem}

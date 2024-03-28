@@ -74,7 +74,7 @@ In order, these are addressed as follows,
 \subsubsection{Limitations}
 I acknowledge that testing with random instances in this fashion is necessarily limited; the results
 shown later give evidence that random generation in this fashion does not tend to generate 'hard' instances.
-For example, as will be shown[maybe add label to section], the length of the walk in a random instance
+For example, as will be shown in \cref{arrivalWalkPlot}, the length of the walk in a random instance
 of the $\arr$ problem as described above seems to scale linearly with the size of the problem despite
 the fact that in the worst case the walk can have an exponential length.
 
@@ -88,10 +88,12 @@ the function to run the algorithm is called, and the function returning with a f
 and other miscellaneous actions do not have an effect. All tests were repated 20 times with the
 mean values recorded recorded. Different sizes were used for different algorithms in the same test
 to ensure tests terminated in a reasonable amount of time. \\
-From here on I will denote the Fearnley, \pav, Savani algorithm as FPS, the Dang, Qi, and Ye algorithm as
-DQY, Chen and Li as CL, and Kleene, Tarski as KT.
+From here on I will denote the Fearnley, \pav, Savani algorithm described in \cref{fixDecompAlg}
+as FPS, the Dang, Qi, and Ye algorithm descbribed in \cref{dQiYiAlg} as
+DQY, Chen and Li described in \cref{monotoneDecompChap} as CL, and Kleene, Tarski 
+described in \cref{kleeneTarski} as KT.
 \subsubsection{\arr}
-\begin{test}[Arrival Main] \label{arrMainTest}[asdf]
+\begin{test}[Arrival Main] \label{arrMainTest}
   The three algorithms listed below were tested on random arrival instances as in \cref{arrRandom}
   with varying sizes as listed, 
   \begin{itemize}

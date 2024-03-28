@@ -1,0 +1,11 @@
+all diagrams in this directory (diagrams/from-fps/) are from the following citation.
+
+@article{fasterTarski,
+  title={A faster algorithm for finding Tarski fixed points}, 
+  author={John Fearnley and Dömötör Pálvölgyi and Rahul Savani},
+  year={2021},
+  eprint={2010.02618},
+  archivePrefix={arXiv},
+  primaryClass={cs.DS}
+}
+

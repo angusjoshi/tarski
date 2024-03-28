@@ -18,7 +18,7 @@ is polynomial-time reducible to $\trsk$ which will be described in this section.
   \input{diagrams/shapley-diagram.tex}
   \caption{An instance of shapley's stochastic games is a set of states,
   and for each state a pair of actions sets for the two players.
-  Each player picks an action, and receives payoff equal to the entry in
+  Play starts at some state and each player picks an action, and receives payoff equal to the entry in
   the payoff matrix (in the top half of each circle) corresponding
   to the joint action. Then play transitions transitions to a new state 
   on a probability distribution 
@@ -58,10 +58,12 @@ Once a stationary strategy profile is fixed, given a starting state,
 I can define a sequence of random variables
 $(X_t)_{t \in \znn}$ representing the payoff at the $t$-th step, allowing for the convention
 that the game continues to 'play' after halting, just giving both players payoff 0 repeatedly. The value of the game
-then becomes the (necessarily convergent) series $\sum_{t = 0}^\infty \E[X_t]$. More detail on this can be found in
-\citep{compMdps}. Then the value of a state $x \in V$ 
+then becomes the (necessarily convergent) series $v = \sum_{t = 0}^\infty \E[X_t]$\footnote{
+  The expectation is well defined since the range of possible payoffs is a finite set.
+  That the series converges can be seen in \citep[Chapter 2]{compMdps}.
+  }. Then the value of a state $x \in V$ 
 under stationay strategy profile $(\sigma, \tau)$ is denoted $v_{\sigma, \tau}(x)$. The content of the following
-result from \citep{shapley} is that stochastic games necessarily have a minimax value, and that value can be achieved
+result from \citep{shapley} is that stopping stochastic games necessarily have a minimax value, and that value can be achieved
 in stationary strategies.
 \begin{prop}[\citep{shapley}]
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game and $S$, $T$ be the mixed stationary strategy
@@ -121,11 +123,11 @@ for all $i \in [d]$, $v(v_i) = x^*_i$. The last step is a discretization. I
 use the notation $\langle M \rangle = \{-M, ..., 0, ..., M\}$. 
 \newcommand{\angm}{\langle M \rangle}
 \begin{lemma}[Stopping Stochastic Game Discretization] \label{shapleyDiscretization}
-  Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $F$ as defined in \cref{shapleyMonotone}, 
+  Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $F$ as in \cref{shapleyMonotone}, 
   and $\varepsilon \in \rpos$. Then if $M$ is the maximum entry in the set of payoff matrices, let 
   $N = \frac{M}{\varepsilon q^2}$ and define a function $f : \langle N \rangle \to \langle N \rangle$ coordinatewise with
-  $f(x)_i = \left\lfloor \frac{1}{\varepsilon q} F(\varepsilon q \cdot x)_i \right\rfloor$. Then if $f(x) = x$
-  and $x^*$ is the unique fixpoint of $F$, $\|\varepsilon q \cdot x - x^*\|_\infty$.
+  $f(x)_i = \left\lfloor \frac{1}{\varepsilon q} F(\varepsilon q \cdot x)_i \right\rfloor$. If $f(x) = x$
+  and $x^*$ is the unique fixpoint of $F$ then $\|\varepsilon q \cdot x - x^*\|_\infty$.
 \end{lemma}
 \begin{proof}
   From $f(x) = x$ I have by definition of $\lfloor \cdot \rfloor$ for each $i \in [d]$,
