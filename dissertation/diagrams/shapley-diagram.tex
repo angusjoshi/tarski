@@ -1,37 +1,62 @@
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 \begin{tikzpicture}[x=0.6pt,y=0.6pt,yscale=-1,xscale=1,
   main/.style = {draw, circle, 
-  fill={rgb, 255:red, 0; green, 0; blue, 0 }, text=white},
-  node distance=3cm,
+   text=black},
+  node distance=6cm,
   ->,
   >={Stealth[round,sep]},
   legend/.style={draw, circle,
   fill={rgb, 255:red, 0; green, 0; blue, 0 },
   text=black}]
 
-  \node[main] (v0) {$\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}$};
-  \node[main, shape=diamond] (v1) [right of=v0] {$v_1$};
-  \node[main, shape=rectangle] (v2) [below right of=v0] {$v_2$};
-  \node[main] (v3) [right of=v1] {$v_3$};
-  \node[main, shape=star] (t) [below right of=v3] {$t$};
+  \node[main, circle split] (v0) 
+    {$v_1$ \qquad $\begin{bmatrix}
+    1 & 2 \\ 
+    3 & 4
+    \end{bmatrix}$ 
+    \nodepart{lower} $\begin{bmatrix}
+      \begin{bmatrix} 0 & \frac{1}{3} & \frac{2}{3} \end{bmatrix}
+        & \begin{bmatrix} \frac{1}{5} & \frac{2}{5} & \frac{2}{5}\end{bmatrix} \\
+          \begin{bmatrix}\frac{2}{3} & \frac{1}{3} & 0 \end{bmatrix} 
+            & \begin{bmatrix} 0 & \frac{1}{7} & \frac{6}{7}\end{bmatrix}
+    \end{bmatrix}$};
+  \node[main, circle split] (v1) [below right of=v0]
+    {$v_2$ \qquad $\begin{bmatrix}
+    -4 & 1 \\ 
+    -1 & 5
+    \end{bmatrix}$ 
+    \nodepart{lower} $\begin{bmatrix}
+      \begin{bmatrix} \frac{2}{7} & \frac{1}{7} & \frac{4}{7} \end{bmatrix}
+        & \begin{bmatrix} \frac{1}{3} & 0 & \frac{2}{3}\end{bmatrix} \\
+          \begin{bmatrix}\frac{1}{4} & \frac{1}{2} & \frac{1}{4} \end{bmatrix} 
+            & \begin{bmatrix} \frac{1}{5} & \frac{1}{5} & \frac{2}{5}\end{bmatrix}
+    \end{bmatrix}$};
+  \node[main, circle split] (v2) [above right of=v1]
+    {$v_3$ \qquad $\begin{bmatrix}
+    1 & -1 \\ 
+    3 & 0
+    \end{bmatrix}$ 
+    \nodepart{lower} $\begin{bmatrix}
+      \begin{bmatrix} \frac{1}{4} & \frac{1}{4} & \frac{1}{2} \end{bmatrix}
+        & \begin{bmatrix} 0 & \frac{1}{2} & \frac{1}{2}\end{bmatrix} \\
+          \begin{bmatrix}\frac{2}{3} & 0 & \frac{1}{3} \end{bmatrix} 
+            & \begin{bmatrix} \frac{1}{7} & \frac{6}{7} & 0\end{bmatrix}
+    \end{bmatrix}$};
+  % \node[main, circle split] (v1) 
+  %   {$\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}$ \nodepart{lower} $x$};
+  % \node[main, circle split] (v2) 
+  %   {$\begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}$ \nodepart{lower} $x$};
 
-  \draw (v0) -- (v1) node[near start, below right, text=black]{$\frac{1}{3}$};
-  \draw (v0) -- (v2) node[near start, below, text=black]{$\frac{2}{3}$};
+  % \draw (v0) -- (v1) node[near start, below right, text=black]{$\frac{1}{3}$};
+  % \draw (v0) -- (v2) node[near start, below, text=black]{$\frac{2}{3}$};
 
-  \draw (v3) -- (t) node[near start, below left, text=black]{$\frac{2}{5}$};
-  \draw (v3) -- (v2) node[near start, below right, text=black]{$\frac{2}{5}$};
-  \draw (v3) to[bend left=45, min distance=1cm] node[near start, above right, text=black]{$\frac{1}{5}$} (v0);
+  % \draw (v3) -- (t) node[near start, below left, text=black]{$\frac{2}{5}$};
+  % \draw (v3) -- (v2) node[near start, below right, text=black]{$\frac{2}{5}$};
+  % \draw (v3) to[bend left=45, min distance=1cm] node[near start, above right, text=black]{$\frac{1}{5}$} (v0);
 
-  \draw (v1) -- (v3);
-  \draw (v1) -- (v2); 
+  % \draw (v1) -- (v3);
+  % \draw (v1) -- (v2); 
 
-  \draw (v2) edge[bend right=60, min distance=1.5cm] (v0);
-  \draw (v2) -- (t);
-
-  \matrix [draw] at (current bounding box.north east) {
-    \node[legend, label=right:\scriptsize Chance] {}; \\
-    \node[legend, shape=diamond,label=right:\scriptsize Maximizer] {}; \\
-    \node[legend, shape=rectangle,label=right:\scriptsize Minimizer] {}; \\
-  };
-
+  % \draw (v2) edge[bend right=60, min distance=1.5cm] (v0);
+  % \draw (v2) -- (t);
 \end{tikzpicture}

@@ -33,33 +33,35 @@ the concern of the remainder of this section.
       \qquad algorithm $A$ for solving $\trsk(N, a)$, \\
       \qquad algorithm $B$ for solving $\trsk(N, b)$ 
     }
-    \State $\text{prev} \subseteq [N]^a \times [N]^b \gets \emptyset$
+    \State $\mathrm{prev} \gets \emptyset$
     \Procedure{$f_r$}{$x_r \in [N]^b$}
       \Procedure{$f_l$}{$x_l \in [N]^a$}
         \Return $f((x_l, x_r))_{-r}$.
       \EndProcedure
-      \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$
-      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \text{prev} : p_r \geq x_r \}$
-      \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
-      $\bot_l$, $\top_l$.
-      \State $\text{prev} \gets \text{prev} \cup \{(x_l^*, x_r)\}$
+      \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \leq x_r \}$
+      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \geq x_r \}$
+      \State $x_l^* \gets A(f_l)$ with bounds $\bot_l$, $\top_l$
+      % \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
+      % $\bot_l$, $\top_l$.
+      \State $\mathrm{prev} \gets \mathrm{prev} \cup \{(x_l^*, x_r)\}$
       \State \Return $f((x_l^*, x_r))_{-l}$.
     \EndProcedure
-    \State run algorithm $B$ on $f_r$ to find fixpoint $x_r^*$
+    \State $x_r^* \gets B(f_r)$
+    % \State run algorithm $B$ on $f_r$ to find fixpoint $x_r^*$
     \State \Return $(x_l^*, x_r^*)$ where $x_l^*$ is the fixpoint of $f_l$ 
-    found when evaluating $f(x_r^*)$.
+    found when evaluating $f_r(x_r^*)$.
   \EndProcedure
   \end{algorithmic}
 \end{algorithm}
 
 \begin{lemma}\label{orderPreserved}
-  If $(p_l, p_r), (p_l', p_r') \in \text{prev}$ with $p_r \leq p_r'$ then
+  If $(p_l, p_r), (p_l', p_r') \in \mathrm{prev}$ with $p_r \leq p_r'$ then
   $p_l \leq p_l'$
 \end{lemma}
 \begin{proof}
   Suppose without loss of generality that $p_r$ was queried by algorithm $B$
   before $p_r'$. Then when $p_r'$ is queried, $p_l$ is an element of
-  $\{pl : (pl, pr) \in \text{prev} : p_r \leq p_r'\}$ whence $\bot_l \geq p_l$,
+  $\{pl : (p_l, p_r) \in \mathrm{prev} : p_r \leq p_r'\}$ whence $\bot_l \geq p_l$,
   so the fixpoint found by algorithm $A$ satisfies $x_l^* \geq p_l$.
 \end{proof}
 \begin{lemma}
@@ -67,8 +69,8 @@ the concern of the remainder of this section.
 \end{lemma}
 \begin{proof}
   By \cref{orderPreserved} I have for all 
-  $p_l \in \{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$ and
-  $p_l' \in \{p_l : (p_l, p_r) \in \text{prev} : p_r \geq x_r \}$ that
+  $p_l \in \{p_l : (p_l, p_r) \in \mathrm{prev} : p_r \leq x_r \}$ and
+  $p_l' \in \{p_l : (p_l, p_r) \in \mathrm{prev} : p_r \geq x_r \}$ that
   $p_l \leq p_l'$. Then by definition of $\wedge$ and $\vee$ $\bot_l \leq \top_l$.
 \end{proof}
 \begin{lemma}\label{leftRestricts}
@@ -77,9 +79,9 @@ the concern of the remainder of this section.
 \begin{proof}
   I prove the first case and the second is similar. Suppose not. That is,
   for some $i \in [a]$ I have $f_l(\bot_l)_i < (\bot_l)_i$. If 
-  $L = \{p_l : (p_l, p_r) \in \text{prev} : p_r \leq x_r \}$ is empty then
+  $L = \{p_l : (p_l, p_r) \in \mathrm{prev} : p_r \leq x_r \}$ is empty then
   $\vee L = \vec{1}$ and the claim holds. If $L$ is non-empty then by definition
-  of finite joins, there is some $(p_l, p_r) \in \text{prev}$ such that $(p_l)_i = (\bot_l)_i$
+  of finite joins, there is some $(p_l, p_r) \in \mathrm{prev}$ such that $(p_l)_i = (\bot_l)_i$
   and $(p_l, p_r) \leq (x_l, x_r)$. But $f(((p_l, p_r))_{-r})_i = (p_l)_i$ so
   I contradict monotinicity.
 \end{proof}

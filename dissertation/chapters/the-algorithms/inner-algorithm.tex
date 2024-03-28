@@ -77,7 +77,7 @@ these equalities follow from the witness definitions).
 The key is then to half the current search space in a constant amount of time by finding
 a new set of points satisfying the inner algorithm invariant. There are many distinct cases
 to be handled here and I have not covered them all. In particular, special cases are required for
-instances which have are narrow (that is, for some $i \in \{1, 2, 3\}$ $b_i - a_i \leq 1$). The 
+instances which have are narrow (that is, for some $i \in \{1, 2 \}$ $b_i - a_i \leq 1$). The 
 reader is directed to \citep{fasterTarski} for these. The first case is under the assumption that $u$ and $d$ are
 not past the midpoint of the line they are on.
 Throughout I set $\mi_i = \left \lfloor \frac{a_i + b_i}{2} \right\rfloor$ for each $i \in \{1, 2, 3\}$, and take
@@ -110,14 +110,14 @@ $f_s$ to be the slice of $f$ at the $3$rd coordinate with value $a_3 = b_3$.
 \begin{figure}[ht]
   \centering
   \scalebox{0.5}{\input{diagrams/from-fps/step2.tex}}
-  \caption{In the main case where $u \leq \mi$, $d \geq \mi$, and $a_i - b_i \geq 2$ for $i \in \{0, 1\}$,
+  \caption{In the main case where $u \leq \mi$, $d \geq \mi$, and $a_i - b_i \geq 2$ for $i \in \{ 1, 2\}$,
   the search space can be halved as in the proof of \cref{innerMainCase}. $\mi$ is queried, and the only non-trivial
   case is when $\mi \not\in \Up(f_s) \cup \Down(f_s)$. The diagrams show the case when $f(\mi)_3 \geq \mi_3$.
   The case $f(\mi)_3 \leq \mi_3$ then is similar. The horizontal dimension is taken to be dimension $j$ from the proof,
   and vertical is $i$. Diagram source: \citep{fasterTarski}}.
 \end{figure}
 I must now justify the assumption in \cref{innerMainCase} that 
-$u_i \leq \mi$ and $d_i \geq \mi$.
+$u \leq \mi$ and $d \geq \mi$.
 \begin{lemma}[\citep{fasterTarski}]\label{innerOtherCase}
   Suppose for some $i \in \{1, 2\}$ that $u_i \not\leq \mi_i$.
   Then a point $p \in [N]^3$ can be found such that $p_i \leq \mi_i$ and $(a, p)$ is a valid down-set

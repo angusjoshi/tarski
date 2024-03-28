@@ -16,10 +16,15 @@ is polynomial-time reducible to $\trsk$ which will be described in this section.
 \begin{figure}[h]
   \centering
   \input{diagrams/shapley-diagram.tex}
-  \caption{The goal of the arrival problem is to decide whether a partiular walk on a directed graph with a particular
-  structure reaches the target. On successive visits to a particular
-  vertex the outgoing edge taken alternates. In this example
-  the walk begins $s \to v_1 \to v_4 \to s \to v_3 \to \ldots$.} 
+  \caption{An instance of shapley's stochastic games is a set of states,
+  and for each state a pair of actions sets for the two players.
+  Each player picks an action, and receives payoff equal to the entry in
+  the payoff matrix (in the top half of each circle) corresponding
+  to the joint action. Then play transitions transitions to a new state 
+  on a probability distribution 
+  according to the transition matrix (in the bottom of each circle). In the
+  stopping variant, after each step the games halts with some
+  positive probability $q \in \rpos$.} 
 \end{figure}
 \begin{definition}[Stopping Stochastic Game]
   A \emph{stopping stochastic game} $G = (V, A, P, s, q)$ is a set of states of $n$ states
@@ -65,7 +70,8 @@ in stationary strategies.
     \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau}(x) = \min_{\tau \in T} \max_{\sigma \in S} v_{\sigma, \tau}(x).
   \end{align*}
 \end{prop}
-The value of the game is then denoted $v(s)$. The value of a particular state $x \in V$ is denoted $v(x)$.
+The value of the game is then denoted $v(s)$. The value of a particular state $x \in V$ is denoted $v(x)$
+and is the maximum expected value if the game were to start at $x$.
 Recall the definition of $\val$ from \cref{matrixGameVal}.
 \begin{definition}[Stopping Stochastic Game Monotone Function] \label{shapleyMonotone}
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game, $d = |V|$ and $M = \max_{i, j, k} |A_{j, k}^i|$. Then the
@@ -111,7 +117,7 @@ that $\|F(x) - F(x)'\|_\infty \leq (1 - q) \|x - x'\|_\infty$,
 which is to say $F$ is a contraction map and has a \emph{unique} fixpoint by the banach fixpoint theorem. 
 It is further shown in \citep{shapley} the unique fixpoint gives precisely the value of the game. That is, 
 if $x^* = F(x^*)$ then
-for all $i \in [d]$, $v(v_i) = x^*_i$. The last step is a discretization. Similar to \citep{lowerBound} I
+for all $i \in [d]$, $v(v_i) = x^*_i$. The last step is a discretization. I
 use the notation $\langle M \rangle = \{-M, ..., 0, ..., M\}$. 
 \newcommand{\angm}{\langle M \rangle}
 \begin{lemma}[Stopping Stochastic Game Discretization] \label{shapleyDiscretization}
