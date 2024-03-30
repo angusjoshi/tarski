@@ -42,7 +42,6 @@ $\beta$-stopping simple stochastic games.
   \caption{In $\beta$-stopping simple stochastic games, one of the two players aims to maximize the probability
   of play reaching the target $t$, while the other aims to minimize it.}
 \end{figure}
-
 It is clear that since $\beta > 0$ the game eventually halts with probability $1$. 
 \begin{definition}[Pure Stationary Strategy]
   Let $G = (V, V_p, \vmax, \vmin, E, v_0, t)$ be a simple stochastic game. A \emph{pure stationary strategy}
@@ -78,7 +77,6 @@ by fixing a deterministic action at every node in the game prior to it starting.
   stochastic game and $S, T$ the pure strategy stationary strategy sets
   for the maxmimizer and minimizer respectively.
   Then for each $i \in V$,
-  %todo maybe change thiis. statement about value might be wrong;
   \begin{align*}
     \max_{\sigma \in S} \min_{\tau \in T} v_{\sigma, \tau} (i) = 
   \min_{\tau \in T} \max_{\sigma \in S} v_{\sigma, \tau} (i).
@@ -104,39 +102,13 @@ such that $F(x) = x$ if and only if $x = (q_1, ..., q_d)$.
       \end{cases}
   \end{align*}
 \end{definition}
-This is really what you would expect from the function corresponding to a $\beta$-stopping
-simple stochastic game; the value of a maximizer (minimizer) vertex is the maximum (minimum)
-of it's successors, the value of a chance node is a weighted average of the value of the successors
-according to the probability of transitioning, and the value of the target is 1. The factor
-of $(1 - \beta)$ at the front corresponds exactly to the fact the game halts with probability $\beta$
-at every step.
-\begin{lemma}\label{ssgUnique}
-  Let $F : [0, 1]^d \to [0, 1]^d$ be a \emph{$\beta$-stopping simple stochastic game monotone function} and $x, x' \in [0, 1]^d$.
-  Then $F$ has a \emph{unique} fixpoint $x^* \in [0, 1]^d$.
-\end{lemma}
-\begin{proof}
-  It can be calculated that for all $x, x' \in [0, 1]^d$ if $\|\cdot \|_\infty$ is the $\ell^\infty$ norm then
-  $\|F(x) - F(x')\|_\infty \leq (1 - \beta)\|x - x'\|_{\infty}$. By definition $\beta$ is in the range $(0, 1]$, so 
-  by the banach fixpoint theorem $F$ has a unique
-  fixpoint.
-\end{proof}
-\begin{lemma}
-  Let $F : [0, 1]^d \to [0, 1]^d$ be a $\beta$-stopping simple stochastic game monotone function. 
-  Then $F$ is monotone in the usual coordinatewise ordering.
-\end{lemma}
-\begin{proof}
-  Fix some enumeration $(v_i)_{i \in [d]}$ of $V$ and $x, x' \in [0, 1]^d$ with $x \leq x'$.
-  Then for each $i \in [d]$ I consider cases on $v_i$. If $v_i = t$ then $F(x)_i = F(x')_i$ and
-  the claim holds. If $v_i \in \vmax$ suppose that $F(x)_i > F(x')_i$. 
-  Then for some $j \in [d]$ with $(v_i, v_j) \in E$ I have for all $j' \in [d]$
-  with $(v_i, v_{j'}) \in E$ that $x_j > x_{j'}$. I can put $j' = j$ to find $x_j > x'_{j}$ which is a contradiction.
-  The case $v_i \in \vmin$ is similar, and if $v_i \in V_p$ then,
-  \begin{align*}
-    F(x)_i = (1 - \beta) \sum_{v_j \in V} p(v_i, v_j) x_j \leq (1 - \beta) \sum_{v_j \in V} p(v_i, v_j) x'_j = F(x')_i.
-  \end{align*}
-\end{proof}
-It is shown in \citep{condon} that if $q^* = (q_1^*, ..., q_d^*)$ then $q^* = F(q^*)$, from which it follows
-by \cref{ssgUnique} that $q^*$ is the unique fixpoint of $F$. The last stage in reduction to $\trsk$
+It is shown in \citep{condon} that for all $x, x' \in [0, 1]^d$, $\|F(x) - F(x')\|_\infty \leq (1 - q)\| x - x'\|_\infty$,
+which is to say $F$ is a contraction map and has a \emph{unique} fixpoint by the banach fixpoint theorem.
+It is further shown in \citep{condon} that the unique fixpoint $x^* \in [0, 1]^d$ satisfies
+$x^* = (q_1, ..., q_d)$. That is, $x^*$ is the vector of values of the game.
+The reader can easily verify that $F$ is also monotone in the usual coordinatewise
+ordering on $[0, 1]^d$. 
+The last stage in reduction to $\trsk$
 is to discretize the function $F : [0, 1]^d \to [0, 1]^d$ to a function $f : [N]_0^d \to [N]_0^d$
 such that a fixpoint of $f$ can be converted to an approximate fixpoint of $F$.
 This is proved using ideas from \citep{nashComp} and \citep{lowerBound} in the following.
@@ -191,3 +163,17 @@ The culmination of this section is the following result.
   For all $\varepsilon \in \rpos$ finding a $q \in \Q$ such that $|q - q^*| < \varepsilon$
   is polynomial time reducible to $\trsk$ in the encoding size of $G$ and $\varepsilon$.
 \end{theorem}
+\begin{remark}
+  The algorithm of kleene-tarski \cref{kleeneTarski} applied to the monotone function described above
+  is analagous to a method often called \emph{value iteration}, as described in \citep{valueIteration}.
+  There is also a method for solving simple stochastic games often called \emph{strategy improvement}
+  or \emph{policy iteration} as described in \citep{hoffmanKarp} 
+  which, very broadly speaking, works by iteratively fixing a strategy for the maximizer (or minimizer),
+  computing a best response for the minimizer in the residual markov decision process\footnote{which can be
+  done in polynomial time using linear programming} yielding values $(q_1, ..., q_d)$. 
+  A new strategy for the first player
+  chosen by myopically selecting at each node $v_i \in \vmax$ an edge $(v_i, v_j) \in E$ 
+  which maximizes $q_j$.
+  The binary search style algorithms from \cref{stateAlgsChap} will be compared to value iteration in \cref{testingChap}, and strategy improvement
+  is not tested here.
+\end{remark}

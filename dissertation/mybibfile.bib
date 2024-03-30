@@ -219,3 +219,61 @@ eprint = {
   year={1997},
   isbn={978-0-387-94805-8},
 }
+@article{policyIteration,
+title = {On strategy improvement algorithms for simple stochastic games},
+journal = {Journal of Discrete Algorithms},
+volume = {9},
+number = {3},
+pages = {263-278},
+year = {2011},
+note = {Selected papers from the 7th International Conference on Algorithms and Complexity (CIAC 2010)},
+issn = {1570-8667},
+doi = {https://doi.org/10.1016/j.jda.2011.03.007},
+url = {https://www.sciencedirect.com/science/article/pii/S1570866711000372},
+author = {Rahul Tripathi and Elena Valkanova and V.S. {Anil Kumar}},
+keywords = {Algorithms, Computational complexity, Stochastic games, Strategy improvement algorithms, Optimal strategies},
+abstract = {The study of simple stochastic games (SSGs) was initiated by Condon for analyzing the computational power of randomized space-bounded alternating Turing machines. The game is played by two players, MAX and MIN, on a directed multigraph, and when the play terminates at a sink vertex s, MAX wins from MIN a payoff p(s)∈[0,1]. Condon proved that the problem SSG-VALUE—given a SSG, determine whether the expected payoff won by MAX is greater than 1/2 when both players use their optimal strategies—is in NP∩coNP. However, the exact complexity of this problem remains open, as it is not known whether the problem is in P or is hard for some natural complexity class. In this paper, we study the computational complexity of a strategy improvement algorithm by Hoffman and Karp for this problem. The Hoffman–Karp algorithm converges to optimal strategies of a given SSG, but no non-trivial bounds were previously known on its running time. We prove a bound of O(2n/n) on the convergence time of the Hoffman–Karp algorithm, and a bound of O(20.78n) on a randomized variant. These are the first non-trivial upper bounds on the convergence time of these strategy improvement algorithms.}
+}
+@article{valueIterationTest,
+   title={Comparison of Algorithms for Simple Stochastic Games},
+   volume={326},
+   ISSN={2075-2180},
+   url={http://dx.doi.org/10.4204/EPTCS.326.9},
+   DOI={10.4204/eptcs.326.9},
+   journal={Electronic Proceedings in Theoretical Computer Science},
+   publisher={Open Publishing Association},
+   author={Křetínský, Jan and Ramneantu, Emanuel and Slivinskiy, Alexander and Weininger, Maximilian},
+   year={2020},
+   month=sep, pages={131–148}
+}
+@Inbook{valueIteration,
+  author="Chatterjee, Krishnendu
+  and Henzinger, Thomas A.",
+  editor="Grumberg, Orna
+  and Veith, Helmut",
+  title="Value Iteration",
+  bookTitle="25 Years of Model Checking: History, Achievements, Perspectives",
+  year="2008",
+  publisher="Springer Berlin Heidelberg",
+  address="Berlin, Heidelberg",
+  pages="107--138",
+  abstract="We survey value iteration algorithms on graphs. Such algorithms can be used for determining the existence of certain paths (model checking), the existence of certain strategies (game solving), and the probabilities of certain events (performance analysis). We classify the algorithms according to the value domain (boolean, probabilistic, or quantitative); according to the graph structure (nondeterministic, probabilistic, or multi-player); according to the desired property of paths (Borel level 1, 2, or 3); and according to the alternation depth and convergence rate of fixpoint computations.",
+  isbn="978-3-540-69850-0",
+  doi="10.1007/978-3-540-69850-0_7",
+  url="https://doi.org/10.1007/978-3-540-69850-0_7"
+}
+@article{hoffmanKarp,
+ ISSN = {00251909, 15265501},
+ URL = {http://www.jstor.org/stable/2627820},
+ abstract = {A stochastic game is played in a sequence of steps; at each step the play is said to be in some state i, chosen from a finite collection of states. If the play is in state i, the first player chooses move k and the second player chooses move l, then the first player receives a reward akli, and, with probability pklij, the next state is j. The concept of stochastic games was introduced by Shapley with the proviso that, with probability 1, play terminates. The authors consider the case when play never terminates, and show properties of such games and offer a convergent algorithm for their solution. In the special case when one of the players is a dummy, the nonterminating stochastic game reduces to a Markovian decision process, and the present work can be regarded as the extension to a game theoretic context of known results on Markovian decision processes.},
+ author = {A. J. Hoffman and R. M. Karp},
+ journal = {Management Science},
+ number = {5},
+ pages = {359--370},
+ publisher = {INFORMS},
+ title = {On Nonterminating Stochastic Games},
+ urldate = {2024-03-30},
+ volume = {12},
+ year = {1966}
+}
+

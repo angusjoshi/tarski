@@ -145,7 +145,8 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   \end{itemize}
 \end{definition}
 \begin{notation}
-    Throughout this section if $(f_0, f_1)$ are switching flows the notation $\flowin(v) =
+  Throughout this section if $a \in \znn^d$ and $(f_0, f_1)$ is the flow
+  corresponding to $a$, the notation $\flowin(v) =
         \sum_{\substack{w \in V \\ s_0(w) = v}} f_0(w) 
         + \sum_{\substack{w \in V \\ s_1(w) = v}} f_1(w)$ will be used. 
 \end{notation}
@@ -194,10 +195,10 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   \begin{prop}\label{fixpointIsFlow}
     Let $f : \znn^d \to \znn^d$ be an arrival monotone function, and $a = (a_1, ..., a_d) \in \znn^d$. 
     Define $g_0(v_i) = \lceil \frac{a_i}{2} \rceil$ and $g_1(v_i) = \lfloor \frac{a_i}{2} \rfloor$. 
-    Then $(g_0, g_1)$ is a switching flow if and only if $f(a) = a$.
+    If $f(a) = a$ then $(g_0, g_1)$ is a switching flow.
   \end{prop}
   \begin{proof}
-    $(\impliedby)$ For flow conservation, let $v_i \in V \setminus \{s, t, \overline{t}\}$. Then,
+    For flow conservation, let $v_i \in V \setminus \{s, t, \overline{t}\}$. Then,
     \begin{align*}
       \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}} g_0(v_j) 
       + \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}} g_1(v_j) &= 
@@ -210,30 +211,8 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     \end{align*}
     Source flow conservation follows similarly. Switching is clear from the definition of $\lfloor \cdot \rfloor$
     and $\lceil \cdot \rceil$. \\
-    $(\implies)$ Let $g_0(v_i) = \left\lceil \frac{a_i}{2} \right\rceil$, 
-    $g_1(v_i) = \left\lfloor \frac{a_i}{2} \right\rfloor$, and $(g_0, g_1)$ be a switching flow. Then
-    for each $i \in [d]$ if $v_i \neq s$,
-    \begin{align*}
-      f((a_1, ..., a_d))_i &= 
-    \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}} \left\lceil \frac{a_j}{2} \right\rceil
-      + \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}} \left\lfloor \frac{a_j}{2} \right\rfloor \\
-      &= \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}}  g_0(v_j) 
-      + \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}}  g_1(v_j) \\
-      &= g_0(v_i) + g_1(v_i) \qquad \text{(by flow conservation)} \\
-      &= \left\lceil \frac{a_i}{2} \right\rceil + \left\lfloor \frac{a_i}{2} \right\rfloor = a_i,
-    \end{align*}
-    and if $v_i = s$,
-    \begin{align*}
-      f((a_1, ..., a_d))_i &= 
-    1 + \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}} \left\lceil \frac{a_j}{2} \right\rceil
-      + \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}} \left\lfloor \frac{a_j}{2} \right\rfloor \\
-      &= 1 + \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}}  g_0(v_j) 
-      + \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}}  g_1(v_j) \\
-      &= 1 + g_0(v_i) + g_1(v_i) - 1 \qquad \text{(by source flow conservation)} \\
-      &= \left\lceil \frac{a_i}{2} \right\rceil + \left\lfloor \frac{a_i}{2} \right\rfloor = a_i.
-    \end{align*}
   \end{proof}
-  The next proposition draws an intriguing connection between the arrival walk and monotone function.
+  The next proposition draws useful connection between the arrival walk and monotone function.
   \newcommand{\lc}{\left\lceil}
   \newcommand{\rc}{\right\rceil}
   \newcommand{\lf}{\left\lfloor}
@@ -272,6 +251,14 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     fixpoint. But \cref{kleeneTarskiIsWalk} says that iteration from the bottom of the lattice is the walk
     and will give the fixpoint corresponding to the switching flow of the walk.
   \end{proof}
+  \begin{lemma} \label{flowSunk}
+    Let $f : \znn^d \to \znn^d$ be an arrival monotone function. If $a \in \znn^d$ and
+    $(f_0, f_1)$ the flow corresponding to $a$. Then 
+    $\sum_{i \in [d]} f(a)_i =  1 + \left( \sum_{i \in [d]} a_i \right) - \flowin(t) - \flowin(\overline{t})$.
+  \end{lemma}
+  \begin{proof}
+    Easily computed from the definitions.
+  \end{proof}
   \begin{cor}
     Let $f : \znn^d \to \znn^d$ be an arrival monotone function, and $a \in \znn^d$ be a point
     such that $f(a) = a$. If 
@@ -279,11 +266,8 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     \sum_{\substack{i \in [d] \\ s_1(v_i) = t}}  \lf \frac{a_i}{2} \rf$ and
     $\flowin(\overline{t}) = \sum_{\substack{i \in [d] \\ s_0(v_i) = \overline{t}}}  \lc \frac{a_i}{2} \rc +
     \sum_{\substack{i \in [d] \\ s_1(v_i) = \overline{t}}}  \lf \frac{a_i}{2} \rf$ are the inflows at $t$ and $\overline{t}$
-    respectively. Exactly one of the following hold,
-    \begin{itemize}
-      \item $\flowin (t) = 1$ and $\flowin (\overline{t}) = 0$,
-      \item $\flowin (t) = 0$ and $\flowin (\overline{t}) = 1$.
-    \end{itemize}
+    respectively. Then $\flowin (t) = 1$ and $\flowin (\overline{t}) = 0$,
+    or $\flowin (t) = 0$ and $\flowin (\overline{t}) = 1$.
   \end{cor}
   \begin{proof}
     The walk only terminates when it reaches either $t$ or $\overline{t}$, so the switching flow corresponding
@@ -291,9 +275,11 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     $\flowin(t) = 0$ and $\flowin(\overline{t}) = 1$. By \cref{walkLfp} the walk corresponds
     to the least fixpoint, and for all other switching flows $(g_0, g_1)$, at least one of $\glowin (t) \geq 1$ or
     $\glowin (\overline{t}) \geq 1$. Suppose for a contradiction that $\glowin (t) + \glowin (\overline{t}) \geq 2$ and let
-    $a \in \znn^d$ be the point corresponding to $(g_0, g_1)$. Then
-    $\sum_{i \in [d]} f(a)_i \leq \sum_{i \in [d]} a_i - 1$. But this contradicts $a$ being a fixpoint due to
-    \cref{fixpointIsFlow}, from which I find $\glowin (t) + \glowin (\overline{t}) = 1$, and the claim follows.
+    $a \in \znn^d$ be the point corresponding to $(g_0, g_1)$. Then by \cref{flowSunk},
+      $\sum_{i \in [d]} f(a)_i = 1 + \left( \sum_{i \in [d]} a_i\right) 
+        - \glowin(t) - \glowin(\overline{t})
+                              \leq \sum_{i \in [d]} a_i - 1$.
+    Which contradicts $a$ being a fixpoint.
   \end{proof}
   Remarkably, this implies that \emph{any} switching flow is certificate to the walk reaching either $t$
   or $\overline{t}$. Further, fixpoints are switching flows so deciding the $\arr$ problem is reducible
@@ -317,34 +303,6 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
     Monotonicity then follows monotonicity of the arrival monotone function, and monotonicity
     being preserved under composition.
   \end{proof}
-  \begin{lemma}\label{upOne}
-    Let $f : \znn^d \to \znn^d$ be a monotone arrival function. If $a \in \znn^d$ then
-    $\sum_{i \in [d]} f(a)_i \leq 1 + \sum_{i \in [d]} a_i$.
-  \end{lemma}
-  \begin{proof}
-    I have 
-    \begin{align*}
-      \sum_{i \in [d]} f_i ((a_1, ..., a_d)) &= \sum_{i \in [d]} \begin{cases}
-    \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}} \left\lceil \frac{a_j}{2} \right\rceil
-      + \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}} \left\lfloor \frac{a_j}{2} \right\rfloor
-      & v_i \neq s \\
-    1 + \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}} \left\lceil \frac{a_j}{2} \right\rceil
-      + \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}} \left\lfloor \frac{a_j}{2} \right\rfloor
-      & v_i = s 
-    \end{cases}\\
-        &= 1 + \sum_{i \in [d]} \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}}  \left\lceil \frac{a_j}{2} \right\rceil
-      + \sum_{i \in [d]} \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}} \left\lfloor \frac{a_j}{2} \right\rfloor. \\
-    \end{align*}
-    By construction of $s_0$ and $s_1$, for each $j \in [d]$ there is at most one
-    $i \in [d]$ such that $s_0(v_j) = v_i$ and at most one $i' \in [d]$ such that $s_1(v_j) = v_{i'}$.
-    So,
-    \begin{align*}
-        1 + \sum_{i \in [d]} \sum_{\substack{j \in [d] \\ s_0(v_j) = v_i}}  \left\lceil \frac{a_j}{2} \right\rceil
-      + \sum_{i \in [d]} \sum_{\substack{j \in [d] \\ s_1(v_j) = v_i}} \left\lfloor \frac{a_j}{2} \right\rfloor
-      &\leq 1 + \sum_{j \in [d]} \left\lceil \frac{a_j}{2} \right\rceil + \sum_{j \in [d]} \left\lfloor \frac{a_j}{2} \right\rfloor \\
-      &= 1 + \sum_{i \in [d]} a_i. 
-    \end{align*}
-  \end{proof}
   \begin{lemma}[\citep{gärtner2021subexponential}]
     Let $(V, s, t, \overline{t}, s_0, s_1)$ be an instance of the arrival problem, 
     $n = |V|$, $N = 2^n$, $d = |V \setminus \{t, \overline{t}\}|$, 
@@ -354,12 +312,13 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   \end{lemma}
   \begin{proof}
     Begin by noting that for all $a \in \no^d$, $f(a) \geq F(a)$. Suppose for a contradiction that $f(a) \neq F(a)$.
-    Then $F(a) > f(a)$. From \cref{upOne} combined with the fact that $F(a) = a$, I find that 
-    $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$. 
-    It must therefore be the case that for some $i \in [d]$, $f(a)_j = 
+    Then $F(a) > f(a)$. From \cref{flowSunk},
+    $\sum_{i \in [d]} f(a)_i \leq 1 + \sum_{i \in [d]} a_i$. 
+    Since $F(a) = a$ I find $i \in [d]$, $f(a)_j = 
     \begin{cases} a_j + 1 & j = i \\ a_j & j \neq i. \end{cases}$. By definition $F(a)_i = \min(f(a)_i, N)$
-      from which it follows $a_i = N$ and $f(a)_i = N + 1$.
-    For $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$ I require that $f_{\text{in}}(t) = 0$ and $f_{\text{in}}(\overline{t}) = 0$.
+      so $a_i = N$ and $f(a)_i = N + 1$.
+    For $\sum_{i \in [d]} f(a)_i = 1 + \sum_{i \in [d]} a_i$ 
+    I require that $f_{\text{in}}(t) = 0$ and $f_{\text{in}}(\overline{t}) = 0$.
     But \cref{walkFinite} combined with $a_i = N = 2^n$ implies that the walk must have terminated. That is,
     either $f_{\text{in}}(t) > 0$ or $f_{\text{in}}(\overline{t}) > 0$, which is a contradiction. 
   \end{proof}

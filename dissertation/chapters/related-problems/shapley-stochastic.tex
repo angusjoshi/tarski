@@ -10,12 +10,12 @@ dependent on the joint action chosen.
 It is shown in \citep{shapley} that stochastic games necessarily have an optimal expected value,
 and further that this value can be achieved in stationary strategies. Unlike
 simple stochastic games however, the value need not be rational or the strategies
-achieving this value pure. In \citep{lowerBound} it is shown that the  problem
+achieving the value pure. In \citep{lowerBound} it is shown that the  problem
 of finding a rational number $\varepsilon$ close to the actual value of the game
 is polynomial-time reducible to $\trsk$ which will be described in this section.
 \begin{figure}[h]
   \centering
-  \input{diagrams/shapley-diagram.tex}
+  \scalebox{0.6}{\input{diagrams/shapley-diagram.tex}}
   \caption{An instance of shapley's stochastic games is a set of states,
   and for each state a pair of actions sets for the two players.
   Play starts at some state and each player picks an action, and receives payoff equal to the entry in
@@ -59,9 +59,7 @@ I can define a sequence of random variables
 $(X_t)_{t \in \znn}$ representing the payoff at the $t$-th step, allowing for the convention
 that the game continues to 'play' after halting, just giving both players payoff 0 repeatedly. The value of the game
 then becomes the (necessarily convergent) series $v = \sum_{t = 0}^\infty \E[X_t]$\footnote{
-  The expectation is well defined since the range of possible payoffs is a finite set.
-  That the series converges can be seen in \citep[Chapter 2]{compMdps}.
-  }. Then the value of a state $x \in V$ 
+  That the expectation is well defined and the series convergent can be seen in \citep[Chapter 2]{compMdps}.}. Then the value of a state $x \in V$ 
 under stationay strategy profile $(\sigma, \tau)$ is denoted $v_{\sigma, \tau}(x)$. The content of the following
 result from \citep{shapley} is that stopping stochastic games necessarily have a minimax value, and that value can be achieved
 in stationary strategies.
@@ -91,18 +89,16 @@ shows it to be correct.
 \end{lemma}
 \newcommand{\mat}[1]{\left\llbracket #1 \right\rrbracket}
 \begin{proof}
-  The first observation is that the $\val(\cdot)$ operator is monotone in the coordinatewise ordering
+  Note $\val(\cdot)$ is monotone in the coordinatewise ordering
   for the corresponding set of matrices. For
   if $\val(B) = k$ for some $B \in \mathbf{Mat}(\Q, n \times m)$ then there is some
   distribution $x \in \Q^n$ such that for all distributions $y \in \Q^m$, $x^T B y \geq k$.
   Then if $B \leq B' \in \mathbf{Mat}(\Q, n \times m)$ then since $x$ and $y$ necessarily have
-  all non-negative entries, with $x$ and $y$ quantified similarly, $k \leq x^T B y \leq x^T B' y$. So $\val(B) \leq \val(B')$.
-  It also follows easily at this point that $F$ is montone, for all multiplicative factors involved can be seen to be
-  non-negative.
-  Secondly, if $N = \max_{j, k} |B_{j, k}|$ then clearly the maximizer can achieve payoff
-  no larger than the largest entry in the matrix, and no smaller than the smallest. So $-N \leq \val(B) \leq N$.
-  Now by monotonicity I have for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \leq F\left(\vec{\frac{M}{q}}\right)$.
-  I take some liberty in denoting $\mat{k}$ to be the matrix
+  all non-negative entries, $k \leq x^T B y \leq x^T B' y$. So $\val(B) \leq \val(B')$.
+  It is then easily verified that $F$ is monotone.
+  Now if $N = \max_{j, k} |B_{j, k}|$ then clearly $-N \leq \val(B) \leq N$.
+  By monotonicity, for all $x \in [-\frac{M}{q}, \frac{M}{q}]^d$, $F(x) \leq F\left(\vec{\frac{M}{q}}\right)$.
+  I denote $\mat{k}$ to be the matrix
   with entries all equal to $k$ with size inferred from context. For each $i \in [d]$,
   \begin{align*}
     F\left(\vec{\frac{M}{q}}\right)_i &= \val(A^i + (1 - q) \cdot T^i) \\

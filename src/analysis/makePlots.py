@@ -147,10 +147,12 @@ epsilonData = {
 
 algorithmNames = {
     'walkData': 'Kleene, Tarski',
-    'recbin': 'Dan, Qi, Ye',
+    'recbin': 'Dang, Qi, Ye',
     'decomp': 'Fearnley, Pálvölgyi, Savani',
     'monDecomp': 'Chen, Li'
 }
+
+pltsFolder = '../../dissertation/plots'
 
 def plotSimpleStochastic():
     for type in ['queries', 'times']:
@@ -163,16 +165,19 @@ def plotSimpleStochastic():
         plt.xlabel('Number of vertices')
         if type == 'times':
             plt.ylabel('Average time (ms)')
-            pass
         else:
             plt.ylabel('Average number of queries')
 
         plt.legend(loc='upper left')
-        plt.show()
+        plt.savefig(f'{pltsFolder}/simple_{type}.png')
+        plt.close()
+
 
         d = simpleStochasticData['walkData']
         plt.plot(d['testSize'], d[type])
-        plt.title(f"Average {'steps' if type == 'queries' else 'time'} for random simple stochastic game instance walk (n=20)")
+        plt.title(f"Average {'number of iterations' if type == 'queries' else 'time'} for value\n"
+                  f"iteration on random simple stochastic game instance walk (n=20)")
+
         plt.xscale('log')
         if type == 'times':
             plt.yscale('log')
@@ -181,15 +186,19 @@ def plotSimpleStochastic():
             plt.ylabel('Average time (ms)')
             pass
         else:
-            plt.ylabel('Average number of steps')
-        plt.show()
+            plt.ylabel('Average number of iterations')
+
+        plt.savefig(f'{pltsFolder}/simple_{"iterations" if type == "queries" else "iter_time"}')
+        plt.close()
 
 def plotEpsilons():
     for problem in ['shapley', 'simple']:
         for type in ['queries', 'times']:
             for algorithm in ['recbin', 'decomp', 'monDecomp', 'walkData']:
                 d = epsilonData[problem][algorithm]
-                plt.plot(d['epsilon'], d[type], label=algorithmNames[algorithm])
+                plt.plot(d['epsilon'],
+                         d[type],
+                         label="Value iteration" if algorithm == "walkData" else algorithmNames[algorithm])
 
             title = f"Average {type} for random {problem} stochastic game instance (n=20)"
             if problem == 'shapley':
@@ -209,7 +218,9 @@ def plotEpsilons():
             else:
                 plt.ylabel('Average number of queries')
             plt.legend(loc='upper left')
-            plt.show()
+
+            plt.savefig(f'{pltsFolder}/{problem}_eps_{type}')
+            plt.close()
 
 
 def plotShapley():
@@ -221,29 +232,35 @@ def plotShapley():
         plt.title(f"Average {type} for random shapley stochastic game instance (n=20)")
         plt.yscale('log')
         plt.xlabel('Number of vertices')
+
         if type == 'times':
             plt.ylabel('Average time (ms)')
-            pass
         else:
             plt.ylabel('Average number of queries')
+
         plt.legend(loc='upper left')
-        plt.show()
+        plt.savefig(f'{pltsFolder}/shapley_{type}.png')
+        plt.close()
 
         d = shapleyData['walkData']
         plt.plot(d['testSize'], d[type])
-        plt.title(f"Average {'steps' if type == 'queries' else 'time'} for random shapley stochastic game instance walk (n=20)")
+        plt.title(f"Average {'iterations' if type == 'queries' else 'time'} for value iteration on\n"
+                  f"random shapley stochastic game instance walk (n=20)")
         plt.xlabel('Number of vertices')
         if type == 'times':
             plt.ylabel('Average time (ms)')
         else:
             plt.ylabel('Average number of steps')
-        plt.show()
+        plt.savefig(f'{pltsFolder}/shapley_{"iterations" if type == "queries" else "iter_time"}.png')
+        plt.close()
 
 def plotLongWalk():
     for type in ['queries', 'times']:
         for algorithm in ['recbin', 'decomp', 'monDecomp', 'walkData']:
             d = longWalkData[algorithm]
-            plt.plot(d['testSize'], d[type], label=algorithmNames[algorithm])
+            plt.plot(d['testSize'],
+                     d[type],
+                     label="walk" if algorithm == 'walkData' else algorithmNames[algorithm])
 
         plt.title(f"Average {type} for longest arrival instance (n=20)")
         plt.yscale('log')
@@ -254,10 +271,11 @@ def plotLongWalk():
         else:
             plt.ylabel('Average number of queries')
         plt.legend(loc='upper left')
-        plt.show()
+        plt.savefig(f'{pltsFolder}/arrival_long_{type}')
+        plt.close()
 
 def plotAverageQueries():
-    plt.plot(recBinData['testSize'], recBinData['queries'], label='Dan, Qi, Ye')
+    plt.plot(recBinData['testSize'], recBinData['queries'], label='Dang, Qi, Ye')
     plt.plot(decompData['testSize'], decompData['queries'], label='Fearnley, Pálvölgyi, Savani')
     plt.plot(monDecompData['testSize'], monDecompData['queries'], label='Chen, Li')
 
@@ -267,10 +285,11 @@ def plotAverageQueries():
     plt.ylabel('Average number of queries')
 
     plt.legend(loc='upper left')
-    plt.show()
+    plt.savefig(f'{pltsFolder}/arrival_queries.png')
+    plt.close()
 
 def plotAverageTime():
-    plt.plot(recBinData['testSize'], recBinData['times'], label='Dan, Qi, Ye')
+    plt.plot(recBinData['testSize'], recBinData['times'], label='Dang, Qi, Ye')
     plt.plot(decompData['testSize'], decompData['times'], label='Fearnley, Pálvölgyi, Savani')
     plt.plot(monDecompData['testSize'], monDecompData['times'], label='Chen, Li')
 
@@ -280,18 +299,20 @@ def plotAverageTime():
     plt.ylabel('Average time (ms)')
 
     plt.legend(loc='upper left')
-    plt.show()
+    plt.savefig(f'{pltsFolder}/arrival_time.png')
+    plt.close()
 
 def plotWalkSteps():
     plt.plot(walkData['testSize'], walkData['queries'])
     plt.title('Average walk length for random arrival instance (n=20)')
     plt.xlabel('Number of vertices')
-    plt.ylabel('Average queries in walk')
+    plt.ylabel('Average steps in walk')
     plt.xscale('log')
     plt.yscale('log')
 
     plt.legend(loc='upper left')
-    plt.show()
+    plt.savefig(f'{pltsFolder}/arrival_steps.png')
+    plt.close()
 def plotWalkTime():
     plt.plot(walkData['testSize'], walkData['times'])
     plt.title('Average time to compute walk for random arrival instance (n=20)')
@@ -301,15 +322,16 @@ def plotWalkTime():
     plt.yscale('log')
 
     plt.legend(loc='upper left')
-    plt.show()
+    plt.savefig(f'{pltsFolder}/arrival_wtime.png')
+    plt.close()
 
 plotLongWalk()
-# plotEpsilons()
-# plotSimpleStochastic()
-# plotShapley()
-# plotAverageQueries()
-# plotAverageTime()
-# plotWalkSteps()
-# plotWalkTime()
+plotEpsilons()
+plotSimpleStochastic()
+plotShapley()
+plotAverageQueries()
+plotAverageTime()
+plotWalkSteps()
+plotWalkTime()
 
 

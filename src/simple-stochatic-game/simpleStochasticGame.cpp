@@ -28,16 +28,19 @@ simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs, f_t eps) : v
 
 }
 
-vector<int_t> simpleStochasticGame::getTop() {
+const vector<int_t> simpleStochasticGame::getTop() {
     return vector<int_t>(vertices.size() - 1, N);
 }
 
-vector<int_t> simpleStochasticGame::getBot() {
+const vector<f_t> simpleStochasticGame::getCtsStart() {
+    return vector<f_t>(vertices.size() - 1, 0);
+}
+const vector<int_t> simpleStochasticGame::getBot() {
     return vector<int_t>(vertices.size() - 1, 0);
 }
 
 
-vector<int_t> simpleStochasticGame::discretize(const vector<f_t>& d) {
+const vector<int_t> simpleStochasticGame::discretize(const vector<f_t>& d) {
     vector<int_t> result;
     result.reserve(d.size());
     for(const auto& val : d) {
@@ -46,7 +49,7 @@ vector<int_t> simpleStochasticGame::discretize(const vector<f_t>& d) {
     return result;
 }
 
-vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
+const vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
     vector<f_t> result;
     result.reserve(v.size());
 
@@ -59,76 +62,85 @@ vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
 }
 
 
-void simpleStochasticGame::contract(vector<f_t>& v) {
+const void simpleStochasticGame::contract(vector<f_t>& v) {
     for(auto& val : v) {
         val *= contractionFactor;
     }
 }
+const vector<f_t> simpleStochasticGame::computeFunction(const vector<f_t>& vf) {
+    vector<f_t> result;
 
-function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonotoneFunction() {
+    for(const auto& vertex : vertices) {
+        switch(vertex.type) {
+            case mini:
+            {
+                f_t minVal = 1;
+                for(const auto& s : vertex.succs) {
+                    if(s.i == maxSinkI) {
+                        continue;
+                    }
+
+                    minVal = min(minVal, vf[s.i]);
+                }
+                result.push_back(minVal);
+                break;
+            }
+
+            case maxi:
+            {
+                f_t maxVal = 0;
+                for(const auto& s : vertex.succs) {
+                    if(s.i == maxSinkI) {
+                        maxVal = 1;
+                        continue;
+                    }
+
+                    maxVal = max(maxVal, vf[s.i]);
+                }
+                result.push_back(maxVal);
+                break;
+            }
+
+            case chance:
+            {
+                f_t sumVal = 0;
+                for(const auto& s : vertex.succs) {
+                    if(s.i == maxSinkI) {
+                        sumVal += s.p;
+                        continue;
+                    }
+
+                    sumVal += vf[s.i] * s.p;
+                }
+                result.push_back(sumVal);
+                break;
+            }
+
+            case maxSink:
+                break;
+        }
+    }
+
+    contract(result);
+    return result;
+}
+
+const function<vector<int_t>(const vector<int_t>& v)> simpleStochasticGame::getMonotoneFunction() {
     return [this](const vector<int_t>& v) {
         vector<f_t> vf = unDiscretize(v);
-        vector<f_t> resultf;
-
-        for(const auto& vertex : vertices) {
-            switch(vertex.type) {
-                case mini:
-                    {
-                        f_t minVal = 1;
-                        for(const auto& s : vertex.succs) {
-                            if(s.i == maxSinkI) {
-                                continue;
-                            }
-
-                            minVal = min(minVal, vf[s.i]);
-                        }
-                        resultf.push_back(minVal);
-                        break;
-                    }
-
-                case maxi:
-                    {
-                        f_t maxVal = 0;
-                        for(const auto& s : vertex.succs) {
-                            if(s.i == maxSinkI) {
-                                maxVal = 1;
-                                continue;
-                            }
-
-                            maxVal = max(maxVal, vf[s.i]);
-                        }
-                        resultf.push_back(maxVal);
-                        break;
-                    }
-
-                case chance:
-                    {
-                        f_t sumVal = 0;
-                        for(const auto& s : vertex.succs) {
-                            if(s.i == maxSinkI) {
-                                sumVal += s.p;
-                                continue;
-                            }
-
-                            sumVal += vf[s.i] * s.p;
-                        }
-                        resultf.push_back(sumVal);
-                        break;
-                    }
-
-                case maxSink:
-                    break;
-            }
-        }
-
-        contract(resultf);
-
-
-        return discretize(resultf);
+        vector<f_t> result = computeFunction(vf);
+        return discretize(result);
     };
 }
 
-void simpleStochasticGame::print() {
+const function<vector<f_t>(const vector<f_t>& v)> simpleStochasticGame::getCtsMonotoneFunction() {
+    return [this](const vector<f_t>& v) {
+        return computeFunction(v);
+    };
+    return {};
+}
+
+const void simpleStochasticGame::print() {
     for(int i = 0 ; i < vertices.size(); i++) {
         const auto& v = vertices[i];
         printf("vertex: %d, type is: %d\n", i, v.type);

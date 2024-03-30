@@ -81,6 +81,10 @@ add_executable(src main.cpp
         shapley-stochastic-game/shapleyStochasticGame.h
         shapley-stochastic-game/shapleyStochasticGameGenerator.cpp
         shapley-stochastic-game/shapleyStochasticGameGenerator.h
+        simple-stochatic-game/valueIteration.h
+        simple-stochatic-game/valueIteration.cpp
+        simple-stochatic-game/strategyImprovement.cpp
+        simple-stochatic-game/strategyImprovement.h
 )
 
 
