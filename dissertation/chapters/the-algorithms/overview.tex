@@ -11,7 +11,7 @@ that $x_i = v$. If this algorithm takes $q(N)$ queries in the worst case,
 then a fixpoint of $f$ can be found in $O(\log N \cdot q(N))$ in the
 same fashion as \cref{dQiYiAlg}. This sub-problem will prove to be
 important, so I will define it in it's own right.
-\newcommand{\trsks}{\textsc{Tarski*}}
+\newcommand{\trsks}{\textsc{FindMonotone}}
 \begin{definition}[\trsks]
   The problem $\trsks(N, d)$ is, given oracle access to a monotone function $f : [N]^d \to [N]^d$,
   a coordinate $i \in \{1, ..., d\}$, and value $v \in [N]$, find a monotone point $x \in [N]^d$ such that

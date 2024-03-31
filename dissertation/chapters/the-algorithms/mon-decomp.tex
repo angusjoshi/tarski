@@ -1,3 +1,101 @@
 %todo all of this.
 \section{Monotone Decomposition} \label{monotoneDecompChap}
+The algorithm described in \cref{fixDecompChapter} makes a decomposition
+of $\trsk$ by decomposing into smaller fixpoint computation problems, with
+the asymptotic improvement coming from the fact that there is an algorithm
+to efficently solve the $\trsk(N, 3)$ problem. We can do better however;
+Chen and Li describe in \citep{chenLi} a method of decomposing the $\trsks$
+problem instead. To save space, this section will show the algorithms used
+but for proofs of correcteness the reader is referred to \citep{chenLi}.
+It will be simpler to give an overview after a definition of 
+an auxiliary problem.
+\newcommand{\trskst}{\textsc{Tarksi}^*}
+\begin{definition}[$\trskst$, \citep{chenLi}] \label{trskst}
+  The problem $\trskst(N, d)$ is given oracle access to a function $f : [N]^d \to \{-1, 0, 1\}^d$
+  such that,
+  \begin{enumerate}
+    \item for each $x \in [N]^d$ and $i \in [d]$, $x_i + f(x)_i \in [N]^d$,
+    \item for each $x, y \in [N]^d$ with $x \leq y$, $(x, 0) + f(x) \leq (y, 0) + f(y)$,
+  \end{enumerate}
+  find a point $x \in [N]^d$ such that $f(x) \geq 0$ or $f(x) \leq 0$.
+\end{definition}
+This function $f$ is designed to be an indicator of a monotone function $F : [N]^d \to [N]^d$;
+that is if I define $f$ coordinatewise as 
+$f(x)_i = \begin{cases} 1, & F(x)_i > x_i \\ 0, & F(x)_i = x_i \\ -1, & F(x)_i < x_i \end{cases}$
+then $f$ satisfies the conditions in \cref{trskst}. The first condition is the requirement that
+the codomain of $F$ is correct, and the second is monotonicity. It is also clear that $\trsks(N, d)$ 
+trivially reduces to $\trskst(N, d)$. Chen and Li then wish to make decompositions from
+$\trskst(N, a + b)$ into $\trskst(N, a)$ and $\trskst(N, a)$. The fixpoint decomposition
+method \cref{fixDecompAlg} does not obviously apply here; it is not clear what to do with the extra
+coordinate in the codomain, and further if I split into $f_l$ and $f_r$ similarly to \cref{fixDecompAlg},
+if $(x_l, x_r) \in [N]^a \times [N]^b$, are found as monotone points of $f_l$ and $f_r$,
+$x_l$ can be a monotone-down point, and $x_r$ a monotone up point so $(x_l, x_r)$ is not necessarily
+a monotone point of $f$. Chen and Li's first step towards a solution is defining a refinement of the
+$\trskst$ problem.
+\begin{definition}[$\textsc{RefinedTarski}$, \citep{chenLi}]
+  Given a function $f : [N]^d \to \{-1, 0, 1\}^{d + 1}$ as in \cref{trskst}, find
+  a pair of points $\bot, \top \in [N]^d$ such that $\bot \leq \top$, for each $i \in [d]$,
+  $f(\bot)_i \geq 0$, $f(\top)_i \leq 0$, and at least one of the following hold,
+  \begin{enumerate}
+    \item $f(\bot)_{d + 1} = 1$,
+    \item $f(\top)_{d + 1} = -1$,
+    \item $f(\bot) = f(\top) = 0$.
+  \end{enumerate}
+\end{definition}
+Interestingly, Chen and Li show that this problem is no harder than $\trskst$ in the sense
+that it can be solved in at most two queries to a $\trskst$ orcacle. Their algorithm for doing this is
+shown in \cref{refinedTarskAlg}.
+\begin{algorithm}[h]
+  \caption{\citep{chenLi}} \label{refinedTarskAlg}
+  \begin{algorithmic}[1]
+    \Procedure{RefinedTarski}{\\
+      \qquad $f : [N]^d \to \{-1, 0, 1\}^{d + 1}$ as in \cref{trskst},\\
+      \qquad algorithm $A$ for solving $\trskst(N, d)$
+    }
+    \State $(\bot, \top) \gets (\vec{1}, \vec{N})$
+    \State Let $g^+ : [N]^d \to [N]^{d+1}$ with $g^+(x)_i = 
+      \begin{cases} 1, & i = d + 1 \text{ and } g(x)_{d + 1} \geq 0 \\ g(x)_i, & \text{otherwise}\end{cases}$
+    \State $x \gets A(g^+)$ with bounds $\bot$, $\top$
+    \State \If{$g^+(x) = -1$} $\top \gets x$ and \Return $(\bot, \top)$ \EndIf
+    \State $\bot \gets x$
+  \State Let $g^- : [N]^d \to [N]^{d+1}$ with $g^+(x)_i = 
+    \begin{cases} -1, & i = d + 1 \text{ and } g(x)_{d + 1} \leq 0 \\ g(x)_i, & \text{otherwise}\end{cases}$
+  \State $y \gets A(g^-)$ with bounds $\bot$, $\top$
+    \State \If{$g^-(y)_{d + 1} = 1$} $\bot \gets y$ \algorithmicelse\ $\top \gets y$ \EndIf
+    \State \Return $(\bot, \top)$
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+Correctness is relatively simple to verify and is ommitted for brevity.
+Now the main algorithm is described in \cref{monDemcompAlg}.
+
+\begin{algorithm}[h]
+  \caption{\citep{chenLi}} \label{monDemcompAlg}
+  \begin{algorithmic}[1]
+    \Procedure{MonotoneDecomposition}{\\
+      \qquad monotone $f : [N]^{a + b}  \to \{-1, 0, 1\}^{a + b + 1}$ as in \cref{trskst},\\
+      \qquad algorithm $A$ for solving $\trsk(N, a)$, \\
+      \qquad algorithm $B$ for solving $\trsk(N, b)$ 
+    }
+    \State $\mathrm{prev} \gets \emptyset$
+    \Procedure{$f_r$}{$x_r \in [N]^b$}
+      \Procedure{$f_l$}{$x_l \in [N]^a$}
+        \Return $f((x_l, x_r))_{-r}$.
+      \EndProcedure
+      \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \leq x_r \}$
+      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \geq x_r \}$
+      \State $x_l^* \gets A(f_l)$ with bounds $\bot_l$, $\top_l$
+      % \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
+      % $\bot_l$, $\top_l$.
+      \State $\mathrm{prev} \gets \mathrm{prev} \cup \{(x_l^*, x_r)\}$
+      \State \Return $f((x_l^*, x_r))_{-l}$.
+    \EndProcedure
+    \State $x_r^* \gets B(f_r)$
+    % \State run algorithm $B$ on $f_r$ to find fixpoint $x_r^*$
+    \State \Return $(x_l^*, x_r^*)$ where $x_l^*$ is the fixpoint of $f_l$ 
+    found when evaluating $f_r(x_r^*)$.
+  \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
 

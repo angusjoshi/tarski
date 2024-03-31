@@ -24,7 +24,8 @@ this is achieveable; in \cref{fixDecompAlg} the issue is solved
 by carefully choosing bounds of the sublattice to search in based
 on previously computed points. The correctness of which will be
 the concern of the remainder of this section.
-
+An abuse of notation $x_{-r}$ or $x_{-l}$ is often used to denote
+the first $a$ coordinates, or last $b$ coordinates of $x$ respectively.
 \begin{algorithm}[h]
   \caption{\citep{fasterTarski}}\label{fixDecompAlg}
   \begin{algorithmic}[1]
@@ -80,7 +81,7 @@ the concern of the remainder of this section.
   I prove the first case and the second is similar. Suppose not. That is,
   for some $i \in [a]$ I have $f_l(\bot_l)_i < (\bot_l)_i$. If 
   $L = \{p_l : (p_l, p_r) \in \mathrm{prev} : p_r \leq x_r \}$ is empty then
-  $\vee L = \vec{1}$ and the claim holds. If $L$ is non-empty then by definition
+  $\vee L = \vec{1}$ and I contradict the definition of $f$. If $L$ is non-empty then by definition
   of finite joins, there is some $(p_l, p_r) \in \mathrm{prev}$ such that $(p_l)_i = (\bot_l)_i$
   and $(p_l, p_r) \leq (x_l, x_r)$. But $f(((p_l, p_r))_{-r})_i = (p_l)_i$ so
   I contradict monotinicity.

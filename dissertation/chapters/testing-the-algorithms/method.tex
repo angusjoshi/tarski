@@ -29,7 +29,7 @@ for each instance is detailed in this subsection. Throughout random numbers were
 from the \lstinline{<random>} header in the C++ standard library.
 \subsubsection{\arr} \label{arrRandom}
 Recall from \cref{arr} that an instance of the arrival problem consists of a directed graph with
-a designated target vertex such that every vertex as exactly two labelled outgoing edges.
+a designated target vertex such that every vertex has exactly two labelled outgoing edges.
 This leads to a natural notion of a random arrival instance on $n$ vertices $v_1, ..., v_n$.
 Simply choose for each vertex $v_i$ the successors $s_0(v_i)$ and $s_1(v_i)$ uniformly at random
 from the set of vertices, and note that it is without loss of generality to fix the target to be $v_n$.
@@ -68,8 +68,7 @@ In order, these are addressed as follows,
     to be one of two states,
   \item every probability distribution in the successor matrix is chosen as a u.a.r. partition of $[0, 1]$
     as in the simple stochastic game case,
-  \item all entries of the payoff matrices are chosen to be u.a.r. integers in the range $[-M, M]$ for some
-    fixed $M \in \zpos$.
+  \item all entries of the payoff matrices are chosen to be u.a.r. integers in the range $[-10, 10]$.
 \end{itemize}
 \subsubsection{Limitations}
 I acknowledge that testing with random instances in this fashion is necessarily limited; the results
