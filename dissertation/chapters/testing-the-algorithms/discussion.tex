@@ -1,15 +1,10 @@
 %todo maybe add more to specific discussion sections relating
 % asymptotic bounds
 \section{Discussion}
-Inspecting the plots from \cref{resultsSec} clearly shows that
-the simplest algorithms of value iteration for shapley's and simple stochastic games, and simulating the walk
-for $\arr$ outperform all the binary search style algorithms
- in almost all cases. Interestingly, of the binary-search based
-algorithms, FPS 
-is the fastest in most cases,
-while CL and DQY alternate
-which performs better in different cases. I now provide more detailed
-analysis for each individual case.
+On the whole, value iteration and simulating the $\arr$ walk tend to be
+the most performant algorithm. Interestingly, FPS tends to be the most
+performant of the binary search style algorithms, beating out the asymptotically
+superior CL in almost all cases. More detailed discussion is given for individual cases below.
 \subsection{$\arr$ Tests}
 It can clearly be seen in \cref{arrivalMainPlot} and \cref{arrivalWalkPlot}
 that simulating the arrival walk vastly outperforms the binary-search based

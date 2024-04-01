@@ -40,7 +40,7 @@ the first $a$ coordinates, or last $b$ coordinates of $x$ respectively.
         \Return $f((x_l, x_r))_{-r}$.
       \EndProcedure
       \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \leq x_r \}$
-      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \geq x_r \}$
+      \State $\top_l \gets \bigwedge\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \geq x_r \}$
       \State $x_l^* \gets A(f_l)$ with bounds $\bot_l$, $\top_l$
       % \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
       % $\bot_l$, $\top_l$.

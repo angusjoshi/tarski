@@ -32,7 +32,7 @@ if $(x_l, x_r) \in [N]^a \times [N]^b$, are found as monotone points of $f_l$ an
 $x_l$ can be a monotone-down point, and $x_r$ a monotone up point so $(x_l, x_r)$ is not necessarily
 a monotone point of $f$. Chen and Li's first step towards a solution is defining a refinement of the
 $\trskst$ problem.
-\begin{definition}[$\textsc{RefinedTarski}$, \citep{chenLi}]
+\begin{definition}[$\textsc{RefinedTarski}^*$, \citep{chenLi}]
   Given a function $f : [N]^d \to \{-1, 0, 1\}^{d + 1}$ as in \cref{trskst}, find
   a pair of points $\bot, \top \in [N]^d$ such that $\bot \leq \top$, for each $i \in [d]$,
   $f(\bot)_i \geq 0$, $f(\top)_i \leq 0$, and at least one of the following hold,
@@ -45,10 +45,10 @@ $\trskst$ problem.
 Interestingly, Chen and Li show that this problem is no harder than $\trskst$ in the sense
 that it can be solved in at most two queries to a $\trskst$ orcacle. Their algorithm for doing this is
 shown in \cref{refinedTarskAlg}.
-\begin{algorithm}[h]
+\begin{algorithm}[H]
   \caption{\citep{chenLi}} \label{refinedTarskAlg}
   \begin{algorithmic}[1]
-    \Procedure{RefinedTarski}{\\
+    \Procedure{RefinedTarski$^*$}{\\
       \qquad $f : [N]^d \to \{-1, 0, 1\}^{d + 1}$ as in \cref{trskst},\\
       \qquad algorithm $A$ for solving $\trskst(N, d)$
     }
@@ -60,42 +60,63 @@ shown in \cref{refinedTarskAlg}.
     \State $\bot \gets x$
   \State Let $g^- : [N]^d \to [N]^{d+1}$ with $g^+(x)_i = 
     \begin{cases} -1, & i = d + 1 \text{ and } g(x)_{d + 1} \leq 0 \\ g(x)_i, & \text{otherwise}\end{cases}$
-  \State $y \gets A(g^-)$ with bounds $\bot$, $\top$
-    \State \If{$g^-(y)_{d + 1} = 1$} $\bot \gets y$ \algorithmicelse\ $\top \gets y$ \EndIf
+    \State $y \gets A(g^-)$ with bounds $\bot$, $\top$
+    \If{$g^-(y)_{d + 1} = 1$} $\bot \gets y$ \algorithmicelse\ $\top \gets y$ \EndIf
     \State \Return $(\bot, \top)$
   \EndProcedure
   \end{algorithmic}
 \end{algorithm}
 Correctness is relatively simple to verify and is ommitted for brevity.
-Now the main algorithm is described in \cref{monDemcompAlg}.
-
+Now the main algorithm is described in \cref{monDecompAlg}.
 \begin{algorithm}[h]
-  \caption{\citep{chenLi}} \label{monDemcompAlg}
+  \caption{\citep{chenLi}} \label{monDecompAlg}
   \begin{algorithmic}[1]
     \Procedure{MonotoneDecomposition}{\\
-      \qquad monotone $f : [N]^{a + b}  \to \{-1, 0, 1\}^{a + b + 1}$ as in \cref{trskst},\\
+      \qquad $f : [N]^{a + b}  \to \{-1, 0, 1\}^{a + b + 1}$ as in \cref{trskst},\\
       \qquad algorithm $A$ for solving $\trsk(N, a)$, \\
       \qquad algorithm $B$ for solving $\trsk(N, b)$ 
     }
     \State $\mathrm{prev} \gets \emptyset$
-    \Procedure{$f_r$}{$x_r \in [N]^b$}
-      \Procedure{$f_l$}{$x_l \in [N]^a$}
-        \Return $f((x_l, x_r))_{-r}$.
-      \EndProcedure
+    \Procedure{$f_r : [N]^b \to \{-1, 0, 1\}^{b + 1}$}{$x_r \in [N]^b$}
       \State $\bot_l \gets \bigvee\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \leq x_r \}$
-      \State $\top_r \gets \bigwedge\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \geq x_r \}$
-      \State $x_l^* \gets A(f_l)$ with bounds $\bot_l$, $\top_l$
-      % \State using algorithm $A$ find a fixpoint $x_l^*$ of $f_l$ in the sublattice with bounds
-      % $\bot_l$, $\top_l$.
-      \State $\mathrm{prev} \gets \mathrm{prev} \cup \{(x_l^*, x_r)\}$
-      \State \Return $f((x_l^*, x_r))_{-l}$.
+      \State $\top_l \gets \bigwedge\{p_l : (p_l, p_r) \in \mathrm{prev}, \; p_r \geq x_r \}$
+      \For{$j$ from $a + 1$ to $a + b + 1$ }
+      \Procedure{$f_l^j : [N]^a \to \{-1, 0, 1\}^{a + 1}$}{$x_l \in [N]^a$}
+        \State $y \gets f((x_l, x_r))$
+        \State \Return $(y_1, ..., y_a, y_j)$.
+      \EndProcedure
+      \State $(\bot_l^j, \top_l^j) \gets \Call{RefinedTarski$^*$}{f_l^j, A}$ with bounds $\bot_l$, $\top_l$
+      \State $(\bot_l, \top_l) \gets (\bot_l^j, \top_l^j)$
+      \EndFor
+
+      \State $\mathrm{prev} \gets \mathrm{prev} \cup \{(\bot_l, x_r)\}$
+      \State $x \gets f((\bot_l, x_r))$
+      \State \Return $f(x_{a + 1}, ..., x_{b + 1})$.
     \EndProcedure
     \State $x_r^* \gets B(f_r)$
-    % \State run algorithm $B$ on $f_r$ to find fixpoint $x_r^*$
-    \State \Return $(x_l^*, x_r^*)$ where $x_l^*$ is the fixpoint of $f_l$ 
-    found when evaluating $f_r(x_r^*)$.
+    \State let $(\bot_l, \top_l)$ be the bounds found when evaluating $f_r(x_r^*)$
+    \If{$f_r(x_r^*) \geq 0$} \Return $(\bot_l, x_r^*)$ \algorithmicelse\ \Return $(\top_l, x_r^*)$ \EndIf
   \EndProcedure
   \end{algorithmic}
 \end{algorithm}
-
-
+\begin{lemma}
+  \cref{monDecompAlg} gives a correct solution to $\trskst$.
+\end{lemma}
+\begin{sproof}
+The proof that all intermediate functions restrict to the transient bounds $(\bot_l, \top_l)$ is similar
+to the proof of correctness of \cref{fixDecompAlg} with a few extra cases. 
+  The crux of the proof for \cref{monDecompAlg} 
+is \citep[Lemma 6]{chenLi}
+where it is shown that at line 16, for each $i \in \{a + 1, ..., b + 1\}$, and every $p, p' \in [\bot_l, \top_l]$,
+  $f((p, x_r^*)))_i = f((p', x_r^*))_i$. This is because inductively from the loop on line 6 I find
+$\bot_l \geq \bot_l^j$ and $\top_l \leq \top_l^j$,
+  so if $f((\bot_l, x_r^*))_i = 1$, then since $(\bot_l^j, \top_l^j)$ was a solution to
+  $\textsc{RefinedTarski}^*(f_l^j, A)$ I find $f((p, x_r^*)) \geq f^j((\bot_l, x_r^*))_j \geq f_l^j(\bot_l^j)_j = 1$.
+  The cases with $f((\bot_l, x_r^*))_i \in \{-1, 0 \}$ are similar. \\
+  Then when the algorithm returns on line 17, $(\bot_l, \top_l)$ was a solution to
+  $\textsc{RefinedTarski}^*$ in the slice at $x_r^*$, so for each $i \in [a]$, 
+  $f((\bot_l, x_r^*))_i \geq 0$ and $f((\top_l, x_r^*))_i \leq 0$, so the condition on line 17
+  ensures that the returned point is a solution to $\trskst$.
+\end{sproof}
+For complete proof of correctness of \cref{monDecompAlg} see \citep{chenLi}. It is clear that
+\cref{monDecompAlg} gives the asymptotic bound in \cref{monDecomp}.
