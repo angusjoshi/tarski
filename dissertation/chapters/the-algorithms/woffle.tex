@@ -4,24 +4,20 @@ open. The most impressive upper bound on query complexity would be the following
 \begin{open} \label{tarskiInP}
   Is the query complexity of $\trsk(N, d)$ $O(\poly(\log N) \cdot \poly(d))$?
 \end{open}
-The implications of a result in the positive for \cref{tarskiInP} would be significant to say the least.
-For example, it would give a polynomial time algorithm for
+The implications of a result in the positive for \cref{tarskiInP} would be significant. 
+It would imply a polynomial-time algorithm for
 computing the exact value of simple stochastic games as described in \cref{ssgs},
 which has remained an open problem since 1992 when studied by Condon in \citep{condon}.
 It would also imply a polynomial-time algorithm for the $\arr$ problem as described in \cref{arr},
 the complexity of which has seen a significant amount of study in recent years
-\citep{gärtner2021subexponential, gärtner2018arrival, arrivalBasic, arrLowerBound}.
-Another implication would be a polynomial time algorithm for approximating the value of
-stochastic games as in \cref{shapleyChap}. The strength of the implications of \cref{tarskiInP}
-are evidence that solving it in the near future is unlikely, and that considering weaker conjectures
-might be more realistic.
+\citep{gärtner2021subexponential, gärtner2018arrival, arrivalBasic, arrLowerBound}. It therefore seems reasonable to consider weaker conjectures.
 \begin{open} \label{tarskiFixedParameterTractable}
   Is the query complexity of 
   $\trsk(N, d)$ $O(\log^2 N)$ for fixed $d$? That is, is $\trsk$ fixed-parameter tractable?
 \end{open}
 Recent results such as \cref{tightThreeDimension} from \citep{fasterTarski} make this seem
-plausible. Perhaps the notion of a 'witness' as described in \cref{witnessDef} can be
-generalized to higher dimensions, with a method of halfing the search space as in \cref{innerMainCase}
+plausible. Perhaps the notion of a 'witness' as in \cref{witnessDef} can be
+generalized to higher dimensions, and the search-space halved as in \cref{innerMainCase}
 in a potentially exponential number of queries? A useful intermediate result towards this problem could be
 the following.
 \begin{open} \label{tightFourDimension}
@@ -32,4 +28,10 @@ result. A first step could be the following.
 \begin{open}
   For some $d \in \Z_{> 2}$ is the query complexity of
   $\trsk(N, d)$ $\omega(\log^2 N)$?
+\end{open}
+Although in \citep{lowerBound} inclusion of $\trsk$ in $\PPAD \cap \PLS$ is shown,
+it remains an open problem if there are any natural complexity classes for which $\trsk$ is
+complete.
+\begin{open}
+  Is $\trsk$ complete for any natural complexity classes?
 \end{open}

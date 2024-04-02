@@ -9,7 +9,7 @@ And now for the first basic algorithm for solving \trsk.
   the dimensionality of this 'vector' is clear from context.
 \end{notation}
 \begin{algorithm}
-  \caption{Kleene Tarski Iteration}
+  \caption{Kleene Tarski Iteration. An iterative algorithm for finding fixpoints.}
   \begin{algorithmic}[1]\label{kleeneTarski}
   \Procedure{KleeneTarski}{monotone $f : [N]^d \to [N]^d$}
   \State $x \gets \vec{1}$
@@ -107,7 +107,7 @@ to the workings on the improved algorithms detailed  later, so they are given be
 The algorithm of Dang, Qi, and Ye can be seen in \cref{dQiYiAlg}.
 
 \begin{algorithm}[h]
-  \caption{\citep{dangQiYe}}\label{dQiYiAlg}
+  \caption{\citep{dangQiYe}. A binary-search-like algorithm for finding fixpoints.}\label{dQiYiAlg}
   \begin{algorithmic}[1]
   \Procedure{DangQiYe}{monotone $f : [N]^d \to [N]^d$}
     \State $\bot \gets \vec{1}$

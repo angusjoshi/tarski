@@ -46,7 +46,7 @@ Interestingly, Chen and Li show that this problem is no harder than $\trskst$ in
 that it can be solved in at most two queries to a $\trskst$ orcacle. Their algorithm for doing this is
 shown in \cref{refinedTarskAlg}.
 \begin{algorithm}[H]
-  \caption{\citep{chenLi}} \label{refinedTarskAlg}
+  \caption{\citep{chenLi}. An auxiliary algorithm for monotone decomposition.} \label{refinedTarskAlg}
   \begin{algorithmic}[1]
     \Procedure{RefinedTarski$^*$}{\\
       \qquad $f : [N]^d \to \{-1, 0, 1\}^{d + 1}$ as in \cref{trskst},\\
@@ -66,10 +66,11 @@ shown in \cref{refinedTarskAlg}.
   \EndProcedure
   \end{algorithmic}
 \end{algorithm}
-Correctness is relatively simple to verify and is ommitted for brevity.
-Now the main algorithm is described in \cref{monDecompAlg}.
+Correctness is relatively simple to verify and is ommitted for brevity. Note
+$g^+$ and $g^-$ also need to be verified to satisfy \cref{trskst}.
+Now for the main algorithm in \cref{monDecompAlg}.
 \begin{algorithm}[h]
-  \caption{\citep{chenLi}} \label{monDecompAlg}
+  \caption{\citep{chenLi}. An algorithm for decomposing monotone point computation problems.} \label{monDecompAlg}
   \begin{algorithmic}[1]
     \Procedure{MonotoneDecomposition}{\\
       \qquad $f : [N]^{a + b}  \to \{-1, 0, 1\}^{a + b + 1}$ as in \cref{trskst},\\
@@ -109,9 +110,9 @@ to the proof of correctness of \cref{fixDecompAlg} with a few extra cases.
 is \citep[Lemma 6]{chenLi}
 where it is shown that at line 16, for each $i \in \{a + 1, ..., b + 1\}$, and every $p, p' \in [\bot_l, \top_l]$,
   $f((p, x_r^*)))_i = f((p', x_r^*))_i$. This is because inductively from the loop on line 6 I find
-$\bot_l \geq \bot_l^j$ and $\top_l \leq \top_l^j$,
-  so if $f((\bot_l, x_r^*))_i = 1$, then since $(\bot_l^j, \top_l^j)$ was a solution to
-  $\textsc{RefinedTarski}^*(f_l^j, A)$ I find $f((p, x_r^*)) \geq f^j((\bot_l, x_r^*))_j \geq f_l^j(\bot_l^j)_j = 1$.
+$\bot_l \geq \bot_l^i$ and $\top_l \leq \top_l^i$,
+  so if $f((\bot_l, x_r^*))_i = 1$, then since $(\bot_l^i, \top_l^i)$ was a solution to
+  $\textsc{RefinedTarski}^*(f_l^i, A)$ I find $f((p, x_r^*)) \geq f((\bot_l, x_r^*))_i \geq f_l^i(\bot_l^i)_i = 1$.
   The cases with $f((\bot_l, x_r^*))_i \in \{-1, 0 \}$ are similar. \\
   Then when the algorithm returns on line 17, $(\bot_l, \top_l)$ was a solution to
   $\textsc{RefinedTarski}^*$ in the slice at $x_r^*$, so for each $i \in [a]$, 
