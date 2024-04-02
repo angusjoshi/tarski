@@ -7,10 +7,10 @@ are the following,
     perform better in almost all cases on the model of random instances of $\arr$, simple stochastic games,
     and shapley's stochastic games described in \cref{randomGen},
   \item the asymptotically superior monotone decomposition \cref{monDecompAlg} tends
-    to require more queries and time than the simpler \cref{fixDecompAlg},
-  \item the inner algorithm combined with \cref{fixDecompAlg} tends to be the most performant
+    to require more queries and time than the simpler fixpoint decomposition \cref{fixDecompAlg},
+  \item the inner algorithm combined with the fixpoint decomposition \cref{fixDecompAlg} tends to be the most performant
     of all of the binary search algorithms.
-  \item one case where the fixpoint decomposition algorithm performs better than
+  \item one case where the fixpoint decomposition \ref{fixDecompAlg} performs better than
     simulating the $\arr$ walk was found in \cref{arrivalLongPlot}, although I believe
     this to be anomalous due to the nature of the specific problem being particularly
     easy for the binary-search style algorithms.
@@ -18,8 +18,8 @@ are the following,
 The main limitation of testing was the methods of generating problems for testing;
 randomly generated instances of the $\arr$ problem proved to be relatively easy
 in comparison to the worst case, with similar findings for simple stochastic games
-and shapley's stochastic games. The solver for shapley's stochastic games also
-ended up being particularly slow so testing was restricted to lower dimensional versions of the problem.
+and shapley's stochastic games. The solver for shapley's stochastic games was
+particularly slow so testing was restricted to lower dimensional versions of the problem.
 
 \section{State of the Art Algorithms}
 The key takeaway is the many theoretical questions relating to the $\trsk$ problem
@@ -49,16 +49,16 @@ With regard to the practical testing of the $\trsk$ algorithms, some ideas for f
         the relative performance of all of the algorithms?
     \end{itemize}
   \item can the performance of the implementation of solving shapley's stochastic games using $\trsk$ algorithms be improved?
-    The slowness of computing many linear programs when computing the monotone function for shapley's stochastic games resulted
-    in the amount of experimental data being collected for this problem being quite limited.
+    The slowness of solving many linear programs for the monotone function for shapley's stochastic games resulted
+    in the experiment for this problem being limited in size.
 \end{itemize}
 For future work on the theoretical aspects of $\trsk$ and related problems, I propose the following problems as being worth some thought,
 \begin{itemize}
   \item \cref{tightFourDimension}. Is there an algorithm for solving the four dimensional $\trsk(N, 4)$ problem
-    in $O(\log^2 N)$ queries? An optimistic view is that the inner algorithm can generalize to arbitrary dimensions
-    giving a fixed-parameter tractability result, although this is unclear and potentially a very difficult problem.
-    Working on the $\trsk(N, 4)$ problem would seem to be a reasonable intermediate step, and a result in the positive
-    could perhaps be illuminating in solving the problem in higher dimensions.
+    in $O(\log^2 N)$ queries? Generalizing the inner algorithm to arbitrary dimensions is 
+    potentially a very difficult problem, and
+    working on the $\trsk(N, 4)$ problem would seem to be a reasonable intermediate step. A result in the positive
+    could perhaps also be illuminating to higher dimensions.
   \item is there anything to be gleaned from studying the $\trsk$ problem in the context of monotone functions from instances of the $\arr$
     problem? $\arr$ problem instances have a very simple combinatorial structure and there are already interesting connections between
     the $\arr$ and $\trsk$ through the reduction given in \cref{arr}. Is there an interpretation of any of the features in the state
