@@ -2,10 +2,10 @@
 % asymptotic bounds
 \section{Discussion}
 On the whole, value iteration and simulating the $\arr$ walk tend to be
-the most performant algorithm. Interestingly, FPS tends to be the most
+the most performant algorithms. Interestingly, FPS tends to be the most
 performant of the binary search style algorithms, beating out the asymptotically
 superior CL in almost all cases. More detailed discussion is given for individual cases below.
-\subsection{$\arr$ Tests}
+\subsection{$\arr$}
 It can clearly be seen in \cref{arrivalMainPlot} and \cref{arrivalWalkPlot}
 that simulating the arrival walk vastly outperforms the binary-search based
 algorithms on randomly generated instances of the arrival problem.
@@ -31,7 +31,7 @@ CL and DQY is less clear however; for random instances CL performs
 better as seen in \cref{arrivalMainPlot},
 but DQY performs better on the long walk instance as seen in \cref{arrivalLongPlot}.
 
-\subsection{Simple Stochastic Games Tests}
+\subsection{Simple Stochastic Games}
 Similarly to $\arr$, value iteration is the most performant algorithm for solving
 random simple stochastic games - it even seems to be the case
 that the number of queries goes \emph{down} as the number of vertices
@@ -41,11 +41,11 @@ of random instance generation which perhaps motivates further investigation
 into methods for generating 'hard' simple stochastic games. It could also
 be the case that testing with a fixed approximiation factor $\varepsilon$
 and stopping probability $\beta$ causes this behaviour. \\
-In comparing the binary search based algorithms, it can be seen in \cref{ssgMainTest} 
+In comparing the binary search based algorithms, it can be seen in \cref{simpleMainPlot} 
 that
 FPS is again the most performant, and DQY is the least performant. The difference
 between FPS and CL is small in this case however. \\
-In the test with varying approximation factor as seen in \cref{ssgApproxTest}, value iteration 
+In the test with varying approximation factor as seen in \cref{simpleApproxPlot}, value iteration 
 is again the most performant, with FPS the best of the binary search algorithms.
 DQY is again the slowest, with CL in the middle. Varying the approximation factor
 for the simple stochastic game problem has the effect of changing the height of the lattice
@@ -58,23 +58,29 @@ very small approximation factors that FPS is more performant. This is not shown 
 the results however, so perhaps more investigation should be done into finding
 instances of simple stochastic games which are 'hard' for value iteration.
 
-\subsection{Shapley Stochastic Games Tests}
+\subsection{Shapley's Stochastic Games}
 Testing on shapley's stochastic games was much more limited than the other two problems
 as the associated monotone function took a lot longer to compute. It could be the case
-the the LP solver that I used (\lstinline{soplex}) is not optimized for solving
+the the LP solver that I used (\lstinline{soplex}\citep{soplex}) is not optimized for solving
 many thousands of small LPs, or that solving LPs in this fashion will necessarily
 take significantly more time than the functions for $\arr$ and simple stochastic games. \\
 In comparing the algorithms running on random instances, it can be seen in \cref{shapleyMainPlot}
 and \cref{shapleyWalkPlot} that 
 again value iteration is the most performant. DQY is the least performant on random instances, and the difference
 between CL and FPS is small. Interestingly, there seems to be some association between
-the parity of the dimension and the performance of CL and FPS. I believe this is because of the 
-$\lceil \cdot \rceil$ in the exponent of their respective complexities, and the only reason
-we don't see this in other plots is because we are measuring with less granularity on size. \\
+the parity of the dimension and the performance of CL and FPS. I believe this is because of the
+$\lceil \cdot \rceil$ in the exponent of their complexities caused by
+subproblems with dimension less than 3 during decomposition, and the only reason
+we don't see this in other plots is because we are measuring with less granularity on size.
+Perhaps this motivates testing with more datapoints on the other problems as well. \\
 The test with varying approximation factor as seen in \cref{shapleyApproxPlot} shows
 again that value iteration is the most performant, and FPS is the most performant of the binary search algorithms.
 There is not much difference between CL and DQY in this case. Similarly to simple stochastic games,
 one would expect that for very small approximation factors that the binary search algorithms
 perform better than value iteration - but again this is not seen in the results for these tests. This is again
-perhaps motivation for more investigation in finding 'hard' stochastic games for the value iteration algorithm.
+perhaps motivation for more investigation in finding 'hard' stochastic games for the value iteration algorithm. \\
+In shapley's stochastic games, many parameters were also unchanged through all tests. The maximum value
+in the payoff matrix for shapley's could be varied, the stopping probabilities for both,
+the number of actions at each state in shapley's, and the number of successors for all states in both
+problems could all be varied. 
 

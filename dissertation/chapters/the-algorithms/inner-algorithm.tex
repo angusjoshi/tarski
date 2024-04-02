@@ -99,7 +99,7 @@ $f_s$ to be the slice of $f$ at the $3$rd coordinate with value $a_3 = b_3$.
   Evaluate $f(\mi)$. If $\mi \in \Up(f)$ or
   $\mi \in \Down(f)$ then the inner algorithm can return immediately. If $\mi \in \Up(f_s)$ and $\mi \not\in \Up(f)$
   then $f(\mi)_3 \leq \mi$ and I can set
-  $\overline{a} = \overline{u} = \mi$. By assumption $u \geq \mi$ so the pair $(\overline{a}, \overline{u})$, $(d, b)$ will do.
+  $\overline{a} = \overline{u} = \mi$. By assumption $u \geq \mi \geq d$ so the pair $(\overline{a}, \overline{u})$, $(d, b)$ will do.
   The case $\mi \in \Down(f_s)$ is similar.
   Suppose for some $i, j \in \{1, 2\}$ with $i \neq j$ that $f(\mi)_i \leq \mi_i$ and $f(\mi)_j \geq \mi_j$.
   If $f(\mi)_3 \geq \mi_3$ then put $p_j = b_j$, $p_i = \mi_i$ and $p_3 = \mi_3$ and evaluate $f(p)$.  

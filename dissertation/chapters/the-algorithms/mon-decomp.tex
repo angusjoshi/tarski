@@ -25,7 +25,7 @@ $f(x)_i = \begin{cases} 1, & F(x)_i > x_i \\ 0, & F(x)_i = x_i \\ -1, & F(x)_i <
 then $f$ satisfies the conditions in \cref{trskst}. The first condition is the requirement that
 the codomain of $F$ is correct, and the second is monotonicity. It is also clear that $\trsks(N, d)$ 
 trivially reduces to $\trskst(N, d)$. Chen and Li then wish to make decompositions from
-$\trskst(N, a + b)$ into $\trskst(N, a)$ and $\trskst(N, a)$. The fixpoint decomposition
+$\trskst(N, a + b)$ into $\trskst(N, a)$ and $\trskst(N, b)$. The fixpoint decomposition
 method \cref{fixDecompAlg} does not obviously apply here; it is not clear what to do with the extra
 coordinate in the codomain, and further if I split into $f_l$ and $f_r$ similarly to \cref{fixDecompAlg},
 if $(x_l, x_r) \in [N]^a \times [N]^b$, are found as monotone points of $f_l$ and $f_r$,
@@ -109,12 +109,12 @@ to the proof of correctness of \cref{fixDecompAlg} with a few extra cases.
   The crux of the proof for \cref{monDecompAlg} 
 is \citep[Lemma 6]{chenLi}
 where it is shown that at line 16, for each $i \in \{a + 1, ..., b + 1\}$, and every $p, p' \in [\bot_l, \top_l]$,
-  $f((p, x_r^*)))_i = f((p', x_r^*))_i$. This is because inductively from the loop on line 6 I find
+  $f((p, x_r^*))_i = f((p', x_r^*))_i$. This is because inductively from the loop on line 6 I find
 $\bot_l \geq \bot_l^i$ and $\top_l \leq \top_l^i$,
   so if $f((\bot_l, x_r^*))_i = 1$, then since $(\bot_l^i, \top_l^i)$ was a solution to
   $\textsc{RefinedTarski}^*(f_l^i, A)$ I find $f((p, x_r^*)) \geq f((\bot_l, x_r^*))_i \geq f_l^i(\bot_l^i)_i = 1$.
   The cases with $f((\bot_l, x_r^*))_i \in \{-1, 0 \}$ are similar. \\
-  Then when the algorithm returns on line 17, $(\bot_l, \top_l)$ was a solution to
+  When the algorithm returns on line 17, $(\bot_l, \top_l)$ was a solution to
   $\textsc{RefinedTarski}^*$ in the slice at $x_r^*$, so for each $i \in [a]$, 
   $f((\bot_l, x_r^*))_i \geq 0$ and $f((\top_l, x_r^*))_i \leq 0$, so the condition on line 17
   ensures that the returned point is a solution to $\trskst$.

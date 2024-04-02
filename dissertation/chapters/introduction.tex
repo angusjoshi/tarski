@@ -1,0 +1,24 @@
+\chapter{Introduction}
+\section{Overview}
+Fixpoint theorems have proven to be fundamental in the study of equilibria in
+game theory and economic theory more generally. One such theorem due to Alfred Tarski in \citep{tarski}
+proves the existence of fixpoints of monotone functions on complete lattices, and
+many problems in algorithmic game theory reduce to computing such a fixpoint\citep{lowerBound}. Recent years have seen
+a flurry of results in the computational complexity of tarski fixed-point computation \citep{dangQiYe, lowerBound, fasterTarski, chenLi},
+though many problems remain open. \\
+In this dissertation I discuss a variant of tarki fixed-point computation I call the $\trsk$ problem, three
+related problems in algorithmic game theory which reduce to $\trsk$, and the state of the art in upper bounds for $\trsk$.
+The currently best-known algorithms are also implemented and tested on random instances of the three described problems, reaching
+the conclusion that the recent improvements in asymptotic upper bounds do not translate to practical performance benefit in the cases
+tested here.
+\section{Contributions}
+The main contributions of this dissertation are as follows,
+\begin{itemize}
+  \item an exposition of the theoretical development on upper bounds for the $\trsk$ problem, and reduction from related problems is given with highlights including,
+    proofs of the main lemmas for the so-called inner algorithm in \citep{fasterTarski} are proven in a simplified context in \cref{innerAlgChap}, and a 
+    complete reduction from the $\arr$ problem to $\trsk$ is given in \cref{arr},
+  \item a minor error in \citep[Proposition 6.1.]{lowerBound} is pointed out, with suggested rectification included in \cref{shapleyDiscretization},
+  \item a \href{https://www.github.com/angusjoshi/tarski}{novel implementation} of the recently developed complex algorithms for the $\trsk$ problem is tested
+    on randomly generated instances of $\arr$, simple stochastic games, and shapley's stochastic games, giving
+    evidence that the improved asymptotic upper bounds do not result in a practical performance increase.
+\end{itemize}

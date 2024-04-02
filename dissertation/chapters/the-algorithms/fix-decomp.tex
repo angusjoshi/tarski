@@ -8,17 +8,17 @@ function on the right hand side of the lattice
 $f_r : [N]^b \to [N]^b$ where given $x_r \in [N]^b$ the value of 
 $f_r(x_r)$
 is computed by defining the slice $f_l : [N]^a \to [N]^a$
-such that $f_l(x_l) = f((x_l, x_r))$, finding a fixpoint $x_l^* \in [N]^a$
+such that $f_l(x_l) = f((x_l, x_r))_{-r}$, finding a fixpoint $x_l^* \in [N]^a$
 of $f_l$, then using $f(x_l^*, x_r)_{-l}$ as the result of $f_r(x_r)$.
-The punchline is then that if $x_r$ is a fixpoint of $f_r$, then if
-$x_l^*$ was the fixpoint of $f_l$ associated with $x_r$ the point
+The punchline is that if $x_r$ is a fixpoint of $f_r$, and
+$x_l^*$ was the fixpoint of $f_l$ associated with $x_r$ then the point
 $(x_l^*, x_r)$ is a fixpoint of $f$. This does not work however -
 there is no guarantee that $f_r$ is monotone. That is,
 if points $x_r, x_r' \in [N]^b$ are queried by algorithm $B$
 with $x_r \leq x_r'$ it is not necessarily the case that the associated
 fixpoints of $f_l$ $x_l^*$ and $x_l'^* \in [N]^a$ satisfy $x_l^* \leq x_l'^*$, so
 monotonocity of $f$ does not carry over. The trick will thus be
-to find a way to guarantee that $x_l*$ and $x_l'^*$ satisfy 
+to find a way to guarantee that $x_l^*$ and $x_l'^*$ satisfy 
 $x_l^* \leq x_l'^*$ whenever $x_r \leq x_r'$. Fortunately
 this is achieveable; in \cref{fixDecompAlg} the issue is solved
 by carefully choosing bounds of the sublattice to search in based

@@ -1,14 +1,17 @@
 \section{Method}
 \subsection{Algorithm Implementation Detail}
-\subsubsection{Implementation}
-I implemented these algorithms in the progamming language C++. 
+\subsubsection{Design and Implementation}
+I implemented these algorithms in the progamming language C++.
 Complete source code can be found \href{https://github.com/angusjoshi/tarski}{here}
 including all algorithms in \cref{stateAlgsChap},
 and solvers for all problems in \cref{relatedProblemsChapter} using $\trsk$ algorithms.
 Compilation and linking was done with
 clang version 14.0.3 with the C++20 standard and \lstinline{-03} optimization settings.
+The tests were on my laptop with a 10-core Apple M2 CPU and 16GB of memory.
 Soplex\citep{soplex} was used as a dependency to solve linear programs
-as part of the shapley's stochastic games solver.  \\
+as part of the shapley's stochastic games solver.
+The shapley's stochastic game solver uses multithreading so performance may differ
+if run on CPUs with less cores.\\
 \subsubsection{Performance Improvements}
 There are some performance optimizations that could be made. For simplicity of implementation\footnote{particularly
 in implementing slices of functions as described in \cref{sliceDef}},
@@ -17,7 +20,7 @@ performance could be gained by changing this. \lstinline{std::function} is the m
 the monotone functions around the system and are shown to be particularly innefficient in \citep{stdFunctionBad},
 so I believe performance can be gained by changing this to something like the \lstinline{function_view}
 described in \citep{stdFunctionBad}.
-In performance profiling, I found \lstinline{soplex} was a bottleneck in solving shapley's stochastic games.
+In running in the profiler, I found \lstinline{soplex} was a bottleneck in solving shapley's stochastic games.
 Perhaps \lstinline{soplex} is not optimized for solving a large number of very small LPs and a better alternative could be found.
 There is also perhaps scope for using sensitivity
 analysis as described in \citep{sensAnalysis} to reuse values from previous function queries to improve
@@ -25,8 +28,9 @@ solver performance; although this could be incredibly complex and not worth the 
 
 \subsection{Random Problem Generation} \label{randomGen}
 Instances of all three problems were generated randomly to facilitate testing. The method of randomization used
-for each instance is detailed in this subsection. Throughout random numbers were generated using tools
-from the \lstinline{<random>} header in the C++ standard library.
+for each instance is detailed in this subsection. Throughout random numbers were generated using the mersenne-twister\citep{mersenne}
+19937 PRNG found in 
+the \lstinline{<random>} header in the C++ standard library.
 \subsubsection{\arr} \label{arrRandom}
 Recall from \cref{arr} that an instance of the arrival problem consists of a directed graph with
 a designated target vertex such that every vertex has exactly two labelled outgoing edges.
@@ -75,62 +79,25 @@ Testing with random instances in this fashion is necessarily limited; the result
 shown later give evidence that random generation in this fashion does not tend to generate 'hard' instances.
 For instance, as will be shown in \cref{arrivalWalkPlot}, the length of the walk in a random instance
 of the $\arr$ problem as described above seems to scale linearly with the size of the problem despite
-the fact that in the worst case the walk can have an exponential length.
+the fact that in the worst case the walk can have an exponential length. 
 \subsection{Testing Protocol}
 Separate tests were carried out for the three problems detailed in \cref{relatedProblemsChapter} as follows.
-For all problems, all of the algorithms were tested with varying instance sizes. For simple stochastic games
+For all problems, all of the algorithms were tested with varying instance sizes. For $\arr$
+all algorithms were also tested on instance with the longest possible walk as in \cref{expLongArrival}.
+For simple stochastic games
 and shapley's stochastic games all the algorithms were also tested with a fixed problem size and varying
 approximation constant $\varepsilon$. In all tests, the number of queries to the monotone function is
 measured, and the time to run the algorithm is measured. The measured time is precisely the time between
 the function to run the algorithm is called, and the function returning with a fixpoint, so preprocessing
 and other miscellaneous actions do not have an effect. All tests were repated 20 times with the
-mean values recorded recorded. Different sizes were used for different algorithms in the same test
+mean values recorded. Different sizes were used for different algorithms in the same test
 to ensure tests terminated in a reasonable amount of time. \\
 The Kleene, Tarski \cref{kleeneTarski} was not tested directly on any of the monotone functions.
 Instead, for shapley's and simple stochastic games, the continuous function is iterated on directly,
 and for $\arr$ the walk is simulated directly. All of these are essentially the same as \cref{kleeneTarski}
-but are slightly more performant due to skipping unnecessary scaling. \\
+but are slightly more performant due to bypassing unnecessary scaling in stochastic games,
+and not storing the number of times each node has been passed through in $\arr$. \\
 From here on I will denote the Fearnley, \pav, Savani algorithm described in \cref{fixDecompAlg}
 as FPS, the Dang, Qi, and Ye algorithm descbribed in \cref{dQiYiAlg} as
 DQY, Chen and Li described in \cref{monotoneDecompChap} as CL, and Kleene, Tarski 
 described in \cref{kleeneTarski} as KT.
-\subsubsection{\arr}
-\begin{test}[Arrival Main] \label{arrMainTest}
-  The three algorithms listed below were tested on random arrival instances as in \cref{arrRandom}
-  with varying sizes between $3$ and $18$.
-\end{test}
-\begin{test}[Arrival Walk] \label{arrWalkTest}
-  The arrival walk with preprocessing as in \cref{arrivalPreprocess} 
-  was simulated to termination for random arrival instances with varying sizes
-  between $10$ and $100000$.
-\end{test}
-\begin{test}[Long Arrival] \label{longArrivalTest}
-  All algorithms were tested on the arrival instance with the
-  longest possible walk, as seen in \cref{expLongArrival},
-\end{test}
-\subsubsection{Simple Stochastic Games}
-\begin{test}[Simple Stochastic Game Main] \label{ssgMainTest}
-  All algorithms were tested on random simple stochastic
-  games as in \cref{ssgRandom} with varying sizes. The binary
-  search algorithms were tested on sizes between $3$ and $13$.
-  Value iteration was tested with sizes between $10$ and $100000$.
-\end{test}
-\begin{test}[Simple Stochastic Game Approximation] \label{ssgApproxTest}
-  All four algorithms were tested on random simple stochastic
-  games as in \cref{ssgRandom} with fixed size $N = 11$ and varying
-  approximation constant $\varepsilon \in \{ 0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001 \}$.
-\end{test}
-
-\subsubsection{Shapley's Stochastic Games}
-\begin{test}[Shapley Main] \label{shapleyMainTest}
-  All algorithms were tested on random shapley's stochastic games
-  as in \cref{shapleyRandom} with varying size. The binary search style algorithms
-  were tested with sizes between $2$ and $6$. Value iteration was tested with
-  sizes between $10$ and $40$.
-\end{test}
-
-\begin{test}[Shapley Approximation] \label{shapleyApproxTest}
-  All algorithms were tested on random simple stochastic
-  games as in \cref{shapleyRandom} with fixed size $N = 6$ and varying
-  approximation constant $\varepsilon \in \{ 0.5, 0.1, 0.01, 0.001, 0.0001 \}$.
-\end{test}

@@ -9,8 +9,18 @@ to solve simple stochastic games and further compare.\\
 In \citep{valueIterationTest} both of these issues are somewhat addressed when testing value iteration,
 strategy improvement, and quadratic programming on simple stochatic games. The authors
 build a library of extremal problems that are difficult for particular algorithms, as well as a more
-sophisticated method of generating random problems than I have done here. Perhaps I can a transitive
-comparisons to results in \citep{valueIterationTest} can be made given
+sophisticated method of generating random problems than I have done here. Perhaps transitive
+comparisons can be made to results in \citep{valueIterationTest} given
 we have both tested value iteration, although the difference in how we generate problems makes this tenuous. \\
 Time could be spent on on optimizing the monotone function for shapley's stochastic games,
-as tests have been limited to small sizes so an increase in performance could yield more interesting data.
+as tests have been limited to small sizes so an increase in performance could yield more interesting data. \\
+The asymptotic advantage the binary-search style algorithms achieve over the iterative algorithms
+is dependent on the ratio between the height of the lattice and it's dimension. In particular
+the asymptotic bound for FPS is stronger than KT if $d \in o(\frac{\log N}{\log \log N})$.
+In simple and shapley's stochastic games, solving to higher precision $\varepsilon$ causes
+an increase in the height of the searched lattice so testing with very high precision
+approximation constraints along with finding 'hard' instances of these problems could
+demonstrate a practical advantage to FPS over value iteration. This would require additional support
+in my implementation for high precision numerical types such as GMP\citep{gmp}, and
+I believe finding an LP solver for shapley's stochastic games 
+with strong support for high precision types will also be difficult.
