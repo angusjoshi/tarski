@@ -45,8 +45,8 @@ simpleStochasticData = {
     },
     'walkData': {
         'testSize': [10, 100, 1000, 10000, 100000],
-        'queries': [19, 23, 12, 10, 6],
-        'times': [0.0035, 0.018, 0.067, 0.975, 6.67],
+        'queries': [30, 68, 115, 28, 23],
+        'times': [0.005, 0.043, 0.59, 2.10, 20.1],
 
     }
 }
@@ -92,8 +92,8 @@ shapleyData = {
     },
     'walkData': {
         'testSize': [10, 15, 20, 30, 40],
-        'queries': [48, 49, 50, 52, 52],
-        'times': [54.5, 74.94, 107.2, 176.2, 255.4],
+        'queries': [19, 19, 19, 17, 16],
+        'times': [24.5, 35.9, 46.0, 68.7, 87.8],
 
     }
 }
@@ -176,7 +176,7 @@ def plotSimpleStochastic():
         d = simpleStochasticData['walkData']
         plt.plot(d['testSize'], d[type])
         plt.title(f"Average {'number of iterations' if type == 'queries' else 'time'} for value\n"
-                  f"iteration on random simple stochastic game instance walk (n=20)")
+                  f"iteration on random simple stochastic game instance (n=20)")
 
         plt.xscale('log')
         if type == 'times':
@@ -245,7 +245,7 @@ def plotShapley():
         d = shapleyData['walkData']
         plt.plot(d['testSize'], d[type])
         plt.title(f"Average {'iterations' if type == 'queries' else 'time'} for value iteration on\n"
-                  f"random shapley stochastic game instance walk (n=20)")
+                  f"random shapley stochastic game instance (n=20)")
         plt.xlabel('Number of vertices')
         if type == 'times':
             plt.ylabel('Average time (ms)')

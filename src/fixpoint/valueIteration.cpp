@@ -2,6 +2,7 @@
 // Created by angus on 30/03/2024.
 //
 #include "valueIteration.h"
+#include <iostream>
 
 f_t dist(const vector<f_t>& x, const vector<f_t>& y) {
     assert(x.size() == y.size());

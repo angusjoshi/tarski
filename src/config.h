@@ -12,6 +12,7 @@ typedef long long int_t;
 //typedef mpq_class f_t;
 typedef double f_t;
 
+
 mpz_class min(const mpz_class& a, const mpz_class& b);
 mpz_class max(const mpz_class& a, const mpz_class& b);
 

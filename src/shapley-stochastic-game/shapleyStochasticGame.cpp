@@ -24,7 +24,7 @@ shapleyStochasticGame::shapleyStochasticGame(vector<shapleyVertex> vertices, f_t
         }
     }
 
-    f_t q = 1.f;
+    q = 1.f;
 
     for(const auto& vertex : vertices) {
         for(const auto& row : vertex.succs) {
@@ -116,34 +116,8 @@ vector<int_t> shapleyStochasticGame::scaleUp(const vector<f_t>& v) {
 function<vector<int_t>(const vector<int_t>& v)> shapleyStochasticGame::getMonotoneFunction() {
     return [this](const vector<int_t>& v) -> vector<int_t> {
         auto scaled = scaleDown(v);
-        vector<f_t> results(v.size(), -1);
-        vector<std::thread> threads;
-        threads.reserve(v.size());
-
-        for(int k = 0; k < vertices.size(); k++) {
-            auto computeForVertex = [this, &results, k, &scaled]() {
-                auto vertex = vertices[k];
-                vector<vector<f_t>> m(
-                        vertex.payoffs.size(),
-                        vector<f_t>(vertex.payoffs[0].size(), 0));
-
-                for(int i = 0; i < vertex.succs.size(); i++) {
-                    for(int j = 0; j < vertex.succs[i].size(); j++) {
-                        for(const auto& succ : vertex.succs[i][j]) {
-                            m[i][j] += succ.p * scaled[succ.i];
-                        }
-                    }
-                }
-
-                add(m, vertex.payoffs);
-                f_t val = getZeroSumVal(m);
-                results[k] = val;
-            };
-            threads.emplace_back(computeForVertex);
-        }
-
-        for(std::thread& thread : threads) thread.join();
-        auto result = scaleUp(results);
+        auto ctsResult = computeFunction(scaled);
+        auto result = scaleUp(ctsResult);
         assert(latticeLe(result, getTop()));
         assert(latticeLe(getBot(), result));
         return result;
@@ -159,6 +133,46 @@ vector<int_t> shapleyStochasticGame::getTop() {
     return top;
 }
 
+function<vector<f_t>(const vector<f_t>& v)> shapleyStochasticGame::getCtsMonotoneFunction() {
+    return [this](const vector<f_t>& v) -> vector<f_t> {
+        return computeFunction(v);
+    };
+}
+const vector<f_t> shapleyStochasticGame::getCtsStart() {
+    vector<f_t> start(vertices.size(), 0);
+    return start;
+}
+
+const vector<f_t> shapleyStochasticGame::computeFunction(const vector<f_t>& scaled) {
+    vector<f_t> results(vertices.size(), -1);
+    vector<std::thread> threads;
+    threads.reserve(vertices.size());
+
+    for(int k = 0; k < vertices.size(); k++) {
+        auto computeForVertex = [this, &results, k, &scaled]() {
+            auto vertex = vertices[k];
+            vector<vector<f_t>> m(
+                    vertex.payoffs.size(),
+                    vector<f_t>(vertex.payoffs[0].size(), 0));
+
+            for(int i = 0; i < vertex.succs.size(); i++) {
+                for(int j = 0; j < vertex.succs[i].size(); j++) {
+                    for(const auto& succ : vertex.succs[i][j]) {
+                        m[i][j] += succ.p * scaled[succ.i];
+                    }
+                }
+            }
+
+            add(m, vertex.payoffs);
+            f_t val = getZeroSumVal(m);
+            results[k] = val;
+        };
+        threads.emplace_back(computeForVertex);
+    }
+
+    for(std::thread& thread : threads) thread.join();
+    return results;
+}
 void shapleyStochasticGame::print() {
     for(int i = 0; i < vertices.size(); i++) {
         auto& v = vertices[i];

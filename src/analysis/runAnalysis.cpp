@@ -20,7 +20,7 @@
 #include <thread>
 #include "../shapley-stochastic-game/shapleyStochasticGame.h"
 #include "../shapley-stochastic-game/shapleyStochasticGameGenerator.h"
-#include "../simple-stochatic-game/valueIteration.h"
+#include "../fixpoint/valueIteration.h"
 
 using std::chrono::duration;
 using std::chrono::high_resolution_clock;
@@ -114,6 +114,30 @@ pair<int, double> solveShapleyStochasticGame(int size, algorithm algorithmToRun,
     auto t2 = high_resolution_clock::now();
 
     if(!isAllFixed(f(fixpoint))) throw runtime_error("algorithm returned a point which is not fixed!");
+    duration<double, std::milli> ms = t2 - t1;
+    return {queryCounter, ms.count()};
+}
+
+pair<int, double> valIterateShapleyStochasticGame(int instanceSize,
+                                                 f_t eps = 0.01) {
+    shapleyStochasticGame g = generateShapleyStochasticGame(instanceSize, eps);
+    auto f = g.getCtsMonotoneFunction();
+
+    long long queryCounter = 0;
+
+    auto fWithCounter = [&f, &queryCounter](const vector<f_t>& v) {
+        queryCounter++;
+        return f(v);
+    };
+
+    auto start = g.getCtsStart();
+
+    auto t1 = high_resolution_clock::now();
+    auto fixpoint = valueIteration(fWithCounter, start, eps * (1 - g.q));
+    auto t2 = high_resolution_clock::now();
+
+    auto fFix = f(fixpoint);
+    if(dist(fixpoint, fFix) > eps) throw runtime_error("algorithm returned a point which is not almost fixed!");
     duration<double, std::milli> ms = t2 - t1;
     return {queryCounter, ms.count()};
 }
@@ -291,6 +315,25 @@ void runAndPrintAnalysis() {
         cout << "avg steps was: " << avgQueries << endl;
         cout << "avg time was: " << avgTime << "ms" << endl;
     }
+
+//    cout << "STARTING SHAPLEY STOCHASTIC VALUE ITERATION TEST" << endl;
+//    cout << line;
+//    for(int testSize : shapleyWalkSizes) {
+//        vector<int> queryCounts {};
+//        vector<double> times {};
+//        for(int i = 0; i < n; i++) {
+//            auto [stepCount, time] = valIterateShapleyStochasticGame(testSize + 1, 0.01);
+//            queryCounts.push_back(stepCount);
+//            times.push_back(time);
+//        }
+//
+//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+//        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+//        cout << "===========================================================" << endl;
+//        cout << "test size: " << testSize << endl;
+//        cout << "avg steps was: " << avgQueries << endl;
+//        cout << "avg time was: " << avgTime << "ms" << endl;
+//    }
 
 //    cout << "STARTING LONG ARRIVAL EPSILON TEST" << endl;
 //    for(int algI = recbin; algI != lastEntry; algI++) {
