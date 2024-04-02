@@ -296,24 +296,24 @@ void runAndPrintAnalysis() {
     int n = 20;
     string line = "==================================================\n";
 
-//    cout << "STARTING SIMPLE STOCHASTIC VALUE ITERATION TEST" << endl;
-//    cout << line;
-//    for(int testSize : walkTestSizes) {
-//        vector<int> queryCounts {};
-//        vector<double> times {};
-//        for(int i = 0; i < n; i++) {
-//            auto [stepCount, time] = valIterateSimpleStochasticGame(testSize + 1, 0.01);
-//            queryCounts.push_back(stepCount);
-//            times.push_back(time);
-//        }
-//
-//        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
-//        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
-//        cout << "===========================================================" << endl;
-//        cout << "test size: " << testSize << endl;
-//        cout << "avg steps was: " << avgQueries << endl;
-//        cout << "avg time was: " << avgTime << "ms" << endl;
-//    }
+    cout << "STARTING SIMPLE STOCHASTIC VALUE ITERATION TEST" << endl;
+    cout << line;
+    for(int testSize : walkTestSizes) {
+        vector<int> queryCounts {};
+        vector<double> times {};
+        for(int i = 0; i < n; i++) {
+            auto [stepCount, time] = valIterateSimpleStochasticGame(testSize + 1, 0.01);
+            queryCounts.push_back(stepCount);
+            times.push_back(time);
+        }
+
+        double avgTime = accumulate(times.begin(), times.end(), 0.0) / n;
+        long long avgQueries = accumulate(queryCounts.begin(), queryCounts.end(), 0) / n;
+        cout << "===========================================================" << endl;
+        cout << "test size: " << testSize << endl;
+        cout << "avg steps was: " << avgQueries << endl;
+        cout << "avg time was: " << avgTime << "ms" << endl;
+    }
 
     cout << "STARTING SHAPLEY STOCHASTIC VALUE ITERATION TEST" << endl;
     cout << line;
@@ -333,7 +333,6 @@ void runAndPrintAnalysis() {
         cout << "avg steps was: " << avgQueries << endl;
         cout << "avg time was: " << avgTime << "ms" << endl;
     }
-    return;
 
     cout << "STARTING LONG ARRIVAL EPSILON TEST" << endl;
     for(int algI = recbin; algI != lastEntry; algI++) {
