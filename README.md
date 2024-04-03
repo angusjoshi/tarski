@@ -1,7 +1,7 @@
 # tarski
 
-Algorithms for solving the `Tarski` problem. That is, algorithms for finding fixpoints of monotone functions `f : [N]^d -> [N]^d`
-on bounded sublattices of the integer lattice. Applications of `Tarski` to problems in game theory are also included.
+algorithms for solving the `Tarski` problem. that is, algorithms for finding fixpoints of monotone functions `f : [N]^d -> [N]^d`
+on bounded sublattices of the integer lattice. applications of `Tarski` to problems in game theory are also included.
 
 ## usage
 install [soplex](https://soplex.zib.de/), [SCIP](https://www.scipopt.org/), [cmake](https://cmake.org/), [GMP](https://gmplib.org/), [boost](https://www.boost.org/).
