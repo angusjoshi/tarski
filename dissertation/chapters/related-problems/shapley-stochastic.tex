@@ -40,7 +40,7 @@ is polynomial-time reducible to $\trsk$ which will be described in this section.
   halts with probability $q$, and if it did not transitions to state $l \in [n]$ with probability
   $(P_{j, k}^i)_l$. Play continues until it halts (which happens with probability 1).
 \end{definition}
-We require a more general notion of strategy to the pure strategies introduced in \cref{ssgs} which
+I require a more general notion of strategy to the pure strategies introduced in \cref{ssgs} which
 are as follows.
 \begin{definition}[Mixed Stationary Strategy]
   Let $G = (V, A, P, s, q)$ be a stopping stochastic game. A \emph{mixed stationary strategy}
@@ -124,7 +124,7 @@ use the notation $\langle M \rangle = \{-M, ..., 0, ..., M\}$.
   and $\varepsilon \in \rpos$. Then if $M$ is the maximum entry in the set of payoff matrices, let 
   $N = \frac{M}{\varepsilon q^2}$ and define a function $f : \langle N \rangle \to \langle N \rangle$ coordinatewise with
   $f(x)_i = \left\lfloor \frac{1}{\varepsilon q} F(\varepsilon q \cdot x)_i \right\rfloor$. If $f(x) = x$
-  and $x^*$ is the unique fixpoint of $F$ then $\|\varepsilon q \cdot x - x^*\|_\infty$.
+  and $x^*$ is the unique fixpoint of $F$ then $\|\varepsilon q \cdot x - x^*\|_\infty < \epsilon$.
 \end{lemma}
 \begin{proof}
   From $f(x) = x$ I have by definition of $\lfloor \cdot \rfloor$ for each $i \in [d]$,

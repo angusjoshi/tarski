@@ -71,7 +71,7 @@ between CL and FPS is small. Interestingly, there seems to be some association b
 the parity of the dimension and the performance of CL and FPS. I believe this is because of the
 $\lceil \cdot \rceil$ in the exponent of their complexities caused by
 subproblems with dimension less than 3 during decomposition, and the only reason
-we don't see this in other plots is because we are measuring with less granularity on size.
+ this is not seen in other plots is because measurements are taken with less granularity on size.
 Perhaps this motivates testing with more datapoints on the other problems as well. \\
 The test with varying approximation factor as seen in \cref{shapleyApproxPlot} shows
 again that value iteration is the most performant, and FPS is the most performant of the binary search algorithms.

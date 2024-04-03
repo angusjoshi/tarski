@@ -513,6 +513,30 @@ fixpoint/threeDimensionAlgorithm.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/threeDimensionAlgorithm.cpp.s
 .PHONY : fixpoint/threeDimensionAlgorithm.cpp.s
 
+fixpoint/valueIteration.o: fixpoint/valueIteration.cpp.o
+.PHONY : fixpoint/valueIteration.o
+
+# target to build an object file
+fixpoint/valueIteration.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/valueIteration.cpp.o
+.PHONY : fixpoint/valueIteration.cpp.o
+
+fixpoint/valueIteration.i: fixpoint/valueIteration.cpp.i
+.PHONY : fixpoint/valueIteration.i
+
+# target to preprocess a source file
+fixpoint/valueIteration.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/valueIteration.cpp.i
+.PHONY : fixpoint/valueIteration.cpp.i
+
+fixpoint/valueIteration.s: fixpoint/valueIteration.cpp.s
+.PHONY : fixpoint/valueIteration.s
+
+# target to generate assembly for a file
+fixpoint/valueIteration.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/fixpoint/valueIteration.cpp.s
+.PHONY : fixpoint/valueIteration.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -633,6 +657,30 @@ simple-stochatic-game/simpleStochasticGameGenerator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/simpleStochasticGameGenerator.cpp.s
 .PHONY : simple-stochatic-game/simpleStochasticGameGenerator.cpp.s
 
+simple-stochatic-game/strategyImprovement.o: simple-stochatic-game/strategyImprovement.cpp.o
+.PHONY : simple-stochatic-game/strategyImprovement.o
+
+# target to build an object file
+simple-stochatic-game/strategyImprovement.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/strategyImprovement.cpp.o
+.PHONY : simple-stochatic-game/strategyImprovement.cpp.o
+
+simple-stochatic-game/strategyImprovement.i: simple-stochatic-game/strategyImprovement.cpp.i
+.PHONY : simple-stochatic-game/strategyImprovement.i
+
+# target to preprocess a source file
+simple-stochatic-game/strategyImprovement.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/strategyImprovement.cpp.i
+.PHONY : simple-stochatic-game/strategyImprovement.cpp.i
+
+simple-stochatic-game/strategyImprovement.s: simple-stochatic-game/strategyImprovement.cpp.s
+.PHONY : simple-stochatic-game/strategyImprovement.s
+
+# target to generate assembly for a file
+simple-stochatic-game/strategyImprovement.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/src.dir/build.make CMakeFiles/src.dir/simple-stochatic-game/strategyImprovement.cpp.s
+.PHONY : simple-stochatic-game/strategyImprovement.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -690,6 +738,9 @@ help:
 	@echo "... fixpoint/threeDimensionAlgorithm.o"
 	@echo "... fixpoint/threeDimensionAlgorithm.i"
 	@echo "... fixpoint/threeDimensionAlgorithm.s"
+	@echo "... fixpoint/valueIteration.o"
+	@echo "... fixpoint/valueIteration.i"
+	@echo "... fixpoint/valueIteration.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -705,6 +756,9 @@ help:
 	@echo "... simple-stochatic-game/simpleStochasticGameGenerator.o"
 	@echo "... simple-stochatic-game/simpleStochasticGameGenerator.i"
 	@echo "... simple-stochatic-game/simpleStochasticGameGenerator.s"
+	@echo "... simple-stochatic-game/strategyImprovement.o"
+	@echo "... simple-stochatic-game/strategyImprovement.i"
+	@echo "... simple-stochatic-game/strategyImprovement.s"
 .PHONY : help
 
 

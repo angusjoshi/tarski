@@ -253,33 +253,29 @@ demonstrating a similar, yet simpler reduction from $\arr$ to $\trsk$.
   \end{proof}
   \begin{lemma} \label{flowSunk}
     Let $f : \znn^d \to \znn^d$ be an arrival monotone function. If $a \in \znn^d$ and
-    $(f_0, f_1)$ the flow corresponding to $a$. Then 
+    $(f_0, f_1)$ the flow corresponding to $a$, then 
     $\sum_{i \in [d]} f(a)_i =  1 + \left( \sum_{i \in [d]} a_i \right) - \flowin(t) - \flowin(\overline{t})$.
   \end{lemma}
   \begin{proof}
     Easily computed from the definitions.
   \end{proof}
   \begin{cor}
-    Let $f : \znn^d \to \znn^d$ be an arrival monotone function, and $a \in \znn^d$ be a point
-    such that $f(a) = a$. If 
-    $f_{\text{in}} (t) = \sum_{\substack{i \in [d] \\ s_0(v_i) = t}}  \lc \frac{a_i}{2} \rc +
-    \sum_{\substack{i \in [d] \\ s_1(v_i) = t}}  \lf \frac{a_i}{2} \rf$ and
-    $\flowin(\overline{t}) = \sum_{\substack{i \in [d] \\ s_0(v_i) = \overline{t}}}  \lc \frac{a_i}{2} \rc +
-    \sum_{\substack{i \in [d] \\ s_1(v_i) = \overline{t}}}  \lf \frac{a_i}{2} \rf$ are the inflows at $t$ and $\overline{t}$
-    respectively. Then $\flowin (t) = 1$ and $\flowin (\overline{t}) = 0$,
-    or $\flowin (t) = 0$ and $\flowin (\overline{t}) = 1$.
+    Let $A$ be an instance of the arrival problem and $(g_0, g_1)$ a switching flow.
+    Then either $\glowin (t) = 1$ and $\glowin (\overline{t}) = 0$,
+    or $\glowin (t) = 0$ and $\glowin (\overline{t}) = 1$.
   \end{cor}
   \begin{proof}
-    The walk only terminates when it reaches either $t$ or $\overline{t}$, so the switching flow corresponding
-    to the walk must satisfy exactly one of $\flowin(t) = 1$ and $\flowin(\overline{t}) = 0$ or 
+    The walk only terminates when it reaches either $t$ or $\overline{t}$, so if $(f_0, f_1)$ 
+    is the switching flow corresponding
+    I must have exactly one of $\flowin(t) = 1$ and $\flowin(\overline{t}) = 0$ or 
     $\flowin(t) = 0$ and $\flowin(\overline{t}) = 1$. By \cref{walkLfp} the walk corresponds
     to the least fixpoint, and for all other switching flows $(g_0, g_1)$, at least one of $\glowin (t) \geq 1$ or
     $\glowin (\overline{t}) \geq 1$. Suppose for a contradiction that $\glowin (t) + \glowin (\overline{t}) \geq 2$ and let
-    $a \in \znn^d$ be the point corresponding to $(g_0, g_1)$. Then by \cref{flowSunk},
+    $a \in \znn^d$ be the point corresponding to $(g_0, g_1)$. If $f$ is the arrival monotone function corresponding to $A$ then by \cref{flowSunk},
       $\sum_{i \in [d]} f(a)_i = 1 + \left( \sum_{i \in [d]} a_i\right) 
         - \glowin(t) - \glowin(\overline{t})
                               \leq \sum_{i \in [d]} a_i - 1$.
-    Which contradicts $a$ being a fixpoint.
+    Which contradicts $a$ being a fixpoint and $(g_0, g_1)$ being a switching flow.
   \end{proof}
   Remarkably, this implies that \emph{any} switching flow is certificate to the walk reaching either $t$
   or $\overline{t}$. Further, fixpoints are switching flows so deciding the $\arr$ problem is reducible
