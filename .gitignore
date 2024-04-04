@@ -8,5 +8,6 @@ CMakeFiles/Progress
 CmakeFiles/src.dir
 src/analysis/.venv
 CmakeFiles
-*.a$
+src/*.a$
 src-old
+
