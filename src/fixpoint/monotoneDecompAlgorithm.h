@@ -10,4 +10,5 @@
 pair<vector<int_t>, vector<direction>> findMonotonePointByDecomposition(const vector<int_t> &bot,
                                            const vector<int_t> &top,
                                            const function<vector<direction>(const vector<int_t> &)> &f);
+
 #endif //SRC_MONOTONEDECOMPALGORITHM_H

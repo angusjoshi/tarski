@@ -15,14 +15,14 @@ within the current search space.
   $(d, b) \in ([N]^3)^2$ such that $d_3 = b_3$ and for some $i, j \in \{1, 2\}$
   with $i \neq j$,
   \begin{itemize}
-    \item $d_i = b_i$, $b_j \leq d_j$, $f(b)_j \geq b_j$, and if $b \neq d$ then $f(d)_j \leq d_j$,
+    \item $d_i = b_i$, $b_j \leq d_j$, $f(b)_j \leq b_j$, if $b \neq d$ then $f(d)_j \geq d_j$, else $f(b)_i \leq b_i$,
     \item $f(d)_3 \geq d_3$ and $f(b)_3 \geq b_3$.
   \end{itemize}
   An \emph{up set witness} is a pair of points
   $(a, u) \in ([N]^3)^2$ such that $a_3 = u_3$ and for some $i, j \in \{1, 2\}$
-  with $i \neq j$,
+  with $i \neq j$, 
   \begin{itemize}
-    \item $a_i = u_i$, $a_j \leq u_j$, $f(a)_j \geq a_j$, and if $u \neq a$ then $f(u)_j \leq u_j$,
+    \item $a_i = u_i$, $a_j \leq u_j$, $f(a)_j \geq a_j$, if $u \neq a$ then $f(u)_j \leq u_j$, else $f(a)_i \geq a_i$,
     \item $f(d)_3 \geq d_3$ and $f(b)_3 \geq b_3$.
   \end{itemize}
 \end{definition}

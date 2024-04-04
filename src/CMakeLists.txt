@@ -24,7 +24,20 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GMP_DIR})
 include_directories(${SOPLEX_DIR})
 
-add_executable(src main.cpp
+add_library(arrival
+        arrival/preprocessInstance.cpp
+        arrival/preprocessInstance.h
+        arrival/generateInstance.cpp
+        arrival/generateInstance.h
+        arrival/arrivalUtil.cpp
+        arrival/arrivalUtil.h
+        arrival/simpleWalk.cpp
+        arrival/simpleWalk.h
+        arrival/arrivalInstance.cpp
+        arrival/arrivalInstance.h
+)
+
+add_library(fixpoint
         fixpoint/innerAlgorithm.h
         fixpoint/innerAlgorithm.cpp
         fixpoint/kleeneTarski.h
@@ -39,38 +52,44 @@ add_executable(src main.cpp
         fixpoint/fixDecompAlgorithm.h
         fixpoint/recursiveBinarySearch.cpp
         fixpoint/recursiveBinarySearch.h
-        arrival/preprocessInstance.cpp
-        arrival/preprocessInstance.h
-        arrival/generateInstance.cpp
-        arrival/generateInstance.h
-        arrival/arrivalUtil.cpp
-        arrival/arrivalUtil.h
-        arrival/simpleWalk.cpp
-        arrival/simpleWalk.h
-        arrival/arrivalInstance.cpp
-        arrival/arrivalInstance.h
-        analysis/runAnalysis.cpp
-        analysis/runAnalysis.h
         fixpoint/monotoneDecompAlgorithm.cpp
         fixpoint/monotoneDecompAlgorithm.h
         fixpoint/findFixpointByMonotoneDecomp.cpp
         fixpoint/findFixpointByMonotoneDecomp.h
-        simple-stochatic-game/simpleStochasticGame.cpp
-        simple-stochatic-game/simpleStochasticGame.h
-        simple-stochatic-game/simpleStochasticGame.h
-        simple-stochatic-game/simpleStochasticGame.h
-        config.h
-        config.cpp
-        simple-stochatic-game/simpleStochasticGameGenerator.cpp
-        simple-stochatic-game/simpleStochasticGameGenerator.h
+        fixpoint/valueIteration.h
+        fixpoint/valueIteration.cpp
+)
+add_library(analysis
+        analysis/runAnalysis.cpp
+        analysis/runAnalysis.h
+)
+add_library(shapley-stochastic-game
         shapley-stochastic-game/shapleyStochasticGame.cpp
         shapley-stochastic-game/shapleyStochasticGame.h
         shapley-stochastic-game/shapleyStochasticGameGenerator.cpp
         shapley-stochastic-game/shapleyStochasticGameGenerator.h
-        fixpoint/valueIteration.h
-        fixpoint/valueIteration.cpp
+)
+add_library(simple-stochatic-game
+        simple-stochatic-game/simpleStochasticGameGenerator.cpp
+        simple-stochatic-game/simpleStochasticGameGenerator.h
+        simple-stochatic-game/simpleStochasticGame.cpp
+        simple-stochatic-game/simpleStochasticGame.h
+        simple-stochatic-game/simpleStochasticGame.h
+        simple-stochatic-game/simpleStochasticGame.h
         simple-stochatic-game/strategyImprovement.cpp
         simple-stochatic-game/strategyImprovement.h
+)
+
+add_executable(src main.cpp
+        config.h
+        config.cpp
+)
+
+target_link_libraries(src arrival
+        fixpoint
+        simple-stochatic-game
+        shapley-stochastic-game
+        analysis
 )
 
 
