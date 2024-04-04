@@ -11,6 +11,7 @@ change the include directory paths lib paths for all dependencies in [CMakeLists
 
 ```
 cd src
+cmake .
 make
 ./src
 ```
