@@ -18,3 +18,6 @@ make
 
 all data used in plots for the report can be found in [makePlots.py](https://github.com/angusjoshi/tarski/blob/main/src/analysis/makePlots.py),
 and was manually entered after running the included C++ program.
+
+based on [EPRY](https://arxiv.org/abs/1909.03210), [FPS](https://arxiv.org/abs/2010.02618), [CL](https://arxiv.org/abs/2202.05913). my dissertation [here](https://github.com/user-attachments/files/17894574/skeleton.pdf).
+)
