@@ -11,7 +11,8 @@ simpleStochasticGame::simpleStochasticGame(vector<simpleVertex> vs, f_t eps) : v
 
 //    contractionFactor = 1.f - (1.f / (1ll << vs.size()));
     contractionFactor = 0.99;
-    N = floor((float)1 / EPSILON * contractionFactor);
+    N = floor((float)1 / (EPSILON * (1 - contractionFactor)));
+    k = vs.size() - 1;
 
     bool seenMaxBefore = false;
     for(int i = 0; i < vs.size(); i++) {
@@ -53,7 +54,7 @@ const vector<f_t> simpleStochasticGame::unDiscretize(const vector<int_t>& v) {
     vector<f_t> result;
     result.reserve(v.size());
 
-    for(auto val : v) {
+    for(const auto& val : v) {
         double unDiscretized = (f_t) val / N;
         result.push_back(unDiscretized);
     }

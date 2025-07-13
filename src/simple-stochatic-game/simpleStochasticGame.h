@@ -43,10 +43,11 @@ struct simpleStochasticGame {
     const vector<f_t> unDiscretize(const vector<int_t>& v);
     const void print();
     f_t contractionFactor;
+    int_t N;
+    int k;
 
 private:
     const f_t EPSILON;
-    int_t N;
     int maxSinkI;
     const void contract(vector<f_t>& v);
 };

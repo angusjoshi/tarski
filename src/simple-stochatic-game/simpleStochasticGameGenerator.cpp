@@ -4,7 +4,26 @@
 
 #include "simpleStochasticGameGenerator.h"
 #include <random>
+#include <iostream>
 
+simpleStochasticGame getLongExample(int n, f_t eps) {
+    vector<simpleVertex> vs{};
+    vs.reserve(n);
+    for(int i = 0; i < n - 1; i++) {
+        simpleVertex v = {
+                .type = chance,
+                .succs = { {0, 0.5 }, {i + 1, 0.5}}
+        };
+        vs.push_back(v);
+    }
+
+    simpleVertex maxTarget = {
+            .type = maxSink,
+    };
+
+    vs.push_back(maxTarget);
+    return simpleStochasticGame{vs, eps};
+}
 simpleStochasticGame getExampleOne() {
     simpleVertex v0 = {
             .type = maxi,

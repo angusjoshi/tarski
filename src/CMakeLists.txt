@@ -59,6 +59,9 @@ add_library(fixpoint
         fixpoint/valueIteration.h
         fixpoint/valueIteration.cpp
 )
+add_library(contraction
+        contraction/OddEven.cpp
+        contraction/OddEven.h)
 add_library(analysis
         analysis/runAnalysis.cpp
         analysis/runAnalysis.h
@@ -78,6 +81,8 @@ add_library(simple-stochatic-game
         simple-stochatic-game/simpleStochasticGame.h
         simple-stochatic-game/strategyImprovement.cpp
         simple-stochatic-game/strategyImprovement.h
+        simple-stochatic-game/simpleContractionSolver.cpp
+        simple-stochatic-game/simpleContractionSolver.h
 )
 
 add_executable(src main.cpp
@@ -90,6 +95,7 @@ target_link_libraries(src arrival
         simple-stochatic-game
         shapley-stochastic-game
         analysis
+        contraction
 )
 
 
